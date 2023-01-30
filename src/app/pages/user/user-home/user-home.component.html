@@ -1,0 +1,117 @@
+<div id="main-user-home" class="container-fluid height-100vh">
+  <hr />
+  <div class="d-flex row px-3 height-90vh">
+    <div class="cont-left ds-form-register col-12 col-md-6">
+      <div
+        class="register-data mb-3"
+        *ngIf="(suggestionsTrainingPlan$ | async)?.response as training_plan"
+      >
+        <app-ds-title [title]="training_plan.title | translate"></app-ds-title>
+        <p class="px-2" for="text_training_plan">
+          <strong> {{ "LBL.TRAINING_PLAN" | translate }}</strong>
+          {{ training_plan.description | translate }}
+          {{ "LBL.SUGGESTED" | translate }}
+        </p>
+        <div class="button-see p-2">
+          <button
+            id="btn-continue"
+            type="button"
+            (click)="goTo(TRAINING_PLANS)"
+            class="btn ds-button"
+          >
+            {{ "BTN.TRAINING_PLANS" | translate }}
+          </button>
+        </div>
+      </div>
+      <div
+        class="register-data mb-3"
+        *ngIf="(suggestionsFoodPlan$ | async)?.response as food_plan"
+      >
+        <app-ds-title [title]="food_plan.title | translate"></app-ds-title>
+        <p class="px-2" for="text_food_plan">
+          <strong> {{ "LBL.FOOD_PLAN" | translate }}</strong>
+          {{ food_plan.description | translate }}
+          {{ "LBL.SUGGESTED" | translate }}
+        </p>
+        <div class="button-see p-2">
+          <button
+            id="btn-continue"
+            type="button"
+            (click)="goTo(FOOD_PLANS)"
+            class="btn ds-button"
+          >
+            {{ "BTN.FOOD_PLANS" | translate }}
+          </button>
+        </div>
+      </div>
+      <div
+        class="register-data mb-3"
+        *ngIf="(suggestionsEvents$ | async)?.response as event"
+      >
+        <app-ds-title [title]="event.title | translate"></app-ds-title>
+        <p class="px-2" for="text_event">
+          <strong> {{ "LBL.EVENT" | translate }}</strong>
+          {{ event.description | translate }}
+          {{ "LBL.SUGGESTED" | translate }}
+        </p>
+        <div class="button-see p-2">
+          <button
+            id="btn-continue"
+            type="button"
+            (click)="goTo(EVENTS)"
+            class="btn ds-button"
+          >
+            {{ "BTN.SCHEDULED_EVENTS" | translate }}
+          </button>
+        </div>
+      </div>
+      <div
+        class="register-data mb-3"
+        *ngIf="(suggestionsServices$ | async)?.response as service"
+      >
+        <app-ds-title [title]="service.title | translate"></app-ds-title>
+        <p class="px-2" for="text_service">
+          <strong> {{ "LBL.SERVICE" | translate }}</strong>
+          {{ service.description | translate }}
+          {{ "LBL.SUGGESTED" | translate }}
+        </p>
+        <div class="button-see p-2">
+          <button
+            id="btn-continue"
+            type="button"
+            (click)="goTo(SERVICES)"
+            class="btn ds-button"
+          >
+            {{ "BTN.SERVICES" | translate }}
+          </button>
+        </div>
+      </div>
+      <div
+        class="register-data mb-3"
+        *ngIf="(suggestionsRoutes$ | async)?.response as route"
+      >
+        <app-ds-title [title]="route.title | translate"></app-ds-title>
+        <p class="px-2" for="text_route">
+          <strong> {{ "LBL.ROUTE" | translate }}</strong>
+          {{ route.description | translate }}
+          {{ "LBL.SUGGESTED" | translate }}
+        </p>
+        <div class="button-see p-2">
+          <button
+            id="btn-continue"
+            type="button"
+            (click)="goTo(ROUTES)"
+            class="btn ds-button"
+          >
+            {{ "BTN.ROUTES" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cont-right ds-form-register col-12 col-md-6">
+      <div class="register-data mb-3">
+        <app-ds-title [title]="'LBL.CALENDAR' | translate"></app-ds-title>
+      </div>
+    </div>
+  </div>
+</div>

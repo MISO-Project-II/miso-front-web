@@ -1,0 +1,175 @@
+// mediaQuery
+$breakpoint-xs: 375px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+.min-width {
+  min-width: 128px;
+}
+.max-width {
+  max-width: 512px;
+}
+.height-100vh {
+  height: 100vh;
+}
+.height-90vh {
+  height: 90vh;
+}
+// background
+.bg-color-primary-01 {
+  background-color: $ds-primary-01;
+}
+.bg-color-primary-02 {
+  background-color: $ds-primary-02;
+}
+.bg-color-dark-01 {
+  background-color: $ds-dark-01;
+}
+.bg-color-grey-01 {
+  background-color: $ds-grey-01;
+}
+.bg-color-grey-02 {
+  background-color: $ds-grey-02;
+}
+.bg-color-white-01 {
+  background-color: $ds-white-01;
+}
+.border-color-primary-01 {
+  border-color: $ds-primary-01;
+}
+.bg-color-title {
+  background: linear-gradient(180deg, $ds-dark-01 0%, $ds-grey-01 100%);
+  text-align: center;
+}
+//Icons
+i::before {
+  color: $ds-white-01;
+}
+hr {
+  color: $ds-primary-02;
+  opacity: 1;
+}
+
+//Text
+h1 {
+  // Title Orange
+  width: auto;
+  font-size: 32px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-primary-01;
+  display: block;
+  text-align: center;
+}
+h2 {
+  // Title Orange light
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-primary-02;
+  display: block;
+  text-align: center;
+}
+h3 {
+  // Title white Menu
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-white-01;
+  display: block;
+  text-align: center;
+}
+h4 {
+  // Title Black
+  font-size: 32px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-dark-01;
+  display: block;
+  text-align: center;
+}
+h5 {
+  font-size: 16px;
+  font-weight: normal;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-dark-01;
+  display: block;
+  text-align: left;
+}
+h6 {
+  // menu
+  font-size: 14px;
+  font-weight: normal;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-dark-01;
+  display: block;
+  text-align: left;
+}
+p {
+  // Normal Text
+  width: auto;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-dark-01;
+  display: block;
+  text-align: left;
+  padding: 0.2rem;
+}
+label {
+  // Normal Text bold
+  width: auto;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-dark-01;
+  display: block;
+  text-align: left;
+}
+span {
+  // Help message
+  width: auto;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-grey-01;
+  display: block;
+  text-align: left;
+}
+
+small {
+  //Errors
+  padding-left: 4px;
+  width: auto;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-primary-02 !important;
+  display: block;
+  text-align: left;
+}
+a {
+  //Errors
+  width: auto;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: italic;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $ds-primary-02;
+  display: block;
+  text-align: left;
+}

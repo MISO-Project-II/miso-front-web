@@ -1,0 +1,24 @@
+@import "../../../styles.scss";
+
+#main-user-login {
+  .cont-left {
+    display: none;
+  }
+  .cont-right {
+    .form-link {
+      position: absolute;
+      bottom: 16px;
+      right: 15%;
+    }
+  }
+}
+@media only screen and (min-width: $breakpoint-sm) {
+  #main-user-login {
+    .cont-left {
+      display: block;
+      background-image: url("../../../assets/img-001.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}

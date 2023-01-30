@@ -1,0 +1,68 @@
+<div id="main-search-services">
+  <hr />
+  <div
+    class="d-flex min-width row justify-content-center"
+    *ngIf="
+      (serviceGetAll$ | async)?.success &&
+        (serviceGetAll$ | async)?.responseAll?.length! >= 1;
+      else noSuccess
+    "
+  >
+    <div class="col-12 col-md-3 mx-auto">
+      <div class="options pe-1">
+        <div class="list-group overflow-auto">
+          <button
+            *ngFor="let item of (serviceGetAll$ | async)?.responseAll"
+            type="button"
+            (click)="setService(item)"
+            class="list-group-item ds-list-group-item list-group-item-action"
+            aria-current="true"
+            [class.active]="getService$ === item"
+          >
+            {{ item.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 mx-auto" *ngIf="!!getService$; else noItem">
+      <app-ds-title [title]="getService$?.title! | translate"></app-ds-title>
+      <div class="body">
+        <p>{{ getService$?.description }}</p>
+        <div class="d-flex">
+          <label>{{ "LBL.OBJECTIVES" | translate }}</label>
+          <p *ngFor="let item of getService$.objectives">{{ item.name }}</p>
+        </div>
+        <div class="d-flex">
+          <label>{{ "LBL.MANAGER" | translate }}</label>
+          <p>{{ getService$?.manager }}</p>
+        </div>
+        <div class="d-flex">
+          <label>{{ "LBL.CONTACT" | translate }}</label>
+          <p>{{ getService$?.contact }}</p>
+        </div>
+      </div>
+      <div class="ds-button-continue p-2">
+        <button
+          id="btn-continue"
+          type="button"
+          (click)="addEvent(getService$)"
+          class="btn ds-button"
+        >
+          {{ "BTN.ENROLL" | translate }}
+        </button>
+      </div>
+    </div>
+    <ng-template #noItem>
+      <div class="col-12 col-md-9 mx-auto">
+        <div class="alert alert-info" role="alert">
+          <label>{{ "LBL.SELECT_SERVICE" | translate }}</label>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #noSuccess>
+    <div class="alert alert-warning" role="alert">
+      <label>{{ "BTN.NO_DATA" | translate }} </label>
+    </div></ng-template
+  >
+</div>

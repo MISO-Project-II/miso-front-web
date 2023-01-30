@@ -1,0 +1,51 @@
+<div id="main-user-plans" class="p-3 p-sm-0">
+  <hr />
+  <ul class="nav nav-tabs" id="tab_services" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="training_plan_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#training_plan"
+        type="button"
+        role="tab"
+        aria-controls="training_plan_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.TRAINING_PLAN" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="food_plan_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#food_plan"
+        type="button"
+        role="tab"
+        aria-controls="food_plan_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.FOOD_PLAN" | translate }}</label>
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="training_plan"
+      role="tabpanel"
+      aria-labelledby="training_plan"
+    >
+      <app-training-plan></app-training-plan>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="food_plan"
+      role="tabpanel"
+      aria-labelledby="food_plan"
+    >
+      <app-food-plan></app-food-plan>
+    </div>
+  </div>
+</div>

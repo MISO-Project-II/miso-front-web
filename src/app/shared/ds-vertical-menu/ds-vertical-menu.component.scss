@@ -1,0 +1,31 @@
+@import "../../../styles.scss";
+#main-vertical-menu {
+  background: linear-gradient(180deg, $ds-dark-01 0%, $ds-grey-01 100%);
+  text-align-last: center;
+  width: 100%;
+
+  .menu-mobile {
+    display: flex;
+    justify-content: center;
+    min-width: $breakpoint-xs;
+    h3 {
+      font-size: 12px;
+      font-weight: normal;
+    }
+  }
+  .menu-web {
+    display: none;
+  }
+}
+@media only screen and (min-width: $breakpoint-sm) {
+  #main-vertical-menu {
+    .menu-mobile {
+      display: none;
+    }
+    .menu-web {
+      display: block;
+      height: 100%;
+      min-height: 100vh;
+    }
+  }
+}

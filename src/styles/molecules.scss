@@ -1,0 +1,113 @@
+.ds-input {
+  min-width: 128px;
+  max-width: 512px;
+  width: 100%;
+  border: 1px solid $ds-primary-01;
+}
+.ds-button {
+  min-width: 128px;
+  max-width: 512px;
+  width: 100%;
+  height: 32px;
+  transform: skew(-20deg);
+  text-align: center;
+  border-radius: 0;
+  border: 1px solid $ds-primary-02;
+  color: $ds-primary-01;
+  background-color: $ds-white-01;
+  box-shadow: 4px 4px 4px 0px $ds-grey-01;
+  padding: 0;
+}
+.ds-button-square {
+  min-width: 128px;
+  max-width: 512px;
+  width: 100%;
+  text-align: right;
+  border-radius: 0;
+  border: 1px solid $ds-primary-02;
+  color: $ds-primary-01;
+  background-color: $ds-white-01;
+  box-shadow: 4px 4px 4px 0px $ds-grey-01;
+  text-align-last: center;
+}
+.ds-card-flex {
+  min-width: 128px;
+  max-width: 512px;
+  width: 100%;
+  display: flex;
+  .ds-card-left {
+    min-width: 128px;
+    width: 50%;
+    display: block;
+    padding-right: 8px;
+  }
+  .ds-card-right {
+    min-width: 128px;
+    width: 50%;
+    display: block;
+    padding-left: 8px;
+  }
+  .ds-card-1 {
+    min-width: 128px;
+    width: 33%;
+    display: block;
+    padding-right: 4px;
+  }
+  .ds-card-2 {
+    min-width: 128px;
+    width: 34%;
+    display: block;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .ds-card-3 {
+    min-width: 128px;
+    width: 33%;
+    display: block;
+    padding-left: 4px;
+  }
+}
+.ds-menu-vertical-item {
+  text-align: center;
+}
+.ds-menu-vertical-item i {
+  font-size: 16px;
+}
+.ds-title {
+  background: linear-gradient(180deg, $ds-dark-01 0%, $ds-grey-01 100%);
+  min-width: 128px;
+  width: 100%;
+  height: auto;
+  transform: skew(-20deg);
+  text-align: center;
+}
+.ds-list-group-item {
+  border-color: $ds-primary-01;
+}
+.ds-list-group-item.active {
+  background: linear-gradient(
+    180deg,
+    rgba(248, 87, 22, 1) 0%,
+    rgba(255, 144, 0, 1) 35%,
+    rgba(248, 87, 22, 1) 100%
+  );
+}
+.ds-version {
+  display: none;
+}
+@media only screen and (min-width: $breakpoint-sm) {
+  .ds-menu-vertical-item i {
+    font-size: 32px;
+  }
+  .ds-button-continue {
+    position: absolute;
+    bottom: 2em;
+    right: 5em;
+  }
+  .ds-version {
+    position: absolute;
+    z-index: 100;
+    bottom: 1em;
+    left: 1em;
+  }
+}

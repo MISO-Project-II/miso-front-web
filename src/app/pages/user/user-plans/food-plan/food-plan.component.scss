@@ -1,0 +1,19 @@
+@import "../../../../../styles.scss";
+
+#main-food-plan {
+  .body {
+    .register-data {
+      width: 512px;
+    }
+  }
+  .ds-button {
+    min-width: 128px;
+    max-width: 256px;
+    width: auto;
+  }
+  .button-see {
+    width: 100%;
+    text-align: right;
+    border-bottom: 1px solid $ds-primary-01;
+  }
+}

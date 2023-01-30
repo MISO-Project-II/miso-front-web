@@ -1,0 +1,157 @@
+<div id="main-food-plan">
+  <hr />
+  <div
+    class="d-flex min-width row justify-content-center"
+    *ngIf="
+      (foodPlansServiceGetAll$ | async)?.success &&
+        (foodPlansServiceGetAll$ | async)?.responseAll?.length! > 0;
+      else noSuccess
+    "
+  >
+    <div class="col-12 col-md-3 pb-3 mx-auto">
+      <div class="options pe-1">
+        <div class="list-group overflow-auto">
+          <button
+            *ngFor="let item of (foodPlansServiceGetAll$ | async)?.responseAll"
+            type="button"
+            (click)="setFoodPlan(item)"
+            class="list-group-item ds-list-group-item list-group-item-action"
+            aria-current="true"
+            [class.active]="getFoodPlan$ === item"
+          >
+            {{ item.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 mx-auto" *ngIf="!!getFoodPlan$; else noItem">
+      <app-ds-title [title]="getFoodPlan$?.title! | translate"></app-ds-title>
+      <div class="body">
+        <p>{{ getFoodPlan$?.description! | translate }}</p>
+        <div class="button-see p-2">
+          <button
+            id="btn-continue"
+            type="button"
+            class="btn ds-button"
+            (click)="selectFoodPlan()"
+          >
+            {{ "BTN.SELECT_SPORT_PLAN" | translate }}
+          </button>
+        </div>
+        <div
+          class="d-flex flex-wrap justify-content-center p-2"
+          *ngIf="getFoodPlan$?.foodRoutines as foodRoutines"
+        >
+          <div class="register-data p-3" *ngFor="let item of foodRoutines">
+            <app-ds-title [title]="item?.title! | translate"></app-ds-title>
+            <p class="border-color-primary-01 px-2" for="text_foodRoutines">
+              <strong> {{ "LBL.ROUTINES" | translate }}</strong>
+              {{ item?.description! | translate }}
+            </p>
+            <div class="button-see p-2">
+              <button
+                id="btn-continue"
+                type="button"
+                class="btn ds-button"
+                (click)="setRoutine(item)"
+                data-bs-toggle="modal"
+                data-bs-target="#updateFoodRoutine2"
+              >
+                {{ "BTN.SEE_DETAILS" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-button-continue p-2"></div>
+    </div>
+    <ng-template #noItem>
+      <div class="col-12 col-md-9 mx-auto">
+        <div class="alert alert-info" role="alert">
+          <label>{{ "LBL.SELECT_SERVICE" | translate }}</label>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #noSuccess>
+    <div class="alert alert-warning" role="alert">
+      <label>{{ "ERR.NO_DATA" | translate }} </label>
+    </div></ng-template
+  >
+</div>
+
+<!-- Modal Create Routine -->
+<div
+  class="modal fade"
+  id="createRoutine"
+  tabindex="-1"
+  aria-labelledby="createRoutineLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-color-title">
+        <h1 class="modal-title fs-5" id="createRoutineLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn ds-button" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Update Routine -->
+<div
+  class="modal fade"
+  id="updateFoodRoutine2"
+  tabindex="-1"
+  aria-labelledby="updateFoodRoutineLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateFoodRoutineLabel">
+          {{ getFoodRoutines$?.title }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ getFoodRoutines$?.description! | translate }}</p>
+        <hr />
+        <label>{{ "LBL.SUGGESTED_FOODS" | translate }}</label>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let food of getFoodRoutines$?.foods">
+              <td>
+                <p>{{ food?.title }}</p>
+              </td>
+              <td>
+                <p>{{ food?.calories }} {{ "LBL.CALORIES_1" | translate }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn ds-button" data-bs-dismiss="modal">
+          {{ "BTN.CLOSE" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

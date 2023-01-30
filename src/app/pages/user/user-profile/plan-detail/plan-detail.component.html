@@ -1,0 +1,92 @@
+<div id="main-plan-detail" class="p-3 p-sm-0">
+  <hr />
+  <div class="d-flex min-width row justify-content-center">
+    <div class="col-12 col-sm-4 pb-5 pe-sm-1 max-width">
+      <app-ds-title [title]="'LBL.FREE_PLAN' | translate"></app-ds-title>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let item of 'LIST_DATA.FREE_PLAN_SERVICES' | translate"
+        >
+          <p>{{ item.NAME }}</p>
+        </li>
+      </ul>
+      <hr />
+      <button
+        type="submit"
+        class="btn btn-primary ds-button"
+        [disabled]="
+          actualPlan === FREE_PLAN ||
+          actualPlan === MEDIUM_PLAN ||
+          actualPlan === PREMIUM_PLAN
+            ? true
+            : false
+        "
+      >
+        {{
+          actualPlan === FREE_PLAN
+            ? ("BTN.ACTUAL_PLAN" | translate)
+            : ("BTN.FREE_PLAN" | translate)
+        }}
+      </button>
+    </div>
+    <div class="col-12 col-sm-4 pb-5 px-sm-1 max-width">
+      <app-ds-title [title]="'LBL.MEDIUM_PLAN' | translate"></app-ds-title>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>{{ "LBL.ALL_FREE_PLAN" | translate }}</label>
+        </li>
+        <li
+          class="list-group-item"
+          *ngFor="let item of 'LIST_DATA.MEDIUM_PLAN_SERVICES' | translate"
+        >
+          <p>{{ item.NAME }}</p>
+        </li>
+      </ul>
+      <hr />
+      <button
+        type="button"
+        (click)="onSubmit(MEDIUM_PLAN)"
+        class="btn btn-primary ds-button"
+        [disabled]="
+          actualPlan === MEDIUM_PLAN || actualPlan === PREMIUM_PLAN
+            ? true
+            : false
+        "
+      >
+        {{
+          actualPlan === MEDIUM_PLAN
+            ? ("BTN.ACTUAL_PLAN" | translate)
+            : ("BTN.MEDIUM_PLAN" | translate)
+        }}
+      </button>
+    </div>
+    <div class="col-12 col-sm-4 pb-5 ps-sm-1 max-width">
+      <app-ds-title [title]="'LBL.PREMIUM_PLAN' | translate"></app-ds-title>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>{{ "LBL.ALL_MEDIUM_PLAN" | translate }}</label>
+        </li>
+        <li
+          class="list-group-item"
+          *ngFor="let item of 'LIST_DATA.PREMIUM_PLAN_SERVICES' | translate"
+        >
+          <p>{{ item.NAME }}</p>
+        </li>
+      </ul>
+      <hr />
+      <button
+        type="button"
+        (click)="onSubmit(PREMIUM_PLAN)"
+        class="btn btn-primary ds-button"
+        [disabled]="actualPlan === PREMIUM_PLAN ? true : false"
+      >
+        {{
+          actualPlan === PREMIUM_PLAN
+            ? ("BTN.ACTUAL_PLAN" | translate)
+            : ("BTN.PREMIUM_PLAN" | translate)
+        }}
+      </button>
+    </div>
+  </div>
+</div>

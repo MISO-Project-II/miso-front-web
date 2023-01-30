@@ -1,0 +1,17 @@
+@import "../../../../styles.scss";
+
+#main-user-services {
+  width: auto;
+  height: auto;
+  display: block;
+  .nav-tabs {
+    border-color: $ds-primary-01;
+    .nav-link.active {
+      border-color: $ds-primary-01;
+      background-color: $ds-dark-01;
+      label {
+        color: $ds-white-01;
+      }
+    }
+  }
+}
