@@ -3,7 +3,7 @@ export const environment = {
   version: "0.0.9",
   api: {
     // base: 'http://localhost:4200/api',
-    base: "https://jsonplaceholder.typicode.com",
+    base: "https://34.160.66.162.nip.io",
 
     general_data: "/general_data",
     demographic_profile: "/demographic_profile",
@@ -17,7 +17,7 @@ export const environment = {
 
     update_plan: "/update_plan",
 
-    login: "/login",
+    login: "/miso-user-api/login",
     user_register: "/user_register",
     third_register: "/third_register",
 

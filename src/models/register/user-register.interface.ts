@@ -5,29 +5,33 @@ import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 export interface IUserRegister {
   // Datos principales
   id?: string;
-  user: string;
-  pass: string;
-  confirmation: string;
-  name: string;
-  lastName: string;
-  IdType: string;
-  IdNumber: number;
+  user: string; // username
+  pass: string; // password
+  confirmation: string; // NO
+  name: string; // name
+  lastName: string; //lastName
+  IdType: string; // identificationType
+  IdNumber: number; // identificationNumber
   // Datos deportivos
-  sportPractice: ISports[];
-  sportInterest: ISports[];
+  sportPractice: ISports[]; // [1,2,5] 
+  sportInterest: ISports[];// [4,5,6] 
   // Datos secundarios
-  genre: string;
-  age: number;
-  weight: number;
-  height: number;
+  genre: string; // gender
+  age: number; // age // Fecha de nacimiento
+  weight: number; // FALTA EN POSTMAN
+  height: number; //height
   // Datos de ubicacion
-  countryOfBirth: ICountry;
-  stateOfBirth: IState;
-  cityOfBirth: ICity;
-  countryOfResidence: ICountry;
-  stateOfResidence: IState;
-  cityOfResidence: ICity;
-  yearsOfResidence: number;
+  countryOfBirth: ICountry; // birthdUbication (Solo id de ubicacion)
+  stateOfBirth: IState; // 
+  cityOfBirth: ICity; // 
+  countryOfResidence: ICountry; // homeUbication (Solo el id de ubicacion) ver imagen de referencia
+  stateOfResidence: IState; //
+  cityOfResidence: ICity; // 
+  yearsOfResidence: number; // Meses de residencia 
+  
+  // "isVegan": 0, Se envia por defecto 0
+  // "isvegetarian": 0,
+  // userType : "deportista"
 }
 export interface IReqUserRegister extends IGenericRequest {
   request?: IUserRegister;
