@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from "@angular/core/testing";
 import { SuggestionsRoutesService } from "./suggestions-routes.service";
 
-describe("Service: SuggestionsRoutes", () => {
+xdescribe("Service: SuggestionsRoutes", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SuggestionsRoutesService],

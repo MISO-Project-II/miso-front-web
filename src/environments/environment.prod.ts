@@ -1,10 +1,10 @@
 export const environment = {
-  production: true,
-  version: "0.0.9",
+  production: false,
+  version: "0.0.1",
   api: {
     // base: 'http://localhost:4200/api',
-    base: "https://jsonplaceholder.typicode.com",
-
+    base: "https://34.160.66.162.nip.io",
+    apikey: "?apikey=pfHfQuIZc4I8a5Rzf8D7S7Irw6FGMOdyJ9v3fH0b9xAGg4Ed",
     general_data: "/general_data",
     demographic_profile: "/demographic_profile",
     sport_profile: "/sport_profile",
@@ -17,7 +17,7 @@ export const environment = {
 
     update_plan: "/update_plan",
 
-    login: "/login",
+    login: "/miso-user-api/login",
     user_register: "/user_register",
     third_register: "/third_register",
 

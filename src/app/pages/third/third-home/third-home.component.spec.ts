@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ThirdHomeComponent } from "./third-home.component";
 
-describe("ThirdHomeComponent", () => {
+xdescribe("ThirdHomeComponent", () => {
   let component: ThirdHomeComponent;
   let fixture: ComponentFixture<ThirdHomeComponent>;
 

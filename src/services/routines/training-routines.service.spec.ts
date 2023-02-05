@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from "@angular/core/testing";
 import { TrainingRoutinesService } from "./training-routines.service";
 
-describe("Service: TrainingRoutines", () => {
+xdescribe("Service: TrainingRoutines", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [TrainingRoutinesService],

@@ -17,7 +17,7 @@ export interface IUserRegister {
   sportInterest: ISports[];// [4,5,6] 
   // Datos secundarios
   genre: string; // gender
-  age: number; // age // Fecha de nacimiento
+  age: number; // age // Fecha de nacimiento año-mes-dia yyyy-MM-dd
   weight: number; // FALTA EN POSTMAN
   height: number; //height
   // Datos de ubicacion

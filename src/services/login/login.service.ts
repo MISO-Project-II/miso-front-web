@@ -16,16 +16,12 @@ import {
  */
 export class LoginService {
   private _baseUrl: string;
-  private httpOptions: {};
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.login + "?apikey=pfHfQuIZc4I8a5Rzf8D7S7Irw6FGMOdyJ9v3fH0b9xAGg4Ed";
-    // this._baseUrl =
-    //   "https://miso-login-usuario-ufjo7wdt2a-uc.a.run.app" +
-    //   environment.api.login;
+    this._baseUrl = environment.api.base + environment.api.login + environment.api.apikey;
   }
 
   login(data: ILogin): Observable<IResLogin> {
-    // const req: IReqLogin = { request: data };
+    // const req: IReqLogin = data;
     return this._http.post<IResLogin>(this._baseUrl, data);
     // const mock = of(MockResSuccessLogin);
     // const mock = of(MockResErrorLogin);

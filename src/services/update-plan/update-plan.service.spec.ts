@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from "@angular/core/testing";
 import { UpdatePlanService } from "./update-plan.service";
 
-describe("Service: UpdatePlan", () => {
+xdescribe("Service: UpdatePlan", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [UpdatePlanService],

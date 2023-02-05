@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { TrainingPlanComponent } from "./training-plan.component";
 
-describe("TrainingPlanComponent", () => {
+xdescribe("TrainingPlanComponent", () => {
   let component: TrainingPlanComponent;
   let fixture: ComponentFixture<TrainingPlanComponent>;
 

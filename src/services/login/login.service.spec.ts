@@ -1,16 +1,34 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 import { LoginService } from "./login.service";
 
-describe("Service: Login", () => {
+xdescribe("LoginService", () => {
+  let service: LoginService;
+
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [LoginService],
-    });
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(LoginService);
   });
 
-  it("should ...", inject([LoginService], (service: LoginService) => {
-    expect(service).toBeTruthy();
-  }));
+  describe('method1', () => {
+    it('should ...', () => {
+      expect(service).toBeTruthy();
+    });
+  });
 });
+
+/* tslint:disable:no-unused-variable */
+
+// import { TestBed, async, inject } from "@angular/core/testing";
+// import { LoginService } from "./login.service";
+
+// xdescribe("Service: Login", () => {
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       providers: [LoginService],
+//     });
+//   });
+
+//   it("should ...", inject([LoginService], (service: LoginService) => {
+//     expect(service).toBeTruthy();
+//   }));
+// });

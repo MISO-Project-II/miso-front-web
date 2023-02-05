@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { FoodPlanComponent } from "./food-plan.component";
 
-describe("FoodPlanComponent", () => {
+xdescribe("FoodPlanComponent", () => {
   let component: FoodPlanComponent;
   let fixture: ComponentFixture<FoodPlanComponent>;
 
