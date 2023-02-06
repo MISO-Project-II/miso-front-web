@@ -11,7 +11,7 @@ export const MockGetSuggestionEvents: ISuggestionEvents = {
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   startPlace: "Plaza central",
   destinyPlace: "Parque norte",
-  date: new Date(),
+
   eventCategoryId: "OUTSIDE_OF_HOUSE",
   thirdId: "1",
 };
@@ -20,11 +20,9 @@ export const MockGetSuggestionEvents: ISuggestionEvents = {
 export const MockResSuccessGetSuggestionEvents: IResSuggestionEvents = {
   response: MockGetSuggestionEvents,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSuggestionEvents: IResSuggestionEvents = {
   success: false,
-  errorMessage: "Error SuggestionEvents",
-  date: new Date(),
+  message: "Error SuggestionEvents",
 };

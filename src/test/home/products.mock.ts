@@ -53,23 +53,19 @@ export const MockGetAllProducts: IProducts[] = [
 export const MockResSuccessGetProducts: IResProducts = {
   response: MockGetProducts,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllProducts: IResProducts = {
   responseAll: MockGetAllProducts,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessProducts: IResProducts = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorProducts: IResProducts = {
   success: false,
-  errorMessage: "Error Products",
-  date: new Date(),
+  message: "Error Products",
 };

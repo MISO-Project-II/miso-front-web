@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
-import { IReqLogin, IResLogin, ILogin } from "src/models/login/login.interface";
+import { IResLogin, ILogin } from "src/models/login/login.interface";
 import { MockResSuccessLogin } from "src/test/login/login.mock";
 
 @Injectable({
@@ -19,7 +19,6 @@ export class LoginService {
 
   login(data: ILogin): Observable<IResLogin> {
     console.log("XXX - LoginService - login - data", data);
-    // const req: IReqLogin = data;
     return this._http.post<IResLogin>(this._baseUrl, data);
     // const mock = of(MockResSuccessLogin);
     // const mock = of(MockResErrorLogin);

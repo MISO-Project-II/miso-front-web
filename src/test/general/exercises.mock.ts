@@ -46,23 +46,19 @@ export const MockGetAllExercises: IExercises[] = [
 export const MockResSuccessGetExercises: IResExercises = {
   response: MockGetExercises,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllExercises: IResExercises = {
   responseAll: MockGetAllExercises,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessExercises: IResExercises = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorExercises: IResExercises = {
   success: false,
-  errorMessage: "Error Exercises",
-  date: new Date(),
+  message: "Error Exercises",
 };

@@ -24,7 +24,7 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {
     this._statusService.setIsUser(true);
-    this._loadData();
+    // this._loadData();
   }
   get userName(): string {
     return this._statusService.getUserName();
@@ -32,24 +32,24 @@ export class UserDashboardComponent implements OnInit {
   get planType(): string {
     return this._statusService.getPlan();
   }
-  private _loadData(): void {
-    this._statusService.spinnerShow();
-    this._userDataService
-      .get(this._statusService.getUserId())
-      .subscribe({
-        next: (res: IResUserData) => {
-          if (res.success && !!res.response) {
-            this._statusService.setPlan(res.response?.plan!);
-          }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
-        },
-        error: (e) => {
-          console.error(e);
-          this._statusService.spinnerHide();
-        },
-      })
-      .unsubscribe();
-  }
+  // private _loadData(): void {
+  //   this._statusService.spinnerShow();
+  //   this._userDataService
+  //     .get(this._statusService.getUserId())
+  //     .subscribe({
+  //       next: (res: IResUserData) => {
+  //         if (res.success && !!res.result) {
+  //           this._statusService.setPlan(FREE_PLAN);
+  //         }
+  //         setTimeout(() => {
+  //           this._statusService.spinnerHide();
+  //         }, 500);
+  //       },
+  //       error: (e) => {
+  //         console.error(e);
+  //         this._statusService.spinnerHide();
+  //       },
+  //     })
+  //     .unsubscribe();
+  // }
 }

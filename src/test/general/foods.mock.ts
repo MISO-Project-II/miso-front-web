@@ -63,23 +63,19 @@ export const MockGetAllFoods: IFoods[] = [
 export const MockResSuccessGetFoods: IResFoods = {
   response: MockGetFoods,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllFoods: IResFoods = {
   responseAll: MockGetAllFoods,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessFoods: IResFoods = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorFoods: IResFoods = {
   success: false,
-  errorMessage: "Error Foods",
-  date: new Date(),
+  message: "Error Foods",
 };

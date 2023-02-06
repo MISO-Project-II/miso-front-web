@@ -72,11 +72,9 @@ export const MockUserRegister: IUserRegister = {
 
 export const MockResSuccessUserRegister: IResUserRegister = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "",
 };
 export const MockResErrorUserRegister: IResUserRegister = {
   success: false,
-  errorMessage: "Error user register",
-  date: new Date(),
+  message: "Error user register",
 };

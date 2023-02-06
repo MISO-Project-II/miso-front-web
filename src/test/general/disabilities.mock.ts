@@ -31,23 +31,19 @@ export const MockGetAllDisabilities: IDisabilities[] = [
 export const MockResSuccessGetDisabilities: IResDisabilities = {
   response: MockGetDisabilities,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllDisabilities: IResDisabilities = {
   responseAll: MockGetAllDisabilities,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessDisabilities: IResDisabilities = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorDisabilities: IResDisabilities = {
   success: false,
-  errorMessage: "Error Disabilities",
-  date: new Date(),
+  message: "Error Disabilities",
 };

@@ -42,23 +42,19 @@ export const MockGetAllSportPlans: ISportPlans[] = [
 export const MockResSuccessGetSportPlans: IResSportPlans = {
   response: MockGetSportPlans,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllSportPlans: IResSportPlans = {
   responseAll: MockGetAllSportPlans,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessSportPlans: IResSportPlans = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSportPlans: IResSportPlans = {
   success: false,
-  errorMessage: "Error SportPlans",
-  date: new Date(),
+  message: "Error SportPlans",
 };

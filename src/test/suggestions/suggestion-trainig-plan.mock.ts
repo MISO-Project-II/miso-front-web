@@ -16,11 +16,9 @@ export const MockResSuccessGetSuggestionTrainingPlan: IResSuggestionTrainingPlan
   {
     response: MockGetSuggestionTrainingPlan,
     success: true,
-    errorMessage: "",
-    date: new Date(),
+    message: "message",
   };
 export const MockResErrorSuggestionTrainingPlan: IResSuggestionTrainingPlan = {
   success: false,
-  errorMessage: "Error SuggestionTrainingPlan",
-  date: new Date(),
+  message: "Error SuggestionTrainingPlan",
 };

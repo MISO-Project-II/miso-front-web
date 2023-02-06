@@ -120,23 +120,19 @@ export const MockGetAllSportProfile: IUserSportProfile[] = [
 export const MockResSuccessGetSportProfile: IResUserSportProfile = {
   response: MockGetSportProfile,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllSportProfile: IResUserSportProfile = {
   responseAll: MockGetAllSportProfile,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessSportProfile: IResUserSportProfile = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSportProfile: IResUserSportProfile = {
   success: false,
-  errorMessage: "Error SportProfile",
-  date: new Date(),
+  message: "Error SportProfile",
 };

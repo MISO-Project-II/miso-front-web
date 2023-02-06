@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { GeneralDataComponent } from "./general-data.component";
 
-xdescribe("GeneralDataComponent", () => {
+describe("GeneralDataComponent", () => {
   let component: GeneralDataComponent;
   let fixture: ComponentFixture<GeneralDataComponent>;
 

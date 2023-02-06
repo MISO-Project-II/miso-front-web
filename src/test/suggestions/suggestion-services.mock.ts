@@ -26,11 +26,9 @@ export const MockGetSuggestionServices: ISuggestionServices = {
 export const MockResSuccessGetSuggestionServices: IResSuggestionServices = {
   response: MockGetSuggestionServices,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSuggestionServices: IResSuggestionServices = {
   success: false,
-  errorMessage: "Error SuggestionServices",
-  date: new Date(),
+  message: "Error SuggestionServices",
 };

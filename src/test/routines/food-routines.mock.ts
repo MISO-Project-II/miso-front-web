@@ -48,23 +48,19 @@ export const MockGetAllFoodRoutines: IFoodRoutines[] = [
 export const MockResSuccessGetFoodRoutines: IResFoodRoutines = {
   response: MockGetFoodRoutines,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllFoodRoutines: IResFoodRoutines = {
   responseAll: MockGetAllFoodRoutines,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessFoodRoutines: IResFoodRoutines = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorFoodRoutines: IResFoodRoutines = {
   success: false,
-  errorMessage: "Error FoodRoutines",
-  date: new Date(),
+  message: "Error FoodRoutines",
 };

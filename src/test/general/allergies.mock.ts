@@ -36,23 +36,19 @@ export const MockGetAllAllergies: IAllergies[] = [
 export const MockResSuccessGetAllergies: IResAllergies = {
   response: MockGetAllergies,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllAllergies: IResAllergies = {
   responseAll: MockGetAllAllergies,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessAllergies: IResAllergies = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorAllergies: IResAllergies = {
   success: false,
-  errorMessage: "Error Allergies",
-  date: new Date(),
+  message: "Error Allergies",
 };
