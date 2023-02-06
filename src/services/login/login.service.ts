@@ -3,10 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { IReqLogin, IResLogin, ILogin } from "src/models/login/login.interface";
-import {
-  MockResErrorLogin,
-  MockResSuccessLogin,
-} from "src/test/login/login.mock";
+import { MockResSuccessLogin } from "src/test/login/login.mock";
 
 @Injectable({
   providedIn: "root",
@@ -17,10 +14,11 @@ import {
 export class LoginService {
   private _baseUrl: string;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.login + environment.api.apikey;
+    this._baseUrl = environment.api.base + environment.api.login;
   }
 
   login(data: ILogin): Observable<IResLogin> {
+    console.log("XXX - LoginService - login - data", data);
     // const req: IReqLogin = data;
     return this._http.post<IResLogin>(this._baseUrl, data);
     // const mock = of(MockResSuccessLogin);

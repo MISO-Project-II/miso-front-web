@@ -20,7 +20,10 @@ import {
 export class UserRegisterService {
   private _baseUrl: string;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.user_register + "?apikey=pfHfQuIZc4I8a5Rzf8D7S7Irw6FGMOdyJ9v3fH0b9xAGg4Ed";
+    this._baseUrl =
+      environment.api.base +
+      environment.api.user_register +
+      "?apikey=pfHfQuIZc4I8a5Rzf8D7S7Irw6FGMOdyJ9v3fH0b9xAGg4Ed";
   }
   create(data: IUserRegister): Observable<IResUserRegister> {
     // const req: IReqUserRegister = { request: data, date: new Date() };

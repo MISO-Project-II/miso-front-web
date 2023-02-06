@@ -1,7 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { map, Observable } from "rxjs";
-import { IResAllergies } from "src/models/general/allergies.interface";
-import { AllergiesService } from "src/services/general/allergies.service";
 import { CountryStateCityService } from "src/services/general/country-state-city.service";
 
 @Component({
@@ -16,10 +13,7 @@ export class HelperComponent implements OnInit {
   public states: any;
   public cities: any;
   public citiesByContry: any;
-  constructor(
-    private _countryStateCityService: CountryStateCityService,
-    private _allergiesService: AllergiesService
-  ) {
+  constructor(private _countryStateCityService: CountryStateCityService) {
     this.lang = localStorage.getItem("lang") || "es";
   }
 
@@ -63,14 +57,6 @@ export class HelperComponent implements OnInit {
   private async getCitiesByCountry(countryCode: string) {
     this.citiesByContry =
       await this._countryStateCityService.getCitiesByCountry(countryCode);
-  }
-
-  get allergiesServiceGetAll$(): Observable<IResAllergies> {
-    return this._allergiesService.getAll();
-  }
-  get allergiesServiceGet$(): Observable<IResAllergies> {
-    const idSelect = 1;
-    return this._allergiesService.get(idSelect);
   }
 
   public changeLang(value: string): void {

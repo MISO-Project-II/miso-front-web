@@ -13,8 +13,8 @@ export interface IUserRegister {
   IdType: string; // identificationType
   IdNumber: number; // identificationNumber
   // Datos deportivos
-  sportPractice: ISports[]; // [1,2,5] 
-  sportInterest: ISports[];// [4,5,6] 
+  sportPractice: ISports[]; // [1,2,5]
+  sportInterest: ISports[]; // [4,5,6]
   // Datos secundarios
   genre: string; // gender
   age: number; // age // Fecha de nacimiento año-mes-dia yyyy-MM-dd
@@ -22,13 +22,13 @@ export interface IUserRegister {
   height: number; //height
   // Datos de ubicacion
   countryOfBirth: ICountry; // birthdUbication (Solo id de ubicacion)
-  stateOfBirth: IState; // 
-  cityOfBirth: ICity; // 
+  stateOfBirth: IState; //
+  cityOfBirth: ICity; //
   countryOfResidence: ICountry; // homeUbication (Solo el id de ubicacion) ver imagen de referencia
   stateOfResidence: IState; //
-  cityOfResidence: ICity; // 
-  yearsOfResidence: number; // Meses de residencia 
-  
+  cityOfResidence: ICity; //
+  yearsOfResidence: number; // Meses de residencia
+
   // "isVegan": 0, Se envia por defecto 0
   // "isvegetarian": 0,
   // userType : "deportista"

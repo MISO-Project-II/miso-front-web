@@ -3,29 +3,22 @@ import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 export interface ILogin {
   username: string;
   password: string;
-  authCode?: string;
 }
 export interface IReqLogin extends IGenericRequest {
   request: ILogin;
 }
 export interface IResLogin extends IGenericResponse {
-  response?: ILogin;
-  user?: IUser;
-  userId: number;
-  token: string;
-}
-
-export interface IUser {
-  lastName: string;
-  name: string;
-  numberIdentification: string;
-  userName: string;
-  userType: string;
+  success: boolean;
+  message: string;
+  date: Date | null;
+  userId: number | null;
+  token: string | null;
+  user: IUser | null;
 }
 export interface IUser {
-  lastName: string;
   name: string;
+  lastName: string;
+  username: string;
   numberIdentification: string;
-  userName: string;
   userType: string;
 }

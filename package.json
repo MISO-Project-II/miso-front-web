@@ -1,6 +1,6 @@
 {
   "name": "sport-app",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,8 +8,10 @@
     "prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "format": "npx prettier '*/**/*.{js,ts,tsx,html,css,scss}' --write",
-    "lint": "npx eslint '*/**/*.{js,ts,tsx,html}' --quiet --fix"
+    "format": "npx prettier 'src/**/*.{js,ts,tsx,html,css,scss}' --write",
+    "lint": "npx eslint 'src/**/*.{js,ts,tsx,html}' --quiet --fix",
+    "coverage": "ng test --no-watch --code-coverage",
+    "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
@@ -55,6 +57,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
+    "sonar-scanner": "^3.1.0",
     "typescript": "~4.7.2"
   }
 }

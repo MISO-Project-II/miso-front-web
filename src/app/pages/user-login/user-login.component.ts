@@ -62,16 +62,18 @@ export class UserLoginComponent implements OnInit {
     const data: ILogin = {
       username: this.username?.value,
       password: this.password?.value,
-      // authCode: this.authCode?.value,
     };
     this._loginService.login(data).subscribe({
       next: (res: IResLogin) => {
-        console.log("XXX - UserServicesComponent - postLogin - res", res);
+        console.log(
+          "XXX - UserServicesComponent - postLogin - res",
+          JSON.stringify(res)
+        );
         if (res.success) {
           setTimeout(() => {
-            this._statusService.setUserId(res.userId);
-            this._statusService.setToken(res.token);
-            this._statusService.setUserName(res.user?.userName!);
+            this._statusService.setUserId(res.userId!);
+            this._statusService.setToken(res.token!);
+            this._statusService.setUserName(res.user?.username!);
             this._router.navigate([ROOT_ROUTES_NAMES.USER]);
           }, 1000);
         } else {

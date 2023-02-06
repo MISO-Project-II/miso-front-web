@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ThirdLoginComponent } from "./third-login.component";
-import { StatusService } from 'src/services/local/status.service';
+import { StatusService } from "src/services/local/status.service";
 
 xdescribe("ThirdLoginComponent", () => {
   let component: ThirdLoginComponent;
@@ -13,7 +13,7 @@ xdescribe("ThirdLoginComponent", () => {
       declarations: [ThirdLoginComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [{ provide: _statusService, useValue: {} }],
-      imports: []
+      imports: [],
     }).compileComponents();
   });
 
@@ -25,9 +25,9 @@ xdescribe("ThirdLoginComponent", () => {
     _statusService = TestBed.inject(StatusService);
   });
 
-  describe('method1', () => {
-    it('should ...', () => {
+  describe("method1", () => {
+    it("should ...", () => {
       expect(component).toBeTruthy();
     });
   });
-})
+});

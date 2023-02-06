@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 import { LoginService } from "./login.service";
 
 xdescribe("LoginService", () => {
@@ -9,8 +9,8 @@ xdescribe("LoginService", () => {
     service = TestBed.inject(LoginService);
   });
 
-  describe('method1', () => {
-    it('should ...', () => {
+  describe("method1", () => {
+    it("should ...", () => {
       expect(service).toBeTruthy();
     });
   });
