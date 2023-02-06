@@ -43,23 +43,19 @@ export const MockGetAllRoutes: IRoutes[] = [
 export const MockResSuccessGetRoutes: IResRoutes = {
   response: MockGetRoutes,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllRoutes: IResRoutes = {
   responseAll: MockGetAllRoutes,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessRoutes: IResRoutes = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorRoutes: IResRoutes = {
   success: false,
-  errorMessage: "Error Routes",
-  date: new Date(),
+  message: "Error Routes",
 };

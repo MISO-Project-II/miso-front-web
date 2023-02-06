@@ -94,23 +94,19 @@ export const MockGetAllServices: IServices[] = [
 export const MockResSuccessGetServices: IResServices = {
   response: MockGetServices,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllServices: IResServices = {
   responseAll: MockGetAllServices,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessServices: IResServices = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorServices: IResServices = {
   success: false,
-  errorMessage: "Error Services",
-  date: new Date(),
+  message: "Error Services",
 };

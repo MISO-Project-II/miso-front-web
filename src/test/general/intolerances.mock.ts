@@ -36,23 +36,19 @@ export const MockGetAllIntolerances: IIntolerances[] = [
 export const MockResSuccessGetIntolerances: IResIntolerances = {
   response: MockGetIntolerances,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllIntolerances: IResIntolerances = {
   responseAll: MockGetAllIntolerances,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessIntolerances: IResIntolerances = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorIntolerances: IResIntolerances = {
   success: false,
-  errorMessage: "Error Intolerances",
-  date: new Date(),
+  message: "Error Intolerances",
 };

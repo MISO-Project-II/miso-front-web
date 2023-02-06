@@ -15,11 +15,9 @@ export const MockGetSuggestionFoodPlan: ISuggestionFoodPlan = {
 export const MockResSuccessGetSuggestionFoodPlan: IResSuggestionFoodPlan = {
   response: MockGetSuggestionFoodPlan,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSuggestionFoodPlan: IResSuggestionFoodPlan = {
   success: false,
-  errorMessage: "Error SuggestionFoodPlan",
-  date: new Date(),
+  message: "Error SuggestionFoodPlan",
 };

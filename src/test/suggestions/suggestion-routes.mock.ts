@@ -15,11 +15,9 @@ export const MockGetSuggestionRoutes: ISuggestionRoutes = {
 export const MockResSuccessGetSuggestionRoutes: IResSuggestionRoutes = {
   response: MockGetSuggestionRoutes,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSuggestionRoutes: IResSuggestionRoutes = {
   success: false,
-  errorMessage: "Error SuggestionRoutes",
-  date: new Date(),
+  message: "Error SuggestionRoutes",
 };

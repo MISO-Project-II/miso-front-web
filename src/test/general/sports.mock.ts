@@ -63,23 +63,19 @@ export const MockGetAllSports: ISports[] = [
 export const MockResSuccessGetSports: IResSports = {
   response: MockGetSports,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllSports: IResSports = {
   responseAll: MockGetAllSports,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessSports: IResSports = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorSports: IResSports = {
   success: false,
-  errorMessage: "Error Sports",
-  date: new Date(),
+  message: "Error Sports",
 };

@@ -6,7 +6,7 @@ export const MockEvents: IEvents = {
   description: "Este evento es media maraton",
   startPlace: "Plaza central",
   destinyPlace: "Parque norte",
-  date: new Date(),
+
   eventCategoryId: "INSIDE_OF_HOUSE",
   thirdId: "1",
 };
@@ -17,7 +17,7 @@ export const MockGetEvents: IEvents = {
   description: "Este evento es media maraton",
   startPlace: "Plaza central",
   destinyPlace: "Parque norte",
-  date: new Date(),
+
   eventCategoryId: "INSIDE_OF_HOUSE",
   thirdId: "1",
 };
@@ -28,7 +28,7 @@ export const MockGetAllEvents: IEvents[] = [
     description: "Este evento es media maraton",
     startPlace: "Plaza central",
     destinyPlace: "Parque norte",
-    date: new Date(),
+
     eventCategoryId: "OUTSIDE_OF_HOUSE",
     thirdId: "1",
   },
@@ -38,7 +38,7 @@ export const MockGetAllEvents: IEvents[] = [
     description: "Este evento es rodada ciclista",
     startPlace: "Parque oriental",
     destinyPlace: "Parque sur",
-    date: new Date(),
+
     eventCategoryId: "OUTSIDE_OF_HOUSE",
     thirdId: "2",
   },
@@ -47,7 +47,7 @@ export const MockGetAllEvents: IEvents[] = [
     title: "Gimnasia al sofa",
     description: "Este evento es gimnasia al sofa",
     startPlace: "En casa",
-    date: new Date(),
+
     eventCategoryId: "INSIDE_OF_HOUSE",
     thirdId: "3",
   },
@@ -57,23 +57,19 @@ export const MockGetAllEvents: IEvents[] = [
 export const MockResSuccessGetEvents: IResEvents = {
   response: MockGetEvents,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllEvents: IResEvents = {
   responseAll: MockGetAllEvents,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessEvents: IResEvents = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorEvents: IResEvents = {
   success: false,
-  errorMessage: "Error Events",
-  date: new Date(),
+  message: "Error Events",
 };

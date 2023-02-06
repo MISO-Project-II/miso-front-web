@@ -20,18 +20,15 @@ export const MockGetAllPlan: IPlan[] = [
 export const MockResSuccessGetPlan: IResPlan = {
   response: MockGetPlan,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessPlan: IResPlan = {
   response: MockGetPlan,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorPlan: IResPlan = {
   success: false,
-  errorMessage: "Error Plan",
-  date: new Date(),
+  message: "Error Plan",
 };

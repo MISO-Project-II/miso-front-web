@@ -32,23 +32,19 @@ export const MockGetAllFoodProfile: IUserFoodProfile[] = [
 export const MockResSuccessGetFoodProfile: IResUserFoodProfile = {
   response: MockGetFoodProfile,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllFoodProfile: IResUserFoodProfile = {
   responseAll: MockGetAllFoodProfile,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessFoodProfile: IResUserFoodProfile = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorFoodProfile: IResUserFoodProfile = {
   success: false,
-  errorMessage: "Error UserFoodProfile",
-  date: new Date(),
+  message: "Error UserFoodProfile",
 };

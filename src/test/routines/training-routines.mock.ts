@@ -247,23 +247,19 @@ export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
 export const MockResSuccessGetTrainingRoutines: IResTrainingRoutines = {
   response: MockGetTrainingRoutines,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllTrainingRoutines: IResTrainingRoutines = {
   responseAll: MockGetAllTrainingRoutines,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessTrainingRoutines: IResTrainingRoutines = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorTrainingRoutines: IResTrainingRoutines = {
   success: false,
-  errorMessage: "Error TrainingRoutines",
-  date: new Date(),
+  message: "Error TrainingRoutines",
 };

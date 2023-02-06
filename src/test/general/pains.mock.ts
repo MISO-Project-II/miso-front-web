@@ -33,23 +33,19 @@ export const MockGetAllPains: IPains[] = [
 export const MockResSuccessGetPains: IResPains = {
   response: MockGetPains,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResSuccessGetAllPains: IResPains = {
   responseAll: MockGetAllPains,
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 
 export const MockResSuccessPains: IResPains = {
   success: true,
-  errorMessage: "",
-  date: new Date(),
+  message: "message",
 };
 export const MockResErrorPains: IResPains = {
   success: false,
-  errorMessage: "Error Pains",
-  date: new Date(),
+  message: "Error Pains",
 };
