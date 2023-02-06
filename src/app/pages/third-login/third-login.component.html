@@ -1,7 +1,7 @@
 <div id="main-third-login" class="container-fluid height-100vh">
   <div class="p-3 d-block">
     <app-ds-banner-title
-      [title]="'TITLE.LBL.1_TITLE' | translate"
+      [title]="'TITLE.SPORTAPP' | translate"
     ></app-ds-banner-title>
   </div>
   <div class="d-flex row px-3 h-75">
@@ -16,35 +16,31 @@
         autocomplete="off"
       >
         <h4 class="p-2 px-xxl-5 mt-3 mt-sm-5">
-          {{ "THIRD_LOGIN.LBL.2_LOGIN" | translate }}
+          {{ "TITLE.THIRD_LOGIN" | translate }}
         </h4>
         <div class="ds-form-login">
           <div class="mt-3 mt-lg-4 ds-input-group">
-            <label for="user">{{ "THIRD_LOGIN.LBL.3_USER" | translate }}</label>
+            <label for="user">{{ "LBL.USER_NAME" | translate }}</label>
             <input
-              id="input-user"
+              id="input-third"
               type="text"
               class="form-control ds-input"
-              aria-describedby="'THIRD_LOGIN.LBL.3_USER' | translate}}"
-              placeholder="{{ 'THIRD_LOGIN.PLACEHOLDER.1_USER' | translate }}"
+              aria-describedby="input-third"
+              placeholder="{{ 'PLACEHOLDER.USER_1' | translate }}"
             />
             <small id="userHelp" class="form-text text-muted">{{
-              "THIRD_LOGIN.ERR.1_USER" | translate
+              "ERR.WRONG_USER_PASSWORD" | translate
             }}</small>
           </div>
           <div class="mt-3 mt-lg-4">
-            <label for="password">{{
-              "THIRD_LOGIN.LBL.4_PASS" | translate
-            }}</label>
+            <label for="password">{{ "LBL.PASSWORD" | translate }}</label>
             <input
               id="input-password"
               type="password"
               class="form-control ds-input"
               id="contrasenia"
               aria-describedby="Nombre Usuario"
-              placeholder="{{
-                'THIRD_LOGIN.PLACEHOLDER.2_PASSWORD' | translate
-              }}"
+              placeholder="{{ 'PLACEHOLDER.PASSWORD_HIDDEN' | translate }}"
             />
           </div>
           <div class="mt-3 mt-lg-5">
@@ -53,7 +49,7 @@
               type="submit"
               class="btn btn-primary ds-button"
             >
-              {{ "THIRD_LOGIN.BTN.1_CONTINUE" | translate }}
+              {{ "BTN.CONTINUE" | translate }}
             </button>
           </div>
           <div class="mt-3 mt-lg-5">
@@ -63,13 +59,13 @@
               (click)="goUserRegister()"
               class="btn btn-primary ds-button-square"
             >
-              {{ "THIRD_LOGIN.BTN.2_NOT_REGISTERED" | translate }}
+              {{ "BTN.NOT_REGISTERED_YET" | translate }}
             </button>
           </div>
         </div>
         <div class="form-link">
           <a id="btn-login-third" href="{{ ROOT_ROUTES_NAMES.USER_LOGIN }}">{{
-            "THIRD_LOGIN.BTN.3_LOGIN_USER" | translate
+            "BTN.LOGIN_USER" | translate
           }}</a>
         </div>
       </form>
