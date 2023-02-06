@@ -1,0 +1,64 @@
+import { CommonModule } from "@angular/common";
+import { ModuleWithProviders, NgModule } from "@angular/core";
+import { SportsService } from "./general/sports.service";
+import { LoginService } from "./login/login.service";
+import { UserRegisterService } from "./register/user-register.service";
+import { StatusService } from "./local/status.service";
+import { UserDataService } from "./user-data/user-data.service";
+import { ThirdDataService } from "./third-data/third-data.service";
+import { SportProfileService } from "./profile/sport-profile.service";
+import { DemographicProfileService } from "./profile/demographic-profile.service";
+import { FoodProfileService } from "./profile/food-profile.service";
+import { CountryStateCityService } from "./general/country-state-city.service";
+
+@NgModule({
+  imports: [CommonModule],
+})
+export class ServicesModule {
+  static forRoot(): ModuleWithProviders<ServicesModule> {
+    return {
+      ngModule: ServicesModule,
+      providers: [
+        StatusService,
+
+        DemographicProfileService,
+        SportProfileService,
+        FoodProfileService,
+
+        // EventsService,
+        // ServicesService,
+        // ProductsService,
+
+        // UpdatePlanService,
+
+        LoginService,
+        UserRegisterService,
+        // ThirdRegisterService,
+
+        // SuggestionsFoodPlansService,
+        // SuggestionsRoutesService,
+        // SuggestionsEventsService,
+        // SuggestionsTrainingPlanService,
+        // SuggestionsServicesService,
+
+        SportsService,
+        // AllergiesService,
+        // DisabilitiesService,
+        // PainsService,
+        // IntolerancesService,
+
+        UserDataService,
+        ThirdDataService,
+
+        // SportPlansService,
+        // TrainingRoutinesService,
+        // ExercisesService,
+        // FoodPlansService,
+        // FoodRoutinesService,
+        // FoodsService,
+
+        CountryStateCityService,
+      ],
+    };
+  }
+}

@@ -1,0 +1,71 @@
+<p>Atomos</p>
+<h1>h1 {{ "TITLE.SPORTAPP" | translate }}</h1>
+<h2>h2 {{ "TITLE.SPORTAPP" | translate }}</h2>
+<h3>h3 {{ "TITLE.SPORTAPP" | translate }}</h3>
+<h4>h4 {{ "TITLE.SPORTAPP" | translate }}</h4>
+<h5>h5 {{ "TITLE.SPORTAPP" | translate }}</h5>
+<h6>h6 {{ "TITLE.SPORTAPP" | translate }}</h6>
+<p>
+  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
+  repellat veritatis natus nesciunt nisi, non reprehenderit perspiciatis ipsa
+  eum deleniti, maiores officia quae nobis? Eius cumque totam tenetur quasi
+  consectetur.
+</p>
+<hr />
+<label for="user">Nombre de usuario</label>
+<input
+  id="user-input"
+  type="text"
+  class="form-control ds-input"
+  aria-describedby="Nombre Usuario"
+  placeholder="Usuario"
+/>
+<small id="userHelp" class="form-text text-muted">Usuario incorrecto</small>
+<hr />
+<button type="submit" class="btn btn-primary ds-button">Submit</button>
+<hr />
+<button
+  id="btn-not-register"
+  type="button"
+  class="btn btn-primary ds-button-square"
+>
+  {{ "TITLE.SPORTAPP" | translate }}
+</button>
+<hr />
+<select
+  class="form-select max-width"
+  aria-label="Seleccion de lenguaje"
+  (change)="changeLang(t.value)"
+  #t
+>
+  <option selected value="">Seleccione un lenguaje</option>
+  <option value="es" [selected]="lang === 'es'">Español</option>
+  <option value="en" [selected]="lang === 'en'">Ingles</option>
+  <option value="pt" [selected]="lang === 'pt'">Portugues</option>
+</select>
+<hr />
+<a id="btn-login-third" href="">{{ "TITLE.SPORTAPP" | translate }}</a>
+<hr />
+<p>Moleculas</p>
+<hr />
+<app-ds-title class="max-width" [title]="'soy un titulo'"></app-ds-title>
+<hr />
+<app-ds-banner-title
+  class="max-width"
+  [title]="'TITLE.SPORTAPP' | translate"
+></app-ds-banner-title>
+<hr />
+<p>Organismos</p>
+<hr />
+<p>Atomos</p>
+<hr />
+<p>countries:::{{ countries | json }}</p>
+<hr />
+<p>country:::{{ country | json }}</p>
+<hr />
+<p>states:::{{ states | json }}</p>
+<hr />
+<p>cities:::{{ cities | json }}</p>
+<hr />
+<p>citiesByContry:::{{ citiesByContry | json }}</p>
+<hr />

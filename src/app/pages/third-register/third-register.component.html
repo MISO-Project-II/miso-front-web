@@ -1,0 +1,265 @@
+<div id="main-third-register" class="container-fluid height-100vh">
+  <div class="p-3 d-block">
+    <app-ds-banner-title [title]="'SportApp'"></app-ds-banner-title>
+  </div>
+  <form
+    [formGroup]="formThirdRegister"
+    (ngSubmit)="onSubmit()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="d-flex row px-3 height-90vh">
+      <div class="cont-left ds-form-register col-12 col-sm-6">
+        <div class="register-data mb-3">
+          <app-ds-title [title]="'Datos principales'"></app-ds-title>
+          <div class="ds-input-group mt-3">
+            <label for="third">Nombre de usuario</label>
+            <input
+              id="third-input"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="Nombre Usuario"
+              placeholder="Usuario"
+            />
+            <small id="thirdHelp" class="form-text text-muted"
+              >Usuario incorrecto</small
+            >
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="third">Contrasena</label>
+            <input
+              id="third-input"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="Nombre Usuario"
+              placeholder="Usuario"
+            />
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="third">Nombres</label>
+            <input
+              id="third-input"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="Nombre Usuario"
+              placeholder="Usuario"
+            />
+            <small id="thirdHelp" class="form-text text-muted"
+              >Usuario incorrecto</small
+            >
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="third">Apellidos</label>
+            <input
+              id="third-input"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="Nombre Usuario"
+              placeholder="Usuario"
+            />
+            <small id="thirdHelp" class="form-text text-muted"
+              >Usuario incorrecto</small
+            >
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="third">Tipo de identificacion</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="third">Numero</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="register-data mb-3">
+          <app-ds-title [title]="'Datos principales'"></app-ds-title>
+          <div class="ds-input-group mt-3">
+            <label for="third">Deportes que practica</label>
+            <input
+              id="third-input"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="Nombre Usuario"
+              placeholder="Usuario"
+            />
+            <small id="thirdHelp" class="form-text text-muted"
+              >Usuario incorrecto</small
+            >
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="third">Deportes de interes</label>
+            <input
+              id="third-input"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="Nombre Usuario"
+              placeholder="Usuario"
+            />
+            <small id="thirdHelp" class="form-text text-muted"
+              >Usuario incorrecto</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="cont-right ds-form-register col-12 col-sm-6">
+        <div class="ds-register-data mb-3">
+          <app-ds-title [title]="'Datos principales'"></app-ds-title>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="third">Genero</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="third">Edad</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="third">Peso</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="third">Altura</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="ds-register-data mb-3">
+          <app-ds-title [title]="'Datos principales'"></app-ds-title>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="third">Lugar de nacimiento</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Pais"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="third">_</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Ciudad"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="third">Lugar de residencia</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="third">_</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="third">Anos de residencia</label>
+              <input
+                id="third-input"
+                type="text"
+                class="form-control ds-input"
+                aria-describedby="Nombre Usuario"
+                placeholder="Usuario"
+              />
+              <small id="thirdHelp" class="form-text text-muted"
+                >Usuario incorrecto</small
+              >
+            </div>
+          </div>
+          <div class="ds-button-continue p-2">
+            <button type="submit" class="btn btn-primary ds-button">
+              Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

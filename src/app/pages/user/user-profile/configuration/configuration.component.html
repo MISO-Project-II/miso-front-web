@@ -1,0 +1,24 @@
+<div id="main-configuration">
+  <hr />
+  <div class="col-12 col-md-6 max-width mx-auto">
+    <app-ds-title [title]="'LBL.SELECT_LANGUAJE' | translate"></app-ds-title>
+
+    <select
+      class="form-select max-width"
+      aria-label="LBL.SELECT_LANGUAJE"
+      (change)="changeLang(t.value)"
+      #t
+    >
+      <option selected value="">{{ "LBL.SELECT_LANGUAJE" | translate }}</option>
+      <option value="es" [selected]="lang === 'es'">
+        {{ "LBL.SPANISH" | translate }}
+      </option>
+      <option value="en" [selected]="lang === 'en'">
+        {{ "LBL.ENGLISH" | translate }}
+      </option>
+      <option value="pt" [selected]="lang === 'pt'">
+        {{ "LBL.PORTUGUESE" | translate }}
+      </option>
+    </select>
+  </div>
+</div>

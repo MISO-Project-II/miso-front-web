@@ -1,0 +1,73 @@
+<div id="main-user-events" class="p-3 p-sm-0">
+  <hr />
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="scheduled_events_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#scheduled_events"
+        type="button"
+        role="tab"
+        aria-controls="scheduled_events_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.SCHEDULED_EVENTS" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="search_events_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#search_events"
+        type="button"
+        role="tab"
+        aria-controls="search_events_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.SEARCH_EVENTS" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="see_routes_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#see_routes"
+        type="button"
+        role="tab"
+        aria-controls="see_routes_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.SEE_ROUTES" | translate }}</label>
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="scheduled_events"
+      role="tabpanel"
+      aria-labelledby="scheduled_events"
+    >
+      <app-scheduled-events></app-scheduled-events>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="search_events"
+      role="tabpanel"
+      aria-labelledby="search_events"
+    >
+      <app-search-events></app-search-events>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="see_routes"
+      role="tabpanel"
+      aria-labelledby="see_routes"
+    >
+      <app-see-routes></app-see-routes>
+    </div>
+  </div>
+</div>

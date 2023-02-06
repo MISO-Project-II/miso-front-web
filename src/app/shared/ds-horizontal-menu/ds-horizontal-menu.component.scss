@@ -1,0 +1,17 @@
+@import "../../../styles.scss";
+
+#main-horizontal-menu {
+  .horizontal-menu {
+    text-align: center;
+    background: linear-gradient(180deg, $ds-dark-01 0%, $ds-grey-01 100%);
+    min-width: $breakpoint-xs;
+  }
+}
+@media only screen and (min-width: $breakpoint-sm) {
+  #main-horizontal-menu {
+    .horizontal-menu {
+      transform: skew(-20deg);
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@import "../styles.scss";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#main-app {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: $ds-grey-02;
+  min-width: $breakpoint-xs;
+}
+/*
+Color background test
+*/
+/*
+@media only screen and (min-width: $breakpoint-sm) {
+  #main-app {
+    background-color: $color-sm;
+  }
+}
+@media only screen and (min-width: $breakpoint-md) {
+  #main-app {
+    background-color: $color-md;
+  }
+}
+@media only screen and (min-width: $breakpoint-lg) {
+  #main-app {
+    background-color: $color-lg;
+  }
+}
+@media only screen and (min-width: $breakpoint-xl) {
+  #main-app {
+    background-color: $color-xl;
+  }
+}
+@media only screen and (min-width: $breakpoint-xxl) {
+  #main-app {
+    background-color: $color-xxl;
+  }
+}
+*/

@@ -1,0 +1,491 @@
+<div id="main-user-register" class="container-fluid height-100vh">
+  <div class="p-3 d-block">
+    <app-ds-banner-title
+      [title]="'TITLE.SPORTAPP' | translate"
+    ></app-ds-banner-title>
+  </div>
+  <form
+    [formGroup]="formUserRegister"
+    (ngSubmit)="onSubmit()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="d-flex row px-3 height-90vh">
+      <div class="cont-left ds-form-register col-12 col-md-6">
+        <div class="register-data mb-3">
+          <app-ds-title
+            [title]="'TITLE.PRINCIPAL_DATA' | translate"
+          ></app-ds-title>
+          <div class="ds-input-group mt-3">
+            <label for="user">{{ "LBL.USER" | translate }}</label>
+            <input
+              id="user_input"
+              formControlName="user"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="user_input"
+              [placeholder]="'PLACEHOLDER.USER_2' | translate"
+              minlength="1"
+              maxlength="20"
+            />
+            <small *ngIf="user?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="pass">{{ "LBL.PASSWORD" | translate }}</label>
+            <input
+              id="pass_input"
+              formControlName="pass"
+              type="password"
+              class="form-control ds-input"
+              aria-describedby="pass_input"
+              [placeholder]="'PLACEHOLDER.PASSWORD_HIDDEN' | translate"
+              minlength="1"
+              maxlength="20"
+            />
+            <small *ngIf="pass?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="confirmation">{{
+              "LBL.CONFIRMATION_PASSWORD" | translate
+            }}</label>
+            <input
+              id="confirmation_input"
+              formControlName="confirmation"
+              type="password"
+              class="form-control ds-input"
+              aria-describedby="confirmation_input"
+              [placeholder]="'PLACEHOLDER.PASSWORD_HIDDEN' | translate"
+              minlength="1"
+              maxlength="20"
+            />
+            <small *ngIf="confirmation?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="name">{{ "LBL.NAME" | translate }}</label>
+            <input
+              id="name_input"
+              formControlName="name"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="name_input"
+              [placeholder]="'PLACEHOLDER.NAME' | translate"
+              minlength="1"
+              maxlength="20"
+            />
+            <small *ngIf="name?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="last_name">{{ "LBL.LAST_NAME" | translate }}</label>
+            <input
+              id="last_name_input"
+              formControlName="lastName"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="last_name_input"
+              [placeholder]="'PLACEHOLDER.LAST_NAME' | translate"
+              minlength="1"
+              maxlength="20"
+            />
+            <small *ngIf="lastName?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="id_type">{{ "LBL.ID_TYPE" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="id_type_input"
+                aria-describedby="id_type_input"
+                formControlName="IdType"
+                required
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option
+                  *ngFor="let id_type of 'LIST_DATA.ID_TYPES' | translate"
+                  [ngValue]="id_type.ID"
+                >
+                  {{ id_type.NAME }}
+                </option>
+              </select>
+              <small *ngIf="IdType?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="number">{{ "LBL.ID_NUMBER" | translate }}</label>
+              <input
+                id="number_input"
+                formControlName="IdNumber"
+                type="number"
+                class="form-control ds-input"
+                aria-describedby="number_input"
+                [placeholder]="'PLACEHOLDER.ID_NUMBER' | translate"
+                minlength="1"
+                maxlength="20"
+              />
+              <small *ngIf="IdNumber?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="register-data mb-3">
+          <app-ds-title [title]="'TITLE.SPORT_DATA' | translate"></app-ds-title>
+          <div class="ds-input-group mt-3">
+            <label for="soport_practice">{{
+              "LBL.SPORT_PRACTICE" | translate
+            }}</label>
+            <div class="select_option d-flex">
+              <div class="options w-50 pe-1">
+                <div class="list-group overflow-auto">
+                  <button
+                    *ngFor="
+                      let item of (sportsServiceGetAll$ | async)?.responseAll
+                    "
+                    type="button"
+                    (click)="addSportPractice(item)"
+                    class="list-group-item list-group-item-action"
+                    aria-current="true"
+                  >
+                    {{ item.title }}
+                  </button>
+                </div>
+              </div>
+              <div class="selected w-50 ps-1">
+                <div class="list-group overflow-auto">
+                  <button
+                    *ngFor="let item of listSportPractice"
+                    type="button"
+                    (click)="delSportPractice(item)"
+                    class="list-group-item list-group-item-action"
+                    aria-current="true"
+                  >
+                    {{ item.title }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <small *ngIf="sportPractice?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="ds-input-group mt-3">
+            <label for="soport_interest">{{
+              "LBL.SPORT_INTEREST" | translate
+            }}</label>
+            <div class="select_option d-flex">
+              <div class="options w-50 pe-1">
+                <div class="list-group overflow-auto">
+                  <button
+                    *ngFor="
+                      let item of (sportsServiceGetAll$ | async)?.responseAll
+                    "
+                    type="button"
+                    (click)="addSportInterest(item)"
+                    class="list-group-item list-group-item-action"
+                    aria-current="true"
+                  >
+                    {{ item.title }}
+                  </button>
+                </div>
+              </div>
+              <div class="selected w-50 ps-1">
+                <div class="list-group overflow-auto">
+                  <button
+                    *ngFor="let item of listSportInterest"
+                    type="button"
+                    (click)="delSportInterest(item)"
+                    class="list-group-item list-group-item-action"
+                    aria-current="true"
+                  >
+                    {{ item.title }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <small *ngIf="sportInterest?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+        </div>
+      </div>
+      <div class="cont-right ds-form-register col-12 col-md-6">
+        <div class="ds-register-data mb-3">
+          <app-ds-title
+            [title]="'TITLE.SECONDARY_DATA' | translate"
+          ></app-ds-title>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="genre">{{ "LBL.GENRE" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="genre_input"
+                aria-describedby="genre_input"
+                formControlName="genre"
+                required
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option
+                  *ngFor="let type of 'LIST_DATA.GERE_TYPES' | translate"
+                  [ngValue]="type.ID"
+                >
+                  {{ type.NAME }}
+                </option>
+              </select>
+              <small *ngIf="genre?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="age">{{ "LBL.AGE" | translate }}</label>
+              <input
+                id="age_input"
+                formControlName="age"
+                type="number"
+                class="form-control ds-input"
+                aria-describedby="age_input"
+                [placeholder]="'PLACEHOLDER.YEARS' | translate"
+                minlength="1"
+                maxlength="2"
+              />
+              <small *ngIf="age?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="weight">{{ "LBL.WEIGHT" | translate }}</label>
+              <input
+                id="weight_input"
+                formControlName="weight"
+                type="number"
+                class="form-control ds-input"
+                aria-describedby="weight_input"
+                [placeholder]="'PLACEHOLDER.WEIGHT' | translate"
+                minlength="1"
+                maxlength="3"
+                max="999"
+              />
+              <small *ngIf="weight?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group mt-3 ds-card-right">
+              <label for="height">{{ "LBL.HEIGHT" | translate }}</label>
+              <input
+                id="height_input"
+                formControlName="height"
+                type="number"
+                class="form-control ds-input"
+                aria-describedby="height_input"
+                [placeholder]="'PLACEHOLDER.HEIGHT' | translate"
+                minlength="1"
+                maxlength="3"
+              />
+              <small *ngIf="height?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="ds-register-data mb-3">
+          <app-ds-title
+            [title]="'TITLE.LOCATION_DATA' | translate"
+          ></app-ds-title>
+          <label class="mt-3" for="country_of_birth">{{
+            "LBL.PLACE_OF_BIRTH" | translate
+          }}</label>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group ds-card-1">
+              <label for="country">{{ "LBL.COUNTRY" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="countries_input"
+                aria-describedby="countries_input"
+                formControlName="countryOfBirth"
+                required
+                (ngModelChange)="getStatesOfBirth($event)"
+                #country
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option
+                  *ngFor="let country of countriesOfBirth"
+                  [ngValue]="country"
+                >
+                  {{ country.name }}
+                </option>
+              </select>
+              <small *ngIf="countryOfBirth?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group ds-card-2">
+              <label for="state">{{ "LBL.STATE" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="states_input"
+                aria-describedby="states_input"
+                formControlName="stateOfBirth"
+                required
+                (ngModelChange)="getCitiesOfBirth($event)"
+                #country
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option *ngFor="let state of statesOfBirth" [ngValue]="state">
+                  {{ state.name }}
+                </option>
+              </select>
+              <small *ngIf="stateOfBirth?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group ds-card-3">
+              <label for="city">{{ "LBL.CITY" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="cities_input"
+                aria-describedby="cities_input"
+                formControlName="cityOfBirth"
+                required
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option *ngFor="let city of citiesOfBirth" [ngValue]="city">
+                  {{ city.name }}
+                </option>
+              </select>
+              <small *ngIf="cityOfBirth?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+          </div>
+          <label class="mt-3" for="country_of_residence">{{
+            "LBL.PLACE_OF_RESIDENCE" | translate
+          }}</label>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group ds-card-1">
+              <label for="country">{{ "LBL.COUNTRY" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="countries_input"
+                aria-describedby="countries_input"
+                formControlName="countryOfResidence"
+                required
+                (ngModelChange)="getStatesOfResidence($event)"
+                #country
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option
+                  *ngFor="let country of countriesOfResidence"
+                  [ngValue]="country"
+                >
+                  {{ country.name }}
+                </option>
+              </select>
+              <small *ngIf="countryOfResidence?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group ds-card-2">
+              <label for="state">{{ "LBL.STATE" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="states_input"
+                aria-describedby="states_input"
+                formControlName="stateOfResidence"
+                required
+                (ngModelChange)="getCitiesOfResidence($event)"
+                #country
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option
+                  *ngFor="let state of statesOfResidence"
+                  [ngValue]="state"
+                >
+                  {{ state.name }}
+                </option>
+              </select>
+              <small *ngIf="stateOfResidence?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+            <div class="ds-input-group ds-card-3">
+              <label for="city">{{ "LBL.CITY" | translate }}</label>
+              <select
+                class="form-select ds-input"
+                id="cities_input"
+                aria-describedby="cities_input"
+                formControlName="cityOfResidence"
+                required
+              >
+                <option selected disabled value="">
+                  {{ "LBL.SELECT_TYPE" | translate }}
+                </option>
+                <option *ngFor="let city of citiesOfResidence" [ngValue]="city">
+                  {{ city.name }}
+                </option>
+              </select>
+              <small *ngIf="cityOfResidence?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+          </div>
+          <div class="ds-input-group mt-3 ds-card-flex">
+            <div class="ds-input-group mt-3 ds-card-left">
+              <label for="years_of_residence">{{
+                "LBL.YEARS_OF_RESIDENCE" | translate
+              }}</label>
+              <input
+                id="years_of_residence_input"
+                formControlName="yearsOfResidence"
+                type="number"
+                class="form-control ds-input"
+                aria-describedby="years_of_residence_input"
+                [placeholder]="'PLACEHOLDER.YEARS' | translate"
+                minlength="1"
+                maxlength="2"
+              />
+              <small *ngIf="yearsOfResidence?.hasError('required')">{{
+                "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+            </div>
+          </div>
+          <div class="ds-button-continue p-2">
+            <button
+              id="btn-continue"
+              type="submit"
+              class="btn ds-button"
+              [disabled]="!formUserRegister.valid"
+            >
+              {{ "BTN.REGISTER" | translate }}
+            </button>
+          </div>
+          :::formUserRegister{{ formUserRegister.value | json }}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,34 @@
+@import "../../../styles.scss";
+
+#main-third-dashboard {
+  width: auto;
+  height: auto;
+  display: block;
+  .cont-left {
+    position: fixed;
+    margin: 0;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+    z-index: 99;
+  }
+  .cont-right {
+    width: auto;
+    margin-bottom: 64px;
+  }
+}
+@media only screen and (min-width: $breakpoint-sm) {
+  #main-third-dashboard {
+    display: flex;
+    .cont-left {
+      position: relative;
+      width: 128px;
+      height: auto;
+    }
+    .cont-right {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  }
+}
