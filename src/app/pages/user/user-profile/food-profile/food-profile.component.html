@@ -1,4 +1,68 @@
 <div id="main-food-profile" class="p-3 p-sm-0">
   <hr />
-  <p>main-food-profile</p>
+  <form
+    [formGroup]="formUserFoodProfile"
+    (ngSubmit)="onSubmit()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="d-flex min-width row justify-content-center">
+      <div class="col-12 col-md-6 max-width mx-auto">
+        <div class="ds-input-group mt-3">
+          <app-ds-title
+            [title]="'LBL.FOODS_PREFERENCE' | translate"
+          ></app-ds-title>
+          <textarea
+            class="form-control ds-input"
+            formControlName="foods_preference"
+            id="foods_preference_input"
+            rows="2"
+          ></textarea>
+        </div>
+        <div class="ds-input-group mt-3">
+          <app-ds-title [title]="'LBL.INTOLERANCE' | translate"></app-ds-title>
+          <textarea
+            class="form-control ds-input"
+            formControlName="intolerances"
+            id="intolerances_input"
+            rows="2"
+          ></textarea>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 max-width mx-auto">
+        <div class="ds-input-group mt-3">
+          <app-ds-title [title]="'LBL.LIFE_STYLE' | translate"></app-ds-title>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="check_is_vegan"
+              formControlName="is_vegan"
+            />
+            <label class="form-check-label" for="check_is_vegan">
+              {{ "LBL.VEGAN" | translate }}
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="check_is_vegetarian"
+              formControlName="is_vegetarian"
+            />
+            <label class="form-check-label" for="check_is_vegetarian">
+              {{ "LBL.VEGETARIAN" | translate }}
+            </label>
+          </div>
+        </div>
+        <div class="ds-button-continue p-2">
+          <button id="btn-continue" type="submit" class="btn ds-button">
+            {{ "BTN.UPDATE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
