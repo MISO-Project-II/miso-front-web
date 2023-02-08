@@ -1,0 +1,139 @@
+<div id="main-user-profile" class="p-3 p-sm-0">
+  <hr />
+  <ul class="nav nav-tabs" id="tab_user_profile" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="general_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#general"
+        type="button"
+        role="tab"
+        aria-controls="general_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.GENERAL_DATA" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="sport_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#sport"
+        type="button"
+        role="tab"
+        aria-controls="sport_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.SPORTS_PROFILE" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="food_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#food"
+        type="button"
+        role="tab"
+        aria-controls="food_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.FOOD_PROFILE" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="geographic_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#geographic"
+        type="button"
+        role="tab"
+        aria-controls="geographic_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.GEOGRAPHIC_PROFILE" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="plan_detail_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#plan_detail"
+        type="button"
+        role="tab"
+        aria-controls="plan_detail_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.PLAN_DETAIL" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="configuration_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#configuration"
+        type="button"
+        role="tab"
+        aria-controls="configuration_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.CONFIGURATION" | translate }}</label>
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="general"
+      role="tabpanel"
+      aria-labelledby="general"
+    >
+      <app-general-data></app-general-data>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="sport"
+      role="tabpanel"
+      aria-labelledby="sport_tab"
+    >
+      <app-sport-profile></app-sport-profile>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="food"
+      role="tabpanel"
+      aria-labelledby="food_tab"
+    >
+      <app-food-profile></app-food-profile>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="geographic"
+      role="tabpanel"
+      aria-labelledby="geographic_tab"
+    >
+      <app-geographic-profile></app-geographic-profile>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="plan_detail"
+      role="tabpanel"
+      aria-labelledby="plan_detail_tab"
+    >
+      <app-plan-detail></app-plan-detail>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="configuration"
+      role="tabpanel"
+      aria-labelledby="configuration_tab"
+    >
+      <app-configuration></app-configuration>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+@import "../../../styles.scss";
+
+#main-ds-title {
+  min-width: 128px;
+  width: 100%;
+  height: auto;
+  transform: skew(-20deg);
+  text-align: center;
+  background: linear-gradient(180deg, $ds-dark-01 0%, $ds-grey-01 100%);
+}

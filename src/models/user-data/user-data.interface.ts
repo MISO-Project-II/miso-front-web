@@ -1,0 +1,19 @@
+import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
+
+export interface IUserData {
+  username: string;
+  name: string;
+  lastName: string;
+  idIdentificationType: string;
+  identificationNumber: string;
+  gender: string;
+  weight: number;
+  age: Date;
+  height: number;
+}
+
+export interface IResUserData extends IGenericResponse {
+  message: string;
+  success: boolean;
+  result?: IUserData;
+}
