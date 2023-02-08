@@ -38,7 +38,6 @@ export class UserLoginComponent implements OnInit {
         Validators.minLength(1),
         Validators.maxLength(100),
       ]),
-      authCode: new FormControl("1qaz2wsx3edc4rfv", [Validators.required]),
     });
   }
   get form() {
@@ -49,9 +48,6 @@ export class UserLoginComponent implements OnInit {
   }
   get password() {
     return this.formUserLogin.get("password");
-  }
-  get authCode() {
-    return this.formUserLogin.get("authCode");
   }
 
   public goToUserRegister(): void {
