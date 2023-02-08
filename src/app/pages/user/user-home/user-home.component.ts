@@ -7,10 +7,7 @@ import { StatusService } from "src/services/local/status.service";
   styleUrls: ["./user-home.component.scss"],
 })
 export class UserHomeComponent implements OnInit {
-  constructor(
-    private _statusService: StatusService,
-  ) {
-  }
+  constructor(private _statusService: StatusService) {}
   ngOnInit() {
     console.log("XXX1 - getIsUser: " + this._statusService.getIsUser());
     console.log("XXX2 - getPlan: " + this._statusService.getPlan());
@@ -19,8 +16,7 @@ export class UserHomeComponent implements OnInit {
     console.log("XXX5 - getUrlUser: " + this._statusService.getUrlUser());
     console.log("XXX6 - getUserId: " + this._statusService.getUserId());
     console.log("XXX7 - getUserName: " + this._statusService.getUserName());
-  
-    console.log("XXX - UserHomeComponent");
 
+    console.log("XXX - UserHomeComponent");
   }
 }
