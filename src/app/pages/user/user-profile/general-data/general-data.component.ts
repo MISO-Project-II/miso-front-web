@@ -23,7 +23,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('XXX - GeneralDataComponent');
+    console.log("XXX - GeneralDataComponent");
     this._initForm();
     this._loadData();
   }
@@ -82,7 +82,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: IResUserData) => {
           if (res.success) {
-            console.log('XXX - GeneralDataComponent - _loadData - res', res);
+            console.log("XXX - GeneralDataComponent - _loadData - res", res);
             this.formUserGeneralData
               .get("user")
               ?.patchValue(res.result?.username);
