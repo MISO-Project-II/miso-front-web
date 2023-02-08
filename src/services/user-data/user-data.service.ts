@@ -20,11 +20,11 @@ import {
 export class UserDataService {
   private _baseUrl: string;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.general_data;
+    this._baseUrl = environment.api.general_data;
   }
 
   get(userId: number): Observable<IResUserData> {
-    // return this._http.get<IResUserData>(`${this._baseUrl}/${1}`);
+    // return this._http.get<IResUserData>(`${this._baseUrl}/${userId}`);
     const mock = of(MockResSuccessUserData);
     // const mock = of(MockResErrorUserData);
     return mock;
