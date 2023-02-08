@@ -1,4 +1,139 @@
 <div id="main-sport-profile" class="p-3 p-sm-0">
   <hr />
-  <p>main-sport-profile</p>
+  <form
+    [formGroup]="formUserSportProfile"
+    (ngSubmit)="onSubmit()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="d-flex min-width row justify-content-center">
+      <div class="col-12 col-md-6 max-width mx-auto">
+        <div class="ds-input-group mt-3">
+          <app-ds-title
+            [title]="'LBL.SPORT_PRACTICE' | translate"
+          ></app-ds-title>
+          <div class="select_option d-flex">
+            <div class="options w-50 pe-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="
+                    let item of (sportsServiceGetAll$ | async)?.responseAll
+                  "
+                  type="button"
+                  (click)="addSportPractice(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.title }}
+                </button>
+              </div>
+            </div>
+            <div class="selected w-50 ps-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of listSportPractice"
+                  type="button"
+                  (click)="delSportPractice(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.title }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="sportPractice?.hasError('required')">{{
+            "ERR.REQUIRED_FIELD" | translate
+          }}</small>
+        </div>
+        <div class="ds-input-group mt-3">
+          <app-ds-title
+            [title]="'LBL.SPORT_INTEREST' | translate"
+          ></app-ds-title>
+          <div class="select_option d-flex">
+            <div class="options w-50 pe-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="
+                    let item of (sportsServiceGetAll$ | async)?.responseAll
+                  "
+                  type="button"
+                  (click)="addSportInterest(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.title }}
+                </button>
+              </div>
+            </div>
+            <div class="selected w-50 ps-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of listSportInterest"
+                  type="button"
+                  (click)="delSportInterest(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.title }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="sportInterest?.hasError('required')">{{
+            "ERR.REQUIRED_FIELD" | translate
+          }}</small>
+        </div>
+        <div class="ds-input-group mt-3">
+          <app-ds-title
+            [title]="'LBL.PRACTICE_HOURS' | translate"
+          ></app-ds-title>
+          <input
+            id="practice_hours_input"
+            formControlName="practice_hours"
+            type="number"
+            class="form-control ds-input"
+            aria-describedby="practice_hours_input"
+            [placeholder]="'PLACEHOLDER.HOUR' | translate"
+          />
+        </div>
+      </div>
+      <div class="col-12 col-md-6 max-width mx-auto">
+        <div class="ds-input-group mt-3">
+          <app-ds-title [title]="'LBL.DISABILITIES' | translate"></app-ds-title>
+          <textarea
+            class="form-control ds-input"
+            formControlName="disabilities"
+            id="disabilities_input"
+            rows="2"
+          ></textarea>
+        </div>
+        <div class="ds-input-group mt-3">
+          <app-ds-title [title]="'LBL.PAINS' | translate"></app-ds-title>
+          <textarea
+            class="form-control ds-input"
+            formControlName="pains"
+            id="discomfort_input"
+            rows="2"
+          ></textarea>
+        </div>
+        <div class="ds-input-group mt-3">
+          <app-ds-title
+            [title]="'LBL.SPORTS_HISTORY' | translate"
+          ></app-ds-title>
+          <textarea
+            class="form-control ds-input"
+            formControlName="sports_history"
+            id="sports_history_input"
+            rows="2"
+          ></textarea>
+        </div>
+        <div class="ds-button-continue p-2">
+          <button id="btn-continue" type="submit" class="btn ds-button">
+            {{ "BTN.UPDATE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
