@@ -41,12 +41,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     * npm install popper.js --save
     * npm install @ngx-translate/core --save
     * npm i ngx-spinner
+    * npm install sonar-scanner --save-dev    
 # Commands
     * ng new SportApp
     * ng serve
     * npm start
+    * npm run build
     * npm run format
     * npm run lint
+    * npm run coverage
 # Docker
     * npm run prod
     * docker build . -t sport_app:0.0.0

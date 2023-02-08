@@ -1,0 +1,95 @@
+<div id="main-user-services" class="p-3 p-sm-0">
+  <hr />
+  <ul class="nav nav-tabs" id="tab_services" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="actual_services_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#actual_services"
+        type="button"
+        role="tab"
+        aria-controls="actual_services_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.ACTUAL_SERVICES" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="search_services_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#search_services"
+        type="button"
+        role="tab"
+        aria-controls="search_services_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.SEARCH_SERVICES" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="actual_products_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#actual_products"
+        type="button"
+        role="tab"
+        aria-controls="actual_products_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.ACTUAL_PRODUCTS" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="search_products_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#search_products"
+        type="button"
+        role="tab"
+        aria-controls="search_products_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.SEARCH_PRODUCTS" | translate }}</label>
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="actual_services"
+      role="tabpanel"
+      aria-labelledby="actual_services"
+    >
+      <app-actual-services></app-actual-services>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="search_services"
+      role="tabpanel"
+      aria-labelledby="search_services"
+    >
+      <app-search-services></app-search-services>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="actual_products"
+      role="tabpanel"
+      aria-labelledby="actual_products"
+    >
+      <app-actual-products></app-actual-products>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="search_products"
+      role="tabpanel"
+      aria-labelledby="search_products"
+    >
+      <app-search-products></app-search-products>
+    </div>
+  </div>
+</div>

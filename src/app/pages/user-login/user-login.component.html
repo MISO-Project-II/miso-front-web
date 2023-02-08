@@ -1,0 +1,77 @@
+<div id="main-user-login" class="container-fluid height-100vh">
+  <div class="p-3 d-block">
+    <app-ds-banner-title
+      [title]="'TITLE.SPORTAPP' | translate"
+    ></app-ds-banner-title>
+  </div>
+  <div class="d-flex row px-3 h-75">
+    <div class="p-2 col-sm-6 col-md-7 col-lg-8 min-width cont-left"></div>
+    <div
+      class="p-3 p-sm-3 p-md-4 p-lg-5 col-sm-6 col-md-5 col-lg-4 min-width cont-right"
+    >
+      <form [formGroup]="formUserLogin" (ngSubmit)="onSubmit()" novalidate>
+        <h4 class="p-2 px-xxl-5 mt-3 mt-sm-5">
+          {{ "TITLE.USER_LOGIN" | translate }}
+        </h4>
+        <div class="ds-form-login">
+          <div class="mt-3 mt-lg-4 ds-input-group">
+            <label for="user">{{ "LBL.USER_NAME" | translate }}</label>
+            <input
+              id="input_user"
+              formControlName="username"
+              type="text"
+              class="form-control ds-input"
+              aria-describedby="input_user"
+              [placeholder]="'PLACEHOLDER.USER_1' | translate"
+            />
+            <small *ngIf="username?.hasError('error_login')">{{
+              "ERR.WRONG_USER_PASSWORD" | translate
+            }}</small>
+            <small *ngIf="username?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="mt-3 mt-lg-4">
+            <label for="pass">{{ "LBL.PASSWORD" | translate }}</label>
+            <input
+              id="input_pass"
+              formControlName="password"
+              type="password"
+              class="form-control ds-input"
+              aria-describedby="input_pass"
+              [placeholder]="'PLACEHOLDER.PASSWORD_HIDDEN' | translate"
+            />
+            <small *ngIf="password?.hasError('required')">{{
+              "ERR.REQUIRED_FIELD" | translate
+            }}</small>
+          </div>
+          <div class="mt-3 mt-lg-5">
+            <button
+              id="btn-continue"
+              type="submit"
+              class="btn ds-button"
+              [disabled]="!formUserLogin.valid"
+            >
+              {{ "BTN.CONTINUE" | translate }}
+            </button>
+          </div>
+          <div class="mt-3 mt-lg-5">
+            <button
+              id="btn-not-register"
+              type="button"
+              (click)="goToUserRegister()"
+              class="btn btn-primary ds-button-square"
+            >
+              {{ "BTN.NOT_REGISTERED_YET" | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="form-link">
+          <a id="btn-login-third" href="{{ ROOT_ROUTES_NAMES.THIRD_LOGIN }}">{{
+            "BTN.LOGIN_THIRD" | translate
+          }}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
