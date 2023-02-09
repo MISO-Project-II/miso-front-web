@@ -40,20 +40,3 @@ export class UserRegisterService {
     return mock;
   }
 }
-
-// {
-//   "name": "Valdemar",
-//   "lastName": "Hechizero",
-//   "identificationType": "Carnet",
-//   "identificationNumber": "123456789",
-//   "gender": "Hombre",
-//   "age": 87,
-//   "height": 1.90,
-//   "birthdUbication": 57,
-//   "homeUbication": 54,
-//   "username": "valdemar",
-//   "password": "valdemar",
-//   "isVegan": 0,
-//   "isvegetarian": 0,
-//   "userType": "deportista"
-// }

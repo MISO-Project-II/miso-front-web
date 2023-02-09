@@ -1,15 +1,15 @@
 import {
   HttpClientTestingModule,
   HttpTestingController,
-} from '@angular/common/http/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { LoginService } from './login.service';
-import { ILogin, IResLogin } from 'src/models/login/login.interface';
-import { MockLogin, MockResSuccessLogin } from 'src/test/login/login.mock';
-import { environment } from 'src/environments/environment';
+} from "@angular/common/http/testing";
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
+import { getTestBed, TestBed } from "@angular/core/testing";
+import { LoginService } from "./login.service";
+import { ILogin, IResLogin } from "src/models/login/login.interface";
+import { MockLogin, MockResSuccessLogin } from "src/test/login/login.mock";
+import { environment } from "src/environments/environment";
 
-describe('FastLoginService', () => {
+describe("LoginService", () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: LoginService;
@@ -30,19 +30,16 @@ describe('FastLoginService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 
-  it('LoginService', () => {
-    const transfer: ILogin = MockLogin;
-    service
-      .login(transfer)
-      .subscribe((data) => expect(data).toBeTruthy());
-
+  it("Post LoginService", () => {
+    const mock: ILogin = MockLogin;
+    service.login(mock).subscribe((data) => expect(data).toBeTruthy());
     const url = environment.api.login;
     const req = httpMock.expectOne(url);
-    expect(req.request.method).toBe('POST');
+    expect(req.request.method).toBe("POST");
     req.flush({});
   });
 });

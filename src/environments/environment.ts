@@ -17,7 +17,8 @@ export const environment = {
 
     update_plan: "/update_plan",
 
-    login: "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/login",
+    login:
+      "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/login",
     user_register: "/user_register",
     third_register: "/third_register",
 
