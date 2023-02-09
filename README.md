@@ -50,8 +50,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     * npm run format
     * npm run lint
     * npm run coverage
+    * npm run sonar
 # Docker
     * npm run prod
     * docker build . -t sport_app:0.0.0
     * docker run -d -p 8080:80 sport_app:0.0.0
+    * docker stop <container-name>
     * docker push mninos/sport_app:0.0.0

@@ -1,8 +1,7 @@
 export const environment = {
   production: false,
-  version: "0.0.1",
+  version: "0.1.0",
   api: {
-    // base: 'http://localhost:4200/api',
     base: "",
     general_data:
       "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/general_data",
