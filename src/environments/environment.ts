@@ -3,8 +3,7 @@ export const environment = {
   version: "0.0.1",
   api: {
     // base: 'http://localhost:4200/api',
-    base: "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com",
-    // apikey: "?apikey=pfHfQuIZc4I8a5Rzf8D7S7Irw6FGMOdyJ9v3fH0b9xAGg4Ed",
+    base: "",
     general_data:
       "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/general_data",
     demographic_profile: "/demographic_profile",
@@ -18,7 +17,8 @@ export const environment = {
 
     update_plan: "/update_plan",
 
-    login: "/miso-user-api/login",
+    login:
+      "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/login",
     user_register: "/user_register",
     third_register: "/third_register",
 

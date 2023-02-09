@@ -14,7 +14,7 @@ import { MockResSuccessLogin } from "src/test/login/login.mock";
 export class LoginService {
   private _baseUrl: string;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.login;
+    this._baseUrl = environment.api.login;
   }
 
   login(data: ILogin): Observable<IResLogin> {

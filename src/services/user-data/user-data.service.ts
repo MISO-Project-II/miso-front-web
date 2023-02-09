@@ -24,13 +24,12 @@ export class UserDataService {
   }
 
   get(userId: number): Observable<IResUserData> {
-    // return this._http.get<IResUserData>(`${this._baseUrl}/${userId}`);
-    const mock = of(MockResSuccessUserData);
+    return this._http.get<IResUserData>(`${this._baseUrl}/${userId}`);
+    // const mock = of(MockResSuccessUserData);
     // const mock = of(MockResErrorUserData);
-    return mock;
+    // return mock;
   }
   update(userId: number, data: IUserData): Observable<IResUserData> {
-    // const req: IReqGeneralData = { request: data, date: new Date() };
     return this._http.put<IResUserData>(`${this._baseUrl}/${userId}`, data);
     // const mock = of(MockResSuccessUserData);
     // const mock = of(MockResErrorGeneralData);
