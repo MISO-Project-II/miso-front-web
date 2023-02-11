@@ -8,10 +8,7 @@ import { StatusModel } from "src/models/local/status-model";
 @Injectable()
 export class StatusService {
   private _status: StatusModel;
-  constructor(
-    private _spinner: NgxSpinnerService,
-    private _translateService: TranslateService
-  ) {
+  constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_PLAN;
   }
