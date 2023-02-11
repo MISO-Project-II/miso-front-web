@@ -2,6 +2,7 @@ import { ROOT_ROUTES_NAMES } from "../../app.routing";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { THIRD } from "src/constanst/data.constats";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 
@@ -17,8 +18,10 @@ export class ThirdLoginComponent implements OnInit {
   constructor(private _router: Router, private _statusService: StatusService) {}
 
   ngOnInit() {
-    this._statusService.setIsUser(false);
+    this._statusService.setUserType(THIRD);
     this._initForm();
+    localStorage.clear();
+    sessionStorage.clear();
   }
   private _initForm(): void {
     this.formThirdLogin = new FormGroup({

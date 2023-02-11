@@ -2,7 +2,9 @@ import { ROOT_ROUTES_NAMES } from "../../app.routing";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { THIRD } from "src/constanst/data.constats";
 import { ROUTES_NAMES } from "src/constanst/routes";
+import { StatusModel } from "src/models/local/status-model";
 import { StatusService } from "src/services/local/status.service";
 
 @Component({
@@ -16,8 +18,11 @@ export class ThirdRegisterComponent implements OnInit {
   constructor(private _router: Router, private _statusService: StatusService) {}
 
   ngOnInit() {
-    this._statusService.setIsUser(false);
+    this._statusService.setUserType(THIRD);
     this._initForm();
+  }
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
   private _initForm(): void {
     this.formThirdRegister = new FormGroup({
@@ -46,8 +51,6 @@ export class ThirdRegisterComponent implements OnInit {
     });
   }
   public onSubmit(): void {
-    this._router.navigate([
-      this._statusService.getUrlUser() + ROUTES_NAMES.HOME,
-    ]);
+    this._router.navigate([this.getGeneralStatus.userUrl + ROUTES_NAMES.HOME]);
   }
 }

@@ -1,5 +1,6 @@
 <div id="main-sport-profile" class="p-3 p-sm-0">
   <hr />
+  <p>XXX - sportsServiceGetAll {{ sportsServiceGetAll | json }}</p>
   <form
     [formGroup]="formUserSportProfile"
     (ngSubmit)="onSubmit()"
@@ -14,10 +15,11 @@
           ></app-ds-title>
           <div class="select_option d-flex">
             <div class="options w-50 pe-1">
-              <div class="list-group overflow-auto">
+              <!-- <div class="list-group overflow-auto">
+                {{sportsServiceGetAll | json}}
                 <button
                   *ngFor="
-                    let item of (sportsServiceGetAll$ | async)?.responseAll
+                    let item of sportsServiceGetAll?.responseAll
                   "
                   type="button"
                   (click)="addSportPractice(item)"
@@ -26,9 +28,9 @@
                 >
                   {{ item.title }}
                 </button>
-              </div>
+              </div> -->
             </div>
-            <div class="selected w-50 ps-1">
+            <!-- <div class="selected w-50 ps-1">
               <div class="list-group overflow-auto">
                 <button
                   *ngFor="let item of listSportPractice"
@@ -40,7 +42,7 @@
                   {{ item.title }}
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
           <small *ngIf="sportPractice?.hasError('required')">{{
             "ERR.REQUIRED_FIELD" | translate
@@ -52,10 +54,10 @@
           ></app-ds-title>
           <div class="select_option d-flex">
             <div class="options w-50 pe-1">
-              <div class="list-group overflow-auto">
+              <!-- <div class="list-group overflow-auto">
                 <button
                   *ngFor="
-                    let item of (sportsServiceGetAll$ | async)?.responseAll
+                    let item of sportsServiceGetAll?.responseAll
                   "
                   type="button"
                   (click)="addSportInterest(item)"
@@ -64,9 +66,9 @@
                 >
                   {{ item.title }}
                 </button>
-              </div>
+              </div> -->
             </div>
-            <div class="selected w-50 ps-1">
+            <!-- <div class="selected w-50 ps-1">
               <div class="list-group overflow-auto">
                 <button
                   *ngFor="let item of listSportInterest"
@@ -78,7 +80,7 @@
                   {{ item.title }}
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
           <small *ngIf="sportInterest?.hasError('required')">{{
             "ERR.REQUIRED_FIELD" | translate

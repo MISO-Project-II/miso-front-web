@@ -150,15 +150,13 @@
               <div class="options w-50 pe-1">
                 <div class="list-group overflow-auto">
                   <button
-                    *ngFor="
-                      let item of (sportsServiceGetAll$ | async)?.responseAll
-                    "
+                    *ngFor="let item of sportList"
                     type="button"
                     (click)="addSportPractice(item)"
                     class="list-group-item list-group-item-action"
                     aria-current="true"
                   >
-                    {{ item.title }}
+                    {{ item.name }}
                   </button>
                 </div>
               </div>
@@ -171,7 +169,7 @@
                     class="list-group-item list-group-item-action"
                     aria-current="true"
                   >
-                    {{ item.title }}
+                    {{ item.name }}
                   </button>
                 </div>
               </div>
@@ -188,15 +186,13 @@
               <div class="options w-50 pe-1">
                 <div class="list-group overflow-auto">
                   <button
-                    *ngFor="
-                      let item of (sportsServiceGetAll$ | async)?.responseAll
-                    "
+                    *ngFor="let item of sportList"
                     type="button"
                     (click)="addSportInterest(item)"
                     class="list-group-item list-group-item-action"
                     aria-current="true"
                   >
-                    {{ item.title }}
+                    {{ item.name }}
                   </button>
                 </div>
               </div>
@@ -209,7 +205,7 @@
                     class="list-group-item list-group-item-action"
                     aria-current="true"
                   >
-                    {{ item.title }}
+                    {{ item.name }}
                   </button>
                 </div>
               </div>
@@ -483,7 +479,7 @@
               {{ "BTN.REGISTER" | translate }}
             </button>
           </div>
-          <!-- :::formUserRegister{{ formUserRegister.value | json }} -->
+          :::formUserRegister{{ formUserRegister.value | json }}
         </div>
       </div>
     </div>
