@@ -9,13 +9,13 @@ import { UserRegisterService } from "src/services/register/user-register.service
 import { SportsService } from "src/services/general/sports.service";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { IResSports, ISports } from "src/models/general/sports.interface";
-import { CountryStateCityService } from "src/services/general/country-state-city.service";
 import {
   ICountry,
   IState,
 } from "src/models/general/countryStateCity.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { SPORTSMAN } from "src/constanst/data.constats";
+import { UbicationService } from "src/services/general/ubication.service";
 
 @Component({
   selector: "app-user-register",
@@ -41,7 +41,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     private _statusService: StatusService,
     private _userRegisterService: UserRegisterService,
     private _sportsService: SportsService,
-    private _countryStateCityService: CountryStateCityService
+    private _ubicationService: UbicationService
   ) {}
 
   ngOnInit() {
@@ -171,7 +171,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   private async getCountriesOfBirth() {
     this.statesOfBirth = [];
     this.citiesOfBirth = [];
-    this.countriesOfBirth = await this._countryStateCityService.getCountries();
+    this.countriesOfBirth = await this._ubicationService.getCountries();
     await console.log(
       "XXX - HelperComponent - ngOnInit - this.countries ",
       this.countriesOfBirth
@@ -181,33 +181,32 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     this._countryCodeOfBirth = countryCode;
     this.statesOfBirth = [];
     this.citiesOfBirth = [];
-    this.statesOfBirth = await this._countryStateCityService.getStatesByCountry(
+    this.statesOfBirth = await this._ubicationService.getStatesByCountry(
       countryCode.iso2
     );
   }
   public async getCitiesOfBirth(stateCode: IState) {
-    this.citiesOfBirth =
-      await this._countryStateCityService.getCitiesBtStateByCountry(
-        this._countryCodeOfBirth.iso2,
-        stateCode.iso2
-      );
+    this.citiesOfBirth = await this._ubicationService.getCitiesBtStateByCountry(
+      this._countryCodeOfBirth.iso2,
+      stateCode.iso2
+    );
   }
   private async getCountriesOfResidence() {
     this.statesOfResidence = [];
     this.citiesOfResidence = [];
-    this.countriesOfResidence =
-      await this._countryStateCityService.getCountries();
+    this.countriesOfResidence = await this._ubicationService.getCountries();
   }
   public async getStatesOfResidence(countryCode: ICountry) {
     this._countryCodeOfResidence = countryCode;
     this.statesOfResidence = [];
     this.citiesOfResidence = [];
-    this.statesOfResidence =
-      await this._countryStateCityService.getStatesByCountry(countryCode.iso2);
+    this.statesOfResidence = await this._ubicationService.getStatesByCountry(
+      countryCode.iso2
+    );
   }
   public async getCitiesOfResidence(stateCode: IState) {
     this.citiesOfResidence =
-      await this._countryStateCityService.getCitiesBtStateByCountry(
+      await this._ubicationService.getCitiesBtStateByCountry(
         this._countryCodeOfResidence.iso2,
         stateCode.iso2
       );

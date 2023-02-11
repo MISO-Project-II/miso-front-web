@@ -9,7 +9,7 @@ import { ThirdDataService } from "./third-data/third-data.service";
 import { SportProfileService } from "./profile/sport-profile.service";
 import { DemographicProfileService } from "./profile/demographic-profile.service";
 import { FoodProfileService } from "./profile/food-profile.service";
-import { CountryStateCityService } from "./general/country-state-city.service";
+import { UbicationService } from "./general/ubication.service";
 
 @NgModule({
   imports: [CommonModule],
@@ -57,7 +57,7 @@ export class ServicesModule {
         // FoodRoutinesService,
         // FoodsService,
 
-        CountryStateCityService,
+        UbicationService,
       ],
     };
   }

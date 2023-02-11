@@ -4,23 +4,23 @@ import {
 } from "@angular/common/http/testing";
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
 import { getTestBed, TestBed } from "@angular/core/testing";
-import { ThirdDataService } from "./third-data.service";
+import { UbicationService } from "./ubication.service";
 
-describe("ThirdDataService", () => {
+describe("UbicationService", () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
-  let service: ThirdDataService;
+  let service: UbicationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ThirdDataService],
+      providers: [UbicationService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     });
 
     injector = getTestBed();
     httpMock = injector.get(HttpTestingController);
-    service = TestBed.get(ThirdDataService);
+    service = TestBed.get(UbicationService);
   });
 
   afterEach(() => {

@@ -32,11 +32,11 @@ export class UserRegisterService {
     // const mock = of(MockResErrorUserRegister);
     // return mock;
   }
-  update(userId: number, data: IUserRegister): Observable<IResUserRegister> {
-    // const req: IReqUserRegister = { request: data, date: new Date() };
-    // return this._http.put<IResUserRegister>(`${this._baseUrl}/${userId}`, req);
-    const mock = of(MockResSuccessUserRegister);
-    // const mock = of(MockResErrorUserRegister);
-    return mock;
-  }
+  // update(userId: number, data: IUserRegister): Observable<IResUserRegister> {
+  //   // const req: IReqUserRegister = { request: data, date: new Date() };
+  //   // return this._http.put<IResUserRegister>(`${this._baseUrl}/${userId}`, req);
+  //   const mock = of(MockResSuccessUserRegister);
+  //   // const mock = of(MockResErrorUserRegister);
+  //   return mock;
+  // }
 }
