@@ -46,10 +46,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     * ng new SportApp
     * ng serve
     * npm start
-    * npm run build
     * npm run format
     * npm run lint
     * npm run coverage
+    * npm run build
     * npm run sonar
 # Docker
     * npm run prod

@@ -5,13 +5,13 @@
   <div class="cont-right p-0 p-sm-5 pt-sm-3">
     <div class="row">
       <app-ds-horizontal-menu
-        [userName]="userName"
-        [plan]="
-          planType === FREE_PLAN
+        [userName]="getGeneralStatus.userName"
+        [contractType]="
+          getGeneralStatus.contractType === FREE_PLAN
             ? ('LBL.FREE_PLAN' | translate)
-            : planType === MEDIUM_PLAN
+            : getGeneralStatus.contractType === MEDIUM_PLAN
             ? ('LBL.MEDIUM_PLAN' | translate)
-            : planType === PREMIUM_PLAN
+            : getGeneralStatus.contractType === PREMIUM_PLAN
             ? ('LBL.PREMIUM_PLAN' | translate)
             : ''
         "

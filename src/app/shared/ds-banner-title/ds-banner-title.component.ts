@@ -5,10 +5,6 @@ import { Component, Input, OnInit } from "@angular/core";
   templateUrl: "./ds-banner-title.component.html",
   styleUrls: ["./ds-banner-title.component.scss"],
 })
-export class DsBannerTitleComponent implements OnInit {
+export class DsBannerTitleComponent {
   @Input() title: string = "";
-  constructor() {}
-  ngOnInit() {
-    console.log("XXX - DsBannerTitleComponent");
-  }
 }

@@ -1,8 +1,8 @@
 import { ILogin, IResLogin } from "src/models/login/login.interface";
 
 export const MockLogin: ILogin = {
-  username: "Miguel",
-  password: "5ef68465886fa04d3e0bbe86b59d964dd98e5775e95717df978d8bedee6ff16c",
+  username: "rob",
+  password: "rob",
 };
 
 export const MockResSuccessLogin: IResLogin = {

@@ -13,13 +13,16 @@ import { MockResSuccessLogin } from "src/test/login/login.mock";
  */
 export class LoginService {
   private _baseUrl: string;
+  private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.login;
+    this._baseUrl = environment.api.base + environment.api.login;
+    this._httpHeaders = new HttpHeaders(environment.api.headers);
   }
 
   login(data: ILogin): Observable<IResLogin> {
-    console.log("XXX - LoginService - login - data", data);
-    return this._http.post<IResLogin>(this._baseUrl, data);
+    return this._http.post<IResLogin>(this._baseUrl, data, {
+      headers: this._httpHeaders,
+    });
     // const mock = of(MockResSuccessLogin);
     // const mock = of(MockResErrorLogin);
     // return mock;

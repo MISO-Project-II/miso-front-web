@@ -25,7 +25,7 @@
               maxlength="20"
               readonly
             />
-            <small *ngIf="user?.hasError('required')">{{
+            <small *ngIf="getUser?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
           </div>
@@ -41,7 +41,7 @@
               minlength="1"
               maxlength="20"
             />
-            <small *ngIf="name?.hasError('required')">{{
+            <small *ngIf="getName?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
           </div>
@@ -57,7 +57,7 @@
               minlength="1"
               maxlength="20"
             />
-            <small *ngIf="lastName?.hasError('required')">{{
+            <small *ngIf="getLastName?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
           </div>
@@ -81,7 +81,7 @@
                   {{ id_type.NAME }}
                 </option>
               </select>
-              <small *ngIf="IdType?.hasError('required')">{{
+              <small *ngIf="getIdType?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
@@ -97,7 +97,7 @@
                 minlength="1"
                 maxlength="20"
               />
-              <small *ngIf="IdNumber?.hasError('required')">{{
+              <small *ngIf="getIdNumber?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
@@ -129,7 +129,7 @@
                   {{ type.NAME }}
                 </option>
               </select>
-              <small *ngIf="genre?.hasError('required')">{{
+              <small *ngIf="getGenre?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
@@ -145,7 +145,7 @@
                 minlength="1"
                 maxlength="2"
               />
-              <small *ngIf="age?.hasError('required')">{{
+              <small *ngIf="getAge?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
@@ -164,7 +164,7 @@
                 maxlength="3"
                 max="999"
               />
-              <small *ngIf="weight?.hasError('required')">{{
+              <small *ngIf="getWeight?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
@@ -180,7 +180,7 @@
                 minlength="1"
                 maxlength="3"
               />
-              <small *ngIf="height?.hasError('required')">{{
+              <small *ngIf="getHeight?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>

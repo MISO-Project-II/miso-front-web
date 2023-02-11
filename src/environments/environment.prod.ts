@@ -1,10 +1,9 @@
 export const environment = {
   production: true,
-  version: "0.1.0",
+  version: "0.1.1",
   api: {
-    base: "",
-    general_data:
-      "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/general_data",
+    base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
+    general_data: "/users/general_data",
     demographic_profile: "/demographic_profile",
     sport_profile: "/sport_profile",
     food_profile: "/food_profile",
@@ -16,8 +15,7 @@ export const environment = {
 
     update_plan: "/update_plan",
 
-    login:
-      "https://umu3ig41m0.execute-api.us-east-1.amazonaws.com/miso-user-api/login",
+    login: "/users/login",
     user_register: "/user_register",
     third_register: "/third_register",
 
@@ -42,6 +40,11 @@ export const environment = {
     food_plans: "/food_plans",
     food_routines: "/food_routines",
     foods: "/foods",
+    headers: {
+      "X-API-KEY": "EqYv56oSln9rs1Kirj8Fc7hzy6wWE6tY3NwtbE1M",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   },
   key_country_state_city:
     "TFFReldaT3UwQjV2cEhJWkFSOHFEMTNJVVA2Y0JGMEVraDlqMDR0SA==",

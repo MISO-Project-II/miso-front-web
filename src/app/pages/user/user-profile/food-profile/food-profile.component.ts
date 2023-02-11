@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
+import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserFoodProfile,
   IUserFoodProfile,
@@ -32,7 +33,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   private _loadData(): void {
     this._statusService.spinnerShow();
     this._foodProfileService
-      .get(this._statusService.getUserId())
+      .get(this.getGeneralStatus.userId)
       .subscribe({
         next: (res: IResUserFoodProfile) => {
           if (res.success) {
@@ -84,6 +85,9 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   get is_vegetarian() {
     return this.formUserFoodProfile.get("is_vegetarian");
   }
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
+  }
 
   public onSubmit(): void {
     this._statusService.spinnerShow();
@@ -97,7 +101,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
   private _callService(data: IUserFoodProfile): void {
     this._foodProfileService
-      .update(this._statusService.getUserId(), data)
+      .update(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res: IResUserFoodProfile) => {

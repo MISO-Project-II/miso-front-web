@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { IResSports, ISports } from "src/models/general/sports.interface";
+import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserSportProfile,
   IUserSportProfile,
@@ -20,6 +21,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public listSportPractice: ISports[] = [];
   public listSportInterest: ISports[] = [];
+  public sportsServiceGetAll: IResSports;
   constructor(
     private _statusService: StatusService,
     private _sportProfileService: SportProfileService,
@@ -28,11 +30,17 @@ export class SportProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._initForm();
-    this._loadData();
+    // this._loadData();
+    this._sportsServiceGetAll$.subscribe((data: IResSports) => {
+      this.sportsServiceGetAll = data;
+    });
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
+  }
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
   private _initForm(): void {
     this.formUserSportProfile = new FormGroup({
@@ -65,13 +73,13 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   get sports_history() {
     return this.formUserSportProfile.get("sports_history");
   }
-  get sportsServiceGetAll$(): Observable<IResSports> {
+  get _sportsServiceGetAll$(): Observable<IResSports> {
     return this._sportsService.getAll();
   }
   private _loadData(): void {
     this._statusService.spinnerShow();
     this._sportProfileService
-      .get(this._statusService.getUserId())
+      .get(this.getGeneralStatus.userId)
       .subscribe({
         next: (res: IResUserSportProfile) => {
           console.log("XXX - SportProfileComponent - _loadData - res", res);
@@ -122,7 +130,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   private _callService(data: IUserSportProfile): void {
     this._sportProfileService
-      .update(this._statusService.getUserId(), data)
+      .update(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res: IResUserSportProfile) => {
@@ -148,7 +156,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   public delSportPractice(item: any): void {
     this.listSportPractice = this.listSportPractice.filter(
-      (data) => data.id != item.id
+      (data) => data.idsports != item.idsports
     );
     this.formUserSportProfile
       .get("sportPractice")
@@ -163,7 +171,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   public delSportInterest(item: any): void {
     this.listSportInterest = this.listSportInterest.filter(
-      (data) => data.id != item.id
+      (data) => data.idsports != item.idsports
     );
     this.formUserSportProfile
       .get("sportInterest")
