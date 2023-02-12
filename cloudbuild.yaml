@@ -1,11 +1,11 @@
 steps:
   - id: Package image
     name: gcr.io/cloud-builders/npm
-    args: [ install ]
+    args: [ 'install' ]
 
   - id: Execute test
     name: gcr.io/cloud-builders/npm
-    args: [ test ]
+    args: [ 'run','coverage' ]
 
   - id: Sonar Analysis
     name: gcr.io/cloud-builders/npm
