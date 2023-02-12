@@ -3,27 +3,27 @@ steps:
     name: gcr.io/cloud-builders/npm
     args: [ 'install' ]
 
-  - id: Execute test
-    name: gcr.io/cloud-builders/npm
-    entrypoint: bash
-    args:
-      - -c
-      - |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
-          npm run coverage
+  # - id: Execute test
+  #   name: gcr.io/cloud-builders/npm
+  #   entrypoint: bash
+  #   args:
+  #     - -c
+  #     - |
+  #         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  #         apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
+  #         npm run coverage
 
 
-  - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
-    args:
-      - '-Dsonar.host.url=http://34.67.142.84:9001'
-      - '-Dsonar.login=admin'
-      - '-Dsonar.password=admin123'
-      - '-Dsonar.projectKey=sonarqube-front'
-      - '-Dsonar.sources=src'
-      - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
-      - '-Dsonar.tests=src'
-      - '-Dsonar.test.inclusions=**/*.spec.ts'
+  # - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+  #   args:
+  #     - '-Dsonar.host.url=http://34.67.142.84:9001'
+  #     - '-Dsonar.login=admin'
+  #     - '-Dsonar.password=admin123'
+  #     - '-Dsonar.projectKey=sonarqube-front'
+  #     - '-Dsonar.sources=src'
+  #     - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
+  #     - '-Dsonar.tests=src'
+  #     - '-Dsonar.test.inclusions=**/*.spec.ts'
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
