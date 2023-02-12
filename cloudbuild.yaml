@@ -5,7 +5,7 @@ steps:
 
   - id: Execute test
     name: gcr.io/cloud-builders/npm
-    args: [ 'run','coverage', '--browsers', 'ChromeHeadless' ]
+    args: [ 'run','coverage']
 
   - id: Sonar Analysis
     name: gcr.io/cloud-builders/npm
