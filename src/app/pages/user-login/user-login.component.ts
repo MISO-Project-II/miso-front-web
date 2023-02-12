@@ -1,3 +1,4 @@
+import { environment } from "src/environments/environment";
 import { ROOT_ROUTES_NAMES } from "./../../app.routing";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -6,7 +7,7 @@ import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 import { LoginService } from "src/services/login/login.service";
 import { ILogin, IResLogin } from "src/models/login/login.interface";
-import { SPORTSMAN } from "src/constanst/data.constats";
+import { SPORTSMAN } from "src/constanst/data.constants";
 
 @Component({
   selector: "app-user-login",
@@ -17,11 +18,14 @@ export class UserLoginComponent implements OnInit {
   public formUserLogin: FormGroup;
   public ROUTES_NAMES = ROUTES_NAMES;
   public ROOT_ROUTES_NAMES = ROOT_ROUTES_NAMES;
+  public version: string;
   constructor(
     private _router: Router,
     private _statusService: StatusService,
     private _loginService: LoginService
-  ) {}
+  ) {
+    this.version = environment.version;
+  }
 
   ngOnInit() {
     this._statusService.setUserType(SPORTSMAN);

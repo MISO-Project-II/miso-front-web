@@ -14,7 +14,7 @@ import {
   IState,
 } from "src/models/general/countryStateCity.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { SPORTSMAN } from "src/constanst/data.constats";
+import { SPORTSMAN } from "src/constanst/data.constants";
 import { UbicationService } from "src/services/general/ubication.service";
 
 @Component({
