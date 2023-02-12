@@ -31,7 +31,7 @@ steps:
 
   - id: Docker push
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:v0' ]
+    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:latest' ]
 
   - id: Deploy Cloud Run
     name: 'gcr.io/cloud-builders/gcloud'
