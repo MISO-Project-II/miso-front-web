@@ -17,7 +17,7 @@ steps:
   #    name: gcr.io/cloud-builders/npm
   #    args: [ 'run','sonar' ]
 
-    - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+  - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     args:
       - '-Dsonar.host.url=http://34.67.142.84:9001'
       - '-Dsonar.login=admin'
