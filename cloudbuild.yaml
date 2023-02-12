@@ -27,7 +27,6 @@ steps:
       - '-Dsonar.exclusions=**/node_modules/**, **/src/app/**, **/src/assets/**, **/src/constants/**, **/src/helper/**, **/src/models/**, **/src/styles/**, **/src/test/**'
       - '-Dsonar.tests=src'
       - '-Dsonar.test.inclusions=**/*.spec.ts'
-    tags: [ 'cloud-builders-community' ]
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
