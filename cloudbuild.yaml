@@ -24,7 +24,6 @@ steps:
       - '-Dsonar.projectKey=sonarqube-front'
       - '-Dsonar.sources=src'
       - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
-      - '-Dsonar.exclusions=**/node_modules/**, **/src/app/**, **/src/assets/**, **/src/constants/**, **/src/helper/**, **/src/models/**, **/src/styles/**, **/src/test/**'
       - '-Dsonar.tests=src'
       - '-Dsonar.test.inclusions=**/*.spec.ts'
 
