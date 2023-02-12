@@ -13,10 +13,6 @@ steps:
         apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
         npm run coverage
 
-  #  - id: Sonar Analysis
-  #    name: gcr.io/cloud-builders/npm
-  #    args: [ 'run','sonar' ]
-
   - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     args:
       - '-Dsonar.host.url=http://34.67.142.84:9001'
@@ -24,7 +20,7 @@ steps:
       - '-Dsonar.password=admin123'
       - '-Dsonar.projectKey=miso-front-web'
       - '-Dsonar.projectName=miso-front-web'
-      - '-Dsonar.projectVersion=1.0.0'
+      - '-Dsonar.projectVersion=1.0.1'
       - '-Dsonar.sourceEncoding=UTF-8'
       - '-Dsonar.sources=src'
       - '-Dsonar.test.exclusions=**/node_modules/**'
