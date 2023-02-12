@@ -20,6 +20,8 @@ steps:
   - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     args:
       - '-Dsonar.host.url=http://34.67.142.84:9001'
+      - '-Dsonar.login=admin'
+      - '-Dsonar.password=admin123'
       - '-Dsonar.login=sqp_79c6b2bfe6bce7ddb6322f0976401750bc9f8571'
       - '-Dsonar.projectKey=sonarqube-front'
       - '-Dsonar.sources=src'
