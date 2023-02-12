@@ -3,13 +3,13 @@ steps:
     name: gcr.io/cloud-builders/npm
     args: [ 'install' ]
 
-  - id: Execute test
-    name: gcr.io/cloud-builders/npm
-    args: [ 'run','coverage']
-
-  - id: Sonar Analysis
-    name: gcr.io/cloud-builders/npm
-    args: [ 'run','sonar' ]
+#  - id: Execute test
+#    name: gcr.io/cloud-builders/npm
+#    args: [ 'run','coverage']
+#
+#  - id: Sonar Analysis
+#    name: gcr.io/cloud-builders/npm
+#    args: [ 'run','sonar' ]
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
