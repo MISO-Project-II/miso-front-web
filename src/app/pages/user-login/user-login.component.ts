@@ -7,7 +7,7 @@ import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 import { LoginService } from "src/services/login/login.service";
 import { ILogin, IResLogin } from "src/models/login/login.interface";
-import { SPORTSMAN } from "src/constanst/data.constats";
+import { SPORTSMAN } from "src/constanst/data.constants";
 
 @Component({
   selector: "app-user-login",

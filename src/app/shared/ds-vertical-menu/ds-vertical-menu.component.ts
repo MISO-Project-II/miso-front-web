@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { SPORTSMAN } from "src/constanst/data.constats";
+import { SPORTSMAN } from "src/constanst/data.constants";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusModel } from "src/models/local/status-model";
 import { StatusService } from "src/services/local/status.service";

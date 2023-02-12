@@ -5,7 +5,7 @@ import {
   MEDIUM_PLAN,
   PREMIUM_PLAN,
   SPORTSMAN,
-} from "src/constanst/data.constats";
+} from "src/constanst/data.constants";
 import { IResSports, ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { SportsService } from "src/services/general/sports.service";

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { THIRD } from "src/constanst/data.constats";
+import { THIRD } from "src/constanst/data.constants";
 import { StatusService } from "src/services/local/status.service";
 
 @Component({

@@ -2,7 +2,7 @@ import { ROOT_ROUTES_NAMES } from "../../app.routing";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { THIRD } from "src/constanst/data.constats";
+import { THIRD } from "src/constanst/data.constants";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 
