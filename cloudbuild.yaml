@@ -27,7 +27,7 @@ steps:
       - '-Dsonar.projectVersion=0.1.3'
       - '-Dsonar.sourceEncoding=UTF-8'
       - '-Dsonar.sources=src'
-      - '-Dsonar.tests.exclusions=**/node_modules/**, **/src/app, **/src/assets, **/src/constants, **/src/helper, **/src/models, **/src/styles, **/src/test'
+      - '-Dsonar.exclusions=**/node_modules/**'
       - '-Dsonar.tests=src'
       - '-Dsonar.test.inclusions=**/*.spec.ts'
       - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
