@@ -13,21 +13,24 @@ steps:
   #       apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
   #       npm run coverage
 
-  - id: Sonar Analysis
-    name: gcr.io/cloud-builders/npm
-    args: [ 'run','sonar' ]
+  #  - id: Sonar Analysis
+  #    name: gcr.io/cloud-builders/npm
+  #    args: [ 'run','sonar' ]
 
-  # - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
-  #   args:
-  #     - '-Dsonar.host.url=http://34.67.142.84:9001'
-  #     - '-Dsonar.login=admin'
-  #     - '-Dsonar.password=admin123'
-  #     - '-Dsonar.projectKey=miso-front-web-V2'
-  #     - '-Dsonar.projectName=miso-front-web-V2'
-  #     - '-Dsonar.sources=src'
-  #     - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
-  #     - '-Dsonar.tests=src'
-  #     - '-Dsonar.test.inclusions=**/*.spec.ts'
+  - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+    args:
+      - '-Dsonar.host.url=http://34.67.142.84:9001'
+      - '-Dsonar.login=admin'
+      - '-Dsonar.password=admin123'
+      - '-Dsonar.projectKey=miso-front-web-V2'
+      - '-Dsonar.projectName=miso-front-web-V2'
+      - '-Dsonar.projectVersion=0.1.3
+      - '-Dsonar.sourceEncoding=UTF-8
+      - '-Dsonar.sources=src'
+      - '-Dsonar.exclusions=**/node_modules/**, **/src/app/**, **/src/assets/**, **/src/constants/**, **/src/helper/**, **/src/models/**, **/src/styles/**, **/src/test/**
+      - '-Dsonar.tests=src'
+      - '-Dsonar.test.inclusions=**/*.spec.ts'
+      - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
 
 #   - id: Docker Build
 #     name: 'gcr.io/cloud-builders/docker'
