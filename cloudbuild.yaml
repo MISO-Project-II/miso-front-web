@@ -3,18 +3,21 @@ steps:
     name: gcr.io/cloud-builders/npm
     args: [ 'install' ]
 
-  # - id: Execute test
-  #   name: gcr.io/cloud-builders/npm
-  #   entrypoint: bash
-  #   args:
-  #     - -c
-  #     - |
-  #         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  #         apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
-  #         npm run coverage
+  #  - id: Execute test
+  #    name: gcr.io/cloud-builders/npm
+  #    entrypoint: bash
+  #    args:
+  #      - -c
+  #      - |
+  #        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  #        apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
+  #        npm run coverage
 
+  #  - id: Sonar Analysis
+  #    name: gcr.io/cloud-builders/npm
+  #    args: [ 'run','sonar' ]
 
-  # - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+    # - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
   #   args:
   #     - '-Dsonar.host.url=http://34.67.142.84:9001'
   #     - '-Dsonar.login=admin'
@@ -31,12 +34,12 @@ steps:
 
   - id: Docker push
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:latest' ]
+    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:${TAG_NAME}' ]
 
   - id: Deploy Cloud Run
     name: 'gcr.io/cloud-builders/gcloud'
     args: [ 'run','deploy','${_IMAGE_NAME}',
-            '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:latest',
+            '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:${TAG_NAME}',
             '--allow-unauthenticated',
             '--min-instances=1',
             '--max-instances=2',
