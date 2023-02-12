@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { StatusModel } from "src/models/local/status-model";
 import { StatusService } from "src/services/local/status.service";
 
 @Component({
@@ -7,10 +8,12 @@ import { StatusService } from "src/services/local/status.service";
   styleUrls: ["./third-home.component.scss"],
 })
 export class ThirdHomeComponent implements OnInit {
-  public isUser: boolean;
   constructor(private _statusService: StatusService) {}
 
-  ngOnInit(): void {
-    this.isUser = this._statusService.getIsUser();
+  ngOnInit() {
+    console.log("XXX - ThirdHomeComponent");
+  }
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
 }

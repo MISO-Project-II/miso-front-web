@@ -2,7 +2,10 @@ export interface FOOD_CATEGORY {
   ID: string;
   NAME: string;
 }
-
+// User type
+export const SPORTSMAN: string = "SPORTSMAN";
+export const THIRD: string = "THIRD";
+// Contrat type
 export const FREE_PLAN: string = "FREE_PLAN";
 export const MEDIUM_PLAN: string = "MEDIUM_PLAN";
 export const PREMIUM_PLAN: string = "PREMIUM_PLAN";

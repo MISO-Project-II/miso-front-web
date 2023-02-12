@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { StatusModel } from "src/models/local/status-model";
 import { StatusService } from "src/services/local/status.service";
 
 @Component({
@@ -9,14 +10,9 @@ import { StatusService } from "src/services/local/status.service";
 export class UserHomeComponent implements OnInit {
   constructor(private _statusService: StatusService) {}
   ngOnInit() {
-    console.log("XXX1 - getIsUser: " + this._statusService.getIsUser());
-    console.log("XXX2 - getPlan: " + this._statusService.getPlan());
-    console.log("XXX3 - getStatus: " + this._statusService.getStatus());
-    console.log("XXX4 - getToken: " + this._statusService.getToken());
-    console.log("XXX5 - getUrlUser: " + this._statusService.getUrlUser());
-    console.log("XXX6 - getUserId: " + this._statusService.getUserId());
-    console.log("XXX7 - getUserName: " + this._statusService.getUserName());
-
     console.log("XXX - UserHomeComponent");
+  }
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
 }

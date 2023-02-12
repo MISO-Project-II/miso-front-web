@@ -5,12 +5,6 @@ import { Component, Input, OnInit } from "@angular/core";
   templateUrl: "./ds-title.component.html",
   styleUrls: ["./ds-title.component.scss"],
 })
-export class DsTitleComponent implements OnInit {
+export class DsTitleComponent {
   @Input() title: string = "";
-
-  constructor() {}
-
-  ngOnInit() {
-    console.log("XXX - DsTitleComponent");
-  }
 }

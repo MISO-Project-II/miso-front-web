@@ -1,61 +1,45 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { NgxSpinnerService } from "ngx-spinner";
-import { FREE_PLAN } from "src/constanst/data.constats";
+import { FREE_PLAN, SPORTSMAN, THIRD } from "src/constanst/data.constats";
+import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 
 @Injectable()
 export class StatusService {
   private _status: StatusModel;
-  private _userId: number;
-  private _token: string = "";
-  private _userName: string = "";
-  private _plan: string = "";
-  constructor(
-    private _spinner: NgxSpinnerService,
-    private _translateService: TranslateService
-  ) {
-    this._status = new StatusModel(true);
-    this._plan = FREE_PLAN;
+  constructor(private _spinner: NgxSpinnerService) {
+    this._status = new StatusModel(SPORTSMAN);
+    this._status.contractType = FREE_PLAN;
   }
-  public setStatus(status: StatusModel) {
+  public setGeneralStatus(status: StatusModel) {
     this._status = status;
   }
-  public setIsUser(isUser: boolean) {
-    this._status.isUser = isUser;
+  public setUserType(userType: string) {
+    this._status.userType = userType;
+    if (userType === SPORTSMAN) {
+      this._status.userUrl = "usuario/";
+    } else if (userType === THIRD) {
+      this._status.userUrl = "tercero/";
+    }
   }
   public setUserId(userId: number) {
-    this._userId = userId;
+    this._status.userId = userId;
   }
   public setToken(token: string) {
-    this._token = token;
+    this._status.token = token;
   }
   public setUserName(userName: string) {
-    this._userName = userName;
+    this._status.userName = userName;
   }
-  public setPlan(plan: string) {
-    this._plan = plan;
+  public setContractType(contractType: string) {
+    this._status.contractType = contractType;
   }
-  public getStatus() {
+  public setSportsList(sportsList: ISports[]) {
+    this._status.sportsList = sportsList;
+  }
+  public getGeneralStatus(): StatusModel {
     return this._status;
-  }
-  public getIsUser() {
-    return this._status.isUser;
-  }
-  public getUrlUser() {
-    return this._status.isUser ? "usuario/" : "tercero/";
-  }
-  public getUserId() {
-    return this._userId;
-  }
-  public getToken() {
-    return this._token;
-  }
-  public getUserName() {
-    return this._userName;
-  }
-  public getPlan() {
-    return this._plan;
   }
   public spinnerShow() {
     this._spinner.show();

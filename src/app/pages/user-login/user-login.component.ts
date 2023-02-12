@@ -6,6 +6,7 @@ import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 import { LoginService } from "src/services/login/login.service";
 import { ILogin, IResLogin } from "src/models/login/login.interface";
+import { SPORTSMAN } from "src/constanst/data.constats";
 
 @Component({
   selector: "app-user-login",
@@ -23,8 +24,10 @@ export class UserLoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._statusService.setIsUser(true);
+    this._statusService.setUserType(SPORTSMAN);
     this._initForm();
+    localStorage.clear();
+    sessionStorage.clear();
   }
   private _initForm(): void {
     this.formUserLogin = new FormGroup({
@@ -59,30 +62,20 @@ export class UserLoginComponent implements OnInit {
       username: this.username?.value,
       password: this.password?.value,
     };
-    this._loginService.login(data).subscribe({
-      next: (res: IResLogin) => {
-        console.log(
-          "XXX - UserServicesComponent - postLogin - res",
-          JSON.stringify(res)
-        );
-        if (res.success) {
-          setTimeout(() => {
-            this._statusService.setUserId(res.userId!);
-            this._statusService.setToken(res.token!);
-            this._statusService.setUserName(res.user?.username!);
-            this._router.navigate([ROOT_ROUTES_NAMES.USER]);
-          }, 1000);
-        } else {
-          this.username?.setErrors({ error_login: true });
-        }
+    this._loginService.login(data).subscribe((res: IResLogin) => {
+      if (res.success) {
         setTimeout(() => {
-          this._statusService.spinnerHide();
-        }, 500);
-      },
-      error: (e) => {
-        console.error(e);
+          this._statusService.setUserId(res.userId!);
+          this._statusService.setToken(res.token!);
+          this._statusService.setUserName(res.user?.username!);
+          this._router.navigate([ROOT_ROUTES_NAMES.USER]);
+        }, 1000);
+      } else {
+        this.username?.setErrors({ error_login: true });
+      }
+      setTimeout(() => {
         this._statusService.spinnerHide();
-      },
+      }, 500);
     });
   }
 }

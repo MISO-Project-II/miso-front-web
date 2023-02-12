@@ -1,55 +1,60 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_PLAN,
   MEDIUM_PLAN,
   PREMIUM_PLAN,
+  SPORTSMAN,
 } from "src/constanst/data.constats";
-import { IResUserData } from "src/models/user-data/user-data.interface";
+import { IResSports, ISports } from "src/models/general/sports.interface";
+import { StatusModel } from "src/models/local/status-model";
+import { SportsService } from "src/services/general/sports.service";
 
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 @Component({
   selector: "app-user-dashboard",
   templateUrl: "./user-dashboard.component.html",
   styleUrls: ["./user-dashboard.component.scss"],
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, OnDestroy {
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
   public FREE_PLAN: string = FREE_PLAN;
   public MEDIUM_PLAN: string = MEDIUM_PLAN;
   public PREMIUM_PLAN: string = PREMIUM_PLAN;
   constructor(
     private _statusService: StatusService,
-    private _userDataService: UserDataService
+    private _sportsService: SportsService
   ) {}
 
   ngOnInit() {
-    this._statusService.setIsUser(true);
-    // this._loadData();
+    console.log("XXX - Entra a UserDashboardComponent");
+    this._statusService.setUserType(SPORTSMAN);
+    this._loadSports();
   }
-  get userName(): string {
-    return this._statusService.getUserName();
+  ngOnDestroy(): void {
+    console.log("XXX - Sale de UserDashboardComponent");
+    this._destroy$.next(true);
+    this._destroy$.complete();
+    localStorage.clear();
+    sessionStorage.clear();
   }
-  get planType(): string {
-    return this._statusService.getPlan();
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
-  // private _loadData(): void {
-  //   this._statusService.spinnerShow();
-  //   this._userDataService
-  //     .get(this._statusService.getUserId())
-  //     .subscribe({
-  //       next: (res: IResUserData) => {
-  //         if (res.success && !!res.result) {
-  //           this._statusService.setPlan(FREE_PLAN);
-  //         }
-  //         setTimeout(() => {
-  //           this._statusService.spinnerHide();
-  //         }, 500);
-  //       },
-  //       error: (e) => {
-  //         console.error(e);
-  //         this._statusService.spinnerHide();
-  //       },
-  //     })
-  //     .unsubscribe();
-  // }
+  get getSportsService$(): Observable<IResSports> {
+    return this._sportsService.getAll();
+  }
+  private _loadSports(): void {
+    this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResSports) => {
+        // if (res.success) {
+        this._statusService.setSportsList(res.results!);
+        console.log("XXX - UserRegisterComponent - ngOnInit - res", res);
+        // }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CountryStateCityService } from "src/services/general/country-state-city.service";
+import { UbicationService } from "src/services/general/ubication.service";
 
 @Component({
   selector: "app-helper",
@@ -13,7 +13,7 @@ export class HelperComponent implements OnInit {
   public states: any;
   public cities: any;
   public citiesByContry: any;
-  constructor(private _countryStateCityService: CountryStateCityService) {
+  constructor(private _ubicationService: UbicationService) {
     this.lang = localStorage.getItem("lang") || "es";
   }
 
@@ -28,35 +28,34 @@ export class HelperComponent implements OnInit {
   }
 
   private async getCountries() {
-    this.countries = await this._countryStateCityService.getCountries();
+    this.countries = await this._ubicationService.getCountries();
     await console.log(
       "XXX - HelperComponent - ngOnInit - this.countries ",
       this.countries
     );
   }
   private async getCountry(countryCode: string) {
-    this.country = await this._countryStateCityService.getCountry(countryCode);
+    this.country = await this._ubicationService.getCountry(countryCode);
   }
   private async getStates(countryCode: string) {
-    // this.states = await this._countryStateCityService.getStatesByCountry(countryCode);
+    // this.states = await this._ubicationService.getStatesByCountry(countryCode);
     console.log("XXX- se llamo states::: ", countryCode);
-    this.states = await this._countryStateCityService.getStatesByCountry(
-      countryCode
-    );
+    this.states = await this._ubicationService.getStatesByCountry(countryCode);
     await console.log(
       "XXX - UserRegisterComponent - getStates - this.states",
       this.states
     );
   }
   private async getCities(countryCode: string, cityCode: string) {
-    this.cities = await this._countryStateCityService.getCitiesBtStateByCountry(
+    this.cities = await this._ubicationService.getCitiesBtStateByCountry(
       countryCode,
       cityCode
     );
   }
   private async getCitiesByCountry(countryCode: string) {
-    this.citiesByContry =
-      await this._countryStateCityService.getCitiesByCountry(countryCode);
+    this.citiesByContry = await this._ubicationService.getCitiesByCountry(
+      countryCode
+    );
   }
 
   public changeLang(value: string): void {

@@ -1,4 +1,4 @@
-import { ICountry } from "./../../models/general/countryStateCity.interface";
+import { ICountry } from "../../models/general/countryStateCity.interface";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
@@ -10,7 +10,7 @@ import { environment } from "src/environments/environment";
  */
 // https://countrystatecity.in/docs/api/all-countries/
 // https://github.com/dr5hn/countries-states-cities-database
-export class CountryStateCityService {
+export class UbicationService {
   private _baseUrl: string;
   private _headers = new Headers();
   private _requestOptions: any;

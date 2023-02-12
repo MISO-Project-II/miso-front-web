@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Subject, takeUntil } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
+import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserData,
   IUserData,
@@ -44,43 +45,47 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       height: new FormControl("", [Validators.required]),
     });
   }
-  get form() {
+  get getForm() {
     return this.formUserGeneralData.controls;
   }
-  get user() {
+  get getUser() {
     return this.formUserGeneralData.get("user");
   }
-  get name() {
+  get getName() {
     return this.formUserGeneralData.get("name");
   }
-  get lastName() {
+  get getLastName() {
     return this.formUserGeneralData.get("lastName");
   }
-  get IdType() {
+  get getIdType() {
     return this.formUserGeneralData.get("IdType");
   }
-  get IdNumber() {
+  get getIdNumber() {
     return this.formUserGeneralData.get("IdNumber");
   }
-  get genre() {
+  get getGenre() {
     return this.formUserGeneralData.get("genre");
   }
-  get age() {
+  get getAge() {
     return this.formUserGeneralData.get("age");
   }
-  get weight() {
+  get getWeight() {
     return this.formUserGeneralData.get("weight");
   }
-  get height() {
+  get getHeight() {
     return this.formUserGeneralData.get("height");
+  }
+  get getGeneralStatus(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
 
   private _loadData(): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .get(this._statusService.getUserId())
-      .subscribe({
-        next: (res: IResUserData) => {
+      .get(this.getGeneralStatus.userId)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResUserData) => {
           if (res.success) {
             console.log("XXX - GeneralDataComponent - _loadData - res", res);
             this.formUserGeneralData
@@ -106,37 +111,35 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
             this.formUserGeneralData
               .get("height")
               ?.patchValue(res.result?.height);
+            setTimeout(() => {
+              this._statusService.spinnerHide();
+            }, 500);
           }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
         },
-        error: (e) => {
-          console.error(e);
-          this._statusService.spinnerHide();
-        },
-      })
-      .unsubscribe();
+        (err) => {
+          console.error(err);
+        }
+      );
   }
 
   public onSubmit(): void {
     this._statusService.spinnerShow();
     const data: IUserData = {
-      username: this.user?.value,
-      name: this.name?.value,
-      lastName: this.lastName?.value,
-      idIdentificationType: this.IdType?.value,
-      identificationNumber: this.IdNumber?.value,
-      gender: this.genre?.value,
-      age: this.age?.value,
-      weight: this.weight?.value,
-      height: this.height?.value,
+      username: this.getUser?.value,
+      name: this.getName?.value,
+      lastName: this.getLastName?.value,
+      idIdentificationType: this.getIdType?.value,
+      identificationNumber: this.getIdNumber?.value,
+      gender: this.getGenre?.value,
+      age: this.getAge?.value,
+      weight: this.getWeight?.value,
+      height: this.getHeight?.value,
     };
     this._callService(data);
   }
   private _callService(data: IUserData): void {
     this._userDataService
-      .update(this._statusService.getUserId(), data)
+      .update(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res: IResUserData) => {

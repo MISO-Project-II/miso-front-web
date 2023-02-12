@@ -37,7 +37,8 @@ describe("UserDataService", () => {
   it("Get UserDataService", () => {
     const userId: number = 1;
     service.get(userId).subscribe((data) => expect(data).toBeTruthy());
-    const url = environment.api.general_data + "/" + userId;
+    const url =
+      environment.api.base + environment.api.general_data + "/" + userId;
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe("GET");
     req.flush({});
@@ -46,7 +47,8 @@ describe("UserDataService", () => {
     const mock: IUserData = MockUserData;
     const userId: number = 1;
     service.update(userId, mock).subscribe((data) => expect(data).toBeTruthy());
-    const url = environment.api.general_data + "/" + userId;
+    const url =
+      environment.api.base + environment.api.general_data + "/" + userId;
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe("PUT");
     req.flush({});
