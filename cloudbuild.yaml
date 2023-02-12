@@ -9,7 +9,7 @@ steps:
 
   - id: Sonar Analysis
     name: gcr.io/cloud-builders/npm
-    args: [ 'run','sonar' ]
+    args: [ 'test','--watch=false','--code-coverage','true' ]
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
