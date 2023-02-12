@@ -1,7 +1,7 @@
 steps:
-  - id: Package image
-    name: gcr.io/cloud-builders/npm
-    args: [ 'install' ]
+#  - id: Package image
+#    name: gcr.io/cloud-builders/npm
+#    args: [ 'install' ]
 
   #  - id: Execute test
   #    name: gcr.io/cloud-builders/npm
