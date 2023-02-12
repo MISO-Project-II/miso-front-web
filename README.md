@@ -50,6 +50,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     * npm run lint
     * npm run coverage
     * npm run build
+    * npm run prod
     * npm run sonar
 # Docker
     * npm run prod

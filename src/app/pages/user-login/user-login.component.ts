@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment';
+import { environment } from "src/environments/environment";
 import { ROOT_ROUTES_NAMES } from "./../../app.routing";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
