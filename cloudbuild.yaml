@@ -5,11 +5,11 @@ steps:
 
   - id: Execute test
     name: gcr.io/cloud-builders/npm
-    arg: [ test ]
+    args: [ test ]
 
   - id: Sonar Analysis
     name: gcr.io/cloud-builders/npm
-    arg: [ 'run','sonar' ]
+    args: [ 'run','sonar' ]
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
