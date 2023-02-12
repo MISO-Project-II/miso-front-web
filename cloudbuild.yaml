@@ -1,21 +1,18 @@
 steps:
-#  - id: Package image
-#    name: gcr.io/cloud-builders/npm
-#    args: [ 'install' ]
+  - id: Package image
+    name: gcr.io/cloud-builders/npm
+    args: [ 'install' ]
 
-  #  - id: Execute test
-  #    name: gcr.io/cloud-builders/npm
-  #    entrypoint: bash
-  #    args:
-  #      - -c
-  #      - |
-  #        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  #        apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
-  #        npm run coverage
+  - id: Execute test
+    name: gcr.io/cloud-builders/npm
+    entrypoint: bash
+    args:
+      - -c
+      - |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
+          npm run coverage
 
-  #  - id: Sonar Analysis
-  #    name: gcr.io/cloud-builders/npm
-  #    args: [ 'run','sonar' ]
 
   - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     args:
