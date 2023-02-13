@@ -5,6 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { FREE_PLAN, SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { IProducts } from "src/models/home/products.interface";
 
 @Injectable()
 export class StatusService {
@@ -14,6 +15,8 @@ export class StatusService {
   private _eventsListScheduled: IEvents[];
   private _servicesList: IServices[];
   private _servicesListScheduled: IServices[];
+  private _productsList: IProducts[];
+  private _productsListScheduled: IProducts[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_PLAN;
@@ -53,6 +56,12 @@ export class StatusService {
   public setServicesList(servicesList: IServices[]) {
     this._servicesList = servicesList;
   }
+  public setProductsListScheduled(productsListScheduled: IProducts[]) {
+    this._productsListScheduled = productsListScheduled;
+  }
+  public setProductsList(productsList: IProducts[]) {
+    this._productsList = productsList;
+  }
   public setServicesListScheduled(servicesListScheduled: IServices[]) {
     this._servicesListScheduled = servicesListScheduled;
   }
@@ -73,6 +82,12 @@ export class StatusService {
   }
   public getServicesListScheduled(): IServices[] {
     return this._servicesListScheduled;
+  }
+  public getProductsList(): IProducts[] {
+    return this._productsList;
+  }
+  public getProductsListScheduled(): IProducts[] {
+    return this._productsListScheduled;
   }
   public spinnerShow() {
     this._spinner.show();
