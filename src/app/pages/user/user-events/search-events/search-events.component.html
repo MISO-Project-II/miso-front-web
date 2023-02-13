@@ -2,13 +2,13 @@
   <hr />
   <div
     class="d-flex min-width row justify-content-center"
-    *ngIf="this.getEventsList.length! >= 1; else noSuccess"
+    *ngIf="getEventsList.length! >= 1; else noSuccess"
   >
     <div class="col-12 col-md-3 mx-auto">
       <div class="options pe-1">
         <div class="list-group overflow-auto">
           <button
-            *ngFor="let item of this.getEventsList"
+            *ngFor="let item of getEventsList"
             type="button"
             (click)="setEvent(item)"
             class="list-group-item ds-list-group-item list-group-item-action"

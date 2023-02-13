@@ -13,7 +13,7 @@ export const MockEvent: IEvents = {
 // Data Response
 export const MockGetEvents: IEvents[] = [
   {
-    id: "1",
+    id: 1,
     title: "Media maraton1",
     description: "Este evento es media maraton1",
     startPlace: "Plaza central1",
@@ -23,7 +23,7 @@ export const MockGetEvents: IEvents[] = [
     thirdId: "1",
   },
   {
-    id: "2",
+    id: 2,
     title: "Rodada ciclista2",
     description: "Este evento es rodada ciclista2",
     startPlace: "Parque oriental2",
@@ -33,7 +33,7 @@ export const MockGetEvents: IEvents[] = [
     thirdId: "2",
   },
   {
-    id: "3",
+    id: 3,
     title: "Gimnasia al sofa3",
     description: "Este evento es gimnasia al sofa3",
     startPlace: "En casa3",
@@ -42,7 +42,7 @@ export const MockGetEvents: IEvents[] = [
     thirdId: "3",
   },
   {
-    id: "4",
+    id: 4,
     title: "Media maraton4",
     description: "Este evento es media maraton4",
     startPlace: "Plaza central4",
@@ -52,7 +52,7 @@ export const MockGetEvents: IEvents[] = [
     thirdId: "1",
   },
   {
-    id: "5",
+    id: 5,
     title: "Rodada ciclista5",
     description: "Este evento es rodada ciclista5",
     startPlace: "Parque oriental5",
@@ -62,7 +62,7 @@ export const MockGetEvents: IEvents[] = [
     thirdId: "2",
   },
   {
-    id: "6",
+    id: 6,
     title: "Gimnasia al sofa6",
     description: "Este evento es gimnasia al sofa6",
     startPlace: "En casa6",
@@ -73,7 +73,7 @@ export const MockGetEvents: IEvents[] = [
 ];
 export const MockGetEventsRegistered: IEvents[] = [
   {
-    id: "4",
+    id: 4,
     title: "Media maraton4",
     description: "Este evento es media maraton4",
     startPlace: "Plaza central4",
@@ -83,7 +83,7 @@ export const MockGetEventsRegistered: IEvents[] = [
     thirdId: "1",
   },
   {
-    id: "5",
+    id: 5,
     title: "Rodada ciclista5",
     description: "Este evento es rodada ciclista5",
     startPlace: "Parque oriental5",
@@ -93,7 +93,7 @@ export const MockGetEventsRegistered: IEvents[] = [
     thirdId: "2",
   },
   {
-    id: "6",
+    id: 6,
     title: "Gimnasia al sofa6",
     description: "Este evento es gimnasia al sofa6",
     startPlace: "En casa6",

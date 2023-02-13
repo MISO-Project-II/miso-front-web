@@ -1,3 +1,4 @@
+import { IServices } from "src/models/home/services.interface";
 import { IEvents } from "src/models/home/events.interface";
 import { Injectable } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -11,6 +12,8 @@ export class StatusService {
   private _sportsList: ISports[];
   private _eventsList: IEvents[];
   private _eventsListScheduled: IEvents[];
+  private _servicesList: IServices[];
+  private _servicesListScheduled: IServices[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_PLAN;
@@ -47,6 +50,12 @@ export class StatusService {
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
     this._eventsListScheduled = eventsListScheduled;
   }
+  public setServicesList(servicesList: IServices[]) {
+    this._servicesList = servicesList;
+  }
+  public setServicesListScheduled(servicesListScheduled: IServices[]) {
+    this._servicesListScheduled = servicesListScheduled;
+  }
   public getGeneralStatus(): StatusModel {
     return this._status;
   }
@@ -58,6 +67,12 @@ export class StatusService {
   }
   public getEventsListScheduled(): IEvents[] {
     return this._eventsListScheduled;
+  }
+  public getServicesList(): IServices[] {
+    return this._servicesList;
+  }
+  public getServicesListScheduled(): IServices[] {
+    return this._servicesListScheduled;
   }
   public spinnerShow() {
     this._spinner.show();
