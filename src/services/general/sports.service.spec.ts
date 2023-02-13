@@ -33,7 +33,7 @@ describe("SportsService", () => {
   });
 
   it("GetAll SportsService", () => {
-    service.getAll().subscribe((data) => expect(data).toBeTruthy());
+    service.getSports().subscribe((data) => expect(data).toBeTruthy());
     const url = environment.api.base + environment.api.sports;
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe("GET");

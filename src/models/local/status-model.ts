@@ -7,7 +7,6 @@ export class StatusModel {
   token: string;
   userName: string;
   contractType: string; // Contract Plan, FREE_PLAN, MEDIUM_PLAN, PREMIUM_PLAN
-  sportsList: ISports[];
   constructor(userType: string) {
     this.userType = userType;
   }

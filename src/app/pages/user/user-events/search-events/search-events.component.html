@@ -1,4 +1,77 @@
 <div id="main-search-events" class="container-fluid height-100vh">
   <hr />
-  <p>main-search-events</p>
+  <div
+    class="d-flex min-width row justify-content-center"
+    *ngIf="this.getEventsList.length! >= 1; else noSuccess"
+  >
+    <div class="col-12 col-md-3 mx-auto">
+      <div class="options pe-1">
+        <div class="list-group overflow-auto">
+          <button
+            *ngFor="let item of this.getEventsList"
+            type="button"
+            (click)="setEvent(item)"
+            class="list-group-item ds-list-group-item list-group-item-action"
+            aria-current="true"
+            [class.active]="getEvent$ === item"
+          >
+            {{ item.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 mx-auto" *ngIf="!!getEvent$; else noItem">
+      <app-ds-title [title]="getEvent$.title! | translate"></app-ds-title>
+      <div class="body">
+        <p>{{ getEvent$.description }}</p>
+        <div class="d-flex">
+          <label>{{ "LBL.DATE" | translate }}</label>
+          <p>{{ getEvent$.date | date: "dd/mm/yyy" }}</p>
+        </div>
+        <div class="d-flex">
+          <label>{{ "LBL.START_PLACE" | translate }}</label>
+          <p>{{ getEvent$.startPlace }}</p>
+        </div>
+        <div *ngIf="!!getEvent$?.destinyPlace" class="d-flex">
+          <label>{{ "LBL.DESTINY_PLACE" | translate }}</label>
+          <p>{{ getEvent$.destinyPlace }}</p>
+        </div>
+        <div
+          *ngIf="!!getEvent$?.eventCategoryId"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label>{{
+            getEvent$.eventCategoryId === INSIDE_OF_HOUSE
+              ? ("LBL.INSIDE_OF_HOUSE" | translate)
+              : getEvent$.eventCategoryId === OUTSIDE_OF_HOUSE
+              ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
+              : ""
+          }}</label>
+        </div>
+      </div>
+      <div class="ds-button-continue p-2">
+        <button
+          id="btn-continue"
+          type="button"
+          (click)="addEvent()"
+          class="btn ds-button"
+        >
+          {{ "BTN.ENROLL" | translate }}
+        </button>
+      </div>
+    </div>
+    <ng-template #noItem>
+      <div class="col-12 col-md-9 mx-auto">
+        <div class="alert alert-info" role="alert">
+          <label>{{ "LBL.SELECT_EVENT" | translate }}</label>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #noSuccess>
+    <div class="alert alert-warning" role="alert">
+      <label>{{ "BTN.NO_DATA" | translate }} </label>
+    </div></ng-template
+  >
 </div>

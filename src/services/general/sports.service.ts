@@ -20,7 +20,8 @@ export class SportsService {
     this._baseUrl = environment.api.base + environment.api.sports;
     this._httpHeaders = new HttpHeaders(environment.api.headers);
   }
-  getAll(): Observable<IResSports> {
+  /**Obtener todos los datos relacionados con usuario */
+  getSports(): Observable<IResSports> {
     return this._http
       .get<IResSports>(this._baseUrl, { headers: this._httpHeaders })
       .pipe(
@@ -34,7 +35,8 @@ export class SportsService {
     // const mock = of(MockResErrorSports);
     // return mock;
   }
-  get(idData: number): Observable<IResSports> {
+  /**Obtener todos los datos relacionados con usuario */
+  getSportsByUser(idData: number): Observable<IResSports> {
     // return this._http.get<IResSports>(`${this._baseUrl}/${idData}`);
     const mock = of(MockResSuccessGetSports);
     // const mock = of(MockResErrorSports);
