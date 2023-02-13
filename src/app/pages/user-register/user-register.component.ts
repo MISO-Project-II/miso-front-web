@@ -150,7 +150,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     return this.formUserRegister.get("yearsOfResidence");
   }
   get getSportsService$(): Observable<IResSports> {
-    return this._sportsService.getAll();
+    return this._sportsService.getSports();
   }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();

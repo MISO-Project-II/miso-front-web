@@ -74,7 +74,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     return this.formUserSportProfile.get("sports_history");
   }
   get _sportsServiceGetAll$(): Observable<IResSports> {
-    return this._sportsService.getAll();
+    return this._sportsService.getSports();
   }
   private _loadData(): void {
     this._statusService.spinnerShow();
