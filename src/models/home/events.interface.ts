@@ -1,7 +1,7 @@
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
 export interface IEvents {
-  id?: string;
+  id?: number;
   title: string;
   description: string;
   startPlace: string;
