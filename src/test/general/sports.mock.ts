@@ -73,11 +73,11 @@ export const MockGetSports: ISports[] = [
 export const MockResSuccessGetSports: IResSports = {
   results: MockGetSports,
   success: true,
-  message: "message",
+  message: "Message Ok Sports",
 };
 
 export const MockResErrorSports: IResSports = {
   success: false,
-  message: "Error Sports",
+  message: "Message Error Sports",
   results: null,
 };

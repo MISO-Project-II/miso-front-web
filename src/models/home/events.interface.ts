@@ -1,7 +1,7 @@
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
 export interface IEvents {
-  id?: string;
+  id?: number;
   title: string;
   description: string;
   startPlace: string;
@@ -10,10 +10,15 @@ export interface IEvents {
   eventCategoryId: string;
   thirdId: string;
 }
-export interface IReqEvents extends IGenericRequest {
-  request?: IEvents;
+export interface IReqEvent {
+  title: string;
+  description: string;
+  startPlace: string;
+  destinyPlace: string;
+  date: Date;
+  eventCategoryId: string;
+  thirdId: string;
 }
 export interface IResEvents extends IGenericResponse {
-  response?: IEvents;
-  responseAll?: IEvents[];
+  result: IEvents[] | null;
 }

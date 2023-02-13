@@ -10,6 +10,9 @@ import { SportProfileService } from "./profile/sport-profile.service";
 import { DemographicProfileService } from "./profile/demographic-profile.service";
 import { FoodProfileService } from "./profile/food-profile.service";
 import { UbicationService } from "./general/ubication.service";
+import { EventsService } from "./home/events/events.service";
+import { ServicesService } from "./home/services/services.service";
+import { ProductsService } from "./home/products/products.service";
 
 @NgModule({
   imports: [CommonModule],
@@ -25,9 +28,9 @@ export class ServicesModule {
         SportProfileService,
         FoodProfileService,
 
-        // EventsService,
-        // ServicesService,
-        // ProductsService,
+        EventsService,
+        ServicesService,
+        ProductsService,
 
         // UpdatePlanService,
 

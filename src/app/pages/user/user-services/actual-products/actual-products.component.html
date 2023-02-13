@@ -1,4 +1,56 @@
 <div id="main-actual-products">
   <hr />
-  <p>main-actual-products</p>
+  <div
+    class="d-flex min-width row justify-content-center"
+    *ngIf="getProductsListScheduled.length! > 0; else noSuccess"
+  >
+    <div class="col-12 col-md-3 mx-auto">
+      <div class="options pe-1">
+        <div class="list-group overflow-auto">
+          <button
+            *ngFor="let item of getProductsListScheduled"
+            type="button"
+            (click)="setProduct(item)"
+            class="list-group-item ds-list-group-item list-group-item-action"
+            aria-current="true"
+            [class.active]="getProduct$ === item"
+          >
+            {{ item.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 mx-auto" *ngIf="!!getProduct$; else noItem">
+      <app-ds-title [title]="getProduct$.title! | translate"></app-ds-title>
+      <div class="body">
+        <p>{{ getProduct$.description }}</p>
+        <div class="d-flex">
+          <label>{{ "LBL.PRICE" | translate }}</label>
+          <p>{{ getProduct$.price }}</p>
+        </div>
+      </div>
+      <div class="ds-button-continue p-2">
+        <button
+          id="btn-continue"
+          type="button"
+          (click)="delProduct(getProduct$)"
+          class="btn ds-button"
+        >
+          {{ "BTN.CANCEL" | translate }}
+        </button>
+      </div>
+    </div>
+    <ng-template #noItem>
+      <div class="col-12 col-md-9 mx-auto">
+        <div class="alert alert-info" role="alert">
+          <label>{{ "LBL.SELECT_PRODUCT" | translate }}</label>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #noSuccess>
+    <div class="alert alert-warning" role="alert">
+      <label>{{ "ERR.NO_DATA" | translate }} </label>
+    </div></ng-template
+  >
 </div>

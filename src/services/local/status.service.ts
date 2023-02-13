@@ -1,13 +1,22 @@
+import { IServices } from "src/models/home/services.interface";
+import { IEvents } from "src/models/home/events.interface";
 import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
 import { NgxSpinnerService } from "ngx-spinner";
 import { FREE_PLAN, SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { IProducts } from "src/models/home/products.interface";
 
 @Injectable()
 export class StatusService {
   private _status: StatusModel;
+  private _sportsList: ISports[];
+  private _eventsList: IEvents[];
+  private _eventsListScheduled: IEvents[];
+  private _servicesList: IServices[];
+  private _servicesListScheduled: IServices[];
+  private _productsList: IProducts[];
+  private _productsListScheduled: IProducts[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_PLAN;
@@ -36,10 +45,49 @@ export class StatusService {
     this._status.contractType = contractType;
   }
   public setSportsList(sportsList: ISports[]) {
-    this._status.sportsList = sportsList;
+    this._sportsList = sportsList;
+  }
+  public setEventsList(eventsList: IEvents[]) {
+    this._eventsList = eventsList;
+  }
+  public setEventsListScheduled(eventsListScheduled: IEvents[]) {
+    this._eventsListScheduled = eventsListScheduled;
+  }
+  public setServicesList(servicesList: IServices[]) {
+    this._servicesList = servicesList;
+  }
+  public setProductsListScheduled(productsListScheduled: IProducts[]) {
+    this._productsListScheduled = productsListScheduled;
+  }
+  public setProductsList(productsList: IProducts[]) {
+    this._productsList = productsList;
+  }
+  public setServicesListScheduled(servicesListScheduled: IServices[]) {
+    this._servicesListScheduled = servicesListScheduled;
   }
   public getGeneralStatus(): StatusModel {
     return this._status;
+  }
+  public getSportsList(): ISports[] {
+    return this._sportsList;
+  }
+  public getEventsList(): IEvents[] {
+    return this._eventsList;
+  }
+  public getEventsListScheduled(): IEvents[] {
+    return this._eventsListScheduled;
+  }
+  public getServicesList(): IServices[] {
+    return this._servicesList;
+  }
+  public getServicesListScheduled(): IServices[] {
+    return this._servicesListScheduled;
+  }
+  public getProductsList(): IProducts[] {
+    return this._productsList;
+  }
+  public getProductsListScheduled(): IProducts[] {
+    return this._productsListScheduled;
   }
   public spinnerShow() {
     this._spinner.show();
