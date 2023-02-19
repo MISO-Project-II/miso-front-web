@@ -1,10 +1,15 @@
 import {
   FREE_CONTRACT,
+  INSIDE_OF_HOUSE,
   INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "./../../constanst/data.constants";
-import { IEvents, IResEvents } from "src/models/home/events.interface";
+import {
+  IEvents,
+  IResEvents,
+  IResUserEvents,
+} from "src/models/home/events.interface";
 
 // Data request
 export const MockGetEvent: IEvents = {
@@ -83,6 +88,11 @@ export const MockGetEvents: IEvents[] = [
 ];
 
 // Response
+export const MockResSuccessGetUserEvents: IResEvents = {
+  result: MockGetEvents,
+  success: true,
+  message: "Message Ok Events",
+};
 export const MockResSuccessGetEvents: IResEvents = {
   result: MockGetEvents,
   success: true,
@@ -93,4 +103,37 @@ export const MockResErrorEvents: IResEvents = {
   success: false,
   message: "Message Error Events",
   result: null,
+};
+
+// XXX
+export const MockGetUserEventsConsume: IResUserEvents = {
+  success: true,
+  message: "Message Ok User-Events Consume",
+  created: null,
+  consume: [
+    {
+      idEvent: 1,
+      name: "Evento 1",
+      date: "2023-03-10",
+      description:
+        "idEvent: 1; name: Evento 1; date: 2022-03-10; city: 149237; idSport: 1; idUserCreator: 0; contracttype: FREE_CONTRACT",
+      city: "149237",
+      idSport: 1,
+      idUserCreator: 1,
+      contractType: FREE_CONTRACT,
+      eventType: INSIDE_OF_HOUSE,
+    },
+    {
+      idEvent: 2,
+      name: "Evento 2",
+      date: "2023-03-11",
+      description:
+        "name: Evento 2; idSport: 2; idUserCreator: 1; contracttype: FREE_CONTRACT",
+      city: "149237",
+      idSport: 2,
+      idUserCreator: 1,
+      contractType: FREE_CONTRACT,
+      eventType: OUTSIDE_OF_HOUSE,
+    },
+  ],
 };

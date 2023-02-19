@@ -53,19 +53,22 @@ export class StatusService {
     this._eventsList = eventsList;
   }
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
-    this._eventsListScheduled = eventsListScheduled;
+    const newEventsListScheduled = new Set(eventsListScheduled);
+    this._eventsListScheduled = [...newEventsListScheduled];
   }
   public setServicesList(servicesList: IServices[]) {
     this._servicesList = servicesList;
   }
   public setProductsListScheduled(productsListScheduled: IProducts[]) {
-    this._productsListScheduled = productsListScheduled;
+    const newProductsListScheduled = new Set(productsListScheduled);
+    this._productsListScheduled = [...newProductsListScheduled];
   }
   public setProductsList(productsList: IProducts[]) {
     this._productsList = productsList;
   }
   public setServicesListScheduled(servicesListScheduled: IServices[]) {
-    this._servicesListScheduled = servicesListScheduled;
+    const newServicesListScheduled = new Set(servicesListScheduled);
+    this._servicesListScheduled = [...newServicesListScheduled];
   }
   public setRoutesList(routesList: IRoutes[]) {
     this._routesList = routesList;

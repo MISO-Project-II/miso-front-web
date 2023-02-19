@@ -21,7 +21,9 @@ export class UserServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - UserServicesComponent");
+    console.log(
+      "XXX - UserServicesComponent (Contiene a servicios y productos)"
+    );
     this._loadServices();
     this._loadProducts();
   }
