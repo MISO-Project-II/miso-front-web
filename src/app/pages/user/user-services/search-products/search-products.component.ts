@@ -74,9 +74,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
           productsListScheduled.push(data);
           this._statusService.setProductsListScheduled(productsListScheduled);
         }
-        setTimeout(() => {
-          this._statusService.spinnerHide();
-        }, 500);
+        this._statusService.spinnerHide();
       });
   }
 }

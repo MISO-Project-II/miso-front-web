@@ -4,7 +4,8 @@ export interface ISports {
   idsports: number;
   name: string;
   description?: string;
+  sportType?: string;
 }
 export interface IResSports extends IGenericResponse {
-  results: ISports[] | null;
+  result: ISports[] | null;
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
@@ -64,16 +64,24 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   private _callService(data: IEvents): void {
     this._eventsService
       .updateEventsByUser(this.getGeneralStatus.userId, data)
-      .subscribe((res: IResEvents) => {
-        if (res.success) {
-          console.log("XXX - SearchEventsComponent - _callService - res", res);
-          const eventsListScheduled = this.getEventsListScheduled;
-          eventsListScheduled.push(data);
-          this._statusService.setEventsListScheduled(eventsListScheduled);
-        }
-        setTimeout(() => {
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResEvents) => {
+          if (res.success) {
+            console.log(
+              "XXX - SearchEventsComponent - _callService - res",
+              res
+            );
+            const eventsListScheduled = this.getEventsListScheduled;
+            eventsListScheduled.push(data);
+            this._statusService.setEventsListScheduled(eventsListScheduled);
+          }
           this._statusService.spinnerHide();
-        }, 500);
-      });
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }

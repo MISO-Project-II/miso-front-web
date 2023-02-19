@@ -80,8 +80,9 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this._statusService.spinnerShow();
     this._sportProfileService
       .get(this.getGeneralStatus.userId)
-      .subscribe({
-        next: (res: IResUserSportProfile) => {
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResUserSportProfile) => {
           console.log("XXX - SportProfileComponent - _loadData - res", res);
           if (res.success) {
             this.formUserSportProfile.get("id")?.patchValue(res.response?.id);
@@ -104,16 +105,13 @@ export class SportProfileComponent implements OnInit, OnDestroy {
               .get("sports_history")
               ?.patchValue(res.response?.sports_history);
           }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
-        },
-        error: (e) => {
-          console.error(e);
           this._statusService.spinnerHide();
         },
-      })
-      .unsubscribe();
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 
   public onSubmit(): void {
@@ -132,20 +130,18 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this._sportProfileService
       .update(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
-      .subscribe({
-        next: (res: IResUserSportProfile) => {
+      .subscribe(
+        (res: IResUserSportProfile) => {
           if (res.success) {
             this._loadData();
           }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
-        },
-        error: (e) => {
-          console.error(e);
           this._statusService.spinnerHide();
         },
-      });
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
   public addSportPractice(item: any): void {
     this.listSportPractice.push(item);

@@ -90,9 +90,13 @@ export class StatusService {
     return this._productsListScheduled;
   }
   public spinnerShow() {
-    this._spinner.show();
+    setTimeout(() => {
+      this._spinner.show();
+    }, 500);
   }
   public spinnerHide() {
-    this._spinner.hide();
+    setTimeout(() => {
+      this._spinner.hide();
+    }, 500);
   }
 }
