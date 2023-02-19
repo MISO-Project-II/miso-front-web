@@ -103,8 +103,10 @@
     "CALORIES_1": "(calorías)",
     "MIN_1": "(min)",
     "SUGGESTED_EXERCISES": "Ejercicios sugeridos: ",
-    "SUGGESTED_FOODS": "Alimentos sugeridos: "
-
+    "SUGGESTED_FOODS": "Alimentos sugeridos: ",
+    "DISTANCE": "Distancia: ",
+    "SEE_ON_MAP": "Ver en el mapa",
+    "SELECT_ROUTE": "Selecciona una ruta"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
