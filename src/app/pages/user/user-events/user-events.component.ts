@@ -45,9 +45,11 @@ export class UserEventsComponent implements OnInit, OnDestroy {
           this._statusService.setEventsList(res.result!);
           console.log("XXX - UserDashboardComponent - _loadEvents - res", res);
         }
+        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
+        this._statusService.spinnerHide();
       }
     );
   }
@@ -58,9 +60,11 @@ export class UserEventsComponent implements OnInit, OnDestroy {
           this._statusService.setProductsList(res.result!);
           console.log("XXX - UserDashboardComponent - _loadProduct - res", res);
         }
+        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
+        this._statusService.spinnerHide();
       }
     );
   }

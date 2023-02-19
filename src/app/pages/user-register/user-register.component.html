@@ -246,19 +246,20 @@
               }}</small>
             </div>
             <div class="ds-input-group mt-3 ds-card-right">
-              <label for="age">{{ "LBL.AGE" | translate }}</label>
+              <label for="age">{{ "LBL.BIRTH_DATE" | translate }}</label>
               <input
                 id="age_input"
                 formControlName="age"
-                type="number"
+                type="string"
                 class="form-control ds-input"
                 aria-describedby="age_input"
-                [placeholder]="'PLACEHOLDER.YEARS' | translate"
-                minlength="1"
-                maxlength="2"
+                [placeholder]="'PLACEHOLDER.DATE_FORMAT' | translate"
               />
               <small *ngIf="age?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
+              }}</small>
+              <small *ngIf="age?.hasError('pattern')">{{
+                "PLACEHOLDER.DATE_FORMAT" | translate
               }}</small>
             </div>
           </div>
@@ -272,13 +273,13 @@
                 class="form-control ds-input"
                 aria-describedby="weight_input"
                 [placeholder]="'PLACEHOLDER.WEIGHT' | translate"
-                minlength="1"
-                maxlength="3"
-                max="999"
               />
               <small *ngIf="weight?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
+              <small *ngIf="weight?.hasError('max')">
+                {{ "ERR.REQUIRED_FIELD" | translate }}
+              </small>
             </div>
             <div class="ds-input-group mt-3 ds-card-right">
               <label for="height">{{ "LBL.HEIGHT" | translate }}</label>
@@ -289,12 +290,13 @@
                 class="form-control ds-input"
                 aria-describedby="height_input"
                 [placeholder]="'PLACEHOLDER.HEIGHT' | translate"
-                minlength="1"
-                maxlength="3"
               />
               <small *ngIf="height?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
+              <small *ngIf="height?.hasError('max')">
+                {{ "ERR.REQUIRED_FIELD" | translate }}
+              </small>
             </div>
           </div>
         </div>
@@ -451,20 +453,20 @@
           </div>
           <div class="ds-input-group mt-3 ds-card-flex">
             <div class="ds-input-group mt-3 ds-card-left">
-              <label for="years_of_residence">{{
-                "LBL.YEARS_OF_RESIDENCE" | translate
+              <label for="months_of_residence">{{
+                "LBL.MONTHS_OF_RESIDENCE" | translate
               }}</label>
               <input
-                id="years_of_residence_input"
-                formControlName="yearsOfResidence"
+                id="months_of_residence_input"
+                formControlName="montsOfResidence"
                 type="number"
                 class="form-control ds-input"
-                aria-describedby="years_of_residence_input"
-                [placeholder]="'PLACEHOLDER.YEARS' | translate"
+                aria-describedby="months_of_residence_input"
+                [placeholder]="'PLACEHOLDER.MONTS' | translate"
                 minlength="1"
                 maxlength="2"
               />
-              <small *ngIf="yearsOfResidence?.hasError('required')">{{
+              <small *ngIf="montsOfResidence?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>

@@ -118,6 +118,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
         },
         (err) => {
           console.error(err);
+          this._statusService.spinnerHide();
         }
       );
   }
@@ -141,20 +142,18 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
     this._userDataService
       .update(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
-      .subscribe({
-        next: (res: IResUserData) => {
+      .subscribe(
+        (res: IResUserData) => {
           if (res.success) {
             console.log("XXX - GeneralDataComponent - _callService - res", res);
             this._loadData();
           }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
-        },
-        error: (e) => {
-          console.error(e);
           this._statusService.spinnerHide();
         },
-      });
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }

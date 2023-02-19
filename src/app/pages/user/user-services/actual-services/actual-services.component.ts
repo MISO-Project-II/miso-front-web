@@ -95,9 +95,7 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
             res
           );
         }
-        setTimeout(() => {
-          this._statusService.spinnerHide();
-        }, 500);
+        this._statusService.spinnerHide();
       });
   }
 }

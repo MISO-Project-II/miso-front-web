@@ -35,13 +35,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private _loadSports(): void {
     this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResSports) => {
-        // if (res.success) {
-        this._statusService.setSportsList(res.results!);
-        console.log("XXX - UserProfileComponent - _loadSports - res", res);
-        // }
+        if (res.success) {
+          this._statusService.setSportsList(res.result!);
+          console.log("XXX - UserProfileComponent - _loadSports - res", res);
+        }
+        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
+        this._statusService.spinnerHide();
       }
     );
   }

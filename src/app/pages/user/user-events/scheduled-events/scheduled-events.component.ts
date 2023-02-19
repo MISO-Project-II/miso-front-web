@@ -60,9 +60,11 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
             res
           );
         }
+        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
+        this._statusService.spinnerHide();
       }
     );
   }
@@ -87,16 +89,21 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   private _callService(data: IEvents): void {
     this._eventsService
       .updateEventsByUser(this._statusService.getGeneralStatus().userId, data)
-      .subscribe((res: IResEvents) => {
-        if (res.success) {
-          console.log(
-            "XXX - ScheduledEventsComponent - _callService - res",
-            res
-          );
-        }
-        setTimeout(() => {
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResEvents) => {
+          if (res.success) {
+            console.log(
+              "XXX - ScheduledEventsComponent - _callService - res",
+              res
+            );
+          }
           this._statusService.spinnerHide();
-        }, 500);
-      });
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }
