@@ -18,7 +18,11 @@ export interface IResEvents extends IGenericResponse {
 export interface IResEvent extends IGenericResponse {
   result: IEvents | null;
 }
-export interface IResUserEvents extends IGenericResponse {
-  created: IEvents[] | null;
-  consume: IEvents[] | null;
+export interface IResUserEvents {
+  name: string;
+  idUser: number;
+  lastName: string;
+  identificationNumber: number;
+  "produce-services": IEvents[] | null; // /users/{{id_third}}/event/created
+  "consume-services": IEvents[] | null; // /users/{{id_sportsman}}/event/consume
 }

@@ -9,6 +9,7 @@ import {
   IResProducts,
   IResUserProducts,
 } from "src/models/home/products.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -56,12 +57,15 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserProducts) => {
-        if (res.success) {
+        // if (res.success) {
+        if (!!res) {
           console.log(
             "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",
             res
           );
-          this._statusService.setProductsListScheduled(res.consume!);
+          this._statusService.setProductsListScheduled(
+            res["consume-services"]!
+          );
         }
         this._statusService.spinnerHide();
       },
@@ -98,24 +102,26 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
       "XXX - ScheduledProductsComponent - _callService - listScheduled",
       listScheduled
     );
-    this._statusService.spinnerHide();
-    // this._productsService
-    //   .putUserProduct(this._statusService.getGeneralStatus().userId, listScheduled)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserProducts) => {
-    //       if (res.success) {
-    //         console.log(
-    //           "XXX - ScheduledProductsComponent - _callService - res",
-    //           res
-    //         );
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
+    this._productsService
+      .putUserProduct(
+        this._statusService.getGeneralStatus().userId,
+        listScheduled
+      )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IGenericResponse) => {
+          if (res.success) {
+            console.log(
+              "XXX - ScheduledProductsComponent - _callService - res",
+              res
+            );
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }

@@ -15,7 +15,11 @@ export interface IResServices extends IGenericResponse {
 export interface IResService extends IGenericResponse {
   result: IServices | null;
 }
-export interface IResUserServices extends IGenericResponse {
-  created: IServices[] | null;
-  consume: IServices[] | null;
+export interface IResUserServices {
+  name: string;
+  idUser: number;
+  lastName: string;
+  identificationNumber: number;
+  "produce-services": IServices[] | null; // /users/{{id_third}}/service/created
+  "consume-services": IServices[] | null; // /users/{{id_sportsman}}/service/consume
 }
