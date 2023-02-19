@@ -29,18 +29,18 @@ export class ServicesService {
   /**Obtener todos los datos */
   getServices(): Observable<IResServices> {
     this._baseUrl = environment.api.base + environment.api.services;
-    return this._http
-      .get<IResServices>(this._baseUrl, { headers: this._httpHeaders })
-      .pipe(
-        retry(3),
-        catchError((err: any) => {
-          console.log("XXX - ServicesService - catchError - err", err);
-          return throwError(err);
-        })
-      );
-    // const mock = of(MockResSuccessGetServices);
+    // return this._http
+    //   .get<IResServices>(this._baseUrl, { headers: this._httpHeaders })
+    //   .pipe(
+    //     retry(3),
+    //     catchError((err: any) => {
+    //       console.log("XXX - ServicesService - catchError - err", err);
+    //       return throwError(err);
+    //     })
+    //   );
+    const mock = of(MockResSuccessGetServices);
     // const mock = of(MockResErrorServices);
-    // return mock;
+    return mock;
   }
   getService(idService: number): Observable<IResService> {
     this._baseUrl = environment.api.base + environment.api.services;

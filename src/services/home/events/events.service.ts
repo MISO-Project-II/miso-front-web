@@ -30,18 +30,18 @@ export class EventsService {
   /**Obtener todos los datos */
   getEvents(): Observable<IResEvents> {
     this._baseUrl = environment.api.base + environment.api.events;
-    return this._http
-      .get<IResEvents>(this._baseUrl, { headers: this._httpHeaders })
-      .pipe(
-        retry(3),
-        catchError((err: any) => {
-          console.log("XXX - EventsService - catchError - err", err);
-          return throwError(err);
-        })
-      );
-    // const mock = of(MockResSuccessGetEvents);
+    // return this._http
+    //   .get<IResEvents>(this._baseUrl, { headers: this._httpHeaders })
+    //   .pipe(
+    //     retry(3),
+    //     catchError((err: any) => {
+    //       console.log("XXX - EventsService - catchError - err", err);
+    //       return throwError(err);
+    //     })
+    //   );
+    const mock = of(MockResSuccessGetEvents);
     // const mock = of(MockResErrorEvents);
-    // return mock;
+    return mock;
   }
   getEvent(idEvent: number): Observable<IResEvent> {
     this._baseUrl = environment.api.base + environment.api.events;
