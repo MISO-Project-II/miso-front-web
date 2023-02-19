@@ -13,6 +13,7 @@ import { UbicationService } from "./general/ubication.service";
 import { EventsService } from "./home/events/events.service";
 import { ServicesService } from "./home/services/services.service";
 import { ProductsService } from "./home/products/products.service";
+import { RoutesService } from "./general/routes.service";
 
 @NgModule({
   imports: [CommonModule],
@@ -31,6 +32,7 @@ export class ServicesModule {
         EventsService,
         ServicesService,
         ProductsService,
+        RoutesService,
 
         // UpdatePlanService,
 

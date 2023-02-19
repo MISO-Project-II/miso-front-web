@@ -6,6 +6,7 @@ import { FREE_PLAN, SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IProducts } from "src/models/home/products.interface";
+import { IRoutes } from "src/models/general/routes.interface";
 
 @Injectable()
 export class StatusService {
@@ -17,6 +18,7 @@ export class StatusService {
   private _servicesListScheduled: IServices[];
   private _productsList: IProducts[];
   private _productsListScheduled: IProducts[];
+  private _routesList: IRoutes[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_PLAN;
@@ -65,6 +67,9 @@ export class StatusService {
   public setServicesListScheduled(servicesListScheduled: IServices[]) {
     this._servicesListScheduled = servicesListScheduled;
   }
+  public setRoutesList(routesList: IRoutes[]) {
+    this._routesList = routesList;
+  }
   public getGeneralStatus(): StatusModel {
     return this._status;
   }
@@ -88,6 +93,9 @@ export class StatusService {
   }
   public getProductsListScheduled(): IProducts[] {
     return this._productsListScheduled;
+  }
+  public getRoutesList(): IRoutes[] {
+    return this._routesList;
   }
   public spinnerShow() {
     setTimeout(() => {

@@ -6,6 +6,8 @@ import { IResEvents } from "src/models/home/events.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
+import { RoutesService } from "src/services/general/routes.service";
+import { IResRoutes } from "src/models/general/routes.interface";
 
 @Component({
   selector: "app-user-events",
@@ -17,13 +19,15 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   constructor(
     private _statusService: StatusService,
     private _eventsService: EventsService,
-    private _productsService: ProductsService
+    private _productsService: ProductsService,
+    private _routesService: RoutesService
   ) {}
 
   ngOnInit() {
     console.log("XXX - UserEventsComponent");
     this._loadEvents();
     this._loadProducts();
+    this._loadRoutes();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -37,6 +41,9 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   }
   get getProductsService$(): Observable<IResProducts> {
     return this._productsService.getProducts();
+  }
+  get getRoutesService$(): Observable<IResRoutes> {
+    return this._routesService.getRoutes();
   }
   private _loadEvents(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -65,6 +72,19 @@ export class UserEventsComponent implements OnInit, OnDestroy {
       (err) => {
         console.error(err);
         this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _loadRoutes(): void {
+    this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResRoutes) => {
+        if (res.success) {
+          this._statusService.setRoutesList(res.result!);
+          console.log("XXX - UserDashboardComponent - _loadProduct - res", res);
+        }
+      },
+      (err) => {
+        console.error(err);
       }
     );
   }
