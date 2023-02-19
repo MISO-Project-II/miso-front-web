@@ -2,7 +2,7 @@ import { IServices } from "src/models/home/services.interface";
 import { IEvents } from "src/models/home/events.interface";
 import { Injectable } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
-import { FREE_PLAN, SPORTSMAN, THIRD } from "src/constanst/data.constants";
+import { FREE_CONTRACT, SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IProducts } from "src/models/home/products.interface";
@@ -11,17 +11,17 @@ import { IRoutes } from "src/models/general/routes.interface";
 @Injectable()
 export class StatusService {
   private _status: StatusModel;
-  private _sportsList: ISports[];
-  private _eventsList: IEvents[];
-  private _eventsListScheduled: IEvents[];
-  private _servicesList: IServices[];
-  private _servicesListScheduled: IServices[];
-  private _productsList: IProducts[];
-  private _productsListScheduled: IProducts[];
-  private _routesList: IRoutes[];
+  private _sportsList: ISports[] = [];
+  private _eventsList: IEvents[] = [];
+  private _eventsListScheduled: IEvents[] = [];
+  private _servicesList: IServices[] = [];
+  private _servicesListScheduled: IServices[] = [];
+  private _productsList: IProducts[] = [];
+  private _productsListScheduled: IProducts[] = [];
+  private _routesList: IRoutes[] = [];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
-    this._status.contractType = FREE_PLAN;
+    this._status.contractType = FREE_CONTRACT;
   }
   public setGeneralStatus(status: StatusModel) {
     this._status = status;

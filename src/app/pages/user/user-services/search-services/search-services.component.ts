@@ -59,23 +59,23 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
 
   public addService(): void {
     this._statusService.spinnerShow();
-    this._callService(this._serviceSelected);
+    // this._callService(this._serviceSelected);
   }
 
-  private _callService(data: IServices): void {
-    this._servicesService
-      .updateServicesByUser(this.getGeneralStatus.userId, data)
-      .subscribe((res: IResServices) => {
-        if (res.success) {
-          console.log(
-            "XXX - SearchServicesComponent - _callService - res",
-            res
-          );
-          const servicesListScheduled = this.getServicesListScheduled;
-          servicesListScheduled.push(data);
-          this._statusService.setServicesListScheduled(servicesListScheduled);
-        }
-        this._statusService.spinnerHide();
-      });
-  }
+  // private _callService(data: IServices): void {
+  //   this._servicesService
+  //     .updateServicesByUser(this.getGeneralStatus.userId, data)
+  //     .subscribe((res: IResServices) => {
+  //       if (res.success) {
+  //         console.log(
+  //           "XXX - SearchServicesComponent - _callService - res",
+  //           res
+  //         );
+  //         const servicesListScheduled = this.getServicesListScheduled;
+  //         servicesListScheduled.push(data);
+  //         this._statusService.setServicesListScheduled(servicesListScheduled);
+  //       }
+  //       this._statusService.spinnerHide();
+  //     });
+  // }
 }

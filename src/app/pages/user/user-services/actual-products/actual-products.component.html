@@ -15,13 +15,13 @@
             aria-current="true"
             [class.active]="getProduct$ === item"
           >
-            {{ item.title }}
+            {{ item.name }}
           </button>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-9 mx-auto" *ngIf="!!getProduct$; else noItem">
-      <app-ds-title [title]="getProduct$.title! | translate"></app-ds-title>
+      <app-ds-title [title]="getProduct$.name! | translate"></app-ds-title>
       <div class="body">
         <p>{{ getProduct$.description }}</p>
         <div class="d-flex">
@@ -29,7 +29,7 @@
           <p>{{ getProduct$.price }}</p>
         </div>
       </div>
-      <div class="ds-button-continue p-2">
+      <!-- <div class="ds-button-continue p-2">
         <button
           id="btn-continue"
           type="button"
@@ -37,8 +37,8 @@
           class="btn ds-button"
         >
           {{ "BTN.CANCEL" | translate }}
-        </button>
-      </div>
+        </button> 
+      </div>-->
     </div>
     <ng-template #noItem>
       <div class="col-12 col-md-9 mx-auto">

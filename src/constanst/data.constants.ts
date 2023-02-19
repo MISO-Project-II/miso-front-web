@@ -6,9 +6,9 @@ export interface FOOD_CATEGORY {
 export const SPORTSMAN: string = "SPORTSMAN";
 export const THIRD: string = "THIRD";
 // Contrat type
-export const FREE_PLAN: string = "FREE_PLAN";
-export const MEDIUM_PLAN: string = "MEDIUM_PLAN";
-export const PREMIUM_PLAN: string = "PREMIUM_PLAN";
+export const FREE_CONTRACT: string = "FREE_CONTRACT";
+export const INTERMEDIATE_CONTRACT: string = "INTERMEDIATE_CONTRACT";
+export const PREMIUM_CONTRACT: string = "PREMIUM_CONTRACT";
 
 export const TRAINING_PLANS: string = "TRAINING_PLANS";
 export const FOOD_PLANS: string = "FOOD_PLANS";
@@ -18,3 +18,9 @@ export const SERVICES: string = "SERVICES";
 
 export const INSIDE_OF_HOUSE: string = "INSIDE_OF_HOUSE";
 export const OUTSIDE_OF_HOUSE: string = "OUTSIDE_OF_HOUSE";
+
+export const SPORTS_INTEREST: string = "SPORTS_INTEREST";
+export const SPORTS_PRACTICE: string = "SPORTS_PRACTICE";
+
+export const PLACE_OF_BIRTH: string = "PLACE_OF_BIRTH";
+export const PLACE_OF_RESIDENCE: string = "PLACE_OF_RESIDENCE";

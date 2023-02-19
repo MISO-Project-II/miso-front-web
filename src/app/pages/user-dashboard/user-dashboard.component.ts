@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 import {
-  FREE_PLAN,
-  MEDIUM_PLAN,
-  PREMIUM_PLAN,
+  FREE_CONTRACT,
+  INTERMEDIATE_CONTRACT,
+  PREMIUM_CONTRACT,
   SPORTSMAN,
 } from "src/constanst/data.constants";
 import { StatusModel } from "src/models/local/status-model";
@@ -16,9 +16,9 @@ import { StatusService } from "src/services/local/status.service";
 })
 export class UserDashboardComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
-  public FREE_PLAN: string = FREE_PLAN;
-  public MEDIUM_PLAN: string = MEDIUM_PLAN;
-  public PREMIUM_PLAN: string = PREMIUM_PLAN;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   constructor(private _statusService: StatusService) {}
 
   ngOnInit() {
