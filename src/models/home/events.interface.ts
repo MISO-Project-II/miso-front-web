@@ -18,3 +18,7 @@ export interface IResEvents extends IGenericResponse {
 export interface IResEvent extends IGenericResponse {
   result: IEvents | null;
 }
+export interface IResUserEvents extends IGenericResponse {
+  created: IEvents[] | null;
+  consume: IEvents[] | null;
+}

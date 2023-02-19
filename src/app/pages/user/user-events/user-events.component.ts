@@ -23,7 +23,7 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - UserEventsComponent");
+    console.log("XXX - UserEventsComponent (Contiene a eventos y rutas)");
     this._loadEvents();
     this._loadRoutes();
   }

@@ -32,7 +32,7 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - SearchEventsComponent");
+    console.log("XXX - SearchEventsComponent (Eventos que ya existen)");
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -59,31 +59,45 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   }
 
   public addEvent(): void {
+    const eventsListScheduled = this.getEventsListScheduled;
+    eventsListScheduled.push(this._eventSelected);
+    this._statusService.setEventsListScheduled(eventsListScheduled);
+    console.log("XXX - addEvent", this.getEventsListScheduled);
     this._statusService.spinnerShow();
-    // this._callService(this._eventSelected);
+    const data: number[] = [];
+    for (let index = 0; index < this.getEventsListScheduled.length; index++) {
+      data.push(this.getEventsListScheduled[index].idEvent!);
+    }
+
+    this._callService(data);
   }
 
-  // private _callService(data: IEvents): void {
-  //   this._eventsService
-  //     .updateEventsByUser(this.getGeneralStatus.userId, data)
-  //     .pipe(takeUntil(this._destroy$))
-  //     .subscribe(
-  //       (res: IResEvents) => {
-  //         if (res.success) {
-  //           console.log(
-  //             "XXX - SearchEventsComponent - _callService - res",
-  //             res
-  //           );
-  //           const eventsListScheduled = this.getEventsListScheduled;
-  //           eventsListScheduled.push(data);
-  //           this._statusService.setEventsListScheduled(eventsListScheduled);
-  //         }
-  //         this._statusService.spinnerHide();
-  //       },
-  //       (err) => {
-  //         console.error(err);
-  //         this._statusService.spinnerHide();
-  //       }
-  //     );
-  // }
+  private _callService(listScheduled: number[]): void {
+    console.log(
+      "XXX - SearchEventsComponent - _callService - listScheduled",
+      listScheduled
+    );
+    this._statusService.spinnerHide();
+    // this._eventsService
+    //   .updateEventsByUser(this.getGeneralStatus.userId, data)
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(
+    //     (res: IResEvents) => {
+    //       if (res.success) {
+    //         console.log(
+    //           "XXX - SearchEventsComponent - _callService - res",
+    //           res
+    //         );
+    //         const eventsListScheduled = this.getEventsListScheduled;
+    //         eventsListScheduled.push(data);
+    //         this._statusService.setEventsListScheduled(eventsListScheduled);
+    //       }
+    //       this._statusService.spinnerHide();
+    //     },
+    //     (err) => {
+    //       console.error(err);
+    //       this._statusService.spinnerHide();
+    //     }
+    //   );
+  }
 }

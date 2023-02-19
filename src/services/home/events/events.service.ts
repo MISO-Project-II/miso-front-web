@@ -6,9 +6,11 @@ import {
   IResEvents,
   IEvents,
   IResEvent,
+  IResUserEvents,
 } from "src/models/home/events.interface";
 import {
   MockGetEvents,
+  MockGetUserEventsConsume,
   MockResErrorEvents,
   MockResSuccessGetEvents,
 } from "src/test/home/events.mock";
@@ -58,23 +60,50 @@ export class EventsService {
     // const mock = of(MockResErrorEvents);
     // return mock;
   }
-  // getUserEventSportsman(idSportsman: number): void {
-  //   this._baseUrl = environment.api.base + environment.api.user_event_consume;
-  //   console.log("XXX - ", this._baseUrl.replace('{{id}}', idSportsman +''));
-
-  // return this._http
-  // .get<IResEvent>(this._baseUrl, { headers: this._httpHeaders })
-  // .pipe(
-  //   retry(3),
-  //   catchError((err: any) => {
-  //     console.log('XXX - EventsService - catchError - err', err);
-  //     return throwError(err);
-  //   })
-  // );
-  // const mock = of(MockResSuccessGetEvents);
-  // const mock = of(MockResErrorEvents);
-  // return mock;
-  // }
+  getUserEventSportsman(idSportsman: number): Observable<IResUserEvents> {
+    this._baseUrl =
+      environment.api.base +
+      environment.api.user_event +
+      environment.api.user_event_consume;
+    console.log(
+      "XXX - getUserEventSportsman",
+      this._baseUrl.replace("{{id}}", idSportsman + "")
+    );
+    // return this._http
+    // .get<IResEvents>(this._baseUrl, { headers: this._httpHeaders })
+    // .pipe(
+    //   retry(3),
+    //   catchError((err: any) => {
+    //     console.log('XXX - EventsService - catchError - err', err);
+    //     return throwError(err);
+    //   })
+    // );
+    const mock = of(MockGetUserEventsConsume);
+    // const mock = of(MockResErrorEvents);
+    return mock;
+  }
+  putUserEvent(
+    idUser: number,
+    listScheduled: number[]
+  ): Observable<IResUserEvents> {
+    this._baseUrl = environment.api.base + environment.api.user_event;
+    console.log(
+      "XXX - putUserEvent",
+      this._baseUrl.replace("{{id}}", idUser + "")
+    );
+    // return this._http
+    // .put<IResEvents>(this._baseUrl, listScheduled { headers: this._httpHeaders })
+    // .pipe(
+    //   retry(3),
+    //   catchError((err: any) => {
+    //     console.log('XXX - EventsService - catchError - err', err);
+    //     return throwError(err);
+    //   })
+    // );
+    const mock = of(MockGetUserEventsConsume);
+    // const mock = of(MockResErrorEvents);
+    return mock;
+  }
 
   // /**Obtener todos los datos relacionados con usuario */
   // getEventsByUser(idData: number): Observable<IResEvents> {
