@@ -46,11 +46,12 @@
     "SECONDARY_DATA": "Datos secundarios",
     "GENRE": "Género",
     "AGE": "Edad",
+    "BIRTH_DATE": "Fecha de nacimiento",
     "WEIGHT": "Peso (Kg)",
     "HEIGHT": "Altura (cm)",
     "PLACE_OF_BIRTH": "Lugar de nacimiento",
     "PLACE_OF_RESIDENCE": "Lugar de residencia",
-    "YEARS_OF_RESIDENCE": "Años de residencia",
+    "MONTHS_OF_RESIDENCE": "Meses de residencia",
     "FREE_PLAN": "Plan gratuito",
     "MEDIUM_PLAN": "Plan intermedio",
     "INSIDE_OF_HOUSE": "Dentro de casa",
@@ -102,8 +103,10 @@
     "CALORIES_1": "(calorías)",
     "MIN_1": "(min)",
     "SUGGESTED_EXERCISES": "Ejercicios sugeridos: ",
-    "SUGGESTED_FOODS": "Alimentos sugeridos: "
-
+    "SUGGESTED_FOODS": "Alimentos sugeridos: ",
+    "DISTANCE": "Distancia: ",
+    "SEE_ON_MAP": "Ver en el mapa",
+    "SELECT_ROUTE": "Selecciona una ruta"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
@@ -117,12 +120,14 @@
     "SPORT_INTEREST": "Deportes de interés",
     "GENRE": "Género",
     "YEARS": "Años",
+    "MONTS": "Meses",
+    "DATE_FORMAT": "yyyy-dd-mm",
     "WEIGHT": "Kg",
     "HEIGHT": "cm",
     "COUNTRY": "Pais",
     "STATE": "Departamento",
     "CITY": "Ciudad",
-    "YEARS_OF_RESIDENCE": "00",
+    "MONTHS_OF_RESIDENCE": "00",
     "HOUR": "1 hora"
   },
   "BTN": {
@@ -244,14 +249,6 @@
       {
         "ID": "CC",
         "NAME": "Cédula de ciudadanía"
-      },
-      {
-        "ID": "NIT",
-        "NAME": "NIT"
-      },
-      {
-        "ID": "CE",
-        "NAME": "Cédula de extrangería"
       },
       {
         "ID": "TI",
