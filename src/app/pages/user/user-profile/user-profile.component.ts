@@ -26,8 +26,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
   get getSportsService$(): Observable<IResSports> {
     return this._sportsService.getSports();
@@ -35,10 +35,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private _loadSports(): void {
     this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResSports) => {
-        // if (res.success) {
-        this._statusService.setSportsList(res.results!);
-        console.log("XXX - UserProfileComponent - _loadSports - res", res);
-        // }
+        if (res.success) {
+          this._statusService.setSportsList(res.result!);
+          console.log("XXX - UserProfileComponent - _loadSports - res", res);
+        }
       },
       (err) => {
         console.error(err);

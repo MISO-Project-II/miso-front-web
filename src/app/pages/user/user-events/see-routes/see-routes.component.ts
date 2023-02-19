@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { IRoutes } from "src/models/general/routes.interface";
+import { StatusService } from "src/services/local/status.service";
 
 @Component({
   selector: "app-see-routes",
@@ -6,8 +9,19 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./see-routes.component.scss"],
 })
 export class SeeRoutesComponent implements OnInit {
-  constructor() {}
-  ngOnInit() {
+  private _routeSelected: IRoutes = null!;
+  constructor(private _statusService: StatusService) {}
+
+  ngOnInit(): void {
     console.log("XXX - SeeRoutesComponent");
+  }
+  get getRoutesList$(): Observable<IRoutes[]> {
+    return this._statusService.getRoutesList$();
+  }
+  public setRoute(routeSelected: IRoutes) {
+    this._routeSelected = routeSelected;
+  }
+  get getRoute$(): IRoutes {
+    return this._routeSelected;
   }
 }

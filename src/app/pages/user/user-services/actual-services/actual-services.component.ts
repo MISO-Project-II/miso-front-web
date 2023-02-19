@@ -5,6 +5,7 @@ import {
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
 import { IResServices, IServices } from "src/models/home/services.interface";
+import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserData,
   IUserData,
@@ -23,20 +24,23 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _serviceselected: IServices = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
-
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _servicesService: ServicesService
   ) {}
 
   ngOnInit(): void {
+    this._loadGeneralStatus();
     this._loadServicesScheduled();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
+  }
   get getService$(): IServices {
     return this._serviceselected;
   }
@@ -44,12 +48,10 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
     this._serviceselected = serviceselected;
   }
   get getServicesService$(): Observable<IResServices> {
-    return this._servicesService.getServicesByUser(
-      this._statusService.getGeneralStatus().userId
-    );
+    return this._servicesService.getServicesByUser(this.generalStatus.userId);
   }
-  get getServicesListScheduled(): IServices[] {
-    return this._statusService.getServicesListScheduled();
+  get getServicesListScheduled$(): Observable<IServices[]> {
+    return this._statusService.getServicesListScheduled$();
   }
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -72,22 +74,30 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
    */
   private _onSubmit(): void {
     this._statusService.spinnerShow();
-    const data: IServices = this.getServicesListScheduled[0];
-    this._callService(data);
+    this.getServicesListScheduled$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((listScheduled: IServices[]) => {
+        const data: IServices = listScheduled[0];
+        this._callService(data);
+      });
   }
 
   public delEvent(item: any): void {
-    const servicesListScheduled = this.getServicesListScheduled.filter(
-      (data) => data.id != item.id
-    );
-    this._statusService.setServicesListScheduled(servicesListScheduled);
-    this._serviceselected = null!;
-    this._onSubmit();
+    this.getServicesListScheduled$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((listScheduled: IServices[]) => {
+        const servicesListScheduled = listScheduled.filter(
+          (data) => data.id != item.id
+        );
+        this._statusService.setServicesListScheduled(servicesListScheduled);
+        this._serviceselected = null!;
+        this._onSubmit();
+      });
   }
 
   private _callService(data: IServices): void {
     this._servicesService
-      .updateServicesByUser(this._statusService.getGeneralStatus().userId, data)
+      .updateServicesByUser(this.generalStatus.userId, data)
       .subscribe((res: IResServices) => {
         if (res.success) {
           console.log(
@@ -99,5 +109,10 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }, 500);
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

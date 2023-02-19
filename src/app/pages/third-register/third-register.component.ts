@@ -1,7 +1,8 @@
 import { ROOT_ROUTES_NAMES } from "../../app.routing";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { THIRD } from "src/constanst/data.constants";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusModel } from "src/models/local/status-model";
@@ -12,17 +13,24 @@ import { StatusService } from "src/services/local/status.service";
   templateUrl: "./third-register.component.html",
   styleUrls: ["./third-register.component.scss"],
 })
-export class ThirdRegisterComponent implements OnInit {
+export class ThirdRegisterComponent implements OnInit, OnDestroy {
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public generalStatus: StatusModel;
   public formThirdRegister: FormGroup;
 
   constructor(private _router: Router, private _statusService: StatusService) {}
 
   ngOnInit() {
+    this._loadGeneralStatus();
     this._statusService.setUserType(THIRD);
     this._initForm();
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.complete();
+  }
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
   private _initForm(): void {
     this.formThirdRegister = new FormGroup({
@@ -51,6 +59,11 @@ export class ThirdRegisterComponent implements OnInit {
     });
   }
   public onSubmit(): void {
-    this._router.navigate([this.getGeneralStatus.userUrl + ROUTES_NAMES.HOME]);
+    this._router.navigate([this.generalStatus.userUrl + ROUTES_NAMES.HOME]);
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

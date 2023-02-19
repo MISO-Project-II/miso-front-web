@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
@@ -21,6 +21,7 @@ import { StatusService } from "src/services/local/status.service";
 export class SearchEventsComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public generalStatus: StatusModel;
 
   private _eventSelected: IEvents;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
@@ -31,6 +32,7 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("XXX - SearchEventsComponent");
+    this._loadGeneralStatus();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -43,14 +45,14 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   get getEvent$(): IEvents {
     return this._eventSelected;
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
-  get getEventsList(): IEvents[] {
-    return this._statusService.getEventsList();
+  get getEventsList$(): Observable<IEvents[]> {
+    return this._statusService.getEventsList$();
   }
-  get getEventsListScheduled(): IEvents[] {
-    return this._statusService.getEventsListScheduled();
+  get getEventsListScheduled$(): Observable<IEvents[]> {
+    return this._statusService.getEventsListScheduled$();
   }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
@@ -63,17 +65,26 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
 
   private _callService(data: IEvents): void {
     this._eventsService
-      .updateEventsByUser(this.getGeneralStatus.userId, data)
+      .updateEventsByUser(this.generalStatus.userId, data)
       .subscribe((res: IResEvents) => {
         if (res.success) {
           console.log("XXX - SearchEventsComponent - _callService - res", res);
-          const eventsListScheduled = this.getEventsListScheduled;
-          eventsListScheduled.push(data);
-          this._statusService.setEventsListScheduled(eventsListScheduled);
+          this.getEventsListScheduled$
+            .pipe(takeUntil(this._destroy$))
+            .subscribe((listScheduled: IEvents[]) => {
+              const eventsListScheduled = listScheduled;
+              eventsListScheduled.push(data);
+              this._statusService.setEventsListScheduled(eventsListScheduled);
+            });
         }
         setTimeout(() => {
           this._statusService.spinnerHide();
         }, 500);
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

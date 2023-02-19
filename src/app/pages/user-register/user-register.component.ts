@@ -152,14 +152,14 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   get getSportsService$(): Observable<IResSports> {
     return this._sportsService.getSports();
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
   private _loadSports(): void {
     this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResSports) => {
         // if (res.success) {
-        this.sportList = res.results!;
+        this.sportList = res.result!;
         console.log("XXX - UserRegisterComponent - ngOnInit - res", res);
         // }
       },
@@ -251,9 +251,9 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           res
         );
         if (res.success) {
-          this._router.navigate([
-            this.getGeneralStatus.userId + ROUTES_NAMES.HOME,
-          ]);
+          this.getGeneralStatus$.subscribe((data: StatusModel) => {
+            this._router.navigate([data.userId + ROUTES_NAMES.HOME]);
+          });
         }
         setTimeout(() => {
           this._statusService.spinnerHide();

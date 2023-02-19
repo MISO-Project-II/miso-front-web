@@ -3,6 +3,7 @@ export const environment = {
   version: "1.3.0",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
+
     general_data: "/users/general_data",
     demographic_profile: "/demographic_profile",
     sport_profile: "/sport_profile",

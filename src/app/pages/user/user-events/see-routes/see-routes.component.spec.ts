@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { SeeRoutesComponent } from "./see-routes.component";
 
-xdescribe("ConfigurationComponent", () => {
+describe("ConfigurationComponent", () => {
   let component: SeeRoutesComponent;
   let fixture: ComponentFixture<SeeRoutesComponent>;
 

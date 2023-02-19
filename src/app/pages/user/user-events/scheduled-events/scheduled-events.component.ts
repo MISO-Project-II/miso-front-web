@@ -9,6 +9,7 @@ import {
   IReqEvent,
   IResEvents,
 } from "src/models/home/events.interface";
+import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -22,13 +23,14 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _eventSelected: IEvents = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
-
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _eventsService: EventsService
   ) {}
 
   ngOnInit(): void {
+    this._loadGeneralStatus();
     this._loadEventsScheduled();
   }
   ngOnDestroy(): void {
@@ -39,16 +41,17 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   get getEvent$(): IEvents {
     return this._eventSelected;
   }
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
+  }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
   }
   get getEventsService$(): Observable<IResEvents> {
-    return this._eventsService.getEventsByUser(
-      this._statusService.getGeneralStatus().userId
-    );
+    return this._eventsService.getEventsByUser(this.generalStatus.userId);
   }
-  get getEventsListScheduled(): IEvents[] {
-    return this._statusService.getEventsListScheduled();
+  get getEventsListScheduled$(): Observable<IEvents[]> {
+    return this._statusService.getEventsListScheduled$();
   }
   private _loadEventsScheduled(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -71,22 +74,30 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
    */
   private _onSubmit(): void {
     this._statusService.spinnerShow();
-    const data: IEvents = this.getEventsListScheduled[0];
-    this._callService(data);
+    this.getEventsListScheduled$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((listScheduled: IEvents[]) => {
+        const data: IEvents = listScheduled[0];
+        this._callService(data);
+      });
   }
 
   public delEvent(item: any): void {
-    const eventsListScheduled = this.getEventsListScheduled.filter(
-      (data) => data.id != item.id
-    );
-    this._statusService.setEventsListScheduled(eventsListScheduled);
-    this._eventSelected = null!;
-    this._onSubmit();
+    this.getEventsListScheduled$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((listScheduled: IEvents[]) => {
+        const eventsListScheduled = listScheduled.filter(
+          (data) => data.id != item.id
+        );
+        this._statusService.setEventsListScheduled(eventsListScheduled);
+        this._eventSelected = null!;
+        this._onSubmit();
+      });
   }
 
   private _callService(data: IEvents): void {
     this._eventsService
-      .updateEventsByUser(this._statusService.getGeneralStatus().userId, data)
+      .updateEventsByUser(this.generalStatus.userId, data)
       .subscribe((res: IResEvents) => {
         if (res.success) {
           console.log(
@@ -98,5 +109,10 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }, 500);
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

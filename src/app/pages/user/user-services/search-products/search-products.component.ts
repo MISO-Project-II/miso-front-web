@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
@@ -24,6 +24,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public generalStatus: StatusModel;
   constructor(
     private _productsService: ProductsService,
     private _statusService: StatusService
@@ -31,6 +32,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("XXX - SearchProductsComponent");
+    this._loadGeneralStatus();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -43,14 +45,14 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   get getProduct$(): IProducts {
     return this._productSelected;
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
-  get getProductsList(): IProducts[] {
-    return this._statusService.getProductsList();
+  get getProductsList$(): Observable<IProducts[]> {
+    return this._statusService.getProductsList$();
   }
-  get getProductsListScheduled(): IProducts[] {
-    return this._statusService.getProductsListScheduled();
+  get getProductsListScheduled$(): Observable<IProducts[]> {
+    return this._statusService.getProductsListScheduled$();
   }
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
@@ -63,20 +65,32 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   private _callService(data: IProducts): void {
     this._productsService
-      .updateProductsByUser(this.getGeneralStatus.userId, data)
-      .subscribe((res: IResProducts) => {
-        if (res.success) {
+      .updateProductsByUser(this.generalStatus.userId, data)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((generalStatus: IResProducts) => {
+        if (generalStatus.success) {
           console.log(
-            "XXX - SearchProductsComponent - _callService - res",
-            res
+            "XXX - SearchProductsComponent - _callService - generalStatusres",
+            generalStatus
           );
-          const productsListScheduled = this.getProductsListScheduled;
-          productsListScheduled.push(data);
-          this._statusService.setProductsListScheduled(productsListScheduled);
+          this.getProductsListScheduled$
+            .pipe(takeUntil(this._destroy$))
+            .subscribe((listScheduled: IProducts[]) => {
+              const productsListScheduled = listScheduled;
+              productsListScheduled.push(data);
+              this._statusService.setProductsListScheduled(
+                productsListScheduled
+              );
+            });
         }
         setTimeout(() => {
           this._statusService.spinnerHide();
         }, 500);
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

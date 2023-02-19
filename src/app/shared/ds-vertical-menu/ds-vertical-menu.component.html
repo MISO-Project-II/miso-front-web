@@ -2,7 +2,7 @@
   <div class="menu-mobile justify-content-between px-3">
     <div
       class="ds-menu-vertical-item pt-3"
-      *ngIf="getGeneralStatus.userType === SPORTSMAN"
+      *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
     >
       <button type="button" class="btn" (click)="goUserSession()">
         <i class="bi bi-play-circle-fill"></i>
@@ -11,7 +11,7 @@
     </div>
     <div
       class="ds-menu-vertical-item pt-3"
-      *ngIf="getGeneralStatus.userType === SPORTSMAN"
+      *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
     >
       <button type="button" class="btn" (click)="goUserEvents()">
         <i class="bi bi-calendar-week-fill"></i>
@@ -26,7 +26,7 @@
     </div>
     <div
       class="ds-menu-vertical-item pt-3"
-      *ngIf="getGeneralStatus.userType === SPORTSMAN"
+      *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
     >
       <button type="button" class="btn" (click)="goUserServices()">
         <i class="bi bi-card-checklist"></i>
@@ -35,7 +35,7 @@
     </div>
     <div
       class="ds-menu-vertical-item pt-3"
-      *ngIf="getGeneralStatus.userType === SPORTSMAN"
+      *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
     >
       <button type="button" class="btn" (click)="goUserPlans()">
         <i class="bi bi-person-check-fill"></i>
@@ -54,7 +54,7 @@
       </div>
       <div
         class="ds-menu-vertical-item pt-3"
-        *ngIf="getGeneralStatus.userType === SPORTSMAN"
+        *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
       >
         <button type="button" class="btn" (click)="goUserSession()">
           <i class="bi bi-play-circle-fill"></i>
@@ -63,7 +63,7 @@
       </div>
       <div
         class="ds-menu-vertical-item pt-3"
-        *ngIf="getGeneralStatus.userType === SPORTSMAN"
+        *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
       >
         <button type="button" class="btn" (click)="goUserEvents()">
           <i class="bi bi-calendar-week-fill"></i>
@@ -72,7 +72,7 @@
       </div>
       <div
         class="ds-menu-vertical-item pt-3"
-        *ngIf="getGeneralStatus.userType === SPORTSMAN"
+        *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
       >
         <button type="button" class="btn" (click)="goUserServices()">
           <i class="bi bi-card-checklist"></i>
@@ -81,7 +81,7 @@
       </div>
       <div
         class="ds-menu-vertical-item pt-3"
-        *ngIf="getGeneralStatus.userType === SPORTSMAN"
+        *ngIf="(getGeneralStatus$ | async)?.userType === SPORTSMAN"
       >
         <button type="button" class="btn" (click)="goUserPlans()">
           <i class="bi bi-person-check-fill"></i>

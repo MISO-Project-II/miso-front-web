@@ -22,6 +22,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   public listSportPractice: ISports[] = [];
   public listSportInterest: ISports[] = [];
   public sportsServiceGetAll: IResSports;
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _sportProfileService: SportProfileService,
@@ -31,6 +32,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._initForm();
     // this._loadData();
+    this._loadGeneralStatus();
     this._sportsServiceGetAll$.subscribe((data: IResSports) => {
       this.sportsServiceGetAll = data;
     });
@@ -39,8 +41,8 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
   private _initForm(): void {
     this.formUserSportProfile = new FormGroup({
@@ -78,42 +80,39 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   private _loadData(): void {
     this._statusService.spinnerShow();
-    this._sportProfileService
-      .get(this.getGeneralStatus.userId)
-      .subscribe({
-        next: (res: IResUserSportProfile) => {
-          console.log("XXX - SportProfileComponent - _loadData - res", res);
-          if (res.success) {
-            this.formUserSportProfile.get("id")?.patchValue(res.response?.id);
-            this.formUserSportProfile
-              .get("sportPractice")
-              ?.patchValue(res.response?.sport_practice);
-            this.formUserSportProfile
-              .get("sportInterest")
-              ?.patchValue(res.response?.sport_interest);
-            this.formUserSportProfile
-              .get("practice_hours")
-              ?.patchValue(res.response?.practice_hours);
-            this.formUserSportProfile
-              .get("disabilities")
-              ?.patchValue(res.response?.disabilities);
-            this.formUserSportProfile
-              .get("pains")
-              ?.patchValue(res.response?.pains);
-            this.formUserSportProfile
-              .get("sports_history")
-              ?.patchValue(res.response?.sports_history);
-          }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
-        },
-        error: (e) => {
-          console.error(e);
+    this._sportProfileService.get(this.generalStatus.userId).subscribe({
+      next: (res: IResUserSportProfile) => {
+        console.log("XXX - SportProfileComponent - _loadData - res", res);
+        if (res.success) {
+          this.formUserSportProfile.get("id")?.patchValue(res.response?.id);
+          this.formUserSportProfile
+            .get("sportPractice")
+            ?.patchValue(res.response?.sport_practice);
+          this.formUserSportProfile
+            .get("sportInterest")
+            ?.patchValue(res.response?.sport_interest);
+          this.formUserSportProfile
+            .get("practice_hours")
+            ?.patchValue(res.response?.practice_hours);
+          this.formUserSportProfile
+            .get("disabilities")
+            ?.patchValue(res.response?.disabilities);
+          this.formUserSportProfile
+            .get("pains")
+            ?.patchValue(res.response?.pains);
+          this.formUserSportProfile
+            .get("sports_history")
+            ?.patchValue(res.response?.sports_history);
+        }
+        setTimeout(() => {
           this._statusService.spinnerHide();
-        },
-      })
-      .unsubscribe();
+        }, 500);
+      },
+      error: (e) => {
+        console.error(e);
+        this._statusService.spinnerHide();
+      },
+    });
   }
 
   public onSubmit(): void {
@@ -130,7 +129,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   private _callService(data: IUserSportProfile): void {
     this._sportProfileService
-      .update(this.getGeneralStatus.userId, data)
+      .update(this.generalStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res: IResUserSportProfile) => {
@@ -176,5 +175,10 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this.formUserSportProfile
       .get("sportInterest")
       ?.patchValue(this.listSportInterest);
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

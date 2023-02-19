@@ -6,6 +6,9 @@ import { FREE_PLAN, SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IProducts } from "src/models/home/products.interface";
+import { Observable } from "rxjs/internal/Observable";
+import { of } from "rxjs/internal/observable/of";
+import { IRoutes } from "src/models/general/routes.interface";
 
 @Injectable()
 export class StatusService {
@@ -17,12 +20,15 @@ export class StatusService {
   private _servicesListScheduled: IServices[];
   private _productsList: IProducts[];
   private _productsListScheduled: IProducts[];
+  private _routesList: IRoutes[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_PLAN;
+    sessionStorage.setItem("generalStatus", JSON.stringify(this._status));
   }
   public setGeneralStatus(status: StatusModel) {
     this._status = status;
+    sessionStorage.setItem("generalStatus", JSON.stringify(this._status));
   }
   public setUserType(userType: string) {
     this._status.userType = userType;
@@ -65,29 +71,37 @@ export class StatusService {
   public setServicesListScheduled(servicesListScheduled: IServices[]) {
     this._servicesListScheduled = servicesListScheduled;
   }
-  public getGeneralStatus(): StatusModel {
-    return this._status;
+  public setRoutesList(routesList: IRoutes[]) {
+    this._routesList = routesList;
   }
-  public getSportsList(): ISports[] {
-    return this._sportsList;
+  public getGeneralStatus$(): Observable<StatusModel> {
+    // this._status = (JSON.parse(sessionStorage.getItem('generalStatus')!));
+
+    return of(this._status);
   }
-  public getEventsList(): IEvents[] {
-    return this._eventsList;
+  public getSportsList$(): Observable<ISports[]> {
+    return of(this._sportsList);
   }
-  public getEventsListScheduled(): IEvents[] {
-    return this._eventsListScheduled;
+  public getEventsList$(): Observable<IEvents[]> {
+    return of(this._eventsList);
   }
-  public getServicesList(): IServices[] {
-    return this._servicesList;
+  public getEventsListScheduled$(): Observable<IEvents[]> {
+    return of(this._eventsListScheduled);
   }
-  public getServicesListScheduled(): IServices[] {
-    return this._servicesListScheduled;
+  public getServicesList$(): Observable<IServices[]> {
+    return of(this._servicesList);
   }
-  public getProductsList(): IProducts[] {
-    return this._productsList;
+  public getServicesListScheduled$(): Observable<IServices[]> {
+    return of(this._servicesListScheduled);
   }
-  public getProductsListScheduled(): IProducts[] {
-    return this._productsListScheduled;
+  public getProductsList$(): Observable<IProducts[]> {
+    return of(this._productsList);
+  }
+  public getProductsListScheduled$(): Observable<IProducts[]> {
+    return of(this._productsListScheduled);
+  }
+  public getRoutesList$(): Observable<IRoutes[]> {
+    return of(this._routesList);
   }
   public spinnerShow() {
     this._spinner.show();

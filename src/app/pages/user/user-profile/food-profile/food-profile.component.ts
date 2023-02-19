@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Subject, takeUntil } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserFoodProfile,
@@ -17,12 +17,14 @@ import { FoodProfileService } from "src/services/profile/food-profile.service";
 export class FoodProfileComponent implements OnInit, OnDestroy {
   public formUserFoodProfile: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _foodProfileService: FoodProfileService
   ) {}
 
   ngOnInit() {
+    this._loadGeneralStatus();
     this._initForm();
     this._loadData();
   }
@@ -32,34 +34,31 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
   private _loadData(): void {
     this._statusService.spinnerShow();
-    this._foodProfileService
-      .get(this.getGeneralStatus.userId)
-      .subscribe({
-        next: (res: IResUserFoodProfile) => {
-          if (res.success) {
-            this.formUserFoodProfile
-              .get("foods_preference")
-              ?.patchValue(res.response?.foods_preference);
-            this.formUserFoodProfile
-              .get("intolerances")
-              ?.patchValue(res.response?.intolerances);
-            this.formUserFoodProfile
-              .get("is_vegan")
-              ?.patchValue(res.response?.is_vegan);
-            this.formUserFoodProfile
-              .get("is_vegetarian")
-              ?.patchValue(res.response?.is_vegetarian);
-          }
-          setTimeout(() => {
-            this._statusService.spinnerHide();
-          }, 500);
-        },
-        error: (e) => {
-          console.error(e);
+    this._foodProfileService.get(this.generalStatus.userId).subscribe({
+      next: (res: IResUserFoodProfile) => {
+        if (res.success) {
+          this.formUserFoodProfile
+            .get("foods_preference")
+            ?.patchValue(res.response?.foods_preference);
+          this.formUserFoodProfile
+            .get("intolerances")
+            ?.patchValue(res.response?.intolerances);
+          this.formUserFoodProfile
+            .get("is_vegan")
+            ?.patchValue(res.response?.is_vegan);
+          this.formUserFoodProfile
+            .get("is_vegetarian")
+            ?.patchValue(res.response?.is_vegetarian);
+        }
+        setTimeout(() => {
           this._statusService.spinnerHide();
-        },
-      })
-      .unsubscribe();
+        }, 500);
+      },
+      error: (e) => {
+        console.error(e);
+        this._statusService.spinnerHide();
+      },
+    });
   }
 
   private _initForm(): void {
@@ -85,8 +84,8 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   get is_vegetarian() {
     return this.formUserFoodProfile.get("is_vegetarian");
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
 
   public onSubmit(): void {
@@ -101,7 +100,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
   private _callService(data: IUserFoodProfile): void {
     this._foodProfileService
-      .update(this.getGeneralStatus.userId, data)
+      .update(this.generalStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res: IResUserFoodProfile) => {
@@ -118,5 +117,10 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         },
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

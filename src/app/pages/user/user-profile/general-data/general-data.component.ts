@@ -18,6 +18,7 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class GeneralDataComponent implements OnInit, OnDestroy {
   public formUserGeneralData: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _userDataService: UserDataService
@@ -25,6 +26,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log("XXX - GeneralDataComponent");
+    this._loadGeneralStatus();
     this._initForm();
     this._loadData();
   }
@@ -75,14 +77,14 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   get getHeight() {
     return this.formUserGeneralData.get("height");
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
 
   private _loadData(): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .get(this.getGeneralStatus.userId)
+      .get(this.generalStatus.userId)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
@@ -139,7 +141,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   }
   private _callService(data: IUserData): void {
     this._userDataService
-      .update(this.getGeneralStatus.userId, data)
+      .update(this.generalStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res: IResUserData) => {
@@ -156,5 +158,10 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         },
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

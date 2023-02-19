@@ -2,13 +2,13 @@
   <hr />
   <div
     class="d-flex min-width row justify-content-center"
-    *ngIf="getServicesListScheduled.length! > 0; else noSuccess"
+    *ngIf="(getServicesListScheduled$ | async)?.length! > 0; else noSuccess"
   >
     <div class="col-12 col-md-3 mx-auto">
       <div class="options pe-1">
         <div class="list-group overflow-auto">
           <button
-            *ngFor="let item of getServicesListScheduled"
+            *ngFor="let item of getServicesListScheduled$ | async"
             type="button"
             (click)="setEvent(item)"
             class="list-group-item ds-list-group-item list-group-item-action"

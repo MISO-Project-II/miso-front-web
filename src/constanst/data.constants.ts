@@ -18,3 +18,10 @@ export const SERVICES: string = "SERVICES";
 
 export const INSIDE_OF_HOUSE: string = "INSIDE_OF_HOUSE";
 export const OUTSIDE_OF_HOUSE: string = "OUTSIDE_OF_HOUSE";
+
+// User type
+export const PLACE_OF_BIRTH: string = "PLACE_OF_BIRTH";
+export const PLACE_OF_RESIDENCE: string = "PLACE_OF_RESIDENCE";
+// User type
+export const SPORTS_INTEREST: string = "SPORTS_INTEREST";
+export const SPORTS_PRACTICE: string = "SPORTS_PRACTICE";

@@ -31,7 +31,7 @@ export class SportsService {
           return throwError(err);
         })
       );
-    // const mock = of(MockResSuccessGetSports);
+    const mock = of(MockResSuccessGetSports);
     // const mock = of(MockResErrorSports);
     // return mock;
   }

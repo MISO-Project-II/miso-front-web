@@ -12,6 +12,7 @@ import { StatusService } from "src/services/local/status.service";
 })
 export class UserServicesComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _servicesService: ServicesService
@@ -19,14 +20,15 @@ export class UserServicesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log("XXX - UserServicesComponent");
+    this._loadGeneralStatus();
     this._loadServices();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
   get getServicesService$(): Observable<IResServices> {
     return this._servicesService.getServices();
@@ -46,5 +48,10 @@ export class UserServicesComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     );
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

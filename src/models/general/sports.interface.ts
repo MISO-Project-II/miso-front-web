@@ -6,5 +6,5 @@ export interface ISports {
   description?: string;
 }
 export interface IResSports extends IGenericResponse {
-  results: ISports[] | null;
+  result: ISports[] | null;
 }

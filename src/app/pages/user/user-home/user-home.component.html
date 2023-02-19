@@ -1,9 +1,9 @@
 <div id="main-user-home" class="container-fluid height-100vh">
   <hr />
   <p>main-user-home</p>
-  <p>XXX-getGeneralStatus: {{ getGeneralStatus | json }}</p>
+  <p>XXX-Datos Generales: {{ getGeneralStatus$ | async | json }}</p>
   <p></p>
-  <p>XXX-getEventsList: {{ getEventsList | json }}</p>
+  <p>XXX-Eventos: {{ getEventsList$ | async | json }}</p>
   <p></p>
-  <p>XXX-getSportsList: {{ getSportsList | json }}</p>
+  <p>XXX-Deportes: {{ getSportsList$ | async | json }}</p>
 </div>

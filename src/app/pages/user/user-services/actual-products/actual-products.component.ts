@@ -5,6 +5,7 @@ import {
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
+import { StatusModel } from "src/models/local/status-model";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -18,20 +19,23 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _productSelected: IProducts = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
-
+  public generalStatus: StatusModel;
   constructor(
     private _statusService: StatusService,
     private _productsService: ProductsService
   ) {}
 
   ngOnInit(): void {
+    this._loadGeneralStatus();
     this._loadProductsScheduled();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
+  }
   get getProduct$(): IProducts {
     return this._productSelected;
   }
@@ -39,12 +43,10 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
     this._productSelected = productSelected;
   }
   get getProductsService$(): Observable<IResProducts> {
-    return this._productsService.getProductsByUser(
-      this._statusService.getGeneralStatus().userId
-    );
+    return this._productsService.getProductsByUser(this.generalStatus.userId);
   }
-  get getProductsListScheduled(): IProducts[] {
-    return this._statusService.getProductsListScheduled();
+  get getProductsListScheduled$(): Observable<IProducts[]> {
+    return this._statusService.getProductsListScheduled$();
   }
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -67,22 +69,30 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
    */
   private _onSubmit(): void {
     this._statusService.spinnerShow();
-    const data: IProducts = this.getProductsListScheduled[0];
-    this._callService(data);
+    this.getProductsListScheduled$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((listScheduled: IProducts[]) => {
+        const data: IProducts = listScheduled[0];
+        this._callService(data);
+      });
   }
 
   public delProduct(item: any): void {
-    const productsListScheduled = this.getProductsListScheduled.filter(
-      (data) => data.id != item.id
-    );
-    this._statusService.setProductsListScheduled(productsListScheduled);
-    this._productSelected = null!;
-    this._onSubmit();
+    this.getProductsListScheduled$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((listScheduled: IProducts[]) => {
+        const productsListScheduled = listScheduled.filter(
+          (data) => data.id != item.id
+        );
+        this._statusService.setProductsListScheduled(productsListScheduled);
+        this._productSelected = null!;
+        this._onSubmit();
+      });
   }
 
   private _callService(data: IProducts): void {
     this._productsService
-      .updateProductsByUser(this._statusService.getGeneralStatus().userId, data)
+      .updateProductsByUser(this.generalStatus.userId, data)
       .subscribe((res: IResProducts) => {
         if (res.success) {
           console.log(
@@ -94,5 +104,10 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }, 500);
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }

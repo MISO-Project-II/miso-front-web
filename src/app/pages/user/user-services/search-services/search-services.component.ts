@@ -25,6 +25,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
 
   private _serviceSelected: IServices;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public generalStatus: StatusModel;
   constructor(
     private _servicesService: ServicesService,
     private _statusService: StatusService
@@ -32,6 +33,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("XXX - SearchServicesComponent");
+    this._loadGeneralStatus();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -44,14 +46,14 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   get getService$(): IServices {
     return this._serviceSelected;
   }
-  get getGeneralStatus(): StatusModel {
-    return this._statusService.getGeneralStatus();
+  get getGeneralStatus$(): Observable<StatusModel> {
+    return this._statusService.getGeneralStatus$();
   }
-  get getServicesList(): IServices[] {
-    return this._statusService.getServicesList();
+  get getServicesList$(): Observable<IServices[]> {
+    return this._statusService.getServicesList$();
   }
-  get getServicesListScheduled(): IServices[] {
-    return this._statusService.getServicesListScheduled();
+  get getServicesListScheduled$(): Observable<IServices[]> {
+    return this._statusService.getServicesListScheduled$();
   }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;
@@ -64,20 +66,31 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
 
   private _callService(data: IServices): void {
     this._servicesService
-      .updateServicesByUser(this.getGeneralStatus.userId, data)
+      .updateServicesByUser(this.generalStatus.userId, data)
       .subscribe((res: IResServices) => {
         if (res.success) {
           console.log(
             "XXX - SearchServicesComponent - _callService - res",
             res
           );
-          const servicesListScheduled = this.getServicesListScheduled;
-          servicesListScheduled.push(data);
-          this._statusService.setServicesListScheduled(servicesListScheduled);
+          this.getServicesListScheduled$
+            .pipe(takeUntil(this._destroy$))
+            .subscribe((listScheduled: IServices[]) => {
+              const servicesListScheduled = listScheduled;
+              servicesListScheduled.push(data);
+              this._statusService.setServicesListScheduled(
+                servicesListScheduled
+              );
+            });
         }
         setTimeout(() => {
           this._statusService.spinnerHide();
         }, 500);
       });
+  }
+  private _loadGeneralStatus(): void {
+    this.getGeneralStatus$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((data: StatusModel) => (this.generalStatus = data));
   }
 }
