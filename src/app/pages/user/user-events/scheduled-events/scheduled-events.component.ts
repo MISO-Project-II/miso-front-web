@@ -12,6 +12,7 @@ import {
   IResEvents,
   IResUserEvents,
 } from "src/models/home/events.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -62,12 +63,13 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   private _loadEventsScheduled(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserEvents) => {
-        if (res.success) {
+        // if (res.success) {
+        if (!!res) {
           console.log(
             "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
             res
           );
-          this._statusService.setEventsListScheduled(res.consume!);
+          this._statusService.setEventsListScheduled(res["consume-services"]!);
         }
         this._statusService.spinnerHide();
       },
@@ -104,24 +106,26 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
       "XXX - ScheduledEventsComponent - _callService - listScheduled",
       listScheduled
     );
-    this._statusService.spinnerHide();
-    // this._eventsService
-    //   .putUserEvent(this._statusService.getGeneralStatus().userId, listScheduled)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserEvents) => {
-    //       if (res.success) {
-    //         console.log(
-    //           "XXX - ScheduledEventsComponent - _callService - res",
-    //           res
-    //         );
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
+    this._eventsService
+      .putUserEvent(
+        this._statusService.getGeneralStatus().userId,
+        listScheduled
+      )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IGenericResponse) => {
+          if (res.success) {
+            console.log(
+              "XXX - ScheduledEventsComponent - _callService - res",
+              res
+            );
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }

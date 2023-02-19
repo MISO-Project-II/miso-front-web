@@ -9,6 +9,7 @@ import {
   IResUserServices,
   IServices,
 } from "src/models/home/services.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import {
   IResUserData,
   IUserData,
@@ -61,12 +62,15 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserServices) => {
-        if (res.success) {
+        // if (res.success) {
+        if (!!res) {
           console.log(
             "XXX - ActualServicesComponent - _loadServicesScheduled - res",
             res
           );
-          this._statusService.setServicesListScheduled(res.consume!);
+          this._statusService.setServicesListScheduled(
+            res["consume-services"]!
+          );
         }
       },
       (err) => {
@@ -101,24 +105,26 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
       "XXX - ScheduledServicesComponent - _callService - listScheduled",
       listScheduled
     );
-    this._statusService.spinnerHide();
-    // this._servicesService
-    //   .putUserService(this._statusService.getGeneralStatus().userId, listScheduled)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserServices) => {
-    //       if (res.success) {
-    //         console.log(
-    //           "XXX - ScheduledServicesComponent - _callService - res",
-    //           res
-    //         );
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
+    this._servicesService
+      .putUserService(
+        this._statusService.getGeneralStatus().userId,
+        listScheduled
+      )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IGenericResponse) => {
+          if (res.success) {
+            console.log(
+              "XXX - ScheduledServicesComponent - _callService - res",
+              res
+            );
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }

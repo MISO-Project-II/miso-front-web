@@ -8,6 +8,7 @@ import {
   IResUserServices,
   IServices,
 } from "src/models/home/services.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import {
   MockGetUserServicesConsume,
   MockResErrorServices,
@@ -29,18 +30,18 @@ export class ServicesService {
   /**Obtener todos los datos */
   getServices(): Observable<IResServices> {
     this._baseUrl = environment.api.base + environment.api.services;
-    // return this._http
-    //   .get<IResServices>(this._baseUrl, { headers: this._httpHeaders })
-    //   .pipe(
-    //     retry(3),
-    //     catchError((err: any) => {
-    //       console.log("XXX - ServicesService - catchError - err", err);
-    //       return throwError(err);
-    //     })
-    //   );
-    const mock = of(MockResSuccessGetServices);
+    return this._http
+      .get<IResServices>(this._baseUrl, { headers: this._httpHeaders })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ServicesService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockResSuccessGetServices);
     // const mock = of(MockResErrorServices);
-    return mock;
+    // return mock;
   }
   getService(idService: number): Observable<IResService> {
     this._baseUrl = environment.api.base + environment.api.services;
@@ -68,39 +69,46 @@ export class ServicesService {
       "XXX - getUserServiceSportsman",
       this._baseUrl.replace("{{id}}", idSportsman + "")
     );
-    // return this._http
-    // .get<IResServices>(this._baseUrl, { headers: this._httpHeaders })
-    // .pipe(
-    //   retry(3),
-    //   catchError((err: any) => {
-    //     console.log('XXX - ServicesService - catchError - err', err);
-    //     return throwError(err);
-    //   })
-    // );
-    const mock = of(MockGetUserServicesConsume);
+    return this._http
+      .get<IResUserServices>(
+        this._baseUrl.replace("{{id}}", idSportsman + ""),
+        { headers: this._httpHeaders }
+      )
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ServicesService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetUserServicesConsume);
     // const mock = of(MockResErrorServices);
-    return mock;
+    // return mock;
   }
   putUserService(
     idUser: number,
     listScheduled: number[]
-  ): Observable<IResUserServices> {
+  ): Observable<IGenericResponse> {
     this._baseUrl = environment.api.base + environment.api.user_service;
     console.log(
       "XXX - putUserService",
       this._baseUrl.replace("{{id}}", idUser + "")
     );
-    // return this._http
-    // .put<IResServices>(this._baseUrl, listScheduled { headers: this._httpHeaders })
-    // .pipe(
-    //   retry(3),
-    //   catchError((err: any) => {
-    //     console.log('XXX - ServicesService - catchError - err', err);
-    //     return throwError(err);
-    //   })
-    // );
-    const mock = of(MockGetUserServicesConsume);
+    return this._http
+      .put<IGenericResponse>(
+        this._baseUrl.replace("{{id}}", idUser + ""),
+        listScheduled,
+        { headers: this._httpHeaders }
+      )
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ServicesService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetUserServicesConsume);
     // const mock = of(MockResErrorServices);
-    return mock;
+    // return mock;
   }
 }

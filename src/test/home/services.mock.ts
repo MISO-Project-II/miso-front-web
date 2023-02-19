@@ -112,10 +112,14 @@ export const MockResErrorServices: IResServices = {
 };
 // XXX
 export const MockGetUserServicesConsume: IResUserServices = {
-  success: true,
-  message: "Message Ok User-Services Consume",
-  created: null,
-  consume: [
+  // success: true,
+  // message: "Message Ok User-Services Consume",
+  name: "Miguel",
+  idUser: 2,
+  lastName: "Niño",
+  identificationNumber: 1049123456,
+  "produce-services": null,
+  "consume-services": [
     {
       id: 4,
       name: "Servicio 4",

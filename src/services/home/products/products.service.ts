@@ -8,6 +8,7 @@ import {
   IResProduct,
   IResUserProducts,
 } from "src/models/home/products.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import {
   MockGetUserProductsConsume,
   MockResSuccessGetProducts,
@@ -28,18 +29,18 @@ export class ProductsService {
   /**Obtener todos los datos */
   getProducts(): Observable<IResProducts> {
     this._baseUrl = environment.api.base + environment.api.products;
-    // return this._http
-    //   .get<IResProducts>(this._baseUrl, { headers: this._httpHeaders })
-    //   .pipe(
-    //     retry(3),
-    //     catchError((err: any) => {
-    //       console.log("XXX - ProductsService - catchError - err", err);
-    //       return throwError(err);
-    //     })
-    //   );
-    const mock = of(MockResSuccessGetProducts);
+    return this._http
+      .get<IResProducts>(this._baseUrl, { headers: this._httpHeaders })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ProductsService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockResSuccessGetProducts);
     // const mock = of(MockResErrorProducts);
-    return mock;
+    // return mock;
   }
   getProduct(idProduct: number): Observable<IResProduct> {
     this._baseUrl = environment.api.base + environment.api.products;
@@ -67,39 +68,46 @@ export class ProductsService {
       "XXX - getUserProductSportsman",
       this._baseUrl.replace("{{id}}", idSportsman + "")
     );
-    // return this._http
-    // .get<IResProducts>(this._baseUrl, { headers: this._httpHeaders })
-    // .pipe(
-    //   retry(3),
-    //   catchError((err: any) => {
-    //     console.log('XXX - ProductsService - catchError - err', err);
-    //     return throwError(err);
-    //   })
-    // );
-    const mock = of(MockGetUserProductsConsume);
+    return this._http
+      .get<IResUserProducts>(
+        this._baseUrl.replace("{{id}}", idSportsman + ""),
+        { headers: this._httpHeaders }
+      )
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ProductsService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetUserProductsConsume);
     // const mock = of(MockResErrorProducts);
-    return mock;
+    // return mock;
   }
   putUserProduct(
     idUser: number,
     listScheduled: number[]
-  ): Observable<IResUserProducts> {
+  ): Observable<IGenericResponse> {
     this._baseUrl = environment.api.base + environment.api.user_product;
     console.log(
       "XXX - putUserProduct",
       this._baseUrl.replace("{{id}}", idUser + "")
     );
-    // return this._http
-    // .put<IResProducts>(this._baseUrl, listScheduled { headers: this._httpHeaders })
-    // .pipe(
-    //   retry(3),
-    //   catchError((err: any) => {
-    //     console.log('XXX - ProductsService - catchError - err', err);
-    //     return throwError(err);
-    //   })
-    // );
-    const mock = of(MockGetUserProductsConsume);
+    return this._http
+      .put<IGenericResponse>(
+        this._baseUrl.replace("{{id}}", idUser + ""),
+        listScheduled,
+        { headers: this._httpHeaders }
+      )
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ProductsService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetUserProductsConsume);
     // const mock = of(MockResErrorProducts);
-    return mock;
+    // return mock;
   }
 }

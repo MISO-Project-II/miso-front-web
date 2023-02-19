@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
@@ -71,27 +72,23 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       "XXX - SearchProductsComponent - _callService - listScheduled",
       listScheduled
     );
-    this._statusService.spinnerHide();
-    // this._productsService
-    //   .updateProductsByUser(this.getGeneralStatus.userId, data)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResProducts) => {
-    //       if (res.success) {
-    //         console.log(
-    //           "XXX - SearchProductsComponent - _callService - res",
-    //           res
-    //         );
-    //         const productsListScheduled = this.getProductsListScheduled;
-    //         productsListScheduled.push(data);
-    //         this._statusService.setProductsListScheduled(productsListScheduled);
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
+    this._productsService
+      .putUserProduct(this.getGeneralStatus.userId, listScheduled)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IGenericResponse) => {
+          if (res.success) {
+            console.log(
+              "XXX - SearchProductsComponent - _callService - res",
+              res
+            );
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }
