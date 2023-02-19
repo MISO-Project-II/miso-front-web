@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  version: "1.5.2",
+  version: "1.6.0",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
     general_data: "/users/general_data",
@@ -8,9 +8,11 @@ export const environment = {
     sport_profile: "/sport_profile",
     food_profile: "/food_profile",
 
-    events: "/events",
-    services: "/services",
-    products: "/products",
+    events: "/event",
+    user_event_created: "/users/{{id}}/event/created",
+    user_event_consume: "/users/{{id}}/event/consume",
+    services: "/service",
+    products: "/product",
     routes: "/routes",
 
     update_plan: "/update_plan",

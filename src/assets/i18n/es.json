@@ -52,13 +52,16 @@
     "PLACE_OF_BIRTH": "Lugar de nacimiento",
     "PLACE_OF_RESIDENCE": "Lugar de residencia",
     "MONTHS_OF_RESIDENCE": "Meses de residencia",
-    "FREE_PLAN": "Plan gratuito",
-    "MEDIUM_PLAN": "Plan intermedio",
+    "FREE_CONTRACT": "Plan gratuito",
+    "INTERMEDIATE_CONTRACT": "Plan intermedio",
+    "PREMIUM_CONTRACT": "Plan premium",
+    "FREE_CONTRACT_ICON": "⭐",
+    "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
+    "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
     "INSIDE_OF_HOUSE": "Dentro de casa",
     "OUTSIDE_OF_HOUSE": "Fuera de casa",
-    "PREMIUM_PLAN": "Plan premium",
-    "ALL_FREE_PLAN": "Todos los beneficios del plan gratuito",
-    "ALL_MEDIUM_PLAN": "Todos los beneficios del plan intermedio",
+    "ALL_FREE_CONTRACT": "Todos los beneficios del plan gratuito",
+    "ALL_INTERMEDIATE_CONTRACT": "Todos los beneficios del plan intermedio",
     "DEVELOPER_HELPER": "Ayuda al desarrollador",
     "ALLERGIES": "Alergias",
     "SELECT_TYPE": "Selecciona una opción",
@@ -106,7 +109,9 @@
     "SUGGESTED_FOODS": "Alimentos sugeridos: ",
     "DISTANCE": "Distancia: ",
     "SEE_ON_MAP": "Ver en el mapa",
-    "SELECT_ROUTE": "Selecciona una ruta"
+    "SELECT_ROUTE": "Selecciona una ruta",
+    "UBICATION": "Ubicación",
+    "SPORTS_RELATED": "Deportes relacionados"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
@@ -141,9 +146,9 @@
     "REGISTER": "Registrar",
     "ACTUAL_PLAN": "Plan actual",
     "UPDATE": "Actualizar",
-    "FREE_PLAN": "Plan gratuito",
-    "MEDIUM_PLAN": "Plan intermedio",
-    "PREMIUM_PLAN": "Plan premium",
+    "FREE_CONTRACT": "Plan gratuito",
+    "INTERMEDIATE_CONTRACT": "Plan intermedio",
+    "PREMIUM_CONTRACT": "Plan premium",
     "SCHEDULED_EVENTS": "Ver eventos",
     "TRAINING_PLANS": "Ver planes de entrenamiento",
     "FOOD_PLANS": "Ver planes alimenticios",
@@ -163,7 +168,7 @@
     "NO_DATA": "No hay datos en este momento"
   },
   "LIST_DATA": {
-    "FREE_PLAN_SERVICES": [
+    "FREE_CONTRACT_SERVICES": [
       {
         "ID": "01",
         "NAME": "Entrenamiento en base a caracteristicas fisiológicas"
@@ -209,7 +214,7 @@
         "NAME": "Calendario de programación de eventos de entrenamiento"
       }
     ],
-    "MEDIUM_PLAN_SERVICES": [
+    "INTERMEDIATE_CONTRACT_SERVICES": [
       {
         "ID": "01",
         "NAME": "Seguimiento a tiempo real"
@@ -231,7 +236,7 @@
         "NAME": "Detección de cambios de sesiones deportivas en base rendimiento corporal"
       }
     ],
-    "PREMIUM_PLAN_SERVICES": [
+    "PREMIUM_CONTRACT_SERVICES": [
       {
         "ID": "01",
         "NAME": "Entrenador personalizado que ejecuta rutinas en base  al historial  clinico y deportivo"
@@ -289,15 +294,15 @@
     ],
     "PLAN_TYPE": [
       {
-        "ID": "FREE_PLAN",
+        "ID": "FREE_CONTRACT",
         "NAME": "Gratuito"
       },
       {
-        "ID": "MEDIUM_PLAN",
+        "ID": "INTERMEDIATE_CONTRACT",
         "NAME": "Intermedio"
       },
       {
-        "ID": "PREMIUM_PLAN",
+        "ID": "PREMIUM_CONTRACT",
         "NAME": "Premium"
       }
     ],

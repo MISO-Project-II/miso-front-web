@@ -19,14 +19,12 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   constructor(
     private _statusService: StatusService,
     private _eventsService: EventsService,
-    private _productsService: ProductsService,
     private _routesService: RoutesService
   ) {}
 
   ngOnInit() {
     console.log("XXX - UserEventsComponent");
     this._loadEvents();
-    this._loadProducts();
     this._loadRoutes();
   }
   ngOnDestroy(): void {
@@ -39,9 +37,6 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   get getEventsService$(): Observable<IResEvents> {
     return this._eventsService.getEvents();
   }
-  get getProductsService$(): Observable<IResProducts> {
-    return this._productsService.getProducts();
-  }
   get getRoutesService$(): Observable<IResRoutes> {
     return this._routesService.getRoutes();
   }
@@ -49,8 +44,8 @@ export class UserEventsComponent implements OnInit, OnDestroy {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResEvents) => {
         if (res.success) {
+          console.log("XXX - UserEventsComponent - _loadEvents - res", res);
           this._statusService.setEventsList(res.result!);
-          console.log("XXX - UserDashboardComponent - _loadEvents - res", res);
         }
         this._statusService.spinnerHide();
       },
@@ -60,27 +55,13 @@ export class UserEventsComponent implements OnInit, OnDestroy {
       }
     );
   }
-  private _loadProducts(): void {
-    this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResProducts) => {
-        if (res.success) {
-          this._statusService.setProductsList(res.result!);
-          console.log("XXX - UserDashboardComponent - _loadProduct - res", res);
-        }
-        this._statusService.spinnerHide();
-      },
-      (err) => {
-        console.error(err);
-        this._statusService.spinnerHide();
-      }
-    );
-  }
+
   private _loadRoutes(): void {
     this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResRoutes) => {
         if (res.success) {
+          console.log("XXX - UserEventsComponent - _loadRoutes - res", res);
           this._statusService.setRoutesList(res.result!);
-          console.log("XXX - UserDashboardComponent - _loadProduct - res", res);
         }
       },
       (err) => {

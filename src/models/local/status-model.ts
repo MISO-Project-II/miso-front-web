@@ -6,7 +6,7 @@ export class StatusModel {
   userId: number;
   token: string;
   userName: string;
-  contractType: string; // Contract Plan, FREE_PLAN, MEDIUM_PLAN, PREMIUM_PLAN
+  contractType: string; // Contract Plan, FREE_CONTRACT, INTERMEDIATE_CONTRACT, PREMIUM_CONTRACT
   constructor(userType: string) {
     this.userType = userType;
   }

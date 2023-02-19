@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
-import {
-  IEvents,
-  IReqEvent,
-  IResEvents,
-} from "src/models/home/events.interface";
+import { IEvents, IResEvents } from "src/models/home/events.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
@@ -21,6 +20,9 @@ import { StatusService } from "src/services/local/status.service";
 export class SearchEventsComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
 
   private _eventSelected: IEvents;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
@@ -58,30 +60,30 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
 
   public addEvent(): void {
     this._statusService.spinnerShow();
-    this._callService(this._eventSelected);
+    // this._callService(this._eventSelected);
   }
 
-  private _callService(data: IEvents): void {
-    this._eventsService
-      .updateEventsByUser(this.getGeneralStatus.userId, data)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(
-        (res: IResEvents) => {
-          if (res.success) {
-            console.log(
-              "XXX - SearchEventsComponent - _callService - res",
-              res
-            );
-            const eventsListScheduled = this.getEventsListScheduled;
-            eventsListScheduled.push(data);
-            this._statusService.setEventsListScheduled(eventsListScheduled);
-          }
-          this._statusService.spinnerHide();
-        },
-        (err) => {
-          console.error(err);
-          this._statusService.spinnerHide();
-        }
-      );
-  }
+  // private _callService(data: IEvents): void {
+  //   this._eventsService
+  //     .updateEventsByUser(this.getGeneralStatus.userId, data)
+  //     .pipe(takeUntil(this._destroy$))
+  //     .subscribe(
+  //       (res: IResEvents) => {
+  //         if (res.success) {
+  //           console.log(
+  //             "XXX - SearchEventsComponent - _callService - res",
+  //             res
+  //           );
+  //           const eventsListScheduled = this.getEventsListScheduled;
+  //           eventsListScheduled.push(data);
+  //           this._statusService.setEventsListScheduled(eventsListScheduled);
+  //         }
+  //         this._statusService.spinnerHide();
+  //       },
+  //       (err) => {
+  //         console.error(err);
+  //         this._statusService.spinnerHide();
+  //       }
+  //     );
+  // }
 }
