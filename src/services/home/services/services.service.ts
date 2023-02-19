@@ -3,11 +3,13 @@ import { Injectable } from "@angular/core";
 import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import {
-  IReqServices,
+  IResService,
   IResServices,
+  IResUserServices,
   IServices,
 } from "src/models/home/services.interface";
 import {
+  MockGetUserServicesConsume,
   MockResErrorServices,
   MockResSuccessGetServices,
 } from "src/test/home/services.mock";
@@ -40,45 +42,65 @@ export class ServicesService {
     // const mock = of(MockResErrorServices);
     // return mock;
   }
-  /**Obtener todos los datos relacionados con usuario */
-  // getServicesByUser(idData: number): Observable<IResServices> {
-  //   // return this._http.get<IResServices>(`${this._baseUrl}/${idData}`);
-  //   const mock = of(MockResSuccessGetServicesRegistered);
-  //   // const mock = of(MockResErrorServices);
-  //   return mock;
-  // }
-  /**Crear como tercero */
-  // create(data: IServices): Observable<IResServices> {
-  //   // const req: IReqServices = { request: data, date: new Date() };
-  //   // return this._http.post<IResServices>(this._baseUrl, req);
-  //   const mock = of(MockResSuccessGetServices);
-  //   // const mock = of(MockResErrorServices);
-  //   return mock;
-  // }
-  /**Actualizar como tercero */
-  // updateEvent(data: IReqEvent): Observable<IResServices> {
-  //   // const req: IReqServices = { request: data, date: new Date() };
-  //   // return this._http.put<IResServices>(`${this._baseUrl}/${idData}`, req);
-  //   const mock = of(MockResSuccessGetServices);
-  //   // const mock = of(MockResErrorServices);
-  //   return mock;
-  // }
-  /**Actualizar todos los datos relacionados con usuario */
-  // updateServicesByUser(
-  //   idData: number,
-  //   data: IServices
-  // ): Observable<IResServices> {
-  //   // const req: IReqServices = { request: data, date: new Date() };
-  //   // return this._http.put<IResServices>(`${this._baseUrl}/${idData}`, req);
-  //   const mock = of(MockResSuccessGetServicesRegistered);
-  //   // const mock = of(MockResErrorServices);
-  //   return mock;
-  // }
-  /**Eliminar como tercero */
-  // delete(idData: number): Observable<IResServices> {
-  //   // return this._http.delete<IResServices>(`${this._baseUrl}/${idData}`);
-  //   const mock = of(MockResSuccessGetServices);
-  //   // const mock = of(MockResErrorServices);
-  //   return mock;
-  // }
+  getService(idService: number): Observable<IResService> {
+    this._baseUrl = environment.api.base + environment.api.services;
+    return this._http
+      .get<IResService>(this._baseUrl + "/" + idService, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ServicesService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockResSuccessGetServices);
+    // const mock = of(MockResErrorServices);
+    // return mock;
+  }
+  getUserServiceSportsman(idSportsman: number): Observable<IResUserServices> {
+    this._baseUrl =
+      environment.api.base +
+      environment.api.user_service +
+      environment.api.user_service_consume;
+    console.log(
+      "XXX - getUserServiceSportsman",
+      this._baseUrl.replace("{{id}}", idSportsman + "")
+    );
+    // return this._http
+    // .get<IResServices>(this._baseUrl, { headers: this._httpHeaders })
+    // .pipe(
+    //   retry(3),
+    //   catchError((err: any) => {
+    //     console.log('XXX - ServicesService - catchError - err', err);
+    //     return throwError(err);
+    //   })
+    // );
+    const mock = of(MockGetUserServicesConsume);
+    // const mock = of(MockResErrorServices);
+    return mock;
+  }
+  putUserService(
+    idUser: number,
+    listScheduled: number[]
+  ): Observable<IResUserServices> {
+    this._baseUrl = environment.api.base + environment.api.user_service;
+    console.log(
+      "XXX - putUserService",
+      this._baseUrl.replace("{{id}}", idUser + "")
+    );
+    // return this._http
+    // .put<IResServices>(this._baseUrl, listScheduled { headers: this._httpHeaders })
+    // .pipe(
+    //   retry(3),
+    //   catchError((err: any) => {
+    //     console.log('XXX - ServicesService - catchError - err', err);
+    //     return throwError(err);
+    //   })
+    // );
+    const mock = of(MockGetUserServicesConsume);
+    // const mock = of(MockResErrorServices);
+    return mock;
+  }
 }

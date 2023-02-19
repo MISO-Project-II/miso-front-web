@@ -10,7 +10,7 @@
           <button
             *ngFor="let item of getServicesListScheduled"
             type="button"
-            (click)="setEvent(item)"
+            (click)="setService(item)"
             class="list-group-item ds-list-group-item list-group-item-action"
             aria-current="true"
             [class.active]="getService$ === item"
@@ -37,7 +37,7 @@
         <button
           id="btn-continue"
           type="button"
-          (click)="delEvent(getService$)"
+          (click)="delService(getService$)"
           class="btn ds-button"
         >
           {{ "BTN.CANCEL" | translate }}

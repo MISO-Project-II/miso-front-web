@@ -9,9 +9,13 @@ export interface IServices {
   price: number;
   contract: string;
 }
-export interface IReqServices extends IGenericRequest {
-  request?: IServices;
-}
 export interface IResServices extends IGenericResponse {
-  result?: IServices[] | null;
+  result: IServices[] | null;
+}
+export interface IResService extends IGenericResponse {
+  result: IServices | null;
+}
+export interface IResUserServices extends IGenericResponse {
+  created: IServices[] | null;
+  consume: IServices[] | null;
 }

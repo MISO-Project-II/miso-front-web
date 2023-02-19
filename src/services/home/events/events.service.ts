@@ -104,43 +104,4 @@ export class EventsService {
     // const mock = of(MockResErrorEvents);
     return mock;
   }
-
-  // /**Obtener todos los datos relacionados con usuario */
-  // getEventsByUser(idData: number): Observable<IResEvents> {
-  //   // return this._http.get<IResEvents>(`${this._baseUrl}/${idData}`);
-  //   const mock = of(MockResSuccessGetEventsRegistered);
-  //   // const mock = of(MockResErrorEvents);
-  //   return mock;
-  // }
-  /**Crear como tercero */
-  // create(data: IEvents): Observable<IResEvents> {
-  //   // const req: IReqEvents = { request: data, date: new Date() };
-  //   // return this._http.post<IResEvents>(this._baseUrl, req);
-  //   const mock = of(MockResSuccessGetEvents);
-  //   // const mock = of(MockResErrorEvents);
-  //   return mock;
-  // }
-  /**Actualizar como tercero */
-  // updateEvent(data: IReqEvent): Observable<IResEvents> {
-  //   // const req: IReqEvents = { request: data, date: new Date() };
-  //   // return this._http.put<IResEvents>(`${this._baseUrl}/${idData}`, req);
-  //   const mock = of(MockResSuccessGetEvents);
-  //   // const mock = of(MockResErrorEvents);
-  //   return mock;
-  // }
-  /**Actualizar todos los datos relacionados con usuario */
-  // updateEventsByUser(idData: number, data: IEvents): Observable<IResEvents> {
-  //   // const req: IReqEvents = { request: data, date: new Date() };
-  //   // return this._http.put<IResEvents>(`${this._baseUrl}/${idData}`, req);
-  //   const mock = of(MockResSuccessGetEventsRegistered);
-  //   // const mock = of(MockResErrorEvents);
-  //   return mock;
-  // }
-  /**Eliminar como tercero */
-  // delete(idData: number): Observable<IResEvents> {
-  //   // return this._http.delete<IResEvents>(`${this._baseUrl}/${idData}`);
-  //   const mock = of(MockResSuccessGetEvents);
-  //   // const mock = of(MockResErrorEvents);
-  //   return mock;
-  // }
 }
