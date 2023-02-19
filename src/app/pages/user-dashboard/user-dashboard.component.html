@@ -7,12 +7,12 @@
       <app-ds-horizontal-menu
         [userName]="getGeneralStatus.userName"
         [contractType]="
-          getGeneralStatus.contractType === FREE_PLAN
-            ? ('LBL.FREE_PLAN' | translate)
-            : getGeneralStatus.contractType === MEDIUM_PLAN
-            ? ('LBL.MEDIUM_PLAN' | translate)
-            : getGeneralStatus.contractType === PREMIUM_PLAN
-            ? ('LBL.PREMIUM_PLAN' | translate)
+          getGeneralStatus.contractType === FREE_CONTRACT
+            ? ('LBL.FREE_CONTRACT' | translate)
+            : getGeneralStatus.contractType === INTERMEDIATE_CONTRACT
+            ? ('LBL.INTERMEDIATE_CONTRACT' | translate)
+            : getGeneralStatus.contractType === PREMIUM_CONTRACT
+            ? ('LBL.PREMIUM_CONTRACT' | translate)
             : ''
         "
       ></app-ds-horizontal-menu>

@@ -4,11 +4,7 @@ import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
-import {
-  IProducts,
-  IReqProduct,
-  IResProducts,
-} from "src/models/home/products.interface";
+import { IProducts, IResProducts } from "src/models/home/products.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
@@ -56,25 +52,25 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     this._productSelected = productSelected;
   }
 
-  public addProduct(): void {
-    this._statusService.spinnerShow();
-    this._callService(this._productSelected);
-  }
+  // public addProduct(): void {
+  //   this._statusService.spinnerShow();
+  //   this._callService(this._productSelected);
+  // }
 
-  private _callService(data: IProducts): void {
-    this._productsService
-      .updateProductsByUser(this.getGeneralStatus.userId, data)
-      .subscribe((res: IResProducts) => {
-        if (res.success) {
-          console.log(
-            "XXX - SearchProductsComponent - _callService - res",
-            res
-          );
-          const productsListScheduled = this.getProductsListScheduled;
-          productsListScheduled.push(data);
-          this._statusService.setProductsListScheduled(productsListScheduled);
-        }
-        this._statusService.spinnerHide();
-      });
-  }
+  // private _callService(data: IProducts): void {
+  //   this._productsService
+  //     .updateProductsByUser(this.getGeneralStatus.userId, data)
+  //     .subscribe((res: IResProducts) => {
+  //       if (res.success) {
+  //         console.log(
+  //           "XXX - SearchProductsComponent - _callService - res",
+  //           res
+  //         );
+  //         const productsListScheduled = this.getProductsListScheduled;
+  //         productsListScheduled.push(data);
+  //         this._statusService.setProductsListScheduled(productsListScheduled);
+  //       }
+  //       this._statusService.spinnerHide();
+  //     });
+  // }
 }

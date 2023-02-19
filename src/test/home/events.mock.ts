@@ -1,117 +1,92 @@
-import { IResEvents, IEvents } from "src/models/home/events.interface";
+import {
+  FREE_CONTRACT,
+  INTERMEDIATE_CONTRACT,
+  OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
+} from "./../../constanst/data.constants";
+import { IEvents, IResEvents } from "src/models/home/events.interface";
 
 // Data request
-export const MockEvent: IEvents = {
-  title: "Media maraton",
-  description: "Este evento es media maraton",
-  startPlace: "Plaza central",
-  destinyPlace: "Parque norte",
-  date: new Date(),
-  eventCategoryId: "INSIDE_OF_HOUSE",
-  thirdId: "1",
+export const MockGetEvent: IEvents = {
+  idEvent: 1,
+  name: "string",
+  date: "2022-03-10",
+  description: "string",
+  city: "string",
+  idSport: 0,
+  idUserCreator: 0,
+  contractType: FREE_CONTRACT,
+  eventType: OUTSIDE_OF_HOUSE,
 };
 // Data Response
 export const MockGetEvents: IEvents[] = [
   {
-    id: 1,
-    title: "Media maraton1",
-    description: "Este evento es media maraton1",
-    startPlace: "Plaza central1",
-    destinyPlace: "Parque norte1",
-    date: new Date(),
-    eventCategoryId: "OUTSIDE_OF_HOUSE",
-    thirdId: "1",
+    idEvent: 1,
+    name: "Evento 1",
+    date: "2023-03-10",
+    description:
+      "idEvent: 1; name: Evento 1; date: 2022-03-10; city: 149237; idSport: 1; idUserCreator: 0; contracttype: FREE_CONTRACT",
+    city: "149237",
+    idSport: 1,
+    idUserCreator: 1,
+    contractType: FREE_CONTRACT,
+    eventType: OUTSIDE_OF_HOUSE,
   },
   {
-    id: 2,
-    title: "Rodada ciclista2",
-    description: "Este evento es rodada ciclista2",
-    startPlace: "Parque oriental2",
-    destinyPlace: "Parque sur2",
-    date: new Date(),
-    eventCategoryId: "OUTSIDE_OF_HOUSE",
-    thirdId: "2",
+    idEvent: 2,
+    name: "Evento 2",
+    date: "2023-03-11",
+    description:
+      "name: Evento 2; idSport: 2; idUserCreator: 1; contracttype: FREE_CONTRACT",
+    city: "149237",
+    idSport: 2,
+    idUserCreator: 1,
+    contractType: FREE_CONTRACT,
+    eventType: OUTSIDE_OF_HOUSE,
   },
   {
-    id: 3,
-    title: "Gimnasia al sofa3",
-    description: "Este evento es gimnasia al sofa3",
-    startPlace: "En casa3",
-    date: new Date(),
-    eventCategoryId: "INSIDE_OF_HOUSE",
-    thirdId: "3",
+    idEvent: 3,
+    name: "Evento 3",
+    date: "2023-03-11",
+    description:
+      "name: Evento 3; idSport: 3; idUserCreator: 1; contracttype: FREE_CONTRACT",
+    city: "149237",
+    idSport: 3,
+    idUserCreator: 1,
+    contractType: FREE_CONTRACT,
+    eventType: OUTSIDE_OF_HOUSE,
   },
   {
-    id: 4,
-    title: "Media maraton4",
-    description: "Este evento es media maraton4",
-    startPlace: "Plaza central4",
-    destinyPlace: "Parque norte4",
-    date: new Date(),
-    eventCategoryId: "OUTSIDE_OF_HOUSE",
-    thirdId: "1",
+    idEvent: 4,
+    name: "Evento 4",
+    date: "2023-03-11",
+    description:
+      "name: Evento 4; idSport: 4; idUserCreator: 1; contracttype: INTERMEDIATE_CONTRACT",
+    city: "149237",
+    idSport: 4,
+    idUserCreator: 1,
+    contractType: INTERMEDIATE_CONTRACT,
+    eventType: OUTSIDE_OF_HOUSE,
   },
   {
-    id: 5,
-    title: "Rodada ciclista5",
-    description: "Este evento es rodada ciclista5",
-    startPlace: "Parque oriental5",
-    destinyPlace: "Parque sur5",
-    date: new Date(),
-    eventCategoryId: "OUTSIDE_OF_HOUSE",
-    thirdId: "2",
-  },
-  {
-    id: 6,
-    title: "Gimnasia al sofa6",
-    description: "Este evento es gimnasia al sofa6",
-    startPlace: "En casa6",
-    date: new Date(),
-    eventCategoryId: "INSIDE_OF_HOUSE",
-    thirdId: "3",
+    idEvent: 5,
+    name: "Evento 5",
+    date: "2023-03-11",
+    description:
+      "name: Evento 5; idSport: 5; idUserCreator: 1; contracttype: PREMIUM_CONTRACT",
+    city: "149237",
+    idSport: 5,
+    idUserCreator: 1,
+    contractType: PREMIUM_CONTRACT,
+    eventType: OUTSIDE_OF_HOUSE,
   },
 ];
-export const MockGetEventsRegistered: IEvents[] = [
-  {
-    id: 4,
-    title: "Media maraton4",
-    description: "Este evento es media maraton4",
-    startPlace: "Plaza central4",
-    destinyPlace: "Parque norte4",
-    date: new Date(),
-    eventCategoryId: "OUTSIDE_OF_HOUSE",
-    thirdId: "1",
-  },
-  {
-    id: 5,
-    title: "Rodada ciclista5",
-    description: "Este evento es rodada ciclista5",
-    startPlace: "Parque oriental5",
-    destinyPlace: "Parque sur5",
-    date: new Date(),
-    eventCategoryId: "OUTSIDE_OF_HOUSE",
-    thirdId: "2",
-  },
-  {
-    id: 6,
-    title: "Gimnasia al sofa6",
-    description: "Este evento es gimnasia al sofa6",
-    startPlace: "En casa6",
-    date: new Date(),
-    eventCategoryId: "INSIDE_OF_HOUSE",
-    thirdId: "3",
-  },
-];
+
 // Response
 export const MockResSuccessGetEvents: IResEvents = {
   result: MockGetEvents,
   success: true,
   message: "Message Ok Events",
-};
-export const MockResSuccessGetEventsRegistered: IResEvents = {
-  result: MockGetEventsRegistered,
-  success: true,
-  message: "Message Ok Events Registered",
 };
 
 export const MockResErrorEvents: IResEvents = {

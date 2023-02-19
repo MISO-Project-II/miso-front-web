@@ -13,5 +13,5 @@ export interface IReqServices extends IGenericRequest {
   request?: IServices;
 }
 export interface IResServices extends IGenericResponse {
-  result: IServices[] | null;
+  result?: IServices[] | null;
 }

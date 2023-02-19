@@ -30,7 +30,8 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._loadServicesScheduled();
+    console.log("XXX - ActualServicesComponent - ngOnInit - ngOnInit");
+    // this._loadServicesScheduled();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -43,37 +44,37 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   public setEvent(serviceselected: IServices) {
     this._serviceselected = serviceselected;
   }
-  get getServicesService$(): Observable<IResServices> {
-    return this._servicesService.getServicesByUser(
-      this._statusService.getGeneralStatus().userId
-    );
-  }
+  // get getServicesService$(): Observable<IResServices> {
+  //   return this._servicesService.getServicesByUser(
+  //     this._statusService.getGeneralStatus().userId
+  //   );
+  // }
   get getServicesListScheduled(): IServices[] {
     return this._statusService.getServicesListScheduled();
   }
-  private _loadServicesScheduled(): void {
-    this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResServices) => {
-        if (res.success) {
-          this._statusService.setServicesListScheduled(res.result!);
-          console.log(
-            "XXX - ScheduledServicesComponent - _loadServicesScheduled - res",
-            res
-          );
-        }
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  }
+  // private _loadServicesScheduled(): void {
+  //   this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
+  //     (res: IResServices) => {
+  //       if (res.success) {
+  //         this._statusService.setServicesListScheduled(res.result!);
+  //         console.log(
+  //           "XXX - ScheduledServicesComponent - _loadServicesScheduled - res",
+  //           res
+  //         );
+  //       }
+  //     },
+  //     (err) => {
+  //       console.error(err);
+  //     }
+  //   );
+  // }
   /**
    * Cancelar evento inscrito por el usuario
    */
   private _onSubmit(): void {
     this._statusService.spinnerShow();
     const data: IServices = this.getServicesListScheduled[0];
-    this._callService(data);
+    // this._callService(data);
   }
 
   public delEvent(item: any): void {
@@ -85,17 +86,17 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
     this._onSubmit();
   }
 
-  private _callService(data: IServices): void {
-    this._servicesService
-      .updateServicesByUser(this._statusService.getGeneralStatus().userId, data)
-      .subscribe((res: IResServices) => {
-        if (res.success) {
-          console.log(
-            "XXX - ScheduledServicesComponent - _callService - res",
-            res
-          );
-        }
-        this._statusService.spinnerHide();
-      });
-  }
+  // private _callService(data: IServices): void {
+  //   this._servicesService
+  //     .updateServicesByUser(this._statusService.getGeneralStatus().userId, data)
+  //     .subscribe((res: IResServices) => {
+  //       if (res.success) {
+  //         console.log(
+  //           "XXX - ScheduledServicesComponent - _callService - res",
+  //           res
+  //         );
+  //       }
+  //       this._statusService.spinnerHide();
+  //     });
+  // }
 }

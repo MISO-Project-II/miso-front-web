@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
+import { IResProducts } from "src/models/home/products.interface";
 import { IResServices } from "src/models/home/services.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { ProductsService } from "src/services/home/products/products.service";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -14,12 +16,14 @@ export class UserServicesComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _statusService: StatusService,
-    private _servicesService: ServicesService
+    private _servicesService: ServicesService,
+    private _productsService: ProductsService
   ) {}
 
   ngOnInit() {
     console.log("XXX - UserServicesComponent");
     this._loadServices();
+    this._loadProducts();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -31,19 +35,34 @@ export class UserServicesComponent implements OnInit, OnDestroy {
   get getServicesService$(): Observable<IResServices> {
     return this._servicesService.getServices();
   }
+  get getProductsService$(): Observable<IResProducts> {
+    return this._productsService.getProducts();
+  }
   private _loadServices(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResServices) => {
         if (res.success) {
+          console.log("XXX - UserServicesComponent - _loadServices - res", res);
           this._statusService.setServicesList(res.result!);
-          console.log(
-            "XXX - UserDashboardComponent - _loadServices - res",
-            res
-          );
         }
       },
       (err) => {
         console.error(err);
+      }
+    );
+  }
+  private _loadProducts(): void {
+    this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResProducts) => {
+        if (res.success) {
+          console.log("XXX - UserServicesComponent - _loadProducts - res", res);
+          this._statusService.setProductsList(res.result!);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
       }
     );
   }

@@ -1,26 +1,13 @@
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
 export interface IProducts {
-  id?: number;
-  title: string;
+  idProduct?: number;
+  idUserCreator: number;
+  idSport: number;
+  name: string;
   description: string;
-  aproxDelivery: string; // horas
-  price: string; // pesos colombianos Ej: 15000
-  serviceType: string;
-  thirdId: string;
-  img?: string;
-  stock?: string;
-}
-export interface IReqProduct {
-  title: string;
-  description: string;
-  aproxDelivery: string; // horas
-  price: string; // pesos colombianos Ej: 15000
-  serviceType: string;
-  thirdId: string;
-  img?: string;
-  stock?: string;
+  price?: number;
 }
 export interface IResProducts extends IGenericResponse {
-  result: IProducts[] | null;
+  result?: IProducts[] | null;
 }
