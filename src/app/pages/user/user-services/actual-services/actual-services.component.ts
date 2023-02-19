@@ -4,7 +4,11 @@ import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
-import { IResServices, IServices } from "src/models/home/services.interface";
+import {
+  IResServices,
+  IResUserServices,
+  IServices,
+} from "src/models/home/services.interface";
 import {
   IResUserData,
   IUserData,
@@ -21,7 +25,7 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class ActualServicesComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
-  private _serviceselected: IServices = null!;
+  private _serviceSelected: IServices = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -30,8 +34,10 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - ActualServicesComponent - ngOnInit - ngOnInit");
-    // this._loadServicesScheduled();
+    console.log(
+      "XXX - ActualServicesComponent (Servicios Inscritos por el usuario)"
+    );
+    this._loadServicesScheduled();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -39,64 +45,80 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   }
 
   get getService$(): IServices {
-    return this._serviceselected;
+    return this._serviceSelected;
   }
-  public setEvent(serviceselected: IServices) {
-    this._serviceselected = serviceselected;
+  public setService(serviceSelected: IServices) {
+    this._serviceSelected = serviceSelected;
   }
-  // get getServicesService$(): Observable<IResServices> {
-  //   return this._servicesService.getServicesByUser(
-  //     this._statusService.getGeneralStatus().userId
-  //   );
-  // }
+  get getServicesService$(): Observable<IResUserServices> {
+    return this._servicesService.getUserServiceSportsman(
+      this._statusService.getGeneralStatus().userId
+    );
+  }
   get getServicesListScheduled(): IServices[] {
     return this._statusService.getServicesListScheduled();
   }
-  // private _loadServicesScheduled(): void {
-  //   this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
-  //     (res: IResServices) => {
-  //       if (res.success) {
-  //         this._statusService.setServicesListScheduled(res.result!);
-  //         console.log(
-  //           "XXX - ScheduledServicesComponent - _loadServicesScheduled - res",
-  //           res
-  //         );
-  //       }
-  //     },
-  //     (err) => {
-  //       console.error(err);
-  //     }
-  //   );
-  // }
+  private _loadServicesScheduled(): void {
+    this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResUserServices) => {
+        if (res.success) {
+          console.log(
+            "XXX - ActualServicesComponent - _loadServicesScheduled - res",
+            res
+          );
+          this._statusService.setServicesListScheduled(res.consume!);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
   /**
-   * Cancelar evento inscrito por el usuario
+   * Cancelar serviceo inscrito por el usuario
    */
   private _onSubmit(): void {
+    console.log("XXX - _onSubmit", this.getServicesListScheduled);
     this._statusService.spinnerShow();
-    const data: IServices = this.getServicesListScheduled[0];
-    // this._callService(data);
+    const data: number[] = [];
+    for (let index = 0; index < this.getServicesListScheduled.length; index++) {
+      data.push(this.getServicesListScheduled[index].id!);
+    }
+    this._callService(data);
   }
 
-  public delEvent(item: any): void {
+  public delService(item: any): void {
     const servicesListScheduled = this.getServicesListScheduled.filter(
-      (data) => data.id != item.id
+      (data: IServices) => data.id != item.id
     );
     this._statusService.setServicesListScheduled(servicesListScheduled);
-    this._serviceselected = null!;
+    this._serviceSelected = null!;
     this._onSubmit();
   }
 
-  // private _callService(data: IServices): void {
-  //   this._servicesService
-  //     .updateServicesByUser(this._statusService.getGeneralStatus().userId, data)
-  //     .subscribe((res: IResServices) => {
-  //       if (res.success) {
-  //         console.log(
-  //           "XXX - ScheduledServicesComponent - _callService - res",
-  //           res
-  //         );
-  //       }
-  //       this._statusService.spinnerHide();
-  //     });
-  // }
+  private _callService(listScheduled: number[]): void {
+    console.log(
+      "XXX - ScheduledServicesComponent - _callService - listScheduled",
+      listScheduled
+    );
+    this._statusService.spinnerHide();
+    // this._servicesService
+    //   .putUserService(this._statusService.getGeneralStatus().userId, listScheduled)
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(
+    //     (res: IResUserServices) => {
+    //       if (res.success) {
+    //         console.log(
+    //           "XXX - ScheduledServicesComponent - _callService - res",
+    //           res
+    //         );
+    //       }
+    //       this._statusService.spinnerHide();
+    //     },
+    //     (err) => {
+    //       console.error(err);
+    //       this._statusService.spinnerHide();
+    //     }
+    //   );
+  }
 }

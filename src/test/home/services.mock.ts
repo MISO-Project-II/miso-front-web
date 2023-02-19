@@ -1,4 +1,8 @@
-import { IResServices, IServices } from "src/models/home/services.interface";
+import {
+  IResServices,
+  IResUserServices,
+  IServices,
+} from "src/models/home/services.interface";
 
 // Data request
 export const MockEvent: IServices = {
@@ -105,4 +109,39 @@ export const MockResErrorServices: IResServices = {
   success: false,
   message: "Message Error Services",
   result: null,
+};
+// XXX
+export const MockGetUserServicesConsume: IResUserServices = {
+  success: true,
+  message: "Message Ok User-Services Consume",
+  created: null,
+  consume: [
+    {
+      id: 4,
+      name: "Servicio 4",
+      description: "Esto es Servicio 4",
+      idUserCreator: 1,
+      idSport: 4,
+      price: 40,
+      contract: "FREE_CONTRACT",
+    },
+    {
+      id: 5,
+      name: "Servicio 5",
+      description: "Esto es Servicio 5",
+      idUserCreator: 1,
+      idSport: 5,
+      price: 50,
+      contract: "INTERMEDIATE_CONTRACT",
+    },
+    {
+      id: 8,
+      name: "Servicio 8",
+      description: "Esto es Servicio 8",
+      idUserCreator: 1,
+      idSport: 3,
+      price: 80,
+      contract: "PREMIUM_CONTRACT",
+    },
+  ],
 };

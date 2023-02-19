@@ -31,7 +31,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - SearchServicesComponent");
+    console.log("XXX - SearchServicesComponent (Servicios que ya existen)");
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -58,24 +58,38 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   }
 
   public addService(): void {
+    const servicesListScheduled = this.getServicesListScheduled;
+    servicesListScheduled.push(this._serviceSelected);
+    this._statusService.setServicesListScheduled(servicesListScheduled);
+    console.log("XXX - addService", this.getServicesListScheduled);
     this._statusService.spinnerShow();
-    // this._callService(this._serviceSelected);
+    const data: number[] = [];
+    for (let index = 0; index < this.getServicesListScheduled.length; index++) {
+      data.push(this.getServicesListScheduled[index].id!);
+    }
+
+    this._callService(data);
   }
 
-  // private _callService(data: IServices): void {
-  //   this._servicesService
-  //     .updateServicesByUser(this.getGeneralStatus.userId, data)
-  //     .subscribe((res: IResServices) => {
-  //       if (res.success) {
-  //         console.log(
-  //           "XXX - SearchServicesComponent - _callService - res",
-  //           res
-  //         );
-  //         const servicesListScheduled = this.getServicesListScheduled;
-  //         servicesListScheduled.push(data);
-  //         this._statusService.setServicesListScheduled(servicesListScheduled);
-  //       }
-  //       this._statusService.spinnerHide();
-  //     });
-  // }
+  private _callService(listScheduled: number[]): void {
+    console.log(
+      "XXX - SearchServicesComponent - _callService - listScheduled",
+      listScheduled
+    );
+    this._statusService.spinnerHide();
+    // this._servicesService
+    //   .updateServicesByUser(this.getGeneralStatus.userId, data)
+    //   .subscribe((res: IResServices) => {
+    //     if (res.success) {
+    //       console.log(
+    //         "XXX - SearchServicesComponent - _callService - res",
+    //         res
+    //       );
+    //       const servicesListScheduled = this.getServicesListScheduled;
+    //       servicesListScheduled.push(data);
+    //       this._statusService.setServicesListScheduled(servicesListScheduled);
+    //     }
+    //     this._statusService.spinnerHide();
+    //   });
+  }
 }
