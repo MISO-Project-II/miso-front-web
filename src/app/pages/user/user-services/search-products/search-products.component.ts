@@ -26,7 +26,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - SearchProductsComponent");
+    console.log("XXX - SearchProductsComponent (Productos que ya existen)");
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -52,25 +52,46 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     this._productSelected = productSelected;
   }
 
-  // public addProduct(): void {
-  //   this._statusService.spinnerShow();
-  //   this._callService(this._productSelected);
-  // }
+  public addProduct(): void {
+    const productsListScheduled = this.getProductsListScheduled;
+    productsListScheduled.push(this._productSelected);
+    this._statusService.setProductsListScheduled(productsListScheduled);
+    console.log("XXX - addProduct", this.getProductsListScheduled);
+    this._statusService.spinnerShow();
+    const data: number[] = [];
+    for (let index = 0; index < this.getProductsListScheduled.length; index++) {
+      data.push(this.getProductsListScheduled[index].idProduct!);
+    }
 
-  // private _callService(data: IProducts): void {
-  //   this._productsService
-  //     .updateProductsByUser(this.getGeneralStatus.userId, data)
-  //     .subscribe((res: IResProducts) => {
-  //       if (res.success) {
-  //         console.log(
-  //           "XXX - SearchProductsComponent - _callService - res",
-  //           res
-  //         );
-  //         const productsListScheduled = this.getProductsListScheduled;
-  //         productsListScheduled.push(data);
-  //         this._statusService.setProductsListScheduled(productsListScheduled);
-  //       }
-  //       this._statusService.spinnerHide();
-  //     });
-  // }
+    this._callService(data);
+  }
+
+  private _callService(listScheduled: number[]): void {
+    console.log(
+      "XXX - SearchProductsComponent - _callService - listScheduled",
+      listScheduled
+    );
+    this._statusService.spinnerHide();
+    // this._productsService
+    //   .updateProductsByUser(this.getGeneralStatus.userId, data)
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(
+    //     (res: IResProducts) => {
+    //       if (res.success) {
+    //         console.log(
+    //           "XXX - SearchProductsComponent - _callService - res",
+    //           res
+    //         );
+    //         const productsListScheduled = this.getProductsListScheduled;
+    //         productsListScheduled.push(data);
+    //         this._statusService.setProductsListScheduled(productsListScheduled);
+    //       }
+    //       this._statusService.spinnerHide();
+    //     },
+    //     (err) => {
+    //       console.error(err);
+    //       this._statusService.spinnerHide();
+    //     }
+    //   );
+  }
 }

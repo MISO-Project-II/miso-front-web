@@ -9,5 +9,12 @@ export interface IProducts {
   price?: number;
 }
 export interface IResProducts extends IGenericResponse {
-  result?: IProducts[] | null;
+  result: IProducts[] | null;
+}
+export interface IResProduct extends IGenericResponse {
+  result: IProducts | null;
+}
+export interface IResUserProducts extends IGenericResponse {
+  created: IProducts[] | null;
+  consume: IProducts[] | null;
 }
