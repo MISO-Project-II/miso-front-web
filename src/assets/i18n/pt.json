@@ -54,9 +54,12 @@
     "MONTHS_OF_RESIDENCE": "Meses de residencia",
     "FREE_CONTRACT": "Plan gratuito",
     "INTERMEDIATE_CONTRACT": "Plan intermedio",
+    "PREMIUM_CONTRACT": "Plan premium",
+    "FREE_CONTRACT_ICON": "⭐",
+    "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
+    "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
     "INSIDE_OF_HOUSE": "Dentro de casa",
     "OUTSIDE_OF_HOUSE": "Fuera de casa",
-    "PREMIUM_CONTRACT": "Plan premium",
     "ALL_FREE_CONTRACT": "Todos los beneficios del plan gratuito",
     "ALL_INTERMEDIATE_CONTRACT": "Todos los beneficios del plan intermedio",
     "DEVELOPER_HELPER": "Ayuda al desarrollador",
@@ -106,7 +109,9 @@
     "SUGGESTED_FOODS": "Alimentos sugeridos: ",
     "DISTANCE": "Distancia: ",
     "SEE_ON_MAP": "Ver en el mapa",
-    "SELECT_ROUTE": "Selecciona una ruta"
+    "SELECT_ROUTE": "Selecciona una ruta",
+    "UBICATION": "Ubicación",
+    "SPORTS_RELATED": "Deportes relacionados"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
