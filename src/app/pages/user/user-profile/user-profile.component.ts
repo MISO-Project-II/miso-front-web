@@ -19,7 +19,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - UserProfileComponent");
+    console.log("XXX - UserProfileComponent (Contiene el perfil del usuario)");
     this._loadSports();
   }
   ngOnDestroy(): void {
