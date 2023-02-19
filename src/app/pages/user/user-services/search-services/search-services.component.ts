@@ -5,6 +5,7 @@ import {
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
 import { IResServices, IServices } from "src/models/home/services.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserData,
@@ -76,20 +77,16 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
       "XXX - SearchServicesComponent - _callService - listScheduled",
       listScheduled
     );
-    this._statusService.spinnerHide();
-    // this._servicesService
-    //   .updateServicesByUser(this.getGeneralStatus.userId, data)
-    //   .subscribe((res: IResServices) => {
-    //     if (res.success) {
-    //       console.log(
-    //         "XXX - SearchServicesComponent - _callService - res",
-    //         res
-    //       );
-    //       const servicesListScheduled = this.getServicesListScheduled;
-    //       servicesListScheduled.push(data);
-    //       this._statusService.setServicesListScheduled(servicesListScheduled);
-    //     }
-    //     this._statusService.spinnerHide();
-    //   });
+    this._servicesService
+      .putUserService(this.getGeneralStatus.userId, listScheduled)
+      .subscribe((res: IGenericResponse) => {
+        if (res.success) {
+          console.log(
+            "XXX - SearchServicesComponent - _callService - res",
+            res
+          );
+        }
+        this._statusService.spinnerHide();
+      });
   }
 }

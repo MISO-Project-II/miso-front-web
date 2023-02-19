@@ -107,22 +107,14 @@ export const MockResErrorEvents: IResEvents = {
 
 // XXX
 export const MockGetUserEventsConsume: IResUserEvents = {
-  success: true,
-  message: "Message Ok User-Events Consume",
-  created: null,
-  consume: [
-    {
-      idEvent: 1,
-      name: "Evento 1",
-      date: "2023-03-10",
-      description:
-        "idEvent: 1; name: Evento 1; date: 2022-03-10; city: 149237; idSport: 1; idUserCreator: 0; contracttype: FREE_CONTRACT",
-      city: "149237",
-      idSport: 1,
-      idUserCreator: 1,
-      contractType: FREE_CONTRACT,
-      eventType: INSIDE_OF_HOUSE,
-    },
+  // success: true,
+  // message: "Message Ok User-Events Consume",
+  name: "Miguel",
+  idUser: 2,
+  lastName: "Niño",
+  identificationNumber: 1049123456,
+  "produce-services": null,
+  "consume-services": [
     {
       idEvent: 2,
       name: "Evento 2",
@@ -131,6 +123,18 @@ export const MockGetUserEventsConsume: IResUserEvents = {
         "name: Evento 2; idSport: 2; idUserCreator: 1; contracttype: FREE_CONTRACT",
       city: "149237",
       idSport: 2,
+      idUserCreator: 1,
+      contractType: FREE_CONTRACT,
+      eventType: OUTSIDE_OF_HOUSE,
+    },
+    {
+      idEvent: 3,
+      name: "Evento 3",
+      date: "2023-03-11",
+      description:
+        "name: Evento 3; idSport: 3; idUserCreator: 1; contracttype: FREE_CONTRACT",
+      city: "149237",
+      idSport: 3,
       idUserCreator: 1,
       contractType: FREE_CONTRACT,
       eventType: OUTSIDE_OF_HOUSE,

@@ -73,23 +73,27 @@ export const MockResErrorProducts: IResProducts = {
 };
 // XXX
 export const MockGetUserProductsConsume: IResUserProducts = {
-  success: true,
-  message: "Message Ok User-Products Consume",
-  created: null,
-  consume: [
-    {
-      idProduct: 3,
-      idUserCreator: 1,
-      idSport: 3,
-      name: "Producto 3",
-      description: "Esto es Producto 3",
-    },
+  // success: true,
+  // message: "Message Ok User-Products Consume",
+  name: "Miguel",
+  idUser: 2,
+  lastName: "Niño",
+  identificationNumber: 1049123456,
+  "produce-services": null,
+  "consume-services": [
     {
       idProduct: 4,
       idUserCreator: 1,
       idSport: 4,
       name: "Producto 4",
       description: "Esto es Producto 4",
+    },
+    {
+      idProduct: 5,
+      idUserCreator: 1,
+      idSport: 5,
+      name: "Producto 5",
+      description: "Esto es Producto 5",
     },
   ],
 };

@@ -8,6 +8,7 @@ import {
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { IEvents, IResEvents } from "src/models/home/events.interface";
+import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
@@ -77,27 +78,23 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
       "XXX - SearchEventsComponent - _callService - listScheduled",
       listScheduled
     );
-    this._statusService.spinnerHide();
-    // this._eventsService
-    //   .updateEventsByUser(this.getGeneralStatus.userId, data)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResEvents) => {
-    //       if (res.success) {
-    //         console.log(
-    //           "XXX - SearchEventsComponent - _callService - res",
-    //           res
-    //         );
-    //         const eventsListScheduled = this.getEventsListScheduled;
-    //         eventsListScheduled.push(data);
-    //         this._statusService.setEventsListScheduled(eventsListScheduled);
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
+    this._eventsService
+      .putUserEvent(this.getGeneralStatus.userId, listScheduled)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IGenericResponse) => {
+          if (res.success) {
+            console.log(
+              "XXX - SearchEventsComponent - _callService - res",
+              res
+            );
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }
