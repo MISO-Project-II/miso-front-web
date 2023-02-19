@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  version: "1.5.1",
+  version: "1.5.2",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
     general_data: "/users/general_data",
@@ -16,7 +16,7 @@ export const environment = {
     update_plan: "/update_plan",
 
     login: "/users/login",
-    user_register: "/user_register",
+    user_register: "/users/user_register",
     third_register: "/third_register",
 
     suggestions_food_plans: "/suggestions/food_plans",
