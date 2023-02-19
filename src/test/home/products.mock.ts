@@ -1,4 +1,8 @@
-import { IResProducts, IProducts } from "src/models/home/products.interface";
+import {
+  IResProducts,
+  IProducts,
+  IResUserProducts,
+} from "src/models/home/products.interface";
 
 // Data request
 export const MockProduct: IProducts = {
@@ -66,4 +70,26 @@ export const MockResErrorProducts: IResProducts = {
   success: false,
   message: "Message Error Products",
   result: null,
+};
+// XXX
+export const MockGetUserProductsConsume: IResUserProducts = {
+  success: true,
+  message: "Message Ok User-Products Consume",
+  created: null,
+  consume: [
+    {
+      idProduct: 3,
+      idUserCreator: 1,
+      idSport: 3,
+      name: "Producto 3",
+      description: "Esto es Producto 3",
+    },
+    {
+      idProduct: 4,
+      idUserCreator: 1,
+      idSport: 4,
+      name: "Producto 4",
+      description: "Esto es Producto 4",
+    },
+  ],
 };
