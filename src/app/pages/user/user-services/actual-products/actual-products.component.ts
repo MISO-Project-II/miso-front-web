@@ -63,9 +63,7 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
             "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",
             res
           );
-          this._statusService.setProductsListScheduled(
-            res["consume-services"]!
-          );
+          this._statusService.setProductsListScheduled(res["consume-product"]!);
         }
         this._statusService.spinnerHide();
       },

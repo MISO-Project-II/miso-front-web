@@ -19,6 +19,6 @@ export interface IResUserProducts {
   idUser: number;
   lastName: string;
   identificationNumber: number;
-  "produce-services": IProducts[] | null; // /users/{{id_third}}/product/created
-  "consume-services": IProducts[] | null; // /users/{{id_sportsman}}/product/consume
+  "produce-product": IProducts[] | null; // /users/{{id_third}}/product/created
+  "consume-product": IProducts[] | null; // /users/{{id_sportsman}}/product/consume
 }

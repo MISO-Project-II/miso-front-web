@@ -9,7 +9,8 @@ export interface IEvents {
   idSport: number;
   idUserCreator: number;
   contractType: string;
-  eventType: string;
+  eventType?: string;
+  evenType?: string;
   price?: number;
 }
 export interface IResEvents extends IGenericResponse {
@@ -23,6 +24,6 @@ export interface IResUserEvents {
   idUser: number;
   lastName: string;
   identificationNumber: number;
-  "produce-services": IEvents[] | null; // /users/{{id_third}}/event/created
-  "consume-services": IEvents[] | null; // /users/{{id_sportsman}}/event/consume
+  "produce-event": IEvents[] | null; // /users/{{id_third}}/event/created
+  "consume-event": IEvents[] | null; // /users/{{id_sportsman}}/event/consume
 }

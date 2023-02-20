@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { SPORTSMAN } from "src/constanst/data.constants";
+import { SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusModel } from "src/models/local/status-model";
 import { StatusService } from "src/services/local/status.service";
@@ -13,6 +13,7 @@ import { StatusService } from "src/services/local/status.service";
 export class DsVerticalMenuComponent implements OnInit {
   public ROUTES_NAMES = ROUTES_NAMES;
   public SPORTSMAN = SPORTSMAN;
+  public THIRD = THIRD;
   public userType: string;
   public logo: string;
   constructor(private _router: Router, private _statusService: StatusService) {}
@@ -35,6 +36,10 @@ export class DsVerticalMenuComponent implements OnInit {
     ]);
   }
   public goUserEvents(): void {
+    console.log(
+      "XXX - goUserEvents: ",
+      this.getGeneralStatus.userUrl + ROUTES_NAMES.EVENTS
+    );
     this._router.navigate([
       this.getGeneralStatus.userUrl + ROUTES_NAMES.EVENTS,
     ]);

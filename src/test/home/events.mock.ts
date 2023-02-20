@@ -113,8 +113,8 @@ export const MockGetUserEventsConsume: IResUserEvents = {
   idUser: 2,
   lastName: "Niño",
   identificationNumber: 1049123456,
-  "produce-services": null,
-  "consume-services": [
+  "produce-event": null,
+  "consume-event": [
     {
       idEvent: 2,
       name: "Evento 2",
