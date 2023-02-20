@@ -77,6 +77,13 @@ export const THIRD_ROUTES = [
       ),
   },
   {
+    path: ROUTES_NAMES.EVENTS,
+    loadChildren: () =>
+      import("../app/pages/third/third-events/third-events.module").then(
+        (m) => m.ThirdEventsModule
+      ),
+  },
+  {
     path: "**",
     redirectTo: "",
   },

@@ -4,6 +4,7 @@ import { ThirdDashboardComponent } from "./third-dashboard.component";
 import { ThirdDashboardRoutingModule } from "./third-dashboard-routing.module";
 import { DsHorizontalMenuModule } from "src/app/shared/ds-horizontal-menu/ds-horizontal-menu.module";
 import { DsVerticalMenuModule } from "src/app/shared/ds-vertical-menu/ds-vertical-menu.module";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { DsVerticalMenuModule } from "src/app/shared/ds-vertical-menu/ds-vertica
     ThirdDashboardRoutingModule,
     DsHorizontalMenuModule,
     DsVerticalMenuModule,
+    TranslateModule,
   ],
   declarations: [ThirdDashboardComponent],
 })

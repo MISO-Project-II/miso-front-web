@@ -79,8 +79,8 @@ export const MockGetUserProductsConsume: IResUserProducts = {
   idUser: 2,
   lastName: "Niño",
   identificationNumber: 1049123456,
-  "produce-services": null,
-  "consume-services": [
+  "produce-product": null,
+  "consume-product": [
     {
       idProduct: 4,
       idUserCreator: 1,

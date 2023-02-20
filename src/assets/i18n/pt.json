@@ -30,14 +30,17 @@
     "ACTUAL_PRODUCTS": "Productos actuales",
     "SEARCH_PRODUCTS": "Buscar productos",
     "TRAINING_PLAN": "Plan de entrenamiento",
-    "FOOD_PLAN": "Plan alimenticio"
+    "FOOD_PLAN": "Plan alimenticio",
+    "CREATED_EVENTS": "Eventos creados",
+    "CREATE_EVENT": "Crear evento"
   },
   "LBL": {
     "USER_NAME": "Nombre de usuario",
     "USER": "Usuario",
     "PASSWORD": "Contraseña",
     "CONFIRMATION_PASSWORD": "Confirma la contraseña",
-    "NAME": "Nombres",
+    "NAMES": "Nombres",
+    "NAME": "Nombre",
     "LAST_NAME": "Apellidos",
     "ID_TYPE": "Tipo de identificación",
     "ID_NUMBER": "Número",
@@ -111,13 +114,19 @@
     "SEE_ON_MAP": "Ver en el mapa",
     "SELECT_ROUTE": "Selecciona una ruta",
     "UBICATION": "Ubicación",
-    "SPORTS_RELATED": "Deportes relacionados"
+    "SPORTS_RELATED": "Deportes relacionados",
+    "SPORT_RELATED": "Deporte relacionado",
+    "PRICE": "Precio",
+    "DESCRIPTION": "Descripción",
+    "EVENT_TYPE": "Tipo de evento",
+    "CONTRACT_TYPE": "Tipo de servicio"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
     "USER_2": "Usuario",
     "PASSWORD_HIDDEN": "****",
-    "NAME": "Nombres",
+    "NAMES": "Nombres",
+    "NAME": "Nombre",
     "LAST_NAME": "Apellidos",
     "ID_TYPE": "Tipo de identificación",
     "ID_NUMBER": "Número",
@@ -133,7 +142,17 @@
     "STATE": "Departamento",
     "CITY": "Ciudad",
     "MONTHS_OF_RESIDENCE": "00",
-    "HOUR": "1 hora"
+    "HOUR": "1 hora",
+    "DESCRIPTION": "Descripción",
+    "SPORT": "Deporte",
+    "INSIDE_OF_HOUSE": "Dentro de casa",
+    "OUTSIDE_OF_HOUSE": "Fuera de casa",
+    "FREE_CONTRACT": "Plan gratuito",
+    "INTERMEDIATE_CONTRACT": "Plan intermedio",
+    "PREMIUM_CONTRACT": "Plan premium",
+    "FREE_CONTRACT_ICON": "⭐",
+    "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
+    "PREMIUM_CONTRACT_ICON": "⭐⭐⭐"
   },
   "BTN": {
     "CONTINUE": "Continuar",
@@ -159,7 +178,9 @@
     "CREATE_ROUTINE": "Crear rutina",
     "SELECT_SPORT_PLAN": "Seleccionar plan deportivo",
     "SEE_DETAILS": "Ver detalles 👉",
-    "CLOSE": "Cerrar"
+    "CLOSE": "Cerrar",
+    "CREATE_EVENT": "Crear evento",
+    "DELETE": "Eliminar"
   },
   "ERR": {
     "REQUIRED_FIELD": "Campo obligatorio",

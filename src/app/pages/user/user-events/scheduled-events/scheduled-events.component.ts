@@ -69,7 +69,7 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
             "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
             res
           );
-          this._statusService.setEventsListScheduled(res["consume-services"]!);
+          this._statusService.setEventsListScheduled(res["consume-event"]!);
         }
         this._statusService.spinnerHide();
       },
