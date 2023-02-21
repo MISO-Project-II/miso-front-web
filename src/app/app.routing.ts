@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 export const ROOT_ROUTES_NAMES = {
+  SPORTAPP: "sportapp/",
   USER_LOGIN: "login-usuario",
   USER_REGISTER: "registro-usuario",
   THIRD_LOGIN: "login-tercero",
@@ -71,6 +72,6 @@ export const ROOT_ROUTES: Routes = [
   },
   {
     path: "**",
-    redirectTo: ROOT_ROUTES_NAMES.ERROR,
+    redirectTo: ROOT_ROUTES_NAMES.USER_LOGIN,
   },
 ];

@@ -62,6 +62,9 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
   public goUserRegister(): void {
     this._router.navigate([ROOT_ROUTES_NAMES.THIRD_REGISTER]);
   }
+  public goToUser(): void {
+    this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
+  }
   public onSubmit(): void {
     this._statusService.spinnerShow();
     const data: ILogin = {
