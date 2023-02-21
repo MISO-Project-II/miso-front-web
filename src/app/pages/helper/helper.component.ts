@@ -39,7 +39,6 @@ export class HelperComponent implements OnInit {
   }
   private async getStates(countryCode: string) {
     // this.states = await this._ubicationService.getStatesByCountry(countryCode);
-    console.log("XXX- se llamo states::: ", countryCode);
     this.states = await this._ubicationService.getStatesByCountry(countryCode);
     await console.log(
       "XXX - UserRegisterComponent - getStates - this.states",
