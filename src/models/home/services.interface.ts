@@ -8,6 +8,7 @@ export interface IServices {
   idSport: number;
   price: number;
   contract: string;
+  serviceType?: string
 }
 export interface IResServices extends IGenericResponse {
   result: IServices[] | null;

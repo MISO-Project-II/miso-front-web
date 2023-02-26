@@ -84,6 +84,13 @@ export const THIRD_ROUTES = [
       ),
   },
   {
+    path: ROUTES_NAMES.SERVICES,
+    loadChildren: () =>
+      import("../app/pages/third/third-services/third-services.module").then(
+        (m) => m.ThirdServicesModule
+      ),
+  },
+  {
     path: "**",
     redirectTo: "",
   },
