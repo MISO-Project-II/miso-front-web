@@ -68,7 +68,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   public goToUserRegister(): void {
     this._router.navigate([ROOT_ROUTES_NAMES.USER_REGISTER]);
   }
-    public goToThird(): void {
+  public goToThird(): void {
     this._router.navigate([ROOT_ROUTES_NAMES.THIRD_LOGIN]);
   }
   public onSubmit(): void {

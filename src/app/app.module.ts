@@ -37,6 +37,7 @@ import { ThirdHomeModule } from "./pages/third/third-home/third-home.module";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ThirdEventsModule } from "./pages/third/third-events/third-events.module";
+import { ThirdServicesModule } from "./pages/third/third-services/third-services.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -70,6 +71,7 @@ registerLocaleData(localeEsCO, "es-CO");
 
     ThirdHomeModule,
     ThirdEventsModule,
+    ThirdServicesModule,
 
     UserLoginModule,
     UserRegisterModule,
