@@ -62,14 +62,14 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserServices) => {
-        // if (res.success) {
-        if (!!res) {
+        if (res.success) {
+          // if (!!res) {
           console.log(
             "XXX - ActualServicesComponent - _loadServicesScheduled - res",
             res
           );
           this._statusService.setServicesListScheduled(
-            res["consume-services"]!
+            res.result["consume-services"]!
           );
         }
       },

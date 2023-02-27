@@ -1,0 +1,51 @@
+<div id="main-third-products" class="p-3 p-sm-0">
+  <hr />
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="created_products_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#created_products"
+        type="button"
+        role="tab"
+        aria-controls="created_products_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.CREATED_PRODUCTS" | translate }}</label>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="create_products_tab"
+        data-bs-toggle="tab"
+        data-bs-target="#create_products"
+        type="button"
+        role="tab"
+        aria-controls="create_products_tab"
+        aria-selected="true"
+      >
+        <label>{{ "SUBTITLE.CREATE_PRODUCT" | translate }}</label>
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="created_products"
+      role="tabpanel"
+      aria-labelledby="created_products"
+    >
+      <app-created-products></app-created-products>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="create_products"
+      role="tabpanel"
+      aria-labelledby="create_products"
+    >
+      <app-create-products></app-create-products>
+    </div>
+  </div>
+</div>
