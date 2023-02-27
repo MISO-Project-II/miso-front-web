@@ -2,17 +2,17 @@ import { IResPlan, IPlan } from "src/models/update-plan/update-plan.interface";
 
 // Data request
 export const MockPlan: IPlan = {
-  plan: "FREE_CONTRACT",
+  contractType: "FREE_CONTRACT",
 };
 // Data Response
 export const MockGetPlan: IPlan = {
   id: "1",
-  plan: "PREMIUM_CONTRACT",
+  contractType: "INTERMEDIATE_CONTRACT",
 };
 export const MockGetAllPlan: IPlan[] = [
   {
     id: "1",
-    plan: "FREE_CONTRACT",
+    contractType: "FREE_CONTRACT",
   },
 ];
 

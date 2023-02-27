@@ -14,6 +14,7 @@ import { EventsService } from "./home/events/events.service";
 import { ServicesService } from "./home/services/services.service";
 import { ProductsService } from "./home/products/products.service";
 import { RoutesService } from "./general/routes.service";
+import { UpdatePlanService } from "./update-plan/update-plan.service";
 
 @NgModule({
   imports: [CommonModule],
@@ -34,7 +35,7 @@ export class ServicesModule {
         ProductsService,
         RoutesService,
 
-        // UpdatePlanService,
+        UpdatePlanService,
 
         LoginService,
         UserRegisterService,

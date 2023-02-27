@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  version: "1.10.0",
+  version: "1.11.0",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
     general_data: "/users/general_data",
