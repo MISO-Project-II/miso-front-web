@@ -9,32 +9,32 @@ import {
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import {
-  IEvents,
-  IResEvent,
-  IResEvents,
-  IResUserEvents,
-} from "src/models/home/events.interface";
+  IProducts,
+  IResProduct,
+  IResProducts,
+  IResUserProducts,
+} from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { EventsService } from "src/services/home/events/events.service";
+import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
-  selector: "app-create-events",
-  templateUrl: "./create-events.component.html",
-  styleUrls: ["./create-events.component.scss"],
+  selector: "app-create-products",
+  templateUrl: "./create-products.component.html",
+  styleUrls: ["./create-products.component.scss"],
 })
-export class CreateEventsComponent implements OnInit, OnDestroy {
-  public formUserCreateEvent: FormGroup;
+export class CreateProductsComponent implements OnInit, OnDestroy {
+  public formUserCreateProduct: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _statusService: StatusService,
-    private _eventsService: EventsService
+    private _productsService: ProductsService
   ) {}
 
   ngOnInit() {
-    console.log("XXX - CreateEventComponent");
+    console.log("XXX - CreateProductComponent");
     this._initForm();
   }
   ngOnDestroy(): void {
@@ -42,76 +42,72 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
   private _initForm(): void {
-    this.formUserCreateEvent = new FormGroup({
+    this.formUserCreateProduct = new FormGroup({
       name: new FormControl("", [Validators.required]),
-      date: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
-      city: new FormControl("", [Validators.required]),
+      price: new FormControl("", [Validators.required]),
       IdSport: new FormControl("Futbol"), // XXX
       ubicationType: new FormControl(""),
       contractType: new FormControl(""),
     });
   }
   get getForm() {
-    return this.formUserCreateEvent.controls;
-  }
-  get getDescription() {
-    return this.formUserCreateEvent.get("description");
+    return this.formUserCreateProduct.controls;
   }
   get getName() {
-    return this.formUserCreateEvent.get("name");
+    return this.formUserCreateProduct.get("name");
   }
-  get getCity() {
-    return this.formUserCreateEvent.get("city");
+  get getDescription() {
+    return this.formUserCreateProduct.get("description");
   }
-  get getDate() {
-    return this.formUserCreateEvent.get("date");
+  get getPrice() {
+    return this.formUserCreateProduct.get("price");
   }
 
   get getIdSport() {
-    return this.formUserCreateEvent.get("IdSport");
+    return this.formUserCreateProduct.get("IdSport");
   }
+
   get getUbicationType() {
-    return this.formUserCreateEvent.get("ubicationType");
+    return this.formUserCreateProduct.get("ubicationType");
   }
   get getContractType() {
-    return this.formUserCreateEvent.get("contractType");
+    return this.formUserCreateProduct.get("contractType");
   }
 
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getEventsListScheduled(): IEvents[] {
-    return this._statusService.getEventsListScheduled();
+  get getProductsListScheduled(): IProducts[] {
+    return this._statusService.getProductsListScheduled();
   }
   public onSubmit(): void {
     this._statusService.spinnerShow();
-    const data: IEvents = {
+    const data: IProducts = {
       name: this.getName?.value,
       description: this.getDescription?.value,
-      date: this.getDate?.value,
-      city: this.getCity?.value,
+      price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
       idSport: 1,
-      evenType: OUTSIDE_OF_HOUSE,
+      productType: OUTSIDE_OF_HOUSE,
       contractType: FREE_CONTRACT,
     };
     this._callService(data);
   }
-  private _callService(data: IEvents): void {
-    this._eventsService
-      .postCreateEvent(data)
+  private _callService(data: IProducts): void {
+    this._productsService
+      .postCreateProduct(data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
-        (res: IResEvent) => {
+        (res: IResProduct) => {
           if (res.success) {
             console.log(
-              "XXX - CreateEventsComponent - _callService - res",
+              "XXX - CreateProductsComponent - _callService - res",
               res
             );
-            const eventsListScheduled = this.getEventsListScheduled;
-            eventsListScheduled.push(res.result!);
-            this._statusService.setEventsListScheduled(eventsListScheduled);
+            const productsListScheduled = this.getProductsListScheduled;
+            productsListScheduled.push(res.result!);
+            this._statusService.setProductsListScheduled(productsListScheduled);
           }
           this._statusService.spinnerHide();
         },

@@ -28,9 +28,13 @@
           <label>{{ "LBL.DATE" | translate }}</label>
           <p>{{ getEvent$.date }}</p>
         </div>
-        <div class="d-flex">
+        <div class="d-flex" *ngIf="getEvent$.city">
           <label>{{ "LBL.UBICATION" | translate }}</label>
           <p>{{ getEvent$.city }}</p>
+        </div>
+        <div class="d-flex" *ngIf="getEvent$.price">
+          <label>{{ "LBL.PRICE" | translate }}</label>
+          <p>{{ getEvent$.price }}</p>
         </div>
         <div class="d-flex" *ngIf="getEvent$.idSport > 0">
           <label>{{ "LBL.SPORTS_RELATED" | translate }}</label>

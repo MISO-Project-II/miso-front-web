@@ -73,27 +73,32 @@ export const MockResErrorProducts: IResProducts = {
 };
 // XXX
 export const MockGetUserProductsConsume: IResUserProducts = {
-  // success: true,
-  // message: "Message Ok User-Products Consume",
-  name: "Miguel",
-  idUser: 2,
-  lastName: "Niño",
-  identificationNumber: 1049123456,
-  "produce-product": null,
-  "consume-product": [
-    {
-      idProduct: 4,
-      idUserCreator: 1,
-      idSport: 4,
-      name: "Producto 4",
-      description: "Esto es Producto 4",
-    },
-    {
-      idProduct: 5,
-      idUserCreator: 1,
-      idSport: 5,
-      name: "Producto 5",
-      description: "Esto es Producto 5",
-    },
-  ],
+  message: "success",
+  success: true,
+  result: {
+    idUser: 1,
+    "produce-product": [
+      {
+        name: "Sujetador deportivo",
+        idProduct: 5,
+        idUserCreator: 1,
+        idSport: 1,
+        description: "Sujetador deportivo en todas las tallas",
+      },
+      {
+        name: "Bicicleta estatica",
+        idProduct: 6,
+        idUserCreator: 1,
+        idSport: 5,
+        description: "Bicicleta estatica para el hogar",
+      },
+      {
+        name: "Mancuernas",
+        idProduct: 7,
+        idUserCreator: 1,
+        idSport: 5,
+        description: "Mancuernas de diferentes kilos",
+      },
+    ],
+  },
 };

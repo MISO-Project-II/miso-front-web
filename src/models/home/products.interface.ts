@@ -2,11 +2,13 @@ import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
 export interface IProducts {
   idProduct?: number;
-  idUserCreator: number;
-  idSport: number;
   name: string;
   description: string;
   price?: number;
+  idUserCreator: number;
+  idSport: number;
+  contractType?: string;
+  productType?: string;
 }
 export interface IResProducts extends IGenericResponse {
   result: IProducts[] | null;
@@ -14,11 +16,10 @@ export interface IResProducts extends IGenericResponse {
 export interface IResProduct extends IGenericResponse {
   result: IProducts | null;
 }
-export interface IResUserProducts {
-  name: string;
-  idUser: number;
-  lastName: string;
-  identificationNumber: number;
-  "produce-product": IProducts[] | null; // /users/{{id_third}}/product/created
-  "consume-product": IProducts[] | null; // /users/{{id_sportsman}}/product/consume
+export interface IResUserProducts extends IGenericResponse {
+  result: {
+    idUser?: number;
+    "produce-product"?: IProducts[]; // /users/{{id_third}}/product/created
+    "consume-product"?: IProducts[]; // /users/{{id_sportsman}}/product/consume
+  };
 }

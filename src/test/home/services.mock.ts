@@ -112,40 +112,89 @@ export const MockResErrorServices: IResServices = {
 };
 // XXX
 export const MockGetUserServicesConsume: IResUserServices = {
-  // success: true,
-  // message: "Message Ok User-Services Consume",
-  name: "Miguel",
-  idUser: 2,
-  lastName: "Niño",
-  identificationNumber: 1049123456,
-  "produce-services": null,
-  "consume-services": [
-    {
-      id: 4,
-      name: "Servicio 4",
-      description: "Esto es Servicio 4",
-      idUserCreator: 1,
-      idSport: 4,
-      price: 40,
-      contract: "FREE_CONTRACT",
-    },
-    {
-      id: 5,
-      name: "Servicio 5",
-      description: "Esto es Servicio 5",
-      idUserCreator: 1,
-      idSport: 5,
-      price: 50,
-      contract: "INTERMEDIATE_CONTRACT",
-    },
-    {
-      id: 8,
-      name: "Servicio 8",
-      description: "Esto es Servicio 8",
-      idUserCreator: 1,
-      idSport: 3,
-      price: 80,
-      contract: "PREMIUM_CONTRACT",
-    },
-  ],
+  message: "success",
+  success: true,
+  result: {
+    idUser: 1,
+    "produce-services": [
+      {
+        name: "Información de competencias financiadas",
+        id: 3,
+        description:
+          "Provee información de competencias con premios en dinero o físicos",
+        idUserCreator: 1,
+        idSport: 3,
+        price: 10.0,
+        contract: "INTERMEDIATE_CONTRACT",
+      },
+      {
+        name: "Información de clubs deportivos",
+        id: 2,
+        description: "Provee información para afiliarse algún club",
+        idUserCreator: 1,
+        idSport: 2,
+        price: 0.0,
+        contract: "FREE_CONTRACT",
+      },
+      {
+        name: "Información de eventos deportivos",
+        id: 1,
+        description: "Provee información gratuita de eventos",
+        idUserCreator: 1,
+        idSport: 1,
+        price: 0.0,
+        contract: "FREE_CONTRACT",
+      },
+      {
+        name: "Seguimiento con coach en tracking",
+        id: 9,
+        description:
+          "Seguimiento de usuario en bicileta llevando por rutas seguras y de mayor entrenamiento",
+        idUserCreator: 1,
+        idSport: 5,
+        price: 20.0,
+        contract: "PREMIUM_CONTRACT",
+      },
+      {
+        name: "Asesoramiento personalizado",
+        id: 13,
+        description:
+          "Provee atención al usuario para consultas por cualquier medio y seguimiento durante el tracking",
+        idUserCreator: 1,
+        idSport: 11,
+        price: 5.0,
+        contract: "PREMIUM_CONTRACT",
+      },
+      {
+        name: "Instalación de componentes adicionales",
+        id: 10,
+        description:
+          "Provee instalación de componentes necesarios en equipos de ciclismos",
+        idUserCreator: 1,
+        idSport: 5,
+        price: 70.0,
+        contract: "FREE_CONTRACT",
+      },
+      {
+        name: "Servicio de hidratación",
+        id: 12,
+        description:
+          "Provee botellas de agua, infusiones para el usuario durante la carrea, aplicable mayores a 20km",
+        idUserCreator: 1,
+        idSport: 10,
+        price: 35.0,
+        contract: "FREE_CONTRACT",
+      },
+      {
+        name: "Servicio médico durante carrera",
+        id: 16,
+        description:
+          "Servicio que provee un medico especializado en caso de emergencia o dolencia durante una carrera mayor a 10k",
+        idUserCreator: 1,
+        idSport: 10,
+        price: 15.0,
+        contract: "INTERMEDIATE_CONTRACT",
+      },
+    ],
+  },
 };

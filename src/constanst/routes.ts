@@ -3,6 +3,7 @@ export const ROUTES_NAMES = {
   SESSION: "sesion",
   EVENTS: "eventos",
   SERVICES: "servicios",
+  PRODUCTS: "productos",
   PLANS: "planes",
   PROFILE: "perfil",
 };
@@ -88,6 +89,13 @@ export const THIRD_ROUTES = [
     loadChildren: () =>
       import("../app/pages/third/third-services/third-services.module").then(
         (m) => m.ThirdServicesModule
+      ),
+  },
+  {
+    path: ROUTES_NAMES.PRODUCTS,
+    loadChildren: () =>
+      import("../app/pages/third/third-products/third-products.module").then(
+        (m) => m.ThirdProductsModule
       ),
   },
   {

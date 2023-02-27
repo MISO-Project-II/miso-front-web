@@ -8,37 +8,37 @@ import {
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import {
-  IServices,
-  IResService,
-  IResServices,
-} from "src/models/home/services.interface";
+  IProducts,
+  IResProduct,
+  IResProducts,
+} from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { ServicesService } from "src/services/home/services/services.service";
+import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 
 @Component({
-  selector: "app-created-services",
-  templateUrl: "./created-services.component.html",
-  styleUrls: ["./created-services.component.scss"],
+  selector: "app-created-products",
+  templateUrl: "./created-products.component.html",
+  styleUrls: ["./created-products.component.scss"],
 })
-export class CreatedServicesComponent implements OnInit, OnDestroy {
+export class CreatedProductsComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
 
-  private _serviceSelected: IServices;
+  private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    private _servicesService: ServicesService,
+    private _productsService: ProductsService,
     private _statusService: StatusService
   ) {}
 
   ngOnInit(): void {
     console.log(
-      "XXX - CreatedServicesComponent (Servicios que creo el tercero)"
+      "XXX - CreatedProductsComponent (Productos que creo el tercero)"
     );
   }
   ngOnDestroy(): void {
@@ -46,31 +46,31 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  get getServicesService$(): Observable<IResServices> {
-    return this._servicesService.getServices();
+  get getProductsService$(): Observable<IResProducts> {
+    return this._productsService.getProducts();
   }
-  get getService$(): IServices {
-    return this._serviceSelected;
+  get getProduct$(): IProducts {
+    return this._productSelected;
   }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getServicesListScheduled(): IServices[] {
-    return this._statusService.getServicesListScheduled();
+  get getProductsListScheduled(): IProducts[] {
+    return this._statusService.getProductsListScheduled();
   }
-  public setService(serviceSelected: IServices) {
-    this._serviceSelected = serviceSelected;
+  public setProduct(productSelected: IProducts) {
+    this._productSelected = productSelected;
   }
 
-  public delService(item: any): void {
-    this._servicesService
-      .delService(item.id)
+  public delProduct(item: any): void {
+    this._productsService
+      .delProduct(item.idProduct)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
-        (res: IResService) => {
+        (res: IResProduct) => {
           if (res.success) {
             console.log(
-              "XXX - CreatedServicesComponent - delService - res",
+              "XXX - CreatedProductsComponent - delProduct - res",
               res
             );
           }
@@ -83,15 +83,15 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
       );
   }
 
-  public addService(): void {
-    const servicesListScheduled = this.getServicesListScheduled;
-    servicesListScheduled.push(this._serviceSelected);
-    this._statusService.setServicesListScheduled(servicesListScheduled);
-    console.log("XXX - addService", this.getServicesListScheduled);
+  public addProduct(): void {
+    const productsListScheduled = this.getProductsListScheduled;
+    productsListScheduled.push(this._productSelected);
+    this._statusService.setProductsListScheduled(productsListScheduled);
+    console.log("XXX - addProduct", this.getProductsListScheduled);
     this._statusService.spinnerShow();
     const data: number[] = [];
-    for (let index = 0; index < this.getServicesListScheduled.length; index++) {
-      data.push(this.getServicesListScheduled[index].id!);
+    for (let index = 0; index < this.getProductsListScheduled.length; index++) {
+      data.push(this.getProductsListScheduled[index].idProduct!);
     }
 
     this._callService(data);
@@ -99,17 +99,17 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
 
   private _callService(listScheduled: number[]): void {
     console.log(
-      "XXX - CreatedServicesComponent - _callService - listScheduled",
+      "XXX - CreatedProductsComponent - _callService - listScheduled",
       listScheduled
     );
-    this._servicesService
-      .putUserService(this.getGeneralStatus.userId, listScheduled)
+    this._productsService
+      .putUserProduct(this.getGeneralStatus.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
           if (res.success) {
             console.log(
-              "XXX - CreatedServicesComponent - _callService - res",
+              "XXX - CreatedProductsComponent - _callService - res",
               res
             );
           }

@@ -84,6 +84,30 @@ export class ProductsService {
     // const mock = of(MockResErrorProducts);
     // return mock;
   }
+  getUserProductThird(idThird: number): Observable<IResUserProducts> {
+    this._baseUrl =
+      environment.api.base +
+      environment.api.user_product +
+      environment.api.user_product_created;
+    console.log(
+      "XXX - getUserProductSportsman",
+      this._baseUrl.replace("{{id}}", idThird + "")
+    );
+    return this._http
+      .get<IResUserProducts>(this._baseUrl.replace("{{id}}", idThird + ""), {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ProductsService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetUserProductsConsume);
+    // const mock = of(MockResErrorProducts);
+    // return mock;
+  }
   putUserProduct(
     idUser: number,
     listScheduled: number[]
@@ -109,5 +133,17 @@ export class ProductsService {
     // const mock = of(MockGetUserProductsConsume);
     // const mock = of(MockResErrorProducts);
     // return mock;
+  }
+  postCreateProduct(data: IProducts): Observable<IResProduct> {
+    this._baseUrl = environment.api.base + environment.api.products;
+    return this._http.post<IResProduct>(this._baseUrl, data, {
+      headers: this._httpHeaders,
+    });
+  }
+  delProduct(idProduct: number): Observable<IResProduct> {
+    this._baseUrl = environment.api.base + environment.api.products;
+    return this._http.delete<IResProduct>(this._baseUrl + "/" + idProduct, {
+      headers: this._httpHeaders,
+    });
   }
 }

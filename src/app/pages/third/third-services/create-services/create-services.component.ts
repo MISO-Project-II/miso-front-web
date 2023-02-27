@@ -45,11 +45,10 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
     this.formUserCreateService = new FormGroup({
       name: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
-      idUserCreator: new FormControl(1),
       IdSport: new FormControl("Futbol"), // XXX
       price: new FormControl(""),
       contract: new FormControl(""),
-      serviceType: new FormControl(""),
+      ubicationType: new FormControl(""),
     });
   }
   get getForm() {
@@ -61,20 +60,19 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
   get getName() {
     return this.formUserCreateService.get("name");
   }
-  get getIdUserCreator() {
-    return this.formUserCreateService.get("idUserCreator");
-  }
-  get getIdSport() {
-    return this.formUserCreateService.get("IdSport");
-  }
   get getPrice() {
     return this.formUserCreateService.get("price");
   }
+
+  get getIdSport() {
+    return this.formUserCreateService.get("IdSport");
+  }
+
   get getContractType() {
     return this.formUserCreateService.get("contract");
   }
-  get getServiceType() {
-    return this.formUserCreateService.get("serviceType");
+  get getUbicationType() {
+    return this.formUserCreateService.get("ubicationType");
   }
 
   get getGeneralStatus(): StatusModel {
@@ -88,9 +86,9 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
     const data: IServices = {
       name: this.getName?.value,
       description: this.getDescription?.value,
+      price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
       idSport: 1,
-      price: this.getPrice?.value,
       // serviceType: OUTSIDE_OF_HOUSE,
       contract: FREE_CONTRACT,
     };

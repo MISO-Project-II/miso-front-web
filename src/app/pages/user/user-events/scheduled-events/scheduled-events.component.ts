@@ -63,13 +63,15 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   private _loadEventsScheduled(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserEvents) => {
-        // if (res.success) {
-        if (!!res) {
+        if (res.success) {
+          // if (!!res) {
           console.log(
             "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
             res
           );
-          this._statusService.setEventsListScheduled(res["consume-event"]!);
+          this._statusService.setEventsListScheduled(
+            res.result["consume-event"]!
+          );
         }
         this._statusService.spinnerHide();
       },

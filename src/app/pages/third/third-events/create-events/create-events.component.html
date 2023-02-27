@@ -98,17 +98,19 @@
             </div>
           </div>
           <div class="ds-input-group mt-3">
-            <label for="event_type">{{ "LBL.EVENT_TYPE" | translate }}</label>
+            <label for="ubication_type">{{
+              "LBL.UBICATION_TYPE" | translate
+            }}</label>
             <input
-              id="event_type_input"
-              formControlName="eventType"
+              id="ubication_type_input"
+              formControlName="ubicationType"
               type="text"
               class="form-control ds-input"
-              aria-describedby="event_type_input"
+              aria-describedby="ubication_type_input"
               [placeholder]="'PLACEHOLDER.OUTSIDE_OF_HOUSE' | translate"
               readonly
             />
-            <small *ngIf="getEventType?.hasError('required')">{{
+            <small *ngIf="getUbicationType?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
           </div>
