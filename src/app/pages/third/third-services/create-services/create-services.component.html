@@ -1,8 +1,8 @@
-<div id="main-create-events">
+<div id="main-create-services">
   <hr />
 
   <form
-    [formGroup]="formUserCreateEvent"
+    [formGroup]="formUserCreateService"
     (ngSubmit)="onSubmit()"
     novalidate
     autocomplete="off"
@@ -42,31 +42,17 @@
             }}</small>
           </div>
           <div class="ds-input-group mt-3">
-            <label for="city">{{ "LBL.UBICATION" | translate }}</label>
-            <input
-              id="city_input"
-              formControlName="city"
-              type="text"
-              class="form-control ds-input"
-              aria-describedby="city_input"
-              [placeholder]="'PLACEHOLDER.CITY' | translate"
-            />
-            <small *ngIf="getCity?.hasError('required')">{{
-              "ERR.REQUIRED_FIELD" | translate
-            }}</small>
-          </div>
-          <div class="ds-input-group mt-3">
             <div class="ds-input-group mt-3 ds-card-right">
-              <label for="date">{{ "LBL.DATE" | translate }}</label>
+              <label for="price">{{ "LBL.PRICE" | translate }}</label>
               <input
-                id="date_input"
-                formControlName="date"
-                type="text"
+                id="price_input"
+                formControlName="price"
+                type="number"
                 class="form-control ds-input"
-                aria-describedby="date_input"
-                [placeholder]="'PLACEHOLDER.DATE_FORMAT' | translate"
+                aria-describedby="price_input"
+                [placeholder]="'PLACEHOLDER.PRICE' | translate"
               />
-              <small *ngIf="getDate?.hasError('required')">{{
+              <small *ngIf="getPrice?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
@@ -98,15 +84,15 @@
             </div>
           </div>
           <div class="ds-input-group mt-3">
-            <label for="ubication_type">{{
+            <label for="ubicationtype">{{
               "LBL.UBICATION_TYPE" | translate
             }}</label>
             <input
-              id="ubication_type_input"
+              id="ubicationtype_input"
               formControlName="ubicationType"
               type="text"
               class="form-control ds-input"
-              aria-describedby="ubication_type_input"
+              aria-describedby="ubicationtype_input"
               [placeholder]="'PLACEHOLDER.OUTSIDE_OF_HOUSE' | translate"
               readonly
             />
@@ -121,7 +107,7 @@
             }}</label>
             <input
               id="contract_type_input"
-              formControlName="contractType"
+              formControlName="contract"
               type="text"
               class="form-control ds-input"
               aria-describedby="contract_type_input"
@@ -140,9 +126,9 @@
             id="btn-continue"
             type="submit"
             class="btn ds-button"
-            [disabled]="!formUserCreateEvent.valid"
+            [disabled]="!formUserCreateService.valid"
           >
-            {{ "BTN.CREATE_EVENT" | translate }}
+            {{ "BTN.CREATE_SERVICE" | translate }}
           </button>
         </div>
       </div>

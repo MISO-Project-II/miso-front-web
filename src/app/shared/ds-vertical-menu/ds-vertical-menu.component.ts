@@ -49,6 +49,11 @@ export class DsVerticalMenuComponent implements OnInit {
       this.getGeneralStatus.userUrl + ROUTES_NAMES.SERVICES,
     ]);
   }
+  public goUserProducts(): void {
+    this._router.navigate([
+      this.getGeneralStatus.userUrl + ROUTES_NAMES.PRODUCTS,
+    ]);
+  }
   public goUserPlans(): void {
     this._router.navigate([this.getGeneralStatus.userUrl + ROUTES_NAMES.PLANS]);
   }

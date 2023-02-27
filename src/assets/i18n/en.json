@@ -12,6 +12,7 @@
     "SESSION": "Sesión",
     "EVENTS": "Eventos",
     "SERVICES": "Servicios",
+    "PRODUCTS": "Productos",
     "PLANS": "Planes",
     "PROFILE": "Perfil"
   },
@@ -32,7 +33,11 @@
     "TRAINING_PLAN": "Plan de entrenamiento",
     "FOOD_PLAN": "Plan alimenticio",
     "CREATED_EVENTS": "Eventos creados",
-    "CREATE_EVENT": "Crear evento"
+    "CREATE_EVENT": "Crear evento",
+    "CREATED_PRODUCTS": "Productos creados",
+    "CREATE_PRODUCT": "Crear producto",
+    "CREATED_SERVICES": "Servicios creados",
+    "CREATE_SERVICE": "Crear Servicio"
   },
   "LBL": {
     "USER_NAME": "Nombre de usuario",
@@ -118,7 +123,7 @@
     "SPORT_RELATED": "Deporte relacionado",
     "PRICE": "Precio",
     "DESCRIPTION": "Descripción",
-    "EVENT_TYPE": "Tipo de evento",
+    "UBICATION_TYPE": "Ubicación",
     "CONTRACT_TYPE": "Tipo de servicio"
   },
   "PLACEHOLDER": {
@@ -152,7 +157,8 @@
     "PREMIUM_CONTRACT": "Plan premium",
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
-    "PREMIUM_CONTRACT_ICON": "⭐⭐⭐"
+    "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
+    "PRICE": "Precio"
   },
   "BTN": {
     "CONTINUE": "Continuar",
@@ -180,6 +186,8 @@
     "SEE_DETAILS": "Ver detalles 👉",
     "CLOSE": "Cerrar",
     "CREATE_EVENT": "Crear evento",
+    "CREATE_PRODUCT": "Crear producto",
+    "CREATE_SERVICE": "Crear Servicio",
     "DELETE": "Eliminar"
   },
   "ERR": {

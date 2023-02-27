@@ -57,13 +57,15 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserProducts) => {
-        // if (res.success) {
-        if (!!res) {
+        if (res.success) {
+          // if (!!res) {
           console.log(
             "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",
             res
           );
-          this._statusService.setProductsListScheduled(res["consume-product"]!);
+          this._statusService.setProductsListScheduled(
+            res.result["consume-product"]!
+          );
         }
         this._statusService.spinnerHide();
       },

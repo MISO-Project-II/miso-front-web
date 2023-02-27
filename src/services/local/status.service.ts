@@ -53,8 +53,20 @@ export class StatusService {
     this._eventsList = eventsList;
   }
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
+    console.log(
+      "🚀 XXX - setEventsListScheduled - eventsListScheduled : ",
+      eventsListScheduled
+    );
     const newEventsListScheduled = new Set(eventsListScheduled);
+    console.log(
+      "🚀 XXX - setEventsListScheduled - newEventsListScheduled : ",
+      newEventsListScheduled
+    );
     this._eventsListScheduled = [...newEventsListScheduled];
+    console.log(
+      "🚀 XXX - setEventsListScheduled - _eventsListScheduled : ",
+      this._eventsListScheduled
+    );
   }
   public setServicesList(servicesList: IServices[]) {
     this._servicesList = servicesList;

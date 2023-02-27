@@ -85,6 +85,30 @@ export class ServicesService {
     // const mock = of(MockResErrorServices);
     // return mock;
   }
+  getUserServiceThird(idThird: number): Observable<IResUserServices> {
+    this._baseUrl =
+      environment.api.base +
+      environment.api.user_service +
+      environment.api.user_service_created;
+    console.log(
+      "XXX - getUserServiceSportsman",
+      this._baseUrl.replace("{{id}}", idThird + "")
+    );
+    return this._http
+      .get<IResUserServices>(this._baseUrl.replace("{{id}}", idThird + ""), {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - ServicesService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetUserServicesConsume);
+    // const mock = of(MockResErrorServices);
+    // return mock;
+  }
   putUserService(
     idUser: number,
     listScheduled: number[]
@@ -110,5 +134,17 @@ export class ServicesService {
     // const mock = of(MockGetUserServicesConsume);
     // const mock = of(MockResErrorServices);
     // return mock;
+  }
+  postCreateService(data: IServices): Observable<IResService> {
+    this._baseUrl = environment.api.base + environment.api.services;
+    return this._http.post<IResService>(this._baseUrl, data, {
+      headers: this._httpHeaders,
+    });
+  }
+  delService(idService: number): Observable<IResService> {
+    this._baseUrl = environment.api.base + environment.api.services;
+    return this._http.delete<IResService>(this._baseUrl + "/" + idService, {
+      headers: this._httpHeaders,
+    });
   }
 }

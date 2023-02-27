@@ -1,27 +1,27 @@
+import { ProductsService } from "../../../../services/home/products/products.service";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
-import { IResUserEvents } from "src/models/home/events.interface";
+import { IResUserProducts } from "src/models/home/products.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
 import { RoutesService } from "src/services/general/routes.service";
 
 @Component({
-  selector: "app-third-events",
-  templateUrl: "./third-events.component.html",
-  styleUrls: ["./third-events.component.scss"],
+  selector: "app-third-products",
+  templateUrl: "./third-products.component.html",
+  styleUrls: ["./third-products.component.scss"],
 })
-export class ThirdEventsComponent implements OnInit, OnDestroy {
+export class ThirdProductsComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _statusService: StatusService,
-    private _eventsService: EventsService,
+    private _productsService: ProductsService,
     private _routesService: RoutesService
   ) {}
 
   ngOnInit() {
-    console.log("XXX - ThirdEventsComponent (Contiene a eventos y rutas)");
-    this._loadEventsScheduled();
+    console.log("XXX - ThirdProductsComponent (Contiene a productos y rutas)");
+    this._loadProductsScheduled();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -30,22 +30,22 @@ export class ThirdEventsComponent implements OnInit, OnDestroy {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getEventsService$(): Observable<IResUserEvents> {
-    return this._eventsService.getUserEventThird(
+  get getProductsService$(): Observable<IResUserProducts> {
+    return this._productsService.getUserProductThird(
       this._statusService.getGeneralStatus().userId
     );
   }
-  private _loadEventsScheduled(): void {
-    this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResUserEvents) => {
+  private _loadProductsScheduled(): void {
+    this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResUserProducts) => {
         if (res.success) {
           // if (!!res) {
           console.log(
-            "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
+            "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",
             res
           );
-          this._statusService.setEventsListScheduled(
-            res.result["produce-event"]!
+          this._statusService.setProductsListScheduled(
+            res.result["produce-product"]!
           );
         }
         this._statusService.spinnerHide();

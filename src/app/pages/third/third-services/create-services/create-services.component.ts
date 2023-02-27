@@ -9,32 +9,32 @@ import {
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import {
-  IEvents,
-  IResEvent,
-  IResEvents,
-  IResUserEvents,
-} from "src/models/home/events.interface";
+  IServices,
+  IResService,
+  IResServices,
+  IResUserServices,
+} from "src/models/home/services.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { EventsService } from "src/services/home/events/events.service";
+import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
-  selector: "app-create-events",
-  templateUrl: "./create-events.component.html",
-  styleUrls: ["./create-events.component.scss"],
+  selector: "app-create-services",
+  templateUrl: "./create-services.component.html",
+  styleUrls: ["./create-services.component.scss"],
 })
-export class CreateEventsComponent implements OnInit, OnDestroy {
-  public formUserCreateEvent: FormGroup;
+export class CreateServicesComponent implements OnInit, OnDestroy {
+  public formUserCreateService: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _statusService: StatusService,
-    private _eventsService: EventsService
+    private _servicesService: ServicesService
   ) {}
 
   ngOnInit() {
-    console.log("XXX - CreateEventComponent");
+    console.log("XXX - CreateServiceComponent");
     this._initForm();
   }
   ngOnDestroy(): void {
@@ -42,76 +42,72 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
   private _initForm(): void {
-    this.formUserCreateEvent = new FormGroup({
+    this.formUserCreateService = new FormGroup({
       name: new FormControl("", [Validators.required]),
-      date: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
-      city: new FormControl("", [Validators.required]),
       IdSport: new FormControl("Futbol"), // XXX
+      price: new FormControl(""),
+      contract: new FormControl(""),
       ubicationType: new FormControl(""),
-      contractType: new FormControl(""),
     });
   }
   get getForm() {
-    return this.formUserCreateEvent.controls;
+    return this.formUserCreateService.controls;
   }
   get getDescription() {
-    return this.formUserCreateEvent.get("description");
+    return this.formUserCreateService.get("description");
   }
   get getName() {
-    return this.formUserCreateEvent.get("name");
+    return this.formUserCreateService.get("name");
   }
-  get getCity() {
-    return this.formUserCreateEvent.get("city");
-  }
-  get getDate() {
-    return this.formUserCreateEvent.get("date");
+  get getPrice() {
+    return this.formUserCreateService.get("price");
   }
 
   get getIdSport() {
-    return this.formUserCreateEvent.get("IdSport");
+    return this.formUserCreateService.get("IdSport");
+  }
+
+  get getContractType() {
+    return this.formUserCreateService.get("contract");
   }
   get getUbicationType() {
-    return this.formUserCreateEvent.get("ubicationType");
-  }
-  get getContractType() {
-    return this.formUserCreateEvent.get("contractType");
+    return this.formUserCreateService.get("ubicationType");
   }
 
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getEventsListScheduled(): IEvents[] {
-    return this._statusService.getEventsListScheduled();
+  get getServicesListScheduled(): IServices[] {
+    return this._statusService.getServicesListScheduled();
   }
   public onSubmit(): void {
     this._statusService.spinnerShow();
-    const data: IEvents = {
+    const data: IServices = {
       name: this.getName?.value,
       description: this.getDescription?.value,
-      date: this.getDate?.value,
-      city: this.getCity?.value,
+      price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
       idSport: 1,
-      evenType: OUTSIDE_OF_HOUSE,
-      contractType: FREE_CONTRACT,
+      // serviceType: OUTSIDE_OF_HOUSE,
+      contract: FREE_CONTRACT,
     };
     this._callService(data);
   }
-  private _callService(data: IEvents): void {
-    this._eventsService
-      .postCreateEvent(data)
+  private _callService(data: IServices): void {
+    this._servicesService
+      .postCreateService(data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
-        (res: IResEvent) => {
+        (res: IResService) => {
           if (res.success) {
             console.log(
-              "XXX - CreateEventsComponent - _callService - res",
+              "XXX - CreateServicesComponent - _callService - res",
               res
             );
-            const eventsListScheduled = this.getEventsListScheduled;
-            eventsListScheduled.push(res.result!);
-            this._statusService.setEventsListScheduled(eventsListScheduled);
+            const servicesListScheduled = this.getServicesListScheduled;
+            servicesListScheduled.push(res.result!);
+            this._statusService.setServicesListScheduled(servicesListScheduled);
           }
           this._statusService.spinnerHide();
         },

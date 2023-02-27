@@ -4,10 +4,11 @@ export interface IServices {
   id?: number;
   name: string;
   description: string;
+  price: number;
   idUserCreator: number;
   idSport: number;
-  price: number;
-  contract: string;
+  contract?: string;
+  serviceType?: string;
 }
 export interface IResServices extends IGenericResponse {
   result: IServices[] | null;
@@ -15,11 +16,10 @@ export interface IResServices extends IGenericResponse {
 export interface IResService extends IGenericResponse {
   result: IServices | null;
 }
-export interface IResUserServices {
-  name: string;
-  idUser: number;
-  lastName: string;
-  identificationNumber: number;
-  "produce-services": IServices[] | null; // /users/{{id_third}}/service/created
-  "consume-services": IServices[] | null; // /users/{{id_sportsman}}/service/consume
+export interface IResUserServices extends IGenericResponse {
+  result: {
+    idUser?: number;
+    "produce-services"?: IServices[]; // /users/{{id_third}}/service/created
+    "consume-services"?: IServices[]; // /users/{{id_sportsman}}/service/consume
+  };
 }
