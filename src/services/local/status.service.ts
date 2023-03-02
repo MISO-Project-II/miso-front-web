@@ -19,6 +19,7 @@ export class StatusService {
   private _productsList: IProducts[] = [];
   private _productsListScheduled: IProducts[] = [];
   private _routesList: IRoutes[] = [];
+  private _isMobile: boolean = false;
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
@@ -85,6 +86,9 @@ export class StatusService {
   public setRoutesList(routesList: IRoutes[]) {
     this._routesList = routesList;
   }
+  public setIsMobile(isMobile: boolean) {
+    this._isMobile = isMobile;
+  }
   public getGeneralStatus(): StatusModel {
     return this._status;
   }
@@ -111,6 +115,9 @@ export class StatusService {
   }
   public getRoutesList(): IRoutes[] {
     return this._routesList;
+  }
+  public getIsMobile(): boolean {
+    return this._isMobile;
   }
   public spinnerShow() {
     setTimeout(() => {

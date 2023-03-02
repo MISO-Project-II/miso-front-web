@@ -22,20 +22,18 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   public formUserLogin: FormGroup;
   public ROUTES_NAMES = ROUTES_NAMES;
   public ROOT_ROUTES_NAMES = ROOT_ROUTES_NAMES;
-  public version: string;
+  private _version: string;
   constructor(
     private _router: Router,
     private _statusService: StatusService,
     private _loginService: LoginService
   ) {
-    this.version = environment.version;
+    this._version = environment.version;
   }
 
   ngOnInit() {
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
-    localStorage.clear();
-    sessionStorage.clear();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -100,5 +98,14 @@ export class UserLoginComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }
       );
+  }
+  get getVersion() {
+    return this._version;
+  }
+  get isMobile() {
+    return this._statusService.getIsMobile();
+  }
+  get getIsMobile() {
+    return this._statusService.getIsMobile() ? "APP" : "WEB";
   }
 }

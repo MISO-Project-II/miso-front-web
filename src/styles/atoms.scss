@@ -162,14 +162,15 @@ small {
   text-align: left;
 }
 a {
-  //Errors
+  //Links
   width: auto;
   font-size: 16px;
   font-weight: normal;
   font-style: italic;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  color: $ds-primary-02;
+  color: $ds-primary-02 !important;
   display: block;
   text-align: left;
+  text-decoration: underline dotted $ds-primary-02 !important;
 }
