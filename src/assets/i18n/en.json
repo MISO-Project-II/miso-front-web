@@ -82,7 +82,7 @@
     "LIFE_STYLE": "Estilo de vida",
     "VEGAN": "Vegano",
     "VEGETARIAN": "Vegetariano",
-    "SELECT_LANGUAJE": "Selecciona un lenguaje",
+    "SELECT_LANGUAJE": "Select a language",
     "SPANISH": "Español",
     "ENGLISH": "Ingles",
     "PORTUGUESE": "Portugues",
@@ -124,7 +124,8 @@
     "PRICE": "Precio",
     "DESCRIPTION": "Descripción",
     "UBICATION_TYPE": "Ubicación",
-    "CONTRACT_TYPE": "Tipo de servicio"
+    "CONTRACT_TYPE": "Tipo de servicio",
+    "VERSION": "Versión"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",

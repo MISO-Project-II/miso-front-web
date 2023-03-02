@@ -29,8 +29,6 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._statusService.setUserType(THIRD);
     this._initForm();
-    localStorage.clear();
-    sessionStorage.clear();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);

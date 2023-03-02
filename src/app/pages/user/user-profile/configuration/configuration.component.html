@@ -21,4 +21,8 @@
       </option>
     </select>
   </div>
+  <div class="col-12 col-md-6 mt-3 max-width mx-auto">
+    <app-ds-title [title]="'LBL.VERSION' | translate"></app-ds-title>
+    <p class="version">V{{ getVersion }} - {{ getIsMobile }}</p>
+  </div>
 </div>

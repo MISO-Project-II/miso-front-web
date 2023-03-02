@@ -124,7 +124,8 @@
     "PRICE": "Precio",
     "DESCRIPTION": "Descripción",
     "UBICATION_TYPE": "Ubicación",
-    "CONTRACT_TYPE": "Tipo de servicio"
+    "CONTRACT_TYPE": "Tipo de servicio",
+    "VERSION": "Versión"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
