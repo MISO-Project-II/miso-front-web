@@ -1,6 +1,6 @@
 {
   "name": "sport-app",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +12,9 @@
     "lint": "npx eslint 'src/**/*.{js,ts,tsx,html}' --quiet --fix",
     "coverage": "ng test --watch=false --code-coverage",
     "sonar": "sonar-scanner",
-    "all": "npm run format && npm run lint && npm run build && npm run test"
+    "all": "npm run format && npm run lint && npm run build && npm run test",
+    "app": "npm run prod && npx cap sync"
+
   },
   "private": true,
   "dependencies": {
