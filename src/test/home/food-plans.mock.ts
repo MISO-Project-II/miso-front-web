@@ -39,22 +39,24 @@ export const MockGetAllFoodPlans: IFoodPlans[] = [
 ];
 
 // Response
-export const MockResSuccessGetFoodPlans: IResFoodPlans = {
-  response: MockGetFoodPlans,
-  success: true,
-  message: "message",
-};
+// export const MockResSuccessGetFoodPlans: IResFoodPlans = {
+//   result: MockGetAllFoodPlans,
+//   success: true,
+//   message: "message",
+// };
 export const MockResSuccessGetAllFoodPlans: IResFoodPlans = {
-  responseAll: MockGetAllFoodPlans,
+  result: MockGetAllFoodPlans,
   success: true,
   message: "message",
 };
 
 export const MockResSuccessFoodPlans: IResFoodPlans = {
+  result: null,
   success: true,
   message: "message",
 };
 export const MockResErrorFoodPlans: IResFoodPlans = {
+  result: null,
   success: false,
   message: "Error FoodPlans",
 };

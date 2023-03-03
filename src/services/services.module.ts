@@ -15,6 +15,8 @@ import { ServicesService } from "./home/services/services.service";
 import { ProductsService } from "./home/products/products.service";
 import { RoutesService } from "./general/routes.service";
 import { UpdatePlanService } from "./update-plan/update-plan.service";
+import { SportPlansService } from "./home/plans/sport-plans.service";
+import { FoodPlansService } from "./home/plans/food-plans.service";
 
 @NgModule({
   imports: [CommonModule],
@@ -56,10 +58,10 @@ export class ServicesModule {
         UserDataService,
         ThirdDataService,
 
-        // SportPlansService,
+        SportPlansService,
         // TrainingRoutinesService,
         // ExercisesService,
-        // FoodPlansService,
+        FoodPlansService,
         // FoodRoutinesService,
         // FoodsService,
 

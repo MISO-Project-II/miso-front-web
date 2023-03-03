@@ -7,10 +7,6 @@ export interface ISportPlans {
   description: string;
   trainigRoutines?: ITrainingRoutines[];
 }
-export interface IReqSportPlans extends IGenericRequest {
-  request?: ISportPlans;
-}
 export interface IResSportPlans extends IGenericResponse {
-  response?: ISportPlans;
-  responseAll?: ISportPlans[];
+  result: ISportPlans[] | null;
 }
