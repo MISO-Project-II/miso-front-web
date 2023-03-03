@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.12.1
+    * Version: 1.13.0
 ## Atomic Design
     
 # Info
@@ -31,4 +31,4 @@
     * docker build . -t sport_app:0.0.0
     * docker run -d -p 8080:80 sport_app:0.0.0
     * docker stop <container-name>
-    * docker push mninos/sport_app:0.0.0
+    * docker push mninos/sport_app:0.0.0 

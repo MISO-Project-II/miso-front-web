@@ -1,3 +1,4 @@
+import { ISportPlans } from "./../../models/home/sport-plans.interface";
 import { IServices } from "src/models/home/services.interface";
 import { IEvents } from "src/models/home/events.interface";
 import { Injectable } from "@angular/core";
@@ -7,6 +8,7 @@ import { ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IProducts } from "src/models/home/products.interface";
 import { IRoutes } from "src/models/general/routes.interface";
+import { IFoodPlans } from "src/models/home/food-plans.interface";
 
 @Injectable()
 export class StatusService {
@@ -19,6 +21,8 @@ export class StatusService {
   private _productsList: IProducts[] = [];
   private _productsListScheduled: IProducts[] = [];
   private _routesList: IRoutes[] = [];
+  private _foodPlans: IFoodPlans[] = [];
+  private _sportPlans: ISportPlans[] = [];
   private _isMobile: boolean = false;
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
@@ -89,6 +93,12 @@ export class StatusService {
   public setIsMobile(isMobile: boolean) {
     this._isMobile = isMobile;
   }
+  public setFoodPlansList(foodPlans: IFoodPlans[]) {
+    this._foodPlans = foodPlans;
+  }
+  public setSportPlansList(sportPlans: ISportPlans[]) {
+    this._sportPlans = sportPlans;
+  }
   public getGeneralStatus(): StatusModel {
     return this._status;
   }
@@ -118,6 +128,12 @@ export class StatusService {
   }
   public getIsMobile(): boolean {
     return this._isMobile;
+  }
+  public getFoodPlansList(): IFoodPlans[] {
+    return this._foodPlans;
+  }
+  public getSportPlansList(): ISportPlans[] {
+    return this._sportPlans;
   }
   public spinnerShow() {
     setTimeout(() => {
