@@ -7,7 +7,7 @@ import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 import { LoginService } from "src/services/login/login.service";
 import { ILogin, IResLogin } from "src/models/login/login.interface";
-import { SPORTSMAN } from "src/constanst/data.constants";
+import { SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 
@@ -83,10 +83,25 @@ export class UserLoginComponent implements OnInit, OnDestroy {
           console.log("XXX - UserLoginComponent - .subscribe - res", res);
           if (res.success) {
             setTimeout(() => {
-              this._statusService.setUserId(res.userId!);
-              this._statusService.setToken(res.token!);
-              this._statusService.setUserName(res.user?.username!);
-              this._router.navigate([ROOT_ROUTES_NAMES.USER]);
+              // this._statusService.setUserId(res.userId!);
+              // this._statusService.setToken(res.token!);
+              // this._statusService.setUserName(res.user?.username!);
+              // this._router.navigate([ROOT_ROUTES_NAMES.USER]);
+
+              if (res.user?.userType === THIRD) {
+                console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);
+                this._statusService.setUserId(res.userId!);
+                this._statusService.setToken(res.token!);
+                this._statusService.setUserName(res.user?.username!);
+                this._router.navigate([ROOT_ROUTES_NAMES.THIRD]);
+              }
+              if (res.user?.userType === SPORTSMAN) {
+                console.log("🚀 XXX - setTimeout - SPORTSMAN : ", SPORTSMAN);
+                this._statusService.setUserId(res.userId!);
+                this._statusService.setToken(res.token!);
+                this._statusService.setUserName(res.user?.username!);
+                this._router.navigate([ROOT_ROUTES_NAMES.USER]);
+              }
             }, 1000);
           } else {
             this.username?.setErrors({ error_login: true });
