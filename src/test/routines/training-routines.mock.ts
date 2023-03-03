@@ -9,14 +9,6 @@ export const MockTrainingRoutines: ITrainingRoutines = {
   description: "Esta es una rutina de aumento de brazo",
   calories: 500,
   time: 45,
-  objectives: [
-    {
-      name: "Objetivo 1",
-    },
-    {
-      name: "Objetivo 2",
-    },
-  ],
   category: "INSIDE_OF_HOUSE",
   exercises: [
     {
@@ -49,14 +41,6 @@ export const MockGetTrainingRoutines: ITrainingRoutines = {
   description: "Esta es una rutina de aumento de brazo",
   calories: 500,
   time: 45,
-  objectives: [
-    {
-      name: "Objetivo 1",
-    },
-    {
-      name: "Objetivo 2",
-    },
-  ],
   category: "INSIDE_OF_HOUSE",
   exercises: [
     {
@@ -89,14 +73,6 @@ export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
     description: "Esta es una rutina de aumento de brazo",
     calories: 500,
     time: 45,
-    objectives: [
-      {
-        name: "Objetivo 1",
-      },
-      {
-        name: "Objetivo 2",
-      },
-    ],
     category: "INSIDE_OF_HOUSE",
     exercises: [
       {
@@ -128,14 +104,6 @@ export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
     description: "Esta es una rutina de aumento de espalda",
     calories: 300,
     time: 35,
-    objectives: [
-      {
-        name: "Objetivo 1",
-      },
-      {
-        name: "Objetivo 2",
-      },
-    ],
     category: "INSIDE_OF_HOUSE",
     exercises: [
       {
@@ -167,14 +135,6 @@ export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
     description: "Esta es una rutina de aumento de brazo",
     calories: 100,
     time: 15,
-    objectives: [
-      {
-        name: "Objetivo 1",
-      },
-      {
-        name: "Objetivo 2",
-      },
-    ],
     category: "OUTSIDE_OF_HOUSE",
     exercises: [
       {
@@ -207,14 +167,14 @@ export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
       "Esta es una rutina de aumento de brazo, Esta es una rutina de aumento de brazo4",
     calories: 100,
     time: 15,
-    objectives: [
-      {
-        name: "Objetivo 1",
-      },
-      {
-        name: "Objetivo 2",
-      },
-    ],
+    // objectives: [
+    //   {
+    //     name: "Objetivo 1",
+    //   },
+    //   {
+    //     name: "Objetivo 2",
+    //   },
+    // ],
     category: "OUTSIDE_OF_HOUSE",
     exercises: [
       {

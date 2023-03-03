@@ -7,10 +7,6 @@ export interface IFoodPlans {
   description: string;
   foodRoutines: IFoodRoutines[];
 }
-export interface IReqFoodPlans extends IGenericRequest {
-  request?: IFoodPlans;
-}
 export interface IResFoodPlans extends IGenericResponse {
-  response?: IFoodPlans;
-  responseAll?: IFoodPlans[];
+  result: IFoodPlans[] | null;
 }

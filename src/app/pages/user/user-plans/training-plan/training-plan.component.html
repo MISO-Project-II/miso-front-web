@@ -1,4 +1,173 @@
 <div id="main-training-plan">
   <hr />
-  <p>main-training-plan</p>
+  <div
+    class="d-flex min-width row justify-content-center"
+    *ngIf="getSportPlansList$.length! > 0; else noSuccess"
+  >
+    <div class="col-12 col-md-3 pb-3 mx-auto">
+      <div class="options pe-1">
+        <div class="list-group overflow-auto">
+          <button
+            *ngFor="let item of getSportPlansList$"
+            type="button"
+            (click)="setSportPlan(item)"
+            class="list-group-item ds-list-group-item list-group-item-action"
+            aria-current="true"
+            [class.active]="getSportPlan$ === item"
+          >
+            {{ item.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 mx-auto" *ngIf="!!getSportPlan$; else noItem">
+      <app-ds-title [title]="getSportPlan$?.title! | translate"></app-ds-title>
+      <div class="body">
+        <p>{{ getSportPlan$?.description! | translate }}</p>
+        <div class="button-see p-2">
+          <button id="btn-continue" type="button" class="btn ds-button">
+            <!-- (click)="selectSportPlan()" -->
+            {{ "BTN.SELECT_SPORT_PLAN" | translate }}
+          </button>
+        </div>
+        <div
+          class="d-flex flex-wrap justify-content-center p-2"
+          *ngIf="getSportPlan$?.trainigRoutines as trainigRoutines"
+        >
+          <div class="register-data p-3" *ngFor="let item of trainigRoutines">
+            <app-ds-title [title]="item?.title! | translate"></app-ds-title>
+            <p class="border-color-primary-01 px-2" for="text_trainigRoutines">
+              <strong> {{ "LBL.ROUTINES" | translate }}</strong>
+              {{ item?.description! | translate }}
+            </p>
+            <div class="button-see p-2">
+              <button
+                id="btn-continue"
+                type="button"
+                class="btn ds-button"
+                (click)="setRoutine(item)"
+                data-bs-toggle="modal"
+                data-bs-target="#updateSportRoutine"
+              >
+                {{ "BTN.SEE_DETAILS" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-button-continue p-2"></div>
+    </div>
+    <ng-template #noItem>
+      <div class="col-12 col-md-9 mx-auto">
+        <div class="alert alert-info" role="alert">
+          <label>{{ "LBL.SELECT_SERVICE" | translate }}</label>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #noSuccess>
+    <div class="alert alert-warning" role="alert">
+      <label>{{ "ERR.NO_DATA" | translate }} </label>
+    </div></ng-template
+  >
+</div>
+
+<!-- Modal Create Routine -->
+<div
+  class="modal fade"
+  id="createRoutine"
+  tabindex="-1"
+  aria-labelledby="createRoutineLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createRoutineLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn ds-button" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Update Routine -->
+<div
+  class="modal fade"
+  id="updateSportRoutine"
+  tabindex="-1"
+  aria-labelledby="updateSportRoutineLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-color-title">
+        <h1 class="modal-title fs-5" id="updateSportRoutineLabel">
+          {{ getTrainingRoutines$?.title }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ getTrainingRoutines$?.description! | translate }}</p>
+        <hr />
+        <label>{{ "LBL.OBJECTIVES" | translate }}</label>
+        <!-- <p *ngFor="let item of getTrainingRoutines$?.objectives">
+          🌟 {{ item.name }}
+        </p> -->
+        <hr />
+        <label>{{ "LBL.SUGGESTED_EXERCISES" | translate }}</label>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let exercise of getTrainingRoutines$?.exercises">
+              <td>
+                <p>{{ exercise?.title }}</p>
+              </td>
+
+              <td>
+                <p>
+                  {{ exercise?.calories }} {{ "LBL.CALORIES_1" | translate }}
+                </p>
+              </td>
+              <td>
+                <p>{{ exercise?.timeMinutes }} {{ "LBL.MIN_1" | translate }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          *ngIf="!!getTrainingRoutines$?.category"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label>{{
+            getTrainingRoutines$?.category === INSIDE_OF_HOUSE
+              ? ("LBL.INSIDE_OF_HOUSE" | translate)
+              : getTrainingRoutines$?.category === OUTSIDE_OF_HOUSE
+              ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
+              : ""
+          }}</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn ds-button" data-bs-dismiss="modal">
+          {{ "BTN.CLOSE" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
