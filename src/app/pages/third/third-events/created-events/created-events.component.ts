@@ -66,7 +66,7 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResEvent) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log("XXX - CreatedEventsComponent - delEvent - res", res);
           }
           this._statusService.spinnerHide();
@@ -102,7 +102,7 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log(
               "XXX - CreatedEventsComponent - _callService - res",
               res

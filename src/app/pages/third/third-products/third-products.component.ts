@@ -38,7 +38,7 @@ export class ThirdProductsComponent implements OnInit, OnDestroy {
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserProducts) => {
-        if (res.success) {
+        if (!!res && res.success) {
           // if (!!res) {
           console.log(
             "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",

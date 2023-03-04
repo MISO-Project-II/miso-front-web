@@ -100,7 +100,7 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResService) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log(
               "XXX - CreateServicesComponent - _callService - res",
               res

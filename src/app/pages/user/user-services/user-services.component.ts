@@ -43,7 +43,7 @@ export class UserServicesComponent implements OnInit, OnDestroy {
   private _loadServices(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResServices) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log("XXX - UserServicesComponent - _loadServices - res", res);
           this._statusService.setServicesList(res.result!);
         }
@@ -56,7 +56,7 @@ export class UserServicesComponent implements OnInit, OnDestroy {
   private _loadProducts(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResProducts) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log("XXX - UserServicesComponent - _loadProducts - res", res);
           this._statusService.setProductsList(res.result!);
         }

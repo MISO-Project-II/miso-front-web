@@ -23,7 +23,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log("XXX - Entra a UserDashboardComponent");
-    this._statusService.setUserType(SPORTSMAN);
   }
   ngOnDestroy(): void {
     console.log("XXX - Sale de UserDashboardComponent");

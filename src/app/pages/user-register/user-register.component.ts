@@ -188,7 +188,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResSports) => {
-          if (res.success) {
+          if (!!res && res.success) {
             this.sportList = res.result!;
             console.log("XXX - UserRegisterComponent - ngOnInit - res", res);
           }
@@ -320,7 +320,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
             res
           );
 
-          if (res.success) {
+          if (!!res && res.success) {
             this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
           }
           this._statusService.spinnerHide();

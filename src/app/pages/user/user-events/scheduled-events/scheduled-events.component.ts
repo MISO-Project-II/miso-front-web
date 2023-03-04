@@ -63,7 +63,7 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   private _loadEventsScheduled(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserEvents) => {
-        if (res.success) {
+        if (!!res && res.success) {
           // if (!!res) {
           console.log(
             "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
@@ -116,7 +116,7 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log(
               "XXX - ScheduledEventsComponent - _callService - res",
               res

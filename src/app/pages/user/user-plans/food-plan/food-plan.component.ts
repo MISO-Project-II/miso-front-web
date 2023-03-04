@@ -71,7 +71,7 @@ export class FoodPlanComponent implements OnInit {
   //     .get(this.getGeneralStatus.userId)
   //     .subscribe({
   //       next: (res: IResUserData) => {
-  //         if (res.success) {
+  //         if (!!res && res.success) {
   //           this._userData = res?.result!;
   //         }
   //         setTimeout(() => {
@@ -91,7 +91,7 @@ export class FoodPlanComponent implements OnInit {
   //     .pipe(takeUntil(this._destroy$))
   //     .subscribe({
   //       next: (res: IResUserData) => {
-  //         if (res.success) {
+  //         if (!!res && res.success) {
   //           console.log("XXX - FoodPlanComponent - _callService - res", res);
   //         }
   //         setTimeout(() => {
@@ -107,7 +107,7 @@ export class FoodPlanComponent implements OnInit {
   private _loadFoodPlans(): void {
     this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResFoodPlans) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log("🚀 XXX - _loadFoodPlans - res : ", res);
           this._statusService.setFoodPlansList(res.result!);
         }

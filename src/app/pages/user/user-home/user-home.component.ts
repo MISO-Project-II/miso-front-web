@@ -72,7 +72,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log("🚀 XXX - UserHomeComponent - _loadData - res : ", res);
             this._statusService.setName(res.result?.name!);
             this._statusService.setLastName(res.result?.lastName!);

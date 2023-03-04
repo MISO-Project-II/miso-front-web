@@ -68,7 +68,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResService) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log(
               "XXX - CreatedServicesComponent - delService - res",
               res
@@ -107,7 +107,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log(
               "XXX - CreatedServicesComponent - _callService - res",
               res
