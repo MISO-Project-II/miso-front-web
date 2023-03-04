@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  version: "1.13.0",
+  version: "1.14.0",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
     general_data: "/users/general_data",
@@ -31,7 +31,7 @@ export const environment = {
     suggestions_food_plans: "/suggestions/food_plans",
     suggestions_routes: "/suggestions/routes",
     suggestions_events: "/suggestions/events",
-    suggestions_training_plan: "/suggestions/training_plan",
+    suggestions_sport_plan: "/suggestions/sport_plan",
     suggestions_services: "/suggestions/services",
 
     sports: "/sports",
@@ -44,7 +44,7 @@ export const environment = {
     third_data: "/third_data",
 
     sport_plans: "/sport_plans",
-    training_routines: "/training_routines",
+    sport_routines: "/sport_routines",
     exercises: "/exercises",
     food_plans: "/food_plans",
     food_routines: "/food_routines",

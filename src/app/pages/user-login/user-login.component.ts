@@ -83,11 +83,6 @@ export class UserLoginComponent implements OnInit, OnDestroy {
           console.log("XXX - UserLoginComponent - .subscribe - res", res);
           if (res.success) {
             setTimeout(() => {
-              // this._statusService.setUserId(res.userId!);
-              // this._statusService.setToken(res.token!);
-              // this._statusService.setUserName(res.user?.username!);
-              // this._router.navigate([ROOT_ROUTES_NAMES.USER]);
-
               if (res.user?.userType === THIRD) {
                 console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);
                 this._statusService.setUserId(res.userId!);

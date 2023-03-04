@@ -1,10 +1,10 @@
 import {
-  IResTrainingRoutines,
-  ITrainingRoutines,
-} from "src/models/routines/training-routines.interface";
+  IResSportRoutines,
+  ISportRoutines,
+} from "src/models/routines/sport-routines.interface";
 
 // Data request
-export const MockTrainingRoutines: ITrainingRoutines = {
+export const MockSportRoutines: ISportRoutines = {
   title: "Rutina aumento de brazo",
   description: "Esta es una rutina de aumento de brazo",
   calories: 500,
@@ -35,7 +35,7 @@ export const MockTrainingRoutines: ITrainingRoutines = {
   ],
 };
 // Data Response
-export const MockGetTrainingRoutines: ITrainingRoutines = {
+export const MockGetSportRoutines: ISportRoutines = {
   id: "1",
   title: "Rutina aumento de brazo",
   description: "Esta es una rutina de aumento de brazo",
@@ -66,7 +66,7 @@ export const MockGetTrainingRoutines: ITrainingRoutines = {
     },
   ],
 };
-export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
+export const MockGetAllSportRoutines: ISportRoutines[] = [
   {
     id: "1",
     title: "Rutina aumento de brazo",
@@ -204,22 +204,22 @@ export const MockGetAllTrainingRoutines: ITrainingRoutines[] = [
 ];
 
 // Response
-export const MockResSuccessGetTrainingRoutines: IResTrainingRoutines = {
-  response: MockGetTrainingRoutines,
+export const MockResSuccessGetSportRoutines: IResSportRoutines = {
+  response: MockGetSportRoutines,
   success: true,
   message: "message",
 };
-export const MockResSuccessGetAllTrainingRoutines: IResTrainingRoutines = {
-  responseAll: MockGetAllTrainingRoutines,
+export const MockResSuccessGetAllSportRoutines: IResSportRoutines = {
+  responseAll: MockGetAllSportRoutines,
   success: true,
   message: "message",
 };
 
-export const MockResSuccessTrainingRoutines: IResTrainingRoutines = {
+export const MockResSuccessSportRoutines: IResSportRoutines = {
   success: true,
   message: "message",
 };
-export const MockResErrorTrainingRoutines: IResTrainingRoutines = {
+export const MockResErrorSportRoutines: IResSportRoutines = {
   success: false,
-  message: "Error TrainingRoutines",
+  message: "Error SportRoutines",
 };

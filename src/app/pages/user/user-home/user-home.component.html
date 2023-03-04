@@ -3,6 +3,33 @@
   <p>main-user-home</p>
   <p>XXX-getGeneralStatus: {{ getGeneralStatus | json }}</p>
   <p></p>
+  <p>XXX-getBirthdUbication: {{ getBirthdUbication | json }}</p>
+  <p></p>
+  <p>XXX-getHomeUbication: {{ getHomeUbication | json }}</p>
+  <p></p>
+  <p>XXX-getAge {{ getAge | date }}</p>
+  <p></p>
+  <p>
+    XXX-getCurrency: es-CO :
+    {{ 123456789 | currency: "COP":"symbol":"":"es-CO" }}
+  </p>
+  <p>
+    XXX-getCurrency: es-MX:
+    {{ 123456789 | currency: "MXP":"symbol":"":"es-MX" }}
+  </p>
+  <p>
+    XXX-getCurrency: {{ getCurrency }} : {{ getLangLocation }}
+    {{ 123456789 | currency: getCurrency:"symbol":"":getLangLocation }}
+  </p>
+  <p></p>
+  <p>XXX-getSportsList: {{ getSportsList | json }}</p>
+  <p></p>
+  <p>XXX-getLang: {{ getLang | json }}</p>
+  <p></p>
+  <p>XXX-getLangName: {{ getLangName | json }}</p>
+  <p></p>
+  <p>XXX-getLocation: {{ getLocation | json }}</p>
+  <p></p>
   <p>XXX-getEventsList: {{ getEventsList | json }}</p>
   <p></p>
   <p>XXX-getSportsList: {{ getSportsList | json }}</p>

@@ -1,4 +1,4 @@
-<div id="main-training-plan">
+<div id="main-sport-plan">
   <hr />
   <div
     class="d-flex min-width row justify-content-center"
@@ -113,7 +113,7 @@
     <div class="modal-content">
       <div class="modal-header bg-color-title">
         <h1 class="modal-title fs-5" id="updateSportRoutineLabel">
-          {{ getTrainingRoutines$?.title }}
+          {{ getSportRoutines$?.title }}
         </h1>
         <button
           type="button"
@@ -123,17 +123,17 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p>{{ getTrainingRoutines$?.description! | translate }}</p>
+        <p>{{ getSportRoutines$?.description! | translate }}</p>
         <hr />
         <label>{{ "LBL.OBJECTIVES" | translate }}</label>
-        <!-- <p *ngFor="let item of getTrainingRoutines$?.objectives">
+        <!-- <p *ngFor="let item of getSportRoutines$?.objectives">
           🌟 {{ item.name }}
         </p> -->
         <hr />
         <label>{{ "LBL.SUGGESTED_EXERCISES" | translate }}</label>
         <table class="table table-hover">
           <tbody>
-            <tr *ngFor="let exercise of getTrainingRoutines$?.exercises">
+            <tr *ngFor="let exercise of getSportRoutines$?.exercises">
               <td>
                 <p>{{ exercise?.title }}</p>
               </td>
@@ -150,14 +150,14 @@
           </tbody>
         </table>
         <div
-          *ngIf="!!getTrainingRoutines$?.category"
+          *ngIf="!!getSportRoutines$?.category"
           class="alert alert-secondary"
           role="alert"
         >
           <label>{{
-            getTrainingRoutines$?.category === INSIDE_OF_HOUSE
+            getSportRoutines$?.category === INSIDE_OF_HOUSE
               ? ("LBL.INSIDE_OF_HOUSE" | translate)
-              : getTrainingRoutines$?.category === OUTSIDE_OF_HOUSE
+              : getSportRoutines$?.category === OUTSIDE_OF_HOUSE
               ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
               : ""
           }}</label>

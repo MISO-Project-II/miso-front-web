@@ -1,10 +1,10 @@
 import {
-  IResSuggestionTrainingPlan,
-  ISuggestionTrainingPlan,
-} from "src/models/suggestions/suggestion-training-plan.interface";
+  IResSuggestionSportPlan,
+  ISuggestionSportPlan,
+} from "src/models/suggestions/suggestion-sport-plan.interface";
 
 // Data Response
-export const MockGetSuggestionTrainingPlan: ISuggestionTrainingPlan = {
+export const MockGetSuggestionSportPlan: ISuggestionSportPlan = {
   id: "1",
   title: "Plan aumento muscular",
   description:
@@ -12,13 +12,12 @@ export const MockGetSuggestionTrainingPlan: ISuggestionTrainingPlan = {
 };
 
 // Response
-export const MockResSuccessGetSuggestionTrainingPlan: IResSuggestionTrainingPlan =
-  {
-    response: MockGetSuggestionTrainingPlan,
-    success: true,
-    message: "message",
-  };
-export const MockResErrorSuggestionTrainingPlan: IResSuggestionTrainingPlan = {
+export const MockResSuccessGetSuggestionSportPlan: IResSuggestionSportPlan = {
+  response: MockGetSuggestionSportPlan,
+  success: true,
+  message: "message",
+};
+export const MockResErrorSuggestionSportPlan: IResSuggestionSportPlan = {
   success: false,
-  message: "Error SuggestionTrainingPlan",
+  message: "Error SuggestionSportPlan",
 };

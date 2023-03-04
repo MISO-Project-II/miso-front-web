@@ -1,7 +1,7 @@
 import { IExercises } from "../general/exercises.interface";
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
-export interface ITrainingRoutines {
+export interface ISportRoutines {
   id?: string;
   title: string;
   description: string;
@@ -10,10 +10,10 @@ export interface ITrainingRoutines {
   category: string;
   exercises?: IExercises[];
 }
-export interface IReqTrainingRoutines extends IGenericRequest {
-  request?: ITrainingRoutines;
+export interface IReqSportRoutines extends IGenericRequest {
+  request?: ISportRoutines;
 }
-export interface IResTrainingRoutines extends IGenericResponse {
-  response?: ITrainingRoutines;
-  responseAll?: ITrainingRoutines[];
+export interface IResSportRoutines extends IGenericResponse {
+  response?: ISportRoutines;
+  responseAll?: ISportRoutines[];
 }

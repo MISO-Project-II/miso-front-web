@@ -17,7 +17,8 @@ export class UbicationService {
   private _countries: any;
   private _country: any;
   private _states: any;
-  private _statesByCountry: any;
+  private _cities: any;
+  private _citiesByCountry: any;
 
   constructor() {
     this._baseUrl = "https://api.countrystatecity.in/v1/countries";
@@ -32,7 +33,16 @@ export class UbicationService {
     this._countries = await fetch(this._baseUrl, this._requestOptions).then(
       (response) => response.json()
     );
-    return this._countries;
+    const countries = this._countries.filter(
+      (country: ICountry) =>
+        country.iso2 === "PE" ||
+        country.iso2 === "CO" ||
+        country.iso2 === "AR" ||
+        country.iso2 === "MX" ||
+        country.iso2 === "US" ||
+        country.iso2 === "BR"
+    );
+    return countries;
   }
   async getCountry(countryCode: string) {
     this._country = await fetch(
@@ -49,17 +59,29 @@ export class UbicationService {
     return this._states.json();
   }
   async getCitiesBtStateByCountry(countryCode: string, stateCode: string) {
-    this._states = await fetch(
+    this._cities = await fetch(
       this._baseUrl + "/" + countryCode + "/states/" + stateCode + "/cities",
       this._requestOptions
     );
-    return this._states.json();
+    return this._cities.json();
   }
   async getCitiesByCountry(countryCode: string) {
-    this._statesByCountry = await fetch(
+    this._citiesByCountry = await fetch(
       this._baseUrl + "/" + countryCode + "/cities",
       this._requestOptions
     );
-    return this._statesByCountry.json();
+    return this._citiesByCountry.json();
+  }
+  public getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (resp) => {
+          resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
   }
 }
