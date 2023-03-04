@@ -46,7 +46,7 @@ export class ServicesModule {
         // SuggestionsFoodPlansService,
         // SuggestionsRoutesService,
         // SuggestionsEventsService,
-        // SuggestionsTrainingPlanService,
+        // SuggestionsSportPlanService,
         // SuggestionsServicesService,
 
         SportsService,
@@ -59,7 +59,7 @@ export class ServicesModule {
         ThirdDataService,
 
         SportPlansService,
-        // TrainingRoutinesService,
+        // SportRoutinesService,
         // ExercisesService,
         FoodPlansService,
         // FoodRoutinesService,

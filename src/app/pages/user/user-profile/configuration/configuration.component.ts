@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { environment } from "src/environments/environment";
 import { StatusService } from "src/services/local/status.service";
 
@@ -10,8 +11,11 @@ import { StatusService } from "src/services/local/status.service";
 export class ConfigurationComponent implements OnInit {
   public lang: string = "es";
   private _version: string;
-  constructor(private _statusService: StatusService) {
-    this.lang = localStorage.getItem("lang") || "es";
+  constructor(
+    private _statusService: StatusService,
+    private _translateService: TranslateService
+  ) {
+    this.lang = sessionStorage.getItem("lang") || "es";
     this._version = environment.version;
   }
 
@@ -20,7 +24,8 @@ export class ConfigurationComponent implements OnInit {
   }
 
   public changeLang(value: string): void {
-    localStorage.setItem("lang", value);
+    sessionStorage.setItem("lang", value);
+    this._translateService.use(this.getLang);
     window.location.reload();
   }
   get getVersion() {
@@ -28,5 +33,8 @@ export class ConfigurationComponent implements OnInit {
   }
   get getIsMobile() {
     return this._statusService.getIsMobile() ? "APP" : "WEB";
+  }
+  get getLang() {
+    return this._statusService.getLangLocation().lang;
   }
 }

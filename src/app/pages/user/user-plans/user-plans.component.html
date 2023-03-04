@@ -4,15 +4,15 @@
     <li class="nav-item" role="presentation">
       <button
         class="nav-link active"
-        id="training_plan_tab"
+        id="sport_plan_tab"
         data-bs-toggle="tab"
-        data-bs-target="#training_plan"
+        data-bs-target="#sport_plan"
         type="button"
         role="tab"
-        aria-controls="training_plan_tab"
+        aria-controls="sport_plan_tab"
         aria-selected="true"
       >
-        <label>{{ "SUBTITLE.TRAINING_PLAN" | translate }}</label>
+        <label>{{ "SUBTITLE.SPORT_PLAN" | translate }}</label>
       </button>
     </li>
     <li class="nav-item" role="presentation">
@@ -33,11 +33,11 @@
   <div class="tab-content" id="myTabContent">
     <div
       class="tab-pane fade show active"
-      id="training_plan"
+      id="sport_plan"
       role="tabpanel"
-      aria-labelledby="training_plan"
+      aria-labelledby="sport_plan"
     >
-      <app-training-plan></app-training-plan>
+      <app-sport-plan></app-sport-plan>
     </div>
     <div
       class="tab-pane fade"

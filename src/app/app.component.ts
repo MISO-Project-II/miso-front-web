@@ -1,7 +1,9 @@
+import { UbicationService } from "src/services/general/ubication.service";
 import { environment } from "src/environments/environment";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { StatusService } from "src/services/local/status.service";
+import { ILangLocation } from "src/models/local/languaje.interface";
 
 @Component({
   selector: "app-root",
@@ -10,18 +12,34 @@ import { StatusService } from "src/services/local/status.service";
 })
 export class AppComponent implements OnInit, OnDestroy {
   private _version: string;
+  private _langLocation: ILangLocation;
   constructor(
     private _translateService: TranslateService,
-    private _statusService: StatusService
+    private _statusService: StatusService,
+    private _ubicationService: UbicationService
   ) {
-    this._translateService.setDefaultLang("es");
-    const lang = sessionStorage.getItem("lang") || "es";
+    this._langLocation = {
+      lang: "es",
+      name: "Español",
+      location: "CO",
+    };
+    this._statusService.setLangLocation(this._langLocation);
+
+    this._translateService.setDefaultLang(this._langLocation.lang);
+    const lang = sessionStorage.getItem("lang") || this._langLocation.lang;
     this._translateService.use(lang);
     document.documentElement.lang = lang;
     this._version = environment.version;
   }
   ngOnInit() {
     console.log("XXX - Entra a AppComponent");
+    this._isMobile();
+    this._getLocation();
+  }
+  ngOnDestroy(): void {
+    console.log("XXX - Sale de AppComponent");
+  }
+  private _isMobile(): void {
     var isMobile = {
       Android: function () {
         return navigator.userAgent.match(/Android/i);
@@ -52,13 +70,39 @@ export class AppComponent implements OnInit, OnDestroy {
       ? this._statusService.setIsMobile(true)
       : this._statusService.setIsMobile(false);
   }
-  ngOnDestroy(): void {
-    console.log("XXX - Sale de AppComponent");
-  }
   get getVersion() {
     return this._version;
   }
   get getIsMobile() {
     return this._statusService.getIsMobile() ? "APP" : "WEB";
+  }
+  get getLang() {
+    return this._statusService.getLangLocation().lang;
+  }
+  get getLangName() {
+    return this._statusService.getLangLocation().name;
+  }
+  get getLocation() {
+    return this._statusService.getLangLocation().location;
+  }
+  private _getLocation(): void {
+    console.log("🚀 XXX - AppComponent - _getLocation - _getLocation : ");
+
+    this._ubicationService.getPosition().then((pos) => {
+      // this.latitude = pos.lat;
+      // this.longitude = pos.lng;
+      console.log(
+        "🚀 XXX - AppComponent - this._ubicationService.getPosition - pos : ",
+        pos
+      );
+      console.log(
+        "🚀 XXX - AppComponent - this._ubicationService.getPosition - pos.lat : ",
+        pos.lat
+      );
+      console.log(
+        "🚀 XXX - AppComponent - this._ubicationService.getPosition - pos.lng : ",
+        pos.lng
+      );
+    });
   }
 }

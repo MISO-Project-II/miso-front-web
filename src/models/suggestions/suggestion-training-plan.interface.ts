@@ -1,13 +1,13 @@
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
-export interface ISuggestionTrainingPlan {
+export interface ISuggestionSportPlan {
   id?: string;
   title: string;
   description: string;
 }
-export interface IReqSuggestionTrainingPlan extends IGenericRequest {
-  request?: ISuggestionTrainingPlan;
+export interface IReqSuggestionSportPlan extends IGenericRequest {
+  request?: ISuggestionSportPlan;
 }
-export interface IResSuggestionTrainingPlan extends IGenericResponse {
-  response?: ISuggestionTrainingPlan;
+export interface IResSuggestionSportPlan extends IGenericResponse {
+  response?: ISuggestionSportPlan;
 }

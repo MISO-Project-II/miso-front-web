@@ -18,9 +18,13 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { registerLocaleData } from "@angular/common";
 
-import localeEsCO from "@angular/common/locales/es-CO";
 import localeEn from "@angular/common/locales/en";
 import localePt from "@angular/common/locales/pt";
+import localeEs from "@angular/common/locales/es";
+import localeEsCO from "@angular/common/locales/es-CO";
+import localeEsPE from "@angular/common/locales/es-PE";
+import localeEsAR from "@angular/common/locales/es-AR";
+import localeEsMX from "@angular/common/locales/es-MX";
 import { ErrorModule } from "./pages/error/error.module";
 import { UserDashboardModule } from "./pages/user-dashboard/user-dashboard.module";
 import { DsTitleModule } from "./shared/ds-title/ds-title.module";
@@ -43,7 +47,14 @@ import { ThirdProductsModule } from "./pages/third/third-products/third-products
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
+registerLocaleData(localeEs, "es");
 registerLocaleData(localeEsCO, "es-CO");
+registerLocaleData(localeEsPE, "es-PE");
+registerLocaleData(localeEsAR, "es-AR");
+registerLocaleData(localeEsMX, "es-MX");
+
+registerLocaleData(localeEn, "es-US");
+registerLocaleData(localePt, "pt-BR");
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -91,7 +102,7 @@ registerLocaleData(localeEsCO, "es-CO");
     HttpClient,
     {
       provide: LOCALE_ID,
-      useValue: "es-CO",
+      useValue: "es-*",
     },
   ],
   bootstrap: [AppComponent],

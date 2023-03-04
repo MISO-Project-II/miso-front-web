@@ -3,20 +3,20 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
 
-import { TrainingPlanComponent } from "./training-plan.component";
+import { SportPlanComponent } from "./sport-plan.component";
 
-xdescribe("TrainingPlanComponent", () => {
-  let component: TrainingPlanComponent;
-  let fixture: ComponentFixture<TrainingPlanComponent>;
+xdescribe("SportPlanComponent", () => {
+  let component: SportPlanComponent;
+  let fixture: ComponentFixture<SportPlanComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TrainingPlanComponent],
+      declarations: [SportPlanComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrainingPlanComponent);
+    fixture = TestBed.createComponent(SportPlanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,3 +1,4 @@
+import { ILangLocation } from "./../../models/local/languaje.interface";
 import { ISportPlans } from "./../../models/home/sport-plans.interface";
 import { IServices } from "src/models/home/services.interface";
 import { IEvents } from "src/models/home/events.interface";
@@ -9,6 +10,7 @@ import { StatusModel } from "src/models/local/status-model";
 import { IProducts } from "src/models/home/products.interface";
 import { IRoutes } from "src/models/general/routes.interface";
 import { IFoodPlans } from "src/models/home/food-plans.interface";
+import { ILocation } from "src/models/general/locantion.interface";
 
 @Injectable()
 export class StatusService {
@@ -23,10 +25,18 @@ export class StatusService {
   private _routesList: IRoutes[] = [];
   private _foodPlans: IFoodPlans[] = [];
   private _sportPlans: ISportPlans[] = [];
+  private _birthdUbicationData: ILocation;
+  private _homeUbicationData: ILocation;
   private _isMobile: boolean = false;
+  private _langLocation: ILangLocation;
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
+    this._langLocation = {
+      lang: "es",
+      name: "Español",
+      location: "CO",
+    };
   }
   public setGeneralStatus(status: StatusModel) {
     this._status = status;
@@ -51,6 +61,51 @@ export class StatusService {
   public setContractType(contractType: string) {
     this._status.contractType = contractType;
   }
+  public setName(name: string) {
+    this._status.name = name;
+  }
+  public setLastName(lastName: string) {
+    this._status.lastName = lastName;
+  }
+  public setIdIdentificationType(idIdentificationType: string) {
+    this._status.idIdentificationType = idIdentificationType;
+  }
+  public setIdentificationNumber(identificationNumber: string) {
+    this._status.identificationNumber = identificationNumber;
+  }
+  public setBirthdUbication(birthdUbication: string) {
+    this._status.birthdUbication = birthdUbication;
+    this._birthdUbicationData = {
+      country: birthdUbication.split("-")[0],
+      state: birthdUbication.split("-")[1],
+      city: parseInt(birthdUbication.split("-")[2]),
+    };
+  }
+  public setHomeUbication(homeUbication: string) {
+    this._status.homeUbication = homeUbication;
+    this._homeUbicationData = {
+      country: homeUbication.split("-")[0],
+      state: homeUbication.split("-")[1],
+      city: parseInt(homeUbication.split("-")[2]),
+      monthsOfResidence: parseInt(homeUbication.split("-")[3]),
+    };
+  }
+  public setGender(gender: string) {
+    this._status.gender = gender;
+  }
+  public setWeight(weight: number) {
+    this._status.weight = weight;
+  }
+  public setAge(age: Date) {
+    this._status.age = age;
+  }
+  public setHeight(height: number) {
+    this._status.height = height;
+  }
+  public setIMC(imc: number) {
+    this._status.imc = imc;
+  }
+
   public setSportsList(sportsList: ISports[]) {
     this._sportsList = sportsList;
   }
@@ -99,6 +154,18 @@ export class StatusService {
   public setSportPlansList(sportPlans: ISportPlans[]) {
     this._sportPlans = sportPlans;
   }
+  public setLangLocation(langLocation: ILangLocation) {
+    this._langLocation = langLocation;
+  }
+  public setLang(lang: string) {
+    this._langLocation.lang = lang;
+  }
+  public setLangName(name: string) {
+    this._langLocation.name = name;
+  }
+  public setLocation(location: string) {
+    this._langLocation.location = location;
+  }
   public getGeneralStatus(): StatusModel {
     return this._status;
   }
@@ -134,6 +201,15 @@ export class StatusService {
   }
   public getSportPlansList(): ISportPlans[] {
     return this._sportPlans;
+  }
+  public getLangLocation(): ILangLocation {
+    return this._langLocation;
+  }
+  public getBirthdUbication(): ILocation {
+    return this._birthdUbicationData;
+  }
+  public getHomeUbication(): ILocation {
+    return this._homeUbicationData;
   }
   public spinnerShow() {
     setTimeout(() => {

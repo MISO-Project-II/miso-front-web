@@ -6,10 +6,14 @@ export interface IUserData {
   lastName: string;
   idIdentificationType: string;
   identificationNumber: string;
+  birthdUbication: string;
+  homeUbication: string;
   gender: string;
   weight: number;
   age: Date;
   height: number;
+  userPlan: string;
+  imc?: number;
 }
 
 export interface IResUserData extends IGenericResponse {
