@@ -7,28 +7,20 @@ export interface IUserRegister {
   id?: string;
   username: string; // username
   password: string; // password
-  // confirmation: string; // NO
   name: string; // name
   lastName: string; //lastName
   identificationType: string; // identificationType
   identificationNumber: string; // identificationNumber
   // Datos deportivos
-  // sportPractice: ISports[]; // [1,2,5]
-  // sportInterest: ISports[]; // [4,5,6]
   // Datos secundarios
   gender: string; // gender
   age: string; // age // Fecha de nacimiento año-mes-dia yyyy-MM-dd
   weight: number; // FALTA EN POSTMAN
   height: number; //height
   // Datos de ubicacion
-  // countryOfBirth: ICountry; // birthdUbication (Solo id de ubicacion)
-  // stateOfBirth: IState; //
-  birthdUbication: number; //
-  // countryOfResidence: ICountry; // homeUbication (Solo el id de ubicacion) ver imagen de referencia
-  // stateOfResidence: IState; //
-  homeUbication: number; //
-  // montsOfResidence: number; // Meses de residencia
+  birthdUbication: string; //"CO-CUN-12312-COP"
 
+  homeUbication: string; //"CO-CUN-12312-COP-10"
   isVegan: number; //Se envia por defecto 0
   isvegetarian: number;
   userType: string;

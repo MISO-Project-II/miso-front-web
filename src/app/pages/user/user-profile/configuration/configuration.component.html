@@ -2,7 +2,9 @@
   <hr />
   <div class="col-12 col-md-6 max-width mx-auto">
     <app-ds-title [title]="'LBL.SELECT_LANGUAJE' | translate"></app-ds-title>
-
+    <h1>:::1 {{ "LBL.SELECT_LANGUAJE" | translate }}</h1>
+    <h1 [translate]="'LBL.SELECT_LANGUAJE'">:::2</h1>
+    <h1 translate>:::3 {{ "LBL.SELECT_LANGUAJE" }}</h1>
     <select
       class="form-select max-width"
       aria-label="LBL.SELECT_LANGUAJE"

@@ -1,3 +1,4 @@
+import { FREE_CONTRACT } from "./../../constanst/data.constants";
 import {
   IResUserData,
   IUserData,
@@ -7,12 +8,16 @@ export const MockUserData: IUserData = {
   username: "rob",
   name: "rob",
   lastName: "Rodriguez",
-  idIdentificationType: "Pasaporte",
+  idIdentificationType: "CC",
   identificationNumber: "46218219",
-  gender: "Hombre",
+  birthdUbication: "CO-CUN-12312",
+  homeUbication: "CO-CUN-12312-10",
+  gender: "H",
   weight: 83,
   age: new Date("1991-11-16T00:00:00.000+00:00"),
   height: 184,
+  userPlan: FREE_CONTRACT,
+  imc: 1,
 };
 
 // Response

@@ -6,10 +6,10 @@ import {
   IResUserRegister,
   IUserRegister,
 } from "src/models/register/user-register.interface";
-// import {
-//   MockResErrorUserRegister,
-//   MockResSuccessUserRegister,
-// } from "src/test/register/user-register.mock";
+import {
+  MockResErrorUserRegister,
+  MockResSuccessUserRegister,
+} from "src/test/register/user-register.mock";
 
 @Injectable({
   providedIn: "root",

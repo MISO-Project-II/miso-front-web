@@ -25,7 +25,7 @@ export class UserDataService {
     this._httpHeaders = new HttpHeaders(environment.api.headers);
   }
 
-  get(userId: number): Observable<IResUserData> {
+  getGeneralData(userId: number): Observable<IResUserData> {
     return this._http
       .get<IResUserData>(`${this._baseUrl}/${userId}`, {
         headers: this._httpHeaders,
@@ -41,7 +41,7 @@ export class UserDataService {
     // const mock = of(MockResErrorUserData);
     // return mock;
   }
-  update(userId: number, data: IUserData): Observable<IResUserData> {
+  updateGeneralData(userId: number, data: IUserData): Observable<IResUserData> {
     return this._http.put<IResUserData>(`${this._baseUrl}/${userId}`, data);
     // const mock = of(MockResSuccessUserData);
     // const mock = of(MockResErrorGeneralData);

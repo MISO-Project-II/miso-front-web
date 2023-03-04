@@ -1,4 +1,4 @@
-import { ITrainingRoutines } from "src/models/routines/training-routines.interface";
+import { ISportRoutines } from "src/models/routines/sport-routines.interface";
 import { Component, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
@@ -19,15 +19,15 @@ import {
 import { StatusModel } from "src/models/local/status-model";
 
 @Component({
-  selector: "app-training-plan",
-  templateUrl: "./training-plan.component.html",
-  styleUrls: ["./training-plan.component.scss"],
+  selector: "app-sport-plan",
+  templateUrl: "./sport-plan.component.html",
+  styleUrls: ["./sport-plan.component.scss"],
 })
-export class TrainingPlanComponent implements OnInit {
+export class SportPlanComponent implements OnInit {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _sportPlanSelected: ISportPlans;
-  private _trainingRoutines: ITrainingRoutines;
+  private _sportRoutines: ISportRoutines;
   private _userData: IUserData;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -48,14 +48,14 @@ export class TrainingPlanComponent implements OnInit {
   get getSportPlan$(): ISportPlans {
     return this._sportPlanSelected;
   }
-  get getTrainingRoutines$(): ITrainingRoutines {
-    return this._trainingRoutines;
+  get getSportRoutines$(): ISportRoutines {
+    return this._sportRoutines;
   }
   public setSportPlan(sportPlanSelected: ISportPlans) {
     this._sportPlanSelected = sportPlanSelected;
   }
-  public setRoutine(trainingRoutines: ITrainingRoutines) {
-    this._trainingRoutines = trainingRoutines;
+  public setRoutine(sportRoutines: ISportRoutines) {
+    this._sportRoutines = sportRoutines;
   }
   get getSportPlansList$(): ISportPlans[] {
     return this._statusService.getSportPlansList();
@@ -94,7 +94,7 @@ export class TrainingPlanComponent implements OnInit {
   //       next: (res: IResUserData) => {
   //         if (res.success) {
   //           console.log(
-  //             "XXX - TrainingPlanComponent - _callService - res",
+  //             "XXX - SportPlanComponent - _callService - res",
   //             res
   //           );
   //         }
@@ -112,7 +112,7 @@ export class TrainingPlanComponent implements OnInit {
     this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResSportPlans) => {
         if (res.success) {
-          console.log("🚀 XXX - _loadSportPlans - res : ", res);
+          console.log("🚀 XXX - _loadSportPlans - res : ", JSON.stringify(res));
           this._statusService.setSportPlansList(res.result!);
         }
         this._statusService.spinnerHide();

@@ -26,7 +26,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log("XXX - GeneralDataComponent");
     this._initForm();
-    this._loadData();
+    this._loadGeneralData();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -79,10 +79,10 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
     return this._statusService.getGeneralStatus();
   }
 
-  private _loadData(): void {
+  private _loadGeneralData(): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .get(this.getGeneralStatus.userId)
+      .getGeneralData(this.getGeneralStatus.userId)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
@@ -111,9 +111,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
             this.formUserGeneralData
               .get("height")
               ?.patchValue(res.result?.height);
-            setTimeout(() => {
-              this._statusService.spinnerHide();
-            }, 500);
+            this._statusService.spinnerHide();
           }
         },
         (err) => {
@@ -126,27 +124,47 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   public onSubmit(): void {
     this._statusService.spinnerShow();
     const data: IUserData = {
-      username: this.getUser?.value,
-      name: this.getName?.value,
-      lastName: this.getLastName?.value,
-      idIdentificationType: this.getIdType?.value,
-      identificationNumber: this.getIdNumber?.value,
-      gender: this.getGenre?.value,
-      age: this.getAge?.value,
-      weight: this.getWeight?.value,
-      height: this.getHeight?.value,
+      username: this.getUser?.value
+        ? this.getUser?.value
+        : this.getGeneralStatus.userName,
+      name: this.getName?.value
+        ? this.getName?.value
+        : this.getGeneralStatus.name,
+      lastName: this.getLastName?.value
+        ? this.getLastName?.value
+        : this.getGeneralStatus.lastName,
+      idIdentificationType: this.getIdType?.value
+        ? this.getIdType?.value
+        : this.getGeneralStatus.idIdentificationType,
+      identificationNumber: this.getIdNumber?.value
+        ? this.getIdNumber?.value
+        : this.getGeneralStatus.identificationNumber,
+      birthdUbication: this.getGeneralStatus.birthdUbication,
+      homeUbication: this.getGeneralStatus.homeUbication,
+      gender: this.getGenre?.value
+        ? this.getGenre?.value
+        : this.getGeneralStatus.gender,
+      age: this.getAge?.value ? this.getAge?.value : this.getGeneralStatus.age,
+      weight: this.getWeight?.value
+        ? this.getWeight?.value
+        : this.getGeneralStatus.weight,
+      height: this.getHeight?.value
+        ? this.getHeight?.value
+        : this.getGeneralStatus.height,
+      userPlan: this.getGeneralStatus.contractType,
+      imc: this.getGeneralStatus.imc,
     };
     this._callService(data);
   }
   private _callService(data: IUserData): void {
     this._userDataService
-      .update(this.getGeneralStatus.userId, data)
+      .updateGeneralData(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
           if (res.success) {
             console.log("XXX - GeneralDataComponent - _callService - res", res);
-            this._loadData();
+            this._loadGeneralData();
           }
           this._statusService.spinnerHide();
         },

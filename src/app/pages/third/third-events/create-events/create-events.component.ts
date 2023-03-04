@@ -18,7 +18,6 @@ import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-create-events",
