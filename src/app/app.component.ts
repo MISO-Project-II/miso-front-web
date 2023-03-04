@@ -34,7 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log("XXX - Entra a AppComponent");
     this._isMobile();
-    this._getLocation();
   }
   ngOnDestroy(): void {
     console.log("XXX - Sale de AppComponent");
@@ -84,25 +83,5 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   get getLocation() {
     return this._statusService.getLangLocation().location;
-  }
-  private _getLocation(): void {
-    console.log("🚀 XXX - AppComponent - _getLocation - _getLocation : ");
-
-    this._ubicationService.getPosition().then((pos) => {
-      // this.latitude = pos.lat;
-      // this.longitude = pos.lng;
-      console.log(
-        "🚀 XXX - AppComponent - this._ubicationService.getPosition - pos : ",
-        pos
-      );
-      console.log(
-        "🚀 XXX - AppComponent - this._ubicationService.getPosition - pos.lat : ",
-        pos.lat
-      );
-      console.log(
-        "🚀 XXX - AppComponent - this._ubicationService.getPosition - pos.lng : ",
-        pos.lng
-      );
-    });
   }
 }

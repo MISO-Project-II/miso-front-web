@@ -48,18 +48,23 @@ export class StatusService {
     } else if (userType === THIRD) {
       this._status.userUrl = "tercero/";
     }
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setUserId(userId: number) {
     this._status.userId = userId;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setToken(token: string) {
     this._status.token = token;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setUserName(userName: string) {
     this._status.userName = userName;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setContractType(contractType: string) {
     this._status.contractType = contractType;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setName(name: string) {
     this._status.name = name;
@@ -115,20 +120,8 @@ export class StatusService {
     this._eventsList = eventsList;
   }
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
-    console.log(
-      "🚀 XXX - setEventsListScheduled - eventsListScheduled : ",
-      eventsListScheduled
-    );
     const newEventsListScheduled = new Set(eventsListScheduled);
-    console.log(
-      "🚀 XXX - setEventsListScheduled - newEventsListScheduled : ",
-      newEventsListScheduled
-    );
     this._eventsListScheduled = [...newEventsListScheduled];
-    console.log(
-      "🚀 XXX - setEventsListScheduled - _eventsListScheduled : ",
-      this._eventsListScheduled
-    );
   }
   public setServicesList(servicesList: IServices[]) {
     this._servicesList = servicesList;
@@ -169,7 +162,9 @@ export class StatusService {
     this._langLocation.location = location;
   }
   public getGeneralStatus(): StatusModel {
-    return this._status;
+    const status = JSON.parse(sessionStorage.getItem("status")!);
+    // return this._status;
+    return status;
   }
   public getSportsList(): ISports[] {
     return this._sportsList;

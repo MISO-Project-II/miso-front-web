@@ -37,7 +37,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserFoodProfile) => {
-          if (res.success) {
+          if (!!res && res.success) {
             this.formUserFoodProfile
               .get("foods_preference")
               ?.patchValue(res.response?.foods_preference);
@@ -103,7 +103,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserFoodProfile) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log("XXX - FoodProfileComponent - _callService - res", res);
             this._loadData();
           }

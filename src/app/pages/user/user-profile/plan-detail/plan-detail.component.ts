@@ -47,7 +47,7 @@ export class PlanDetailComponent implements OnInit {
       .update(this._statusService.getGeneralStatus().userId, data)
       .subscribe({
         next: (res) => {
-          if (res.success) {
+          if (!!res && res.success) {
             this._statusService.setContractType(res.response?.contractType!);
             window.open("https://epayco.com/");
           }

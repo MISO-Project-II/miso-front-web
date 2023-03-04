@@ -32,6 +32,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    sessionStorage.removeItem("status");
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
   }
@@ -81,7 +82,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResLogin) => {
           console.log("XXX - UserLoginComponent - .subscribe - res", res);
-          if (res.success) {
+          if (!!res && res.success) {
             setTimeout(() => {
               if (res.user?.userType === THIRD) {
                 console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);

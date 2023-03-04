@@ -43,7 +43,7 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   private _loadEvents(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResEvents) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log("XXX - UserEventsComponent - _loadEvents - res", res);
           this._statusService.setEventsList(res.result!);
         }
@@ -59,7 +59,7 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   private _loadRoutes(): void {
     this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResRoutes) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log("XXX - UserEventsComponent - _loadRoutes - res", res);
           this._statusService.setRoutesList(res.result!);
         }

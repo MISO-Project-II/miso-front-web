@@ -44,7 +44,7 @@ export class ThirdServicesComponent implements OnInit, OnDestroy {
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserServices) => {
-        if (res.success) {
+        if (!!res && res.success) {
           // if (!!res) {
           console.log(
             "XXX - ScheduledServicesComponent - _loadServicesScheduled - res",

@@ -86,7 +86,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log("XXX - GeneralDataComponent - _loadData - res", res);
             this.formUserGeneralData
               .get("user")
@@ -162,7 +162,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log("XXX - GeneralDataComponent - _callService - res", res);
             this._loadGeneralData();
           }

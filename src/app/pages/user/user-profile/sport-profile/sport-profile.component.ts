@@ -84,7 +84,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResUserSportProfile) => {
           console.log("XXX - SportProfileComponent - _loadData - res", res);
-          if (res.success) {
+          if (!!res && res.success) {
             this.formUserSportProfile.get("id")?.patchValue(res.response?.id);
             this.formUserSportProfile
               .get("sportPractice")
@@ -132,7 +132,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserSportProfile) => {
-          if (res.success) {
+          if (!!res && res.success) {
             this._loadData();
           }
           this._statusService.spinnerHide();

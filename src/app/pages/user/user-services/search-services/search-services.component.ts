@@ -80,7 +80,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
     this._servicesService
       .putUserService(this.getGeneralStatus.userId, listScheduled)
       .subscribe((res: IGenericResponse) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log(
             "XXX - SearchServicesComponent - _callService - res",
             res

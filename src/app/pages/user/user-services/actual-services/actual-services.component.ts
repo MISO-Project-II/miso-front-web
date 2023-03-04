@@ -62,7 +62,7 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserServices) => {
-        if (res.success) {
+        if (!!res && res.success) {
           // if (!!res) {
           console.log(
             "XXX - ActualServicesComponent - _loadServicesScheduled - res",
@@ -113,7 +113,7 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
-          if (res.success) {
+          if (!!res && res.success) {
             console.log(
               "XXX - ScheduledServicesComponent - _callService - res",
               res

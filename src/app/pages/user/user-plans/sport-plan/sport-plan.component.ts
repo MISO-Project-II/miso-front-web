@@ -72,7 +72,7 @@ export class SportPlanComponent implements OnInit {
   //     .get(this._statusService.getUserId())
   //     .subscribe({
   //       next: (res: IResUserData) => {
-  //         if (res.success) {
+  //         if (!!res && res.success) {
   //           this._userData = res?.response!;
   //         }
   //         setTimeout(() => {
@@ -92,7 +92,7 @@ export class SportPlanComponent implements OnInit {
   //     .pipe(takeUntil(this._destroy$))
   //     .subscribe({
   //       next: (res: IResUserData) => {
-  //         if (res.success) {
+  //         if (!!res && res.success) {
   //           console.log(
   //             "XXX - SportPlanComponent - _callService - res",
   //             res
@@ -111,7 +111,7 @@ export class SportPlanComponent implements OnInit {
   private _loadSportPlans(): void {
     this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResSportPlans) => {
-        if (res.success) {
+        if (!!res && res.success) {
           console.log("🚀 XXX - _loadSportPlans - res : ", JSON.stringify(res));
           this._statusService.setSportPlansList(res.result!);
         }
