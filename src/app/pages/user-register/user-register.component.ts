@@ -27,6 +27,7 @@ import { StatusModel } from "src/models/local/status-model";
 import { SPORTSMAN } from "src/constanst/data.constants";
 import { UbicationService } from "src/services/general/ubication.service";
 import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
+import { Date_yyyymmdd } from "src/helper/date.helper";
 
 @Component({
   selector: "app-user-register",
@@ -209,7 +210,14 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     );
   }
   public async getStatesOfBirth(countryCode: ICountry) {
-    this._countryCodeOfBirth = countryCode;
+    // this._countryCodeOfBirth = countryCode;
+    this._countryCodeOfBirth = await this._ubicationService.getCountry(
+      countryCode.iso2
+    );
+    console.log(
+      "🚀 XXX - UserRegisterComponent - getStatesOfBirth - _countryCodeOfBirth : ",
+      this._countryCodeOfBirth
+    );
     this.statesOfBirth = [];
     this.citiesOfBirth = [];
     this.statesOfBirth = await this._ubicationService.getStatesByCountry(
@@ -228,7 +236,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     this.countriesOfResidence = await this._ubicationService.getCountries();
   }
   public async getStatesOfResidence(countryCode: ICountry) {
-    this._countryCodeOfResidence = countryCode;
+    // this._countryCodeOfResidence = countryCode;
+    this._countryCodeOfResidence = await this._ubicationService.getCountry(
+      countryCode.iso2
+    );
     this.statesOfResidence = [];
     this.citiesOfResidence = [];
     this.statesOfResidence = await this._ubicationService.getStatesByCountry(
@@ -244,7 +255,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    this._statusService.spinnerShow();
+    // this._statusService.spinnerShow();
     const data: IUserRegister = {
       // Datos principales
       username: this.user?.value,
@@ -259,16 +270,32 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       // sportInterest: this.sportInterest?.value,
       // Datos secundarios
       gender: this.genre?.value,
-      age: "1991-11-16",
+      age: Date_yyyymmdd(this.age?.value),
       weight: this.weight?.value,
       height: this.height?.value,
       // Datos de ubicacion
       // countryOfBirth: this.countryOfBirth?.value,
       // stateOfBirth: this.stateOfBirth?.value,
-      birthdUbication: this.cityOfBirth?.value.id,
+      birthdUbication:
+        this.countryOfBirth?.value.iso2 +
+        "-" +
+        this.stateOfBirth?.value.iso2 +
+        "-" +
+        this.cityOfBirth?.value.id +
+        "-" +
+        this._countryCodeOfBirth.currency,
       // countryOfResidence: this.countryOfResidence?.value,
       // stateOfResidence: this.stateOfResidence?.value,
-      homeUbication: this.cityOfResidence?.value.id,
+      homeUbication:
+        this.countryOfResidence?.value.iso2 +
+        "-" +
+        this.stateOfResidence?.value.iso2 +
+        "-" +
+        this.cityOfResidence?.value.id +
+        "-" +
+        this._countryCodeOfResidence.currency +
+        "-" +
+        this.montsOfResidence?.value,
       // montsOfResidence: this.montsOfResidence?.value,
       isVegan: this.isVegan ? 1 : 0,
       isvegetarian: this.isVegetarian ? 1 : 0,

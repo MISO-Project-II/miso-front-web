@@ -20,7 +20,7 @@ steps:
       - '-Dsonar.password=admin123'
       - '-Dsonar.projectKey=miso-front-web'
       - '-Dsonar.projectName=miso-front-web'
-      - '-Dsonar.projectVersion=1.13.0'
+      - '-Dsonar.projectVersion=1.14.0'
       - '-Dsonar.sourceEncoding=UTF-8'
       - '-Dsonar.sources=src'
       - '-Dsonar.test.exclusions=**/node_modules/**'

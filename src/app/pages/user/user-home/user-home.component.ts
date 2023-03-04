@@ -51,11 +51,18 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   get getHomeUbication() {
     return this._statusService.getHomeUbication();
   }
-  get getDate() {
-    return new Date();
+  get getAge() {
+    return this._statusService.getGeneralStatus().age;
   }
   get getCurrency() {
-    return 1600500;
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
   }
 
   private _loadGeneralData(): void {
@@ -77,11 +84,11 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             );
             this._statusService.setBirthdUbication(
               // res.result?.birthdUbication!
-              "CO-CUN-12312"
+              "CO-CUN-12312-COP"
             );
             this._statusService.setHomeUbication(
               // res.result?.homeUbication!
-              "CO-CUN-12312-10"
+              "CO-CUN-12312-COP-10"
             );
             this._statusService.setGender(res.result?.gender!);
             this._statusService.setWeight(res.result?.weight!);

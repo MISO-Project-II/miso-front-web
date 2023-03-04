@@ -79,6 +79,7 @@ export class StatusService {
       country: birthdUbication.split("-")[0],
       state: birthdUbication.split("-")[1],
       city: parseInt(birthdUbication.split("-")[2]),
+      currency: birthdUbication.split("-")[3],
     };
   }
   public setHomeUbication(homeUbication: string) {
@@ -87,7 +88,8 @@ export class StatusService {
       country: homeUbication.split("-")[0],
       state: homeUbication.split("-")[1],
       city: parseInt(homeUbication.split("-")[2]),
-      monthsOfResidence: parseInt(homeUbication.split("-")[3]),
+      currency: homeUbication.split("-")[3],
+      monthsOfResidence: parseInt(homeUbication.split("-")[4]),
     };
   }
   public setGender(gender: string) {

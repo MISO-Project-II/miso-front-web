@@ -7,11 +7,20 @@
   <p></p>
   <p>XXX-getHomeUbication: {{ getHomeUbication | json }}</p>
   <p></p>
-  <p>XXX-getDate: {{ getDate | date }}</p>
+  <p>XXX-getAge {{ getAge | date }}</p>
   <p></p>
-  <p>XXX-getDate: {{ getDate | date }}</p>
-  <p></p>
-  <p>XXX-getCurrency: {{ getCurrency | currency }}</p>
+  <p>
+    XXX-getCurrency: es-CO :
+    {{ 123456789 | currency: "COP":"symbol":"":"es-CO" }}
+  </p>
+  <p>
+    XXX-getCurrency: es-MX:
+    {{ 123456789 | currency: "MXP":"symbol":"":"es-MX" }}
+  </p>
+  <p>
+    XXX-getCurrency: {{ getCurrency }} : {{ getLangLocation }}
+    {{ 123456789 | currency: getCurrency:"symbol":"":getLangLocation }}
+  </p>
   <p></p>
   <p>XXX-getSportsList: {{ getSportsList | json }}</p>
   <p></p>
