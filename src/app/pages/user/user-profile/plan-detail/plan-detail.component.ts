@@ -30,8 +30,9 @@ export class PlanDetailComponent implements OnInit {
     );
     this._updatePlanService.getAll().subscribe({
       next: (response) => {
-        console.log('Plan list', response);
-      }, error: () => {}
+        console.log("Plan list", response);
+      },
+      error: () => {},
     });
   }
 

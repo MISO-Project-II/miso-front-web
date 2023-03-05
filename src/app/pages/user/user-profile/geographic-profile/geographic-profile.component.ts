@@ -7,12 +7,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
   styleUrls: ["./geographic-profile.component.scss"],
 })
 export class GeographicProfileComponent implements OnInit {
-
   formUserGeographicProfile: FormGroup;
 
-  constructor(
-    private fb: FormBuilder
-  ) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.formUserGeographicProfile = this.fb.group({
@@ -24,7 +21,7 @@ export class GeographicProfileComponent implements OnInit {
       age: [null],
       height: [null],
       weight: [null],
-      imc: [null]
+      imc: [null],
     });
     console.log("XXX - GeographicProfileComponent");
   }

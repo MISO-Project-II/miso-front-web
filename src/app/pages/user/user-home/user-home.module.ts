@@ -14,7 +14,7 @@ import { FullCalendarModule } from "@fullcalendar/angular";
     UserHomeRoutingModule,
     DsTitleModule,
     TranslateModule,
-    FullCalendarModule
+    FullCalendarModule,
   ],
 })
 export class UserHomeModule {}

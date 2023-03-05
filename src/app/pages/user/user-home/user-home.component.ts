@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CalendarOptions } from "@fullcalendar/core";
-import dayGridPlugin from '@fullcalendar/daygrid';
+import dayGridPlugin from "@fullcalendar/daygrid";
 import { Subject, takeUntil } from "rxjs";
 import { ILocation } from "src/models/general/locantion.interface";
 import { ISports } from "src/models/general/sports.interface";
@@ -16,20 +16,19 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   styleUrls: ["./user-home.component.scss"],
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
-
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'prev',
-      center: 'title',
-      right: 'next'
+      left: "prev",
+      center: "title",
+      right: "next",
     },
-    initialView: 'dayGridMonth',
+    initialView: "dayGridMonth",
     plugins: [dayGridPlugin],
     events: [
-      { title: 'event 1', date: '2023-03-01' },
-      { title: 'event 2', date: '2023-03-02' }
-    ]
+      { title: "event 1", date: "2023-03-01" },
+      { title: "event 2", date: "2023-03-02" },
+    ],
   };
 
   constructor(

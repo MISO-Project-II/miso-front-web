@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
-import { IDisabilities, IResDisabilities } from "src/models/general/disabilities.interface";
+import {
+  IDisabilities,
+  IResDisabilities,
+} from "src/models/general/disabilities.interface";
 import { IPains, IResPains } from "src/models/general/pains.interface";
 import { IResSports, ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
@@ -35,16 +38,14 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._initForm();
     // this._loadData();
-    this._sportsServiceGetAll$
-      .pipe(takeUntil(this._destroy$))
-      .subscribe({
-        next: (data: IResSports) => {
-          if (data && data.success) {
-            this.sportList = data.result;
-          }
-        },
-        error: () => {}
-      });
+    this._sportsServiceGetAll$.pipe(takeUntil(this._destroy$)).subscribe({
+      next: (data: IResSports) => {
+        if (data && data.success) {
+          this.sportList = data.result;
+        }
+      },
+      error: () => {},
+    });
     // this._sportsServiceGetDisabilities$
     //   .pipe(takeUntil(this._destroy$))
     //   .subscribe({

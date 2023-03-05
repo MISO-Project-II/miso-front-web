@@ -51,15 +51,13 @@ export class SportsService {
   }
   getPains(): Observable<IResPains> {
     const url = `${this._baseUrl}${environment.api.pains}`;
-    return this._http
-      .get<IResPains>(url, { headers: this._httpHeaders })
-      .pipe(
-        retry(3),
-        catchError((err: any) => {
-          console.log("XXX - UserDataService - catchError - err", err);
-          return throwError(err);
-        })
-      );
+    return this._http.get<IResPains>(url, { headers: this._httpHeaders }).pipe(
+      retry(3),
+      catchError((err: any) => {
+        console.log("XXX - UserDataService - catchError - err", err);
+        return throwError(err);
+      })
+    );
   }
   /**Obtener todos los datos relacionados con usuario */
   getSportsByUser(idData: number): Observable<IResSports> {

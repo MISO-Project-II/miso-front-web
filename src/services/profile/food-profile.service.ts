@@ -50,7 +50,10 @@ export class FoodProfileService {
     data: IUserFoodProfile
   ): Observable<IResUserFoodProfile> {
     const req: IReqUserFoodProfile = { request: data, date: new Date() };
-    return this._http.put<IResUserFoodProfile>(`${this._baseUrl}/${userId}`, req);
+    return this._http.put<IResUserFoodProfile>(
+      `${this._baseUrl}/${userId}`,
+      req
+    );
     // const mock = of(MockResSuccessFoodProfile);
     // const mock = of(MockResErrorFoodProfile);
     // return mock;
