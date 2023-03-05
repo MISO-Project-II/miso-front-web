@@ -1,1 +1,112 @@
-<p>geographic-profile works!</p>
+<div id="main-sport-profile" class="p-3 p-sm-0">
+    <hr />
+    <form
+      [formGroup]="formUserGeographicProfile"
+      (ngSubmit)="onSubmit()"
+      novalidate
+      autocomplete="off"
+    >
+      <div class="d-flex min-width row justify-content-center">
+        <div class="col-12 col-md-6 max-width mx-auto">
+            <app-ds-title
+              [title]="'Datos de ubicación'"
+            ></app-ds-title>
+            <label class="mt-3">Lugar de nacimiento</label>
+            <div class="ds-input-group d-flex">
+                <div class="w-50 pe-1">
+                    <select formControlName="born_country" id="born_country_select"
+                    aria-placeholder="País" class="form-control ds-input">
+                        <option value="null">País</option>
+                    </select>
+                </div>
+                <div class="w-50 ps-1">
+                    <select formControlName="born_city" id="born_city_select"
+                    aria-placeholder="Ciudad" class="form-control ds-input">
+                        <option value="null">Ciudad</option>
+                    </select>
+                </div>
+            </div>
+            <label class="mt-3">Lugar de residencia</label>
+            <div class="ds-input-group d-flex">
+                <div class="w-50 pe-1">
+                    <select formControlName="residence_country" id="residence_country_select"
+                    aria-placeholder="País" class="form-control ds-input">
+                        <option value="null">País</option>
+                    </select>
+                </div>
+                <div class="w-50 ps-1">
+                    <select formControlName="residence_city" id="residence_city_select"
+                    aria-placeholder="Ciudad" class="form-control ds-input">
+                        <option value="null">Ciudad</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ds-input-group mt-3">
+                <label>Años de residencia</label>
+                <input
+                    id="residence_time_input"
+                    formControlName="residence_time"
+                    type="number"
+                    class="form-control ds-input"
+                    aria-describedby="residence_time_input"
+                    [placeholder]="'Cantidad'"
+                />
+            </div>
+        </div>
+        <div class="col-12 col-md-6 max-width mx-auto">
+          <div class="ds-input-group">
+            <app-ds-title [title]="'Datos secundarios'"></app-ds-title>
+            <div class="ds-input-group mt-3">
+                <label>Edad</label>
+                <input
+                    id="age_input"
+                    formControlName="age"
+                    type="number"
+                    class="form-control ds-input w-50"
+                    aria-describedby="age_input"
+                    [placeholder]="'Edad'"
+                />
+            </div>
+            <div class="ds-input-group mt-3">
+                <label>Altura</label>
+                <input
+                    id="height_input"
+                    formControlName="height"
+                    type="number"
+                    class="form-control ds-input w-50"
+                    aria-describedby="height_input"
+                    [placeholder]="'Altura'"
+                />
+            </div>
+            <div class="ds-input-group mt-3">
+                <label>Peso</label>
+                <input
+                    id="weight_input"
+                    formControlName="weight"
+                    type="number"
+                    class="form-control ds-input w-50"
+                    aria-describedby="weight_input"
+                    [placeholder]="'Peso'"
+                />
+            </div>
+            <div class="ds-input-group mt-3">
+                <label>Índice de masa corporal</label>
+                <input
+                    id="imc_input"
+                    formControlName="imc"
+                    type="number"
+                    class="form-control ds-input w-50"
+                    aria-describedby="imc_input"
+                    [placeholder]="'IMC'"
+                />
+            </div>
+          </div>
+          <div class="ds-button-continue p-2">
+            <button id="btn-continue" type="submit" class="btn ds-button">
+              {{ "BTN.UPDATE" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>

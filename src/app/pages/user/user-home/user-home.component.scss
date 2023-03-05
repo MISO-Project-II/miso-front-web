@@ -12,3 +12,7 @@
     border-bottom: 1px solid $ds-primary-01;
   }
 }
+
+::ng-deep .fc-icon {
+  color: #ffffff;
+}

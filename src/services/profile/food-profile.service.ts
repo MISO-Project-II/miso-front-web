@@ -33,10 +33,10 @@ export class FoodProfileService {
   //   return mock;
   // }
   get(userId: number): Observable<IResUserFoodProfile> {
-    // return this._http.get<IResUserFoodProfile>(`${this._baseUrl}/${userId}`);
-    const mock = of(MockResSuccessGetFoodProfile);
+    return this._http.get<IResUserFoodProfile>(`${this._baseUrl}/${userId}`);
+    // const mock = of(MockResSuccessGetFoodProfile);
     // const mock = of(MockResErrorFoodProfile);
-    return mock;
+    // return mock;
   }
   // create(data: IUserFoodProfile): Observable<IResUserFoodProfile> {
   //   // const req: IReqUserFoodProfile = { request: data, date: new Date() };
@@ -49,11 +49,11 @@ export class FoodProfileService {
     userId: number,
     data: IUserFoodProfile
   ): Observable<IResUserFoodProfile> {
-    // const req: IReqUserFoodProfile = { request: data, date: new Date() };
-    // return this._http.put<IResUserFoodProfile>(`${this._baseUrl}/${userId}`, req);
-    const mock = of(MockResSuccessFoodProfile);
+    const req: IReqUserFoodProfile = { request: data, date: new Date() };
+    return this._http.put<IResUserFoodProfile>(`${this._baseUrl}/${userId}`, req);
+    // const mock = of(MockResSuccessFoodProfile);
     // const mock = of(MockResErrorFoodProfile);
-    return mock;
+    // return mock;
   }
   // delete(userId: number): Observable<IResUserFoodProfile> {
   //   // return this._http.delete<IResUserFoodProfile>(`${this._baseUrl}/${userId}`);

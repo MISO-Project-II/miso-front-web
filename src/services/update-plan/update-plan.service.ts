@@ -25,12 +25,12 @@ export class UpdatePlanService {
     this._baseUrl = environment.api.base + environment.api.update_plan;
     // this._baseUrl =  "http://localhost:3000/Plan";
   }
-  // getAll(): Observable<IResPlan> {
-  //   // return this._http.get<IResPlan>(this._baseUrl);
-  //   const mock = of(MockResSuccessGetAllPlan);
-  //   // const mock = of(MockResErrorPlan);
-  //   return mock;
-  // }
+  getAll(): Observable<IResPlan> {
+    return this._http.get<IResPlan>(this._baseUrl);
+    // const mock = of(MockResSuccessGetAllPlan);
+    // const mock = of(MockResErrorPlan);
+    // return mock;
+  }
   get(idUser: number): Observable<IResPlan> {
     // return this._http.get<IResPlan>(`${this._baseUrl}/${idUser}`);
     const mock = of(MockResSuccessGetPlan);

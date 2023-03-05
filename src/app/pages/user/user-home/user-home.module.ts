@@ -5,6 +5,7 @@ import { UserHomeRoutingModule } from "./user-home-routing.module";
 import { UserHomeComponent } from "./user-home.component";
 import { DsTitleModule } from "src/app/shared/ds-title/ds-title.module";
 import { TranslateModule } from "@ngx-translate/core";
+import { FullCalendarModule } from "@fullcalendar/angular";
 
 @NgModule({
   declarations: [UserHomeComponent],
@@ -13,6 +14,7 @@ import { TranslateModule } from "@ngx-translate/core";
     UserHomeRoutingModule,
     DsTitleModule,
     TranslateModule,
+    FullCalendarModule
   ],
 })
 export class UserHomeModule {}
