@@ -17,6 +17,7 @@ import { FoodProfileService } from "src/services/profile/food-profile.service";
 export class FoodProfileComponent implements OnInit, OnDestroy {
   public formUserFoodProfile: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private _statusService: StatusService,
     private _foodProfileService: FoodProfileService

@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.15.0
+    * Version: 1.16.0
 ## Atomic Design
     
 # Info
@@ -16,6 +16,13 @@
     * npm install @ngx-translate/core --save
     * npm i ngx-spinner
     * npm install sonar-scanner --save-dev    
+    * npm install @fullcalendar/angular
+    * npm install @fullcalendar/core
+    * npm install @fullcalendar/daygrid
+    * npm install @fullcalendar/interaction
+    * npm install @fullcalendar/list
+    * npm install @fullcalendar/timegrid
+    * angular.json -> "scripts": ['node_modules/popper.js/dist/umd/popper.min.js']
 # Commands
     * ng new SportApp
     * ng serve

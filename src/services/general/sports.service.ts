@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
+import { IResDisabilities } from "src/models/general/disabilities.interface";
+import { IResPains } from "src/models/general/pains.interface";
 import { IResSports, ISports } from "src/models/general/sports.interface";
 import {
   MockResErrorSports,
@@ -34,6 +36,28 @@ export class SportsService {
     // const mock = of(MockResSuccessGetSports);
     // const mock = of(MockResErrorSports);
     // return mock;
+  }
+  getDisabilities(): Observable<IResDisabilities> {
+    const url = `${this._baseUrl}${environment.api.disabilities}`;
+    return this._http
+      .get<IResDisabilities>(url, { headers: this._httpHeaders })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - UserDataService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+  }
+  getPains(): Observable<IResPains> {
+    const url = `${this._baseUrl}${environment.api.pains}`;
+    return this._http.get<IResPains>(url, { headers: this._httpHeaders }).pipe(
+      retry(3),
+      catchError((err: any) => {
+        console.log("XXX - UserDataService - catchError - err", err);
+        return throwError(err);
+      })
+    );
   }
   /**Obtener todos los datos relacionados con usuario */
   getSportsByUser(idData: number): Observable<IResSports> {

@@ -28,6 +28,12 @@ export class PlanDetailComponent implements OnInit {
       "this._statusService.getPlanType()",
       this._statusService.getGeneralStatus().contractType
     );
+    this._updatePlanService.getAll().subscribe({
+      next: (response) => {
+        console.log("Plan list", response);
+      },
+      error: () => {},
+    });
   }
 
   get getContractType(): string {
