@@ -1,12 +1,10 @@
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
 export interface IPlan {
-  id?: string;
-  contractType: string;
-}
-export interface IReqPlan extends IGenericRequest {
-  request?: IPlan;
+  idUser?: number;
+  idPlan: string;
+  transaction?: string;
 }
 export interface IResPlan extends IGenericResponse {
-  response?: IPlan;
+  result: IPlan | null;
 }

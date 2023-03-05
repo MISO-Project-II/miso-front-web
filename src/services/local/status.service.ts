@@ -64,6 +64,10 @@ export class StatusService {
   }
   public setContractType(contractType: string) {
     this._status.contractType = contractType;
+    console.log(
+      "🚀 XXX - StatusService - setContractType -  this._status : ",
+      this._status
+    );
     sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setName(name: string) {

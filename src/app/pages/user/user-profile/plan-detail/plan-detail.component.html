@@ -4,11 +4,8 @@
     <div class="col-12 col-sm-4 pb-5 pe-sm-1 max-width">
       <app-ds-title [title]="'LBL.FREE_CONTRACT' | translate"></app-ds-title>
       <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let item of 'LIST_DATA.FREE_CONTRACT_SERVICES' | translate"
-        >
-          <p>{{ item.NAME }}</p>
+        <li class="list-group-item" *ngFor="let item of getEventsListFree">
+          <p>{{ item.name }}</p>
         </li>
       </ul>
       <hr />
@@ -40,11 +37,9 @@
         </li>
         <li
           class="list-group-item"
-          *ngFor="
-            let item of 'LIST_DATA.INTERMEDIATE_CONTRACT_SERVICES' | translate
-          "
+          *ngFor="let item of getEventsListIntermediate"
         >
-          <p>{{ item.NAME }}</p>
+          <p>{{ item.name }}</p>
         </li>
       </ul>
       <hr />
@@ -73,11 +68,8 @@
         <li class="list-group-item">
           <label>{{ "LBL.ALL_INTERMEDIATE_CONTRACT" | translate }}</label>
         </li>
-        <li
-          class="list-group-item"
-          *ngFor="let item of 'LIST_DATA.PREMIUM_CONTRACT_SERVICES' | translate"
-        >
-          <p>{{ item.NAME }}</p>
+        <li class="list-group-item" *ngFor="let item of getEventsListPremium">
+          <p>{{ item.name }}</p>
         </li>
       </ul>
       <hr />

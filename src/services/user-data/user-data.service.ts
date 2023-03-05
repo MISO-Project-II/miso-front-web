@@ -47,4 +47,12 @@ export class UserDataService {
     // const mock = of(MockResErrorGeneralData);
     // return mock;
   }
+  updatePlan(idUser: number): Observable<IResUserData> {
+    this._baseUrl =
+      "https://miso-user-6equtupdiq-uc.a.run.app/general_data/update-plan";
+    return this._http.get<IResUserData>(this._baseUrl + "/" + idUser);
+    // const mock = of(MockResSuccessUserData);
+    // const mock = of(MockResErrorGeneralData);
+    // return mock;
+  }
 }
