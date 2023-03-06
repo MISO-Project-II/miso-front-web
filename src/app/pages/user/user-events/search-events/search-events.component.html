@@ -73,7 +73,7 @@
           <label>{{
             getEvent$.eventType === INSIDE_OF_HOUSE
               ? ("LBL.INSIDE_OF_HOUSE" | translate)
-              : getEvent$.contractType === OUTSIDE_OF_HOUSE
+              : getEvent$.eventType === OUTSIDE_OF_HOUSE
               ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
               : ""
           }}</label>

@@ -4,25 +4,26 @@
     <div class="col-12 col-sm-4 pb-5 pe-sm-1 max-width">
       <app-ds-title [title]="'LBL.FREE_CONTRACT' | translate"></app-ds-title>
       <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let item of 'LIST_DATA.FREE_CONTRACT_SERVICES' | translate"
-        >
-          <p>{{ item.NAME }}</p>
+        <!-- <li class="list-group-item" *ngFor="let item of getEventsListFree"> -->
+        <li class="list-group-item" *ngFor="let item of getServicesListFree">
+          <p>{{ item.name }}</p>
         </li>
       </ul>
       <hr />
       <button
+        *ngIf="!isMobile"
         type="submit"
+        (click)="onSubmit(FREE_CONTRACT)"
         class="btn btn-primary ds-button"
-        [disabled]="
+        [disabled]="getContractType === FREE_CONTRACT ? true : false"
+      >
+        <!-- [disabled]="
           getContractType === FREE_CONTRACT ||
           getContractType === INTERMEDIATE_CONTRACT ||
           getContractType === PREMIUM_CONTRACT
             ? true
             : false
-        "
-      >
+        " -->
         {{
           getContractType === FREE_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
@@ -38,28 +39,29 @@
         <li class="list-group-item">
           <label>{{ "LBL.ALL_FREE_CONTRACT" | translate }}</label>
         </li>
+        <!-- *ngFor="let item of getEventsListIntermediate" -->
         <li
           class="list-group-item"
-          *ngFor="
-            let item of 'LIST_DATA.INTERMEDIATE_CONTRACT_SERVICES' | translate
-          "
+          *ngFor="let item of getServicesListIntermediate"
         >
-          <p>{{ item.NAME }}</p>
+          <p>{{ item.name }}</p>
         </li>
       </ul>
       <hr />
       <button
+        *ngIf="!isMobile"
         type="button"
         (click)="onSubmit(INTERMEDIATE_CONTRACT)"
         class="btn btn-primary ds-button"
         target="_blank"
-        [disabled]="
-          getContractType === INTERMEDIATE_CONTRACT ||
-          getContractType === INTERMEDIATE_CONTRACT
-            ? true
-            : false
-        "
+        [disabled]="getContractType === INTERMEDIATE_CONTRACT ? true : false"
       >
+        <!-- [disabled]="
+      getContractType === INTERMEDIATE_CONTRACT ||
+      getContractType === INTERMEDIATE_CONTRACT
+        ? true
+        : false
+    " -->
         {{
           getContractType === INTERMEDIATE_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
@@ -73,15 +75,14 @@
         <li class="list-group-item">
           <label>{{ "LBL.ALL_INTERMEDIATE_CONTRACT" | translate }}</label>
         </li>
-        <li
-          class="list-group-item"
-          *ngFor="let item of 'LIST_DATA.PREMIUM_CONTRACT_SERVICES' | translate"
-        >
-          <p>{{ item.NAME }}</p>
+        <!-- <li class="list-group-item" *ngFor="let item of getEventsListPremium"> -->
+        <li class="list-group-item" *ngFor="let item of getServicesListPremium">
+          <p>{{ item.name }}</p>
         </li>
       </ul>
       <hr />
       <button
+        *ngIf="!isMobile"
         type="button"
         (click)="onSubmit(PREMIUM_CONTRACT)"
         class="btn btn-primary ds-button"

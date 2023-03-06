@@ -32,6 +32,44 @@
           <label>{{ "LBL.CONTACT" | translate }}</label>
           <p>{{ getService$.idUserCreator }}</p>
         </div>
+        <div
+          *ngIf="!!getService$?.contract"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label
+            >{{
+              getService$.contract === FREE_CONTRACT
+                ? ("LBL.FREE_CONTRACT" | translate)
+                : getService$.contract === INTERMEDIATE_CONTRACT
+                ? ("LBL.INTERMEDIATE_CONTRACT" | translate)
+                : getService$.contract === PREMIUM_CONTRACT
+                ? ("LBL.PREMIUM_CONTRACT" | translate)
+                : ""
+            }}{{
+              getService$.contract === FREE_CONTRACT
+                ? ("LBL.FREE_CONTRACT_ICON" | translate)
+                : getService$.contract === INTERMEDIATE_CONTRACT
+                ? ("LBL.INTERMEDIATE_CONTRACT_ICON" | translate)
+                : getService$.contract === PREMIUM_CONTRACT
+                ? ("LBL.PREMIUM_CONTRACT_ICON" | translate)
+                : ""
+            }}
+          </label>
+        </div>
+        <div
+          *ngIf="getService$?.serviceType"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label>{{
+            getService$.serviceType === INSIDE_OF_HOUSE
+              ? ("LBL.INSIDE_OF_HOUSE" | translate)
+              : getService$.serviceType === OUTSIDE_OF_HOUSE
+              ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
+              : ""
+          }}</label>
+        </div>
       </div>
       <div class="ds-button-continue p-2">
         <button
