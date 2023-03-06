@@ -1,9 +1,8 @@
-import { ISportRoutines } from "src/models/routines/sport-routines.interface";
 import { Component, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
-  IResSportPlans,
   ISportPlans,
+  SportRoutineList,
 } from "src/models/home/sport-plans.interface";
 import {
   IResUserData,
@@ -27,7 +26,7 @@ export class SportPlanComponent implements OnInit {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _sportPlanSelected: ISportPlans;
-  private _sportRoutines: ISportRoutines;
+  private _sportRoutines: SportRoutineList;
   private _userData: IUserData;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -42,19 +41,19 @@ export class SportPlanComponent implements OnInit {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getSportPlanService$(): Observable<IResSportPlans> {
+  get getSportPlanService$(): Observable<ISportPlans[]> {
     return this._sportPlansService.getSportPlan();
   }
   get getSportPlan$(): ISportPlans {
     return this._sportPlanSelected;
   }
-  get getSportRoutines$(): ISportRoutines {
+  get getSportRoutines$(): SportRoutineList {
     return this._sportRoutines;
   }
   public setSportPlan(sportPlanSelected: ISportPlans) {
     this._sportPlanSelected = sportPlanSelected;
   }
-  public setRoutine(sportRoutines: ISportRoutines) {
+  public setRoutine(sportRoutines: SportRoutineList) {
     this._sportRoutines = sportRoutines;
   }
   get getSportPlansList$(): ISportPlans[] {
@@ -110,10 +109,10 @@ export class SportPlanComponent implements OnInit {
   // }
   private _loadSportPlans(): void {
     this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResSportPlans) => {
-        if (!!res && res.success) {
-          console.log("🚀 XXX - _loadSportPlans - res : ", JSON.stringify(res));
-          this._statusService.setSportPlansList(res.result!);
+      (res: ISportPlans[]) => {
+        if (!!res) {
+          console.log("🚀 XXX - _loadSportPlans - res : ", res);
+          this._statusService.setSportPlansList(res);
         }
         this._statusService.spinnerHide();
       },

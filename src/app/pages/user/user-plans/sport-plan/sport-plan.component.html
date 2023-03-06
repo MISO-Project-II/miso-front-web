@@ -15,13 +15,13 @@
             aria-current="true"
             [class.active]="getSportPlan$ === item"
           >
-            {{ item.title }}
+            {{ item.name }}
           </button>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-9 mx-auto" *ngIf="!!getSportPlan$; else noItem">
-      <app-ds-title [title]="getSportPlan$?.title! | translate"></app-ds-title>
+      <app-ds-title [title]="getSportPlan$?.name! | translate"></app-ds-title>
       <div class="body">
         <p>{{ getSportPlan$?.description! | translate }}</p>
         <div class="button-see p-2">
@@ -32,10 +32,10 @@
         </div>
         <div
           class="d-flex flex-wrap justify-content-center p-2"
-          *ngIf="getSportPlan$?.trainigRoutines as trainigRoutines"
+          *ngIf="getSportPlan$?.sportRoutineList as trainigRoutines"
         >
           <div class="register-data p-3" *ngFor="let item of trainigRoutines">
-            <app-ds-title [title]="item?.title! | translate"></app-ds-title>
+            <app-ds-title [title]="item?.name! | translate"></app-ds-title>
             <p class="border-color-primary-01 px-2" for="text_trainigRoutines">
               <strong> {{ "LBL.ROUTINES" | translate }}</strong>
               {{ item?.description! | translate }}
@@ -113,7 +113,7 @@
     <div class="modal-content">
       <div class="modal-header bg-color-title">
         <h1 class="modal-title fs-5" id="updateSportRoutineLabel">
-          {{ getSportRoutines$?.title }}
+          {{ getSportRoutines$?.name }}
         </h1>
         <button
           type="button"
@@ -133,35 +133,25 @@
         <label>{{ "LBL.SUGGESTED_EXERCISES" | translate }}</label>
         <table class="table table-hover">
           <tbody>
-            <tr *ngFor="let exercise of getSportRoutines$?.exercises">
+            <tr *ngFor="let sports of getSportRoutines$?.sports">
               <td>
-                <p>{{ exercise?.title }}</p>
+                <p>{{ sports?.name }}</p>
               </td>
 
               <td>
                 <p>
-                  {{ exercise?.calories }} {{ "LBL.CALORIES_1" | translate }}
+                  {{ sports?.description }} {{ "LBL.DESCRIPTION" | translate }}
                 </p>
               </td>
               <td>
-                <p>{{ exercise?.timeMinutes }} {{ "LBL.MIN_1" | translate }}</p>
+                <p>
+                  {{ getSportRoutines$?.sportFrecuency?.minute }}
+                  {{ "LBL.MIN_1" | translate }}
+                </p>
               </td>
             </tr>
           </tbody>
         </table>
-        <div
-          *ngIf="!!getSportRoutines$?.category"
-          class="alert alert-secondary"
-          role="alert"
-        >
-          <label>{{
-            getSportRoutines$?.category === INSIDE_OF_HOUSE
-              ? ("LBL.INSIDE_OF_HOUSE" | translate)
-              : getSportRoutines$?.category === OUTSIDE_OF_HOUSE
-              ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
-              : ""
-          }}</label>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn ds-button" data-bs-dismiss="modal">

@@ -1,17 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
-import {
-  IResFoodPlans,
-  IFoodPlans,
-} from "src/models/home/food-plans.interface";
-import {
-  MockResErrorFoodPlans,
-  MockResSuccessGetAllFoodPlans,
-  // MockResSuccessGetFoodPlans,
-  MockResSuccessFoodPlans,
-} from "src/test/home/food-plans.mock";
+import { IFoodPlans } from "src/models/home/food-plans.interface";
+import { MockGetAllFoodPlans } from "src/test/home/food-plans.mock";
 @Injectable({
   providedIn: "root",
 })
@@ -20,39 +12,25 @@ import {
  */
 export class FoodPlansService {
   private _baseUrl: string;
+  private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.sports;
+    // this._baseUrl = environment.api.base + environment.api.food_plans;
+    this._baseUrl = "https://miso-back-food-6equtupdiq-uc.a.run.app/food-plan";
+    this._httpHeaders = new HttpHeaders(environment.api.headers2);
   }
-  getFoodPlans(): Observable<IResFoodPlans> {
-    // return this._http.get<IResFoodPlans>(this._baseUrl);
-    const mock = of(MockResSuccessGetAllFoodPlans);
+  getFoodPlans(): Observable<IFoodPlans[]> {
+    // https://miso-back-food-6equtupdiq-uc.a.run.app/food-plan
+    return this._http
+      .get<IFoodPlans[]>(this._baseUrl, { headers: this._httpHeaders })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("🚀 XXX - FoodPlansService - catchError - err : ", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetAllFoodPlans);
     // const mock = of(MockResErrorFoodPlans);
-    return mock;
-  }
-  // get(idData: number): Observable<IResFoodPlans> {
-  //   // return this._http.get<IResFoodPlans>(`${this._baseUrl}/${idData}`);
-  //   const mock = of(MockResSuccessGetFoodPlans);
-  //   // const mock = of(MockResErrorFoodPlans);
-  //   return mock;
-  // }
-  create(data: IFoodPlans): Observable<IResFoodPlans> {
-    // const req: IReqFoodPlans = { request: data, date: new Date() };
-    // return this._http.post<IResFoodPlans>(this._baseUrl, req);
-    const mock = of(MockResSuccessFoodPlans);
-    // const mock = of(MockResErrorFoodPlans);
-    return mock;
-  }
-  update(idData: number, data: IFoodPlans): Observable<IResFoodPlans> {
-    // const req: IReqFoodPlans = { request: data, date: new Date() };
-    // return this._http.put<IResFoodPlans>(`${this._baseUrl}/${idData}`, req);
-    const mock = of(MockResSuccessFoodPlans);
-    // const mock = of(MockResErrorFoodPlans);
-    return mock;
-  }
-  delete(idData: number): Observable<IResFoodPlans> {
-    // return this._http.delete<IResFoodPlans>(`${this._baseUrl}/${idData}`);
-    const mock = of(MockResSuccessFoodPlans);
-    // const mock = of(MockResErrorFoodPlans);
-    return mock;
+    // return mock;
   }
 }
