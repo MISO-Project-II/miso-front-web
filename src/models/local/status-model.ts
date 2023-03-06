@@ -4,7 +4,7 @@ export class StatusModel {
   userUrl: string; // User url, "usuario/", "tercero/"
   userId: number;
   token: string;
-  userName: string;
+  username: string;
   contractType: string; // Contract Plan, FREE_CONTRACT, INTERMEDIATE_CONTRACT, PREMIUM_CONTRACT = userPlan
   // UserDataService
   name: string;

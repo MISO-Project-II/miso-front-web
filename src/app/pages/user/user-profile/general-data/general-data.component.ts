@@ -126,7 +126,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
     const data: IUserData = {
       username: this.getUser?.value
         ? this.getUser?.value
-        : this.getGeneralStatus.userName,
+        : this.getGeneralStatus.username,
       name: this.getName?.value
         ? this.getName?.value
         : this.getGeneralStatus.name,

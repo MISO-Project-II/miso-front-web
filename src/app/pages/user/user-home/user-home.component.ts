@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CalendarOptions } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Subject, takeUntil } from "rxjs";
+import { THIRD } from "src/constanst/data.constants";
 import { ILocation } from "src/models/general/locantion.interface";
 import { ISports } from "src/models/general/sports.interface";
 import { IEvents } from "src/models/home/events.interface";
@@ -37,9 +38,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {
     console.log("XXX - UserHomeComponent");
-    setTimeout(() => {
-      this._loadGeneralData();
-    }, 1000);
+    this._loadGeneralData();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -75,6 +74,21 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   get getCurrency() {
     return this._statusService?.getHomeUbication()?.currency;
   }
+  get getUserType() {
+    return this._statusService?.getGeneralStatus().userType;
+  }
+  get getUserId() {
+    return this._statusService?.getGeneralStatus().userId;
+  }
+  get getToken() {
+    return this._statusService?.getGeneralStatus().token;
+  }
+  get getUserName() {
+    return this._statusService?.getGeneralStatus().username;
+  }
+  get getUser() {
+    return this._statusService?.getUser();
+  }
   get getLangLocation() {
     return (
       this._statusService?.getLangLocation()?.lang +
@@ -91,6 +105,11 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
+            this._statusService.setUserId(this.getUserId);
+            this._statusService.setToken(this.getToken);
+            this._statusService.setUserName(this.getUserName);
+            this._statusService.setUserData(this.getUser);
+
             console.log("🚀 XXX - UserHomeComponent - _loadData - res : ", res);
             this._statusService.setName(res.result?.name!);
             this._statusService.setLastName(res.result?.lastName!);
@@ -101,12 +120,12 @@ export class UserHomeComponent implements OnInit, OnDestroy {
               res.result?.identificationNumber!
             );
             this._statusService.setBirthdUbication(
-              // res.result?.birthdUbication!
-              "CO-CUN-12312-COP"
+              res.result?.birthdUbication!
+              // "CO-CUN-12312-COP"
             );
             this._statusService.setHomeUbication(
-              // res.result?.homeUbication!
-              "CO-CUN-12312-COP-10"
+              res.result?.homeUbication!
+              // "CO-CUN-12312-COP-10"
             );
             this._statusService.setGender(res.result?.gender!);
             this._statusService.setWeight(res.result?.weight!);

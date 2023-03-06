@@ -174,8 +174,8 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
               "🚀 XXX - PlanDetailComponent - _loadGeneralData - res : ",
               res
             );
-            this._statusService.setContractType(res.result?.userPlan!);
-            // this._statusService.setContractType(contractPlan);
+            // this._statusService.setContractType(res.result?.userPlan!);
+            this._statusService.setContractType(contractPlan);
           }
           this._statusService.spinnerHide();
         },

@@ -11,10 +11,12 @@ import { IProducts } from "src/models/home/products.interface";
 import { IRoutes } from "src/models/general/routes.interface";
 import { IFoodPlans } from "src/models/home/food-plans.interface";
 import { ILocation } from "src/models/general/locantion.interface";
+import { IUser } from "src/models/login/login.interface";
 
 @Injectable()
 export class StatusService {
   private _status: StatusModel;
+  private _userData: IUser;
   private _sportsList: ISports[] = [];
   private _eventsList: IEvents[] = [];
   private _eventsListScheduled: IEvents[] = [];
@@ -53,13 +55,19 @@ export class StatusService {
   public setUserId(userId: number) {
     this._status.userId = userId;
     sessionStorage.setItem("status", JSON.stringify(this._status));
+    sessionStorage.setItem("userId", JSON.stringify(userId));
   }
   public setToken(token: string) {
     this._status.token = token;
     sessionStorage.setItem("status", JSON.stringify(this._status));
+    sessionStorage.setItem("token", JSON.stringify(token));
+  }
+  public setUserData(userData: IUser) {
+    this._userData = userData;
+    sessionStorage.setItem("userData", JSON.stringify(userData));
   }
   public setUserName(userName: string) {
-    this._status.userName = userName;
+    this._status.username = userName;
     sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setContractType(contractType: string) {
@@ -166,8 +174,12 @@ export class StatusService {
     this._langLocation.location = location;
   }
   public getGeneralStatus(): StatusModel {
-    const status = JSON.parse(sessionStorage.getItem("status")!);
     // return this._status;
+    const status: StatusModel = JSON.parse(sessionStorage.getItem("status")!);
+    status.userId = this.getUserId();
+    status.token = this.getToken();
+    this._userData = this.getUser();
+    status.username = this._userData.username;
     return status;
   }
   public getSportsList(): ISports[] {
@@ -211,6 +223,15 @@ export class StatusService {
   }
   public getHomeUbication(): ILocation {
     return this._homeUbicationData;
+  }
+  public getToken(): string {
+    return JSON.parse(sessionStorage.getItem("token")!);
+  }
+  public getUserId(): number {
+    return JSON.parse(sessionStorage.getItem("userId")!);
+  }
+  public getUser(): IUser {
+    return JSON.parse(sessionStorage.getItem("userData")!);
   }
   public spinnerShow(timeout?: number) {
     setTimeout(
