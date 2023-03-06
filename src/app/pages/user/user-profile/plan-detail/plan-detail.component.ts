@@ -1,20 +1,25 @@
+import { Router } from "@angular/router";
 import { IGenericResponse } from "./../../../../../models/local/generic.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Observable, Subject, takeUntil, timeout } from "rxjs";
 import {
   FREE_CONTRACT,
   INTERMEDIATE_CONTRACT,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { IEvents, IResEvents } from "src/models/home/events.interface";
+import { IResServices, IServices } from "src/models/home/services.interface";
 import { StatusModel } from "src/models/local/status-model";
 
 import { IPlan } from "src/models/update-plan/update-plan.interface";
 import { IResUserData } from "src/models/user-data/user-data.interface";
 import { EventsService } from "src/services/home/events/events.service";
+import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 import { UpdatePlanService } from "src/services/update-plan/update-plan.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
+import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
+import { ROUTES_NAMES } from "src/constanst/routes";
 
 @Component({
   selector: "app-plan-detail",
@@ -31,7 +36,9 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
     private _statusService: StatusService,
     private _updatePlanService: UpdatePlanService,
     private _eventsService: EventsService,
-    private _userDataService: UserDataService
+    private _servicesService: ServicesService,
+    private _userDataService: UserDataService,
+    private _router: Router
   ) {}
   ngOnInit() {
     console.log(
@@ -39,6 +46,7 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
       this._statusService.getGeneralStatus().contractType
     );
     this._loadEvents();
+    this._loadServices();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -50,6 +58,9 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
   }
   get getEventsService$(): Observable<IResEvents> {
     return this._eventsService.getEvents();
+  }
+  get getServicesService$(): Observable<IResServices> {
+    return this._servicesService.getServices();
   }
   get getEventsList(): IEvents[] {
     return this._statusService.getEventsList();
@@ -69,8 +80,29 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
       .getEventsList()
       .filter((data: IEvents) => data.contractType === PREMIUM_CONTRACT);
   }
+  get getServicesList(): IServices[] {
+    return this._statusService.getServicesList();
+  }
+  get getServicesListFree(): IServices[] {
+    return this._statusService
+      .getServicesList()
+      .filter((data: IServices) => data.contract === FREE_CONTRACT);
+  }
+  get getServicesListIntermediate(): IServices[] {
+    return this._statusService
+      .getServicesList()
+      .filter((data: IServices) => data.contract === INTERMEDIATE_CONTRACT);
+  }
+  get getServicesListPremium(): IServices[] {
+    return this._statusService
+      .getServicesList()
+      .filter((data: IServices) => data.contract === PREMIUM_CONTRACT);
+  }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
+  }
+  get isMobile() {
+    return this._statusService.getIsMobile();
   }
   public onSubmit(contractType: string): void {
     this._statusService.spinnerShow();
@@ -86,6 +118,7 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           if (!!res && res.success) {
+            this._statusService.spinnerHide();
             this._loadUpdatePlan(res.result?.idPlan!);
           }
           this._statusService.spinnerHide();
@@ -98,6 +131,8 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
   }
 
   private _loadUpdatePlan(contractPlan: string): void {
+    console.log("XXX-llama plan detail?");
+
     this._statusService.spinnerShow();
     this._userDataService
       .updatePlan(this.getGeneralStatus.userId)
@@ -109,10 +144,17 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
               "🚀 XXX - PlanDetailComponent - _loadUpdatePlan - res : ",
               res
             );
-            this._loadGeneralData(contractPlan);
+            this._statusService.spinnerShow(1000);
+            setTimeout(() => {
+              this._loadGeneralData(contractPlan);
+              window.open("https://epayco.com/");
+              this._router.navigate([
+                this.getGeneralStatus.userUrl + ROUTES_NAMES.HOME,
+              ]);
+              // window.location.reload();
+            }, 1000);
           }
           this._statusService.spinnerHide();
-          window.open("https://epayco.com/");
         },
         (err) => {
           console.error(err);
@@ -136,7 +178,6 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
             // this._statusService.setContractType(contractPlan);
           }
           this._statusService.spinnerHide();
-          // window.open("https://epayco.com/");
         },
         (err) => {
           console.error(err);
@@ -150,6 +191,21 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           console.log("XXX - UserEventsComponent - _loadEvents - res", res);
           this._statusService.setEventsList(res.result!);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _loadServices(): void {
+    this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResServices) => {
+        if (!!res && res.success) {
+          console.log("XXX - UserServicesComponent - _loadServices - res", res);
+          this._statusService.setServicesList(res.result!);
         }
         this._statusService.spinnerHide();
       },

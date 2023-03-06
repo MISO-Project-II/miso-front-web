@@ -212,10 +212,13 @@ export class StatusService {
   public getHomeUbication(): ILocation {
     return this._homeUbicationData;
   }
-  public spinnerShow() {
-    setTimeout(() => {
-      this._spinner.show();
-    }, 500);
+  public spinnerShow(timeout?: number) {
+    setTimeout(
+      () => {
+        this._spinner.show();
+      },
+      timeout ? timeout : 10
+    );
   }
   public spinnerHide() {
     setTimeout(() => {

@@ -25,7 +25,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._initForm();
-    this._loadData();
+    // this._loadData();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);

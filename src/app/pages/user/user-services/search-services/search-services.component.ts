@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { IResServices, IServices } from "src/models/home/services.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
@@ -23,6 +26,9 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class SearchServicesComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
 
   private _serviceSelected: IServices;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
@@ -48,8 +54,33 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
+  // get getServicesList(): IServices[] {
+  //   return this._statusService.getServicesList();
+  // }
   get getServicesList(): IServices[] {
-    return this._statusService.getServicesList();
+    return this._statusService.getServicesList().filter((data: IServices) => {
+      var contract = data.contract === FREE_CONTRACT;
+      switch (this.getContractType) {
+        case FREE_CONTRACT:
+          contract = data.contract === FREE_CONTRACT;
+          break;
+        case INTERMEDIATE_CONTRACT:
+          contract =
+            data.contract === FREE_CONTRACT ||
+            data.contract === INTERMEDIATE_CONTRACT;
+          break;
+        case PREMIUM_CONTRACT:
+          contract =
+            data.contract === FREE_CONTRACT ||
+            data.contract === INTERMEDIATE_CONTRACT ||
+            data.contract === PREMIUM_CONTRACT;
+          break;
+      }
+      return contract;
+    });
+  }
+  get getContractType(): string {
+    return this._statusService.getGeneralStatus().contractType;
   }
   get getServicesListScheduled(): IServices[] {
     return this._statusService.getServicesListScheduled();

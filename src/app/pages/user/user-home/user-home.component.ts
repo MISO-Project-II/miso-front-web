@@ -37,7 +37,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {
     console.log("XXX - UserHomeComponent");
-    this._loadGeneralData();
+    setTimeout(() => {
+      this._loadGeneralData();
+    }, 1000);
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -111,6 +113,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             this._statusService.setAge(res.result?.age!);
             this._statusService.setHeight(res.result?.height!);
             this._statusService.setIMC(res.result?.imc!);
+            this._statusService.setContractType(res.result?.userPlan!);
           }
           this._statusService.spinnerHide();
         },
