@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  version: "1.17.2",
+  version: "1.18.0",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
     general_data: "/users/general_data",
@@ -46,11 +46,15 @@ export const environment = {
     sport_plans: "/sport_plans",
     sport_routines: "/sport_routines",
     exercises: "/exercises",
-    food_plans: "/food_plans",
+    food_plans: "/food-plan/plan",
     food_routines: "/food_routines",
     foods: "/foods",
     headers: {
       "X-API-KEY": "EqYv56oSln9rs1Kirj8Fc7hzy6wWE6tY3NwtbE1M",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    headers2: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },

@@ -1,17 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
-import {
-  IResSportPlans,
-  ISportPlans,
-} from "src/models/home/sport-plans.interface";
-import {
-  MockResErrorSportPlans,
-  MockResSuccessGetAllSportPlans,
-  MockResSuccessSportPlans,
-} from "src/test/home/sport-plans.mock";
+import { ISportPlans } from "src/models/home/sport-plans.interface";
 
+import { MockGetAllSportPlans } from "src/test/home/sport-plans.mock";
 @Injectable({
   providedIn: "root",
 })
@@ -20,39 +13,26 @@ import {
  */
 export class SportPlansService {
   private _baseUrl: string;
+  private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.food_profile;
+    // this._baseUrl = environment.api.base + environment.api.sport_plans;
+    this._baseUrl =
+      "https://miso-back-sportplan-6equtupdiq-uc.a.run.app/sport-plan";
+    this._httpHeaders = new HttpHeaders(environment.api.headers2);
   }
-  getSportPlan(): Observable<IResSportPlans> {
-    // return this._http.get<IResSportPlans>(this._baseUrl);
-    const mock = of(MockResSuccessGetAllSportPlans);
-    // const mock = of(MockResErrorSportPlans);
-    return mock;
-  }
-  // get(idData: number): Observable<IResSportPlans> {
-  //   // return this._http.get<IResSportPlans>(`${this._baseUrl}/${idData}`);
-  //   const mock = of(MockResSuccessGetSportPlans);
-  //   // const mock = of(MockResErrorSportPlans);
-  //   return mock;
-  // }
-  create(data: ISportPlans): Observable<IResSportPlans> {
-    // const req: IReqSportPlans = { request: data, date: new Date() };
-    // return this._http.post<IResSportPlans>(this._baseUrl, req);
-    const mock = of(MockResSuccessSportPlans);
-    // const mock = of(MockResErrorSportPlans);
-    return mock;
-  }
-  update(idData: number, data: ISportPlans): Observable<IResSportPlans> {
-    // const req: IReqSportPlans = { request: data, date: new Date() };
-    // return this._http.put<IResSportPlans>(`${this._baseUrl}/${idData}`, req);
-    const mock = of(MockResSuccessSportPlans);
-    // const mock = of(MockResErrorSportPlans);
-    return mock;
-  }
-  delete(idData: number): Observable<IResSportPlans> {
-    // return this._http.delete<IResSportPlans>(`${this._baseUrl}/${idData}`);
-    const mock = of(MockResSuccessSportPlans);
-    // const mock = of(MockResErrorSportPlans);
-    return mock;
+  getSportPlan(): Observable<ISportPlans[]> {
+    // https://miso-back-food-6equtupdiq-uc.a.run.app/food-plan
+    return this._http
+      .get<ISportPlans[]>(this._baseUrl, { headers: this._httpHeaders })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("🚀 XXX - SportPlansService - catchError - err : ", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetAllSportPlans);
+    // const mock = of(MockResErrorFoodPlans);
+    // return mock;
   }
 }

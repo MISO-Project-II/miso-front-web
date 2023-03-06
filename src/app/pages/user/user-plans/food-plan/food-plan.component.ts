@@ -5,11 +5,11 @@ import {
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
 import {
+  FoodRoutineList,
   IFoodPlans,
-  IResFoodPlans,
 } from "src/models/home/food-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { IFoodRoutines } from "src/models/routines/food-routines.interface";
+// import { IFoodRoutines } from "src/models/routines/food-routines.interface";
 import {
   IResUserData,
   IUserData,
@@ -27,7 +27,7 @@ export class FoodPlanComponent implements OnInit {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _foodPlanSelected: IFoodPlans;
-  private _foodRoutines: IFoodRoutines;
+  private _foodRoutines: FoodRoutineList;
   private _userData: IUserData;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -41,19 +41,19 @@ export class FoodPlanComponent implements OnInit {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getFoodPlansService$(): Observable<IResFoodPlans> {
+  get getFoodPlansService$(): Observable<IFoodPlans[]> {
     return this._foodPlansService.getFoodPlans();
   }
   get getFoodPlan$(): IFoodPlans {
     return this._foodPlanSelected;
   }
-  get getFoodRoutines$(): IFoodRoutines {
+  get getFoodRoutines$(): FoodRoutineList {
     return this._foodRoutines;
   }
   public setFoodPlan(foodPlanSelected: IFoodPlans) {
     this._foodPlanSelected = foodPlanSelected;
   }
-  public setRoutine(foodRoutines: IFoodRoutines) {
+  public setRoutine(foodRoutines: FoodRoutineList) {
     this._foodRoutines = foodRoutines;
   }
   get getFoodPlansList$(): IFoodPlans[] {
@@ -106,10 +106,10 @@ export class FoodPlanComponent implements OnInit {
   // }
   private _loadFoodPlans(): void {
     this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResFoodPlans) => {
-        if (!!res && res.success) {
+      (res: IFoodPlans[]) => {
+        if (!!res) {
           console.log("🚀 XXX - _loadFoodPlans - res : ", res);
-          this._statusService.setFoodPlansList(res.result!);
+          this._statusService.setFoodPlansList(res);
         }
         this._statusService.spinnerHide();
       },

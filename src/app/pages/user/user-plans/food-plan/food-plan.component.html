@@ -15,13 +15,13 @@
             aria-current="true"
             [class.active]="getFoodPlan$ === item"
           >
-            {{ item.title }}
+            {{ item.name }}
           </button>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-9 mx-auto" *ngIf="!!getFoodPlan$; else noItem">
-      <app-ds-title [title]="getFoodPlan$?.title! | translate"></app-ds-title>
+      <app-ds-title [title]="getFoodPlan$?.name! | translate"></app-ds-title>
       <div class="body">
         <p>{{ getFoodPlan$?.description! | translate }}</p>
         <div class="button-see p-2">
@@ -32,10 +32,10 @@
         </div>
         <div
           class="d-flex flex-wrap justify-content-center p-2"
-          *ngIf="getFoodPlan$?.foodRoutines as foodRoutines"
+          *ngIf="getFoodPlan$?.foodRoutineList as foodRoutines"
         >
           <div class="register-data p-3" *ngFor="let item of foodRoutines">
-            <app-ds-title [title]="item?.title! | translate"></app-ds-title>
+            <app-ds-title [title]="item?.name! | translate"></app-ds-title>
             <p class="border-color-primary-01 px-2" for="text_foodRoutines">
               <strong> {{ "LBL.ROUTINES" | translate }}</strong>
               {{ item?.description! | translate }}
@@ -113,7 +113,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="updateFoodRoutineLabel">
-          {{ getFoodRoutines$?.title }}
+          {{ getFoodRoutines$?.name }}
         </h1>
         <button
           type="button"
@@ -128,9 +128,9 @@
         <label>{{ "LBL.SUGGESTED_FOODS" | translate }}</label>
         <table class="table table-hover">
           <tbody>
-            <tr *ngFor="let food of getFoodRoutines$?.foods">
+            <tr *ngFor="let food of getFoodRoutines$?.food">
               <td>
-                <p>{{ food?.title }}</p>
+                <p>{{ food?.nameFood }}</p>
               </td>
               <td>
                 <p>{{ food?.calories }} {{ "LBL.CALORIES_1" | translate }}</p>
