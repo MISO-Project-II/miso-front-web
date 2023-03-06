@@ -20,6 +20,7 @@ export class UpdatePlanService {
   private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
     // this._baseUrl = "https://miso-back-upgrade-6equtupdiq-uc.a.run.app/payment/user/{{iUser}}/purchase-plan";
+    // XXX CORS
     this._baseUrl =
       environment.api.base + "/payment/{{iUser}}/purchase-plan/plan-name";
     this._httpHeaders = new HttpHeaders(environment.api.headers);

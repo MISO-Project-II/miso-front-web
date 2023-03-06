@@ -65,57 +65,71 @@
             [title]="'TITLE.SECONDARY_DATA' | translate"
           ></app-ds-title>
           <div class="ds-input-group mt-3">
-            <div class="ds-input-group mt-3 ds-card-left">
-              <label for="id_sport">{{
-                "LBL.SPORT_RELATED" | translate
-              }}</label>
-              <input
-                id="id_sport_input"
-                formControlName="IdSport"
-                type="text"
-                class="form-control ds-input"
-                aria-describedby="id_sport_input"
-                [placeholder]="'PLACEHOLDER.SPORT' | translate"
-                readonly
-              />
+            <div class="ds-input-group mt-3">
+              <label for="soport_practice"
+                >{{ "LBL.SPORTS_RELATED" | translate }} ({{ sportName }})</label
+              >
+              <div class="select_option d-flex">
+                <div class="options w-100 pe-1">
+                  <div class="list-group overflow-auto">
+                    <button
+                      *ngFor="let item of getSports$"
+                      type="button"
+                      class="list-group-item list-group-item-action"
+                      aria-current="true"
+                      (click)="addSport(item)"
+                    >
+                      {{ item.name }}
+                    </button>
+                  </div>
+                </div>
+              </div>
               <small *ngIf="getIdSport?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate
               }}</small>
             </div>
           </div>
           <div class="ds-input-group mt-3">
-            <label for="ubicationtype">{{
-              "LBL.UBICATION_TYPE" | translate
+            <label for="ubication_type">{{
+              "LBL.WHAT_MODALITY" | translate
             }}</label>
-            <input
-              id="ubicationtype_input"
+            <select
               formControlName="ubicationType"
-              type="text"
-              class="form-control ds-input"
-              aria-describedby="ubicationtype_input"
-              [placeholder]="'PLACEHOLDER.OUTSIDE_OF_HOUSE' | translate"
-              readonly
-            />
+              class="form-select max-width"
+              #t
+            >
+              <option selected value="">
+                {{ "LBL.SELECT_TYPE" | translate }}
+              </option>
+              <option value="INSIDE_OF_HOUSE">
+                {{ "LBL.INSIDE_OF_HOUSE" | translate }}
+              </option>
+              <option value="OUTSIDE_OF_HOUSE">
+                {{ "LBL.OUTSIDE_OF_HOUSE" | translate }}
+              </option>
+            </select>
             <small *ngIf="getUbicationType?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
           </div>
-
           <div class="ds-input-group mt-3">
-            <label for="contract_type">{{
+            <label for="ubication_type">{{
               "LBL.CONTRACT_TYPE" | translate
             }}</label>
-            <input
-              id="contract_type_input"
-              formControlName="contract"
-              type="text"
-              class="form-control ds-input"
-              aria-describedby="contract_type_input"
-              [placeholder]="'PLACEHOLDER.FREE_CONTRACT' | translate"
-              minlength="1"
-              maxlength="3"
-              readonly
-            />
+            <select formControlName="contract" class="form-select max-width" #t>
+              <option selected value="">
+                {{ "LBL.SELECT_TYPE" | translate }}
+              </option>
+              <option value="FREE_CONTRACT">
+                {{ "LBL.FREE_CONTRACT" | translate }}
+              </option>
+              <option value="INTERMEDIATE_CONTRACT">
+                {{ "LBL.INTERMEDIATE_CONTRACT" | translate }}
+              </option>
+              <option value="PREMIUM_CONTRACT">
+                {{ "LBL.PREMIUM_CONTRACT" | translate }}
+              </option>
+            </select>
             <small *ngIf="getContractType?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
@@ -128,7 +142,7 @@
             class="btn ds-button"
             [disabled]="!formUserCreateService.valid"
           >
-            {{ "BTN.CREATE_SERVICE" | translate }}
+            {{ "BTN.CREATE_EVENT" | translate }}
           </button>
         </div>
       </div>

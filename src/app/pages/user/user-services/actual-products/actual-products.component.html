@@ -24,9 +24,55 @@
       <app-ds-title [title]="getProduct$.name! | translate"></app-ds-title>
       <div class="body">
         <p>{{ getProduct$.description }}</p>
-        <div class="d-flex">
+        <div class="d-flex" *ngIf="getProduct$.price">
           <label>{{ "LBL.PRICE" | translate }}</label>
           <p>{{ getProduct$.price }}</p>
+        </div>
+        <div class="d-flex" *ngIf="!!getProductIdSports$">
+          <label>{{ "LBL.SPORTS_RELATED" | translate }}</label>
+          <p>{{ getProductSportSelected$ | json }}</p>
+        </div>
+        <div class="d-flex" *ngIf="getProduct$.idUserCreator > 0">
+          <label>{{ "LBL.CONTACT" | translate }}</label>
+          <p>{{ getProduct$.idUserCreator }}</p>
+        </div>
+        <div
+          *ngIf="!!getProduct$?.contractType"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label
+            >{{
+              getProduct$.contractType === FREE_CONTRACT
+                ? ("LBL.FREE_CONTRACT" | translate)
+                : getProduct$.contractType === INTERMEDIATE_CONTRACT
+                ? ("LBL.INTERMEDIATE_CONTRACT" | translate)
+                : getProduct$.contractType === PREMIUM_CONTRACT
+                ? ("LBL.PREMIUM_CONTRACT" | translate)
+                : ""
+            }}{{
+              getProduct$.contractType === FREE_CONTRACT
+                ? ("LBL.FREE_CONTRACT_ICON" | translate)
+                : getProduct$.contractType === INTERMEDIATE_CONTRACT
+                ? ("LBL.INTERMEDIATE_CONTRACT_ICON" | translate)
+                : getProduct$.contractType === PREMIUM_CONTRACT
+                ? ("LBL.PREMIUM_CONTRACT_ICON" | translate)
+                : ""
+            }}
+          </label>
+        </div>
+        <div
+          *ngIf="getProduct$?.productType"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label>{{
+            getProduct$?.productType === INSIDE_OF_HOUSE
+              ? ("LBL.INSIDE_OF_HOUSE" | translate)
+              : getProduct$?.productType === OUTSIDE_OF_HOUSE
+              ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
+              : ""
+          }}</label>
         </div>
       </div>
       <!-- <div class="ds-button-continue p-2">

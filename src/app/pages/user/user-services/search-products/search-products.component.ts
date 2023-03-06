@@ -4,6 +4,7 @@ import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
@@ -49,6 +50,16 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   get getProductsListScheduled(): IProducts[] {
     return this._statusService.getProductsListScheduled();
   }
+  get getProductIdSports$(): number {
+    return this._productSelected.idSport;
+  }
+  get getProductSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
+      .map((sport) => sport.name)[0];
+  }
+
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
   }

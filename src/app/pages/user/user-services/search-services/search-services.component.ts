@@ -7,6 +7,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import { IResServices, IServices } from "src/models/home/services.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
@@ -51,16 +52,13 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   get getService$(): IServices {
     return this._serviceSelected;
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  // get getServicesList(): IServices[] {
-  //   return this._statusService.getServicesList();
-  // }
-  get getServicesList(): IServices[] {
+  get getServicesList$(): IServices[] {
     return this._statusService.getServicesList().filter((data: IServices) => {
       var contract = data.contract === FREE_CONTRACT;
-      switch (this.getContractType) {
+      switch (this.getContractType$) {
         case FREE_CONTRACT:
           contract = data.contract === FREE_CONTRACT;
           break;
@@ -79,25 +77,48 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
       return contract;
     });
   }
-  get getContractType(): string {
+  get getContractType$(): string {
     return this._statusService.getGeneralStatus().contractType;
   }
-  get getServicesListScheduled(): IServices[] {
+  get getServicesListScheduled$(): IServices[] {
     return this._statusService.getServicesListScheduled();
+  }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
+  get getServiceIdSports$(): number {
+    return this._serviceSelected.idSport;
+  }
+  get getServiceSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
+      .map((sport) => sport.name)[0];
   }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;
   }
 
   public addService(): void {
-    const servicesListScheduled = this.getServicesListScheduled;
+    const servicesListScheduled = this.getServicesListScheduled$;
     servicesListScheduled.push(this._serviceSelected);
     this._statusService.setServicesListScheduled(servicesListScheduled);
-    console.log("XXX - addService", this.getServicesListScheduled);
+    console.log("XXX - addService", this.getServicesListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
-    for (let index = 0; index < this.getServicesListScheduled.length; index++) {
-      data.push(this.getServicesListScheduled[index].id!);
+    for (
+      let index = 0;
+      index < this.getServicesListScheduled$.length;
+      index++
+    ) {
+      data.push(this.getServicesListScheduled$[index].id!);
     }
 
     this._callService(data);
@@ -109,7 +130,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
       listScheduled
     );
     this._servicesService
-      .putUserService(this.getGeneralStatus.userId, listScheduled)
+      .putUserService(this.getGeneralStatus$.userId, listScheduled)
       .subscribe((res: IGenericResponse) => {
         if (!!res && res.success) {
           console.log(

@@ -8,6 +8,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IEvents,
   IResEvent,
@@ -27,6 +28,9 @@ import { StatusService } from "src/services/local/status.service";
 export class CreateEventsComponent implements OnInit, OnDestroy {
   public formUserCreateEvent: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
+  public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public sportName: string;
   constructor(
     private _statusService: StatusService,
     private _eventsService: EventsService
@@ -46,9 +50,9 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
       date: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
       city: new FormControl("", [Validators.required]),
-      IdSport: new FormControl("Futbol"), // XXX
-      ubicationType: new FormControl(""),
-      contractType: new FormControl(""),
+      IdSport: new FormControl("", [Validators.required]),
+      ubicationType: new FormControl("", [Validators.required]),
+      contractType: new FormControl("", [Validators.required]),
     });
   }
   get getForm() {
@@ -83,6 +87,13 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
   get getEventsListScheduled(): IEvents[] {
     return this._statusService.getEventsListScheduled();
   }
+  get getSports$(): ISports[] {
+    return this._statusService.getSportsList();
+  }
+  public addSport(item: ISports): void {
+    this.formUserCreateEvent.get("IdSport")?.patchValue(item?.idsports);
+    this.sportName = item.name;
+  }
   public onSubmit(): void {
     this._statusService.spinnerShow();
     const data: IEvents = {
@@ -91,9 +102,9 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
       date: this.getDate?.value,
       city: this.getCity?.value,
       idUserCreator: this.getGeneralStatus.userId,
-      idSport: 1,
-      evenType: OUTSIDE_OF_HOUSE,
-      contractType: FREE_CONTRACT,
+      idSport: this.getIdSport?.value,
+      evenType: this.getUbicationType?.value,
+      contractType: this.getContractType?.value,
     };
     this._callService(data);
   }

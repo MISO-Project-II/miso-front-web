@@ -81,12 +81,14 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
                 this._statusService.setUserId(res.userId!);
                 this._statusService.setToken(res.token!);
                 this._statusService.setUserName(res.user?.username!);
+                this._statusService.setUserData(res.user!);
                 this._router.navigate([ROOT_ROUTES_NAMES.THIRD]);
               }
               if (res.user?.userType === SPORTSMAN) {
                 this._statusService.setUserId(res.userId!);
                 this._statusService.setToken(res.token!);
                 this._statusService.setUserName(res.user?.username!);
+                this._statusService.setUserData(res.user!);
                 this._router.navigate([ROOT_ROUTES_NAMES.USER]);
               }
             }, 1000);

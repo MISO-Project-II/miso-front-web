@@ -125,7 +125,9 @@
     "DESCRIPTION": "Descrição",
     "UBICATION_TYPE": "Localização",
     "CONTRACT_TYPE": "Tipo de serviço",
-    "VERSION": "Versão"
+    "VERSION": "Versão",
+    "USER_ID": "Código de usuário",
+    "WHAT_MODALITY": "Que modalidade será?"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuário...",

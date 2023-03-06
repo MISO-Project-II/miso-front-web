@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CalendarOptions } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { Subject, takeUntil } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { THIRD } from "src/constanst/data.constants";
 import { ILocation } from "src/models/general/locantion.interface";
-import { ISports } from "src/models/general/sports.interface";
+import { IResSports, ISports } from "src/models/general/sports.interface";
 import { IEvents } from "src/models/home/events.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IResUserData } from "src/models/user-data/user-data.interface";
+import { SportsService } from "src/services/general/sports.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
 
@@ -34,11 +35,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private _statusService: StatusService,
-    private _userDataService: UserDataService
+    private _userDataService: UserDataService,
+    private _sportsService: SportsService
   ) {}
   ngOnInit() {
     console.log("XXX - UserHomeComponent");
     this._loadGeneralData();
+    this._loadSports();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -71,7 +74,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   get getAge() {
     return this._statusService.getGeneralStatus().age;
   }
-  get getCurrency() {
+  get getCurrency(): string {
     return this._statusService?.getHomeUbication()?.currency;
   }
   get getUserType() {
@@ -95,6 +98,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       "-" +
       this._statusService?.getLangLocation()?.location
     );
+  }
+  get getSportsService$(): Observable<IResSports> {
+    return this._sportsService.getSports();
   }
 
   private _loadGeneralData(): void {
@@ -141,5 +147,21 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }
       );
+  }
+  private _loadSports(): void {
+    this._statusService.spinnerShow();
+    this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResSports) => {
+        if (!!res && res.success) {
+          this._statusService.setSportsList(res.result!);
+          console.log("XXX - UserProfileComponent - _loadSports - res", res);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
   }
 }
