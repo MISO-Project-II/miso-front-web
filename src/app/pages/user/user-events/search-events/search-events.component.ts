@@ -49,14 +49,36 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getEventsList(): IEvents[] {
-    return this._statusService.getEventsList();
-  }
   get getEventsListScheduled(): IEvents[] {
     return this._statusService.getEventsListScheduled();
   }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
+  }
+  get getEventsList(): IEvents[] {
+    return this._statusService.getEventsList().filter((data: IEvents) => {
+      var contract = data.contractType === FREE_CONTRACT;
+      switch (this.getContractType) {
+        case FREE_CONTRACT:
+          contract = data.contractType === FREE_CONTRACT;
+          break;
+        case INTERMEDIATE_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT;
+          break;
+        case PREMIUM_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT ||
+            data.contractType === PREMIUM_CONTRACT;
+          break;
+      }
+      return contract;
+    });
+  }
+  get getContractType(): string {
+    return this._statusService.getGeneralStatus().contractType;
   }
 
   public addEvent(): void {

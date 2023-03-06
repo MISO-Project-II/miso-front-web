@@ -64,6 +64,10 @@ export class StatusService {
   }
   public setContractType(contractType: string) {
     this._status.contractType = contractType;
+    console.log(
+      "🚀 XXX - StatusService - setContractType -  this._status : ",
+      this._status
+    );
     sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setName(name: string) {
@@ -208,10 +212,13 @@ export class StatusService {
   public getHomeUbication(): ILocation {
     return this._homeUbicationData;
   }
-  public spinnerShow() {
-    setTimeout(() => {
-      this._spinner.show();
-    }, 500);
+  public spinnerShow(timeout?: number) {
+    setTimeout(
+      () => {
+        this._spinner.show();
+      },
+      timeout ? timeout : 10
+    );
   }
   public spinnerHide() {
     setTimeout(() => {

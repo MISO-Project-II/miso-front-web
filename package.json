@@ -1,6 +1,6 @@
 {
   "name": "sport-app",
-  "version": "1.15.0",
+  "version": "1.17.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,7 +14,6 @@
     "sonar": "sonar-scanner",
     "all": "npm run format && npm run lint && npm run build && npm run test",
     "app": "npm run prod && npx cap sync"
-
   },
   "private": true,
   "dependencies": {
@@ -26,6 +25,12 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@fullcalendar/angular": "^6.1.4",
+    "@fullcalendar/core": "^6.1.4",
+    "@fullcalendar/daygrid": "^6.1.4",
+    "@fullcalendar/interaction": "^6.1.4",
+    "@fullcalendar/list": "^6.1.4",
+    "@fullcalendar/timegrid": "^6.1.4",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "bootstrap": "^5.2.2",

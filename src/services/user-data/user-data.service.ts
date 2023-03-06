@@ -42,7 +42,30 @@ export class UserDataService {
     // return mock;
   }
   updateGeneralData(userId: number, data: IUserData): Observable<IResUserData> {
-    return this._http.put<IResUserData>(`${this._baseUrl}/${userId}`, data);
+    return this._http.put<IResUserData>(`${this._baseUrl}/${userId}`, data, {
+      headers: this._httpHeaders,
+    });
+    // const mock = of(MockResSuccessUserData);
+    // const mock = of(MockResErrorGeneralData);
+    // return mock;
+  }
+  updatePlan(idUser: number): Observable<IResUserData> {
+    this._baseUrl =
+      "https://miso-user-6equtupdiq-uc.a.run.app/general_data/update-plan";
+    return this._http
+      .get<IResUserData>(
+        this._baseUrl + "/" + idUser
+        // {
+        //   headers: this._httpHeaders,
+        // }
+      )
+      .pipe(
+        retry(5),
+        catchError((err: any) => {
+          console.log("🚀 XXX - UserDataService - catchError - err : ", err);
+          return throwError(err);
+        })
+      );
     // const mock = of(MockResSuccessUserData);
     // const mock = of(MockResErrorGeneralData);
     // return mock;

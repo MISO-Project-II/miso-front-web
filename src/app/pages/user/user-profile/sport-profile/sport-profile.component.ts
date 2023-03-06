@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
+import {
+  IDisabilities,
+  IResDisabilities,
+} from "src/models/general/disabilities.interface";
+import { IPains, IResPains } from "src/models/general/pains.interface";
 import { IResSports, ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
 import {
@@ -21,7 +26,9 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public listSportPractice: ISports[] = [];
   public listSportInterest: ISports[] = [];
-  public sportsServiceGetAll: IResSports;
+  public sportList: ISports[] | null;
+  public disabilitiesList?: IDisabilities[];
+  public painList?: IPains[];
   constructor(
     private _statusService: StatusService,
     private _sportProfileService: SportProfileService,
@@ -31,9 +38,34 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._initForm();
     // this._loadData();
-    this._sportsServiceGetAll$.subscribe((data: IResSports) => {
-      this.sportsServiceGetAll = data;
+    this._sportsServiceGetAll$.pipe(takeUntil(this._destroy$)).subscribe({
+      next: (data: IResSports) => {
+        if (data && data.success) {
+          this.sportList = data.result;
+        }
+      },
+      error: () => {},
     });
+    // this._sportsServiceGetDisabilities$
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe({
+    //     next: (data: IResDisabilities) => {
+    //       if (data && data.success) {
+    //         this.disabilitiesList = data.responseAll;
+    //       }
+    //     },
+    //     error: () => {}
+    //   });
+    // this._sportsServiceGetPains$
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe({
+    //     next: (data: IResPains) => {
+    //       if (data && data.success) {
+    //         this.painList = data.responseAll;
+    //       }
+    //     },
+    //     error: () => {}
+    //   });
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -75,6 +107,12 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   get _sportsServiceGetAll$(): Observable<IResSports> {
     return this._sportsService.getSports();
+  }
+  get _sportsServiceGetDisabilities$(): Observable<IResDisabilities> {
+    return this._sportsService.getDisabilities();
+  }
+  get _sportsServiceGetPains$(): Observable<IResPains> {
+    return this._sportsService.getPains();
   }
   private _loadData(): void {
     this._statusService.spinnerShow();
@@ -143,14 +181,14 @@ export class SportProfileComponent implements OnInit, OnDestroy {
         }
       );
   }
-  public addSportPractice(item: any): void {
+  public addSportPractice(item: ISports): void {
     this.listSportPractice.push(item);
     this.listSportPractice = [...new Set(this.listSportPractice)];
     this.formUserSportProfile
       .get("sportPractice")
       ?.patchValue(this.listSportPractice);
   }
-  public delSportPractice(item: any): void {
+  public delSportPractice(item: ISports): void {
     this.listSportPractice = this.listSportPractice.filter(
       (data) => data.idsports != item.idsports
     );

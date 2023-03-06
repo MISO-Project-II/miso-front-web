@@ -1,6 +1,6 @@
 <div id="main-sport-profile" class="p-3 p-sm-0">
   <hr />
-  <p>XXX - sportsServiceGetAll {{ sportsServiceGetAll | json }}</p>
+  <!-- <p>XXX - sportsServiceGetAll {{ sportsServiceGetAll | json }}</p> -->
   <form
     [formGroup]="formUserSportProfile"
     (ngSubmit)="onSubmit()"
@@ -15,22 +15,19 @@
           ></app-ds-title>
           <div class="select_option d-flex">
             <div class="options w-50 pe-1">
-              <!-- <div class="list-group overflow-auto">
-                {{sportsServiceGetAll | json}}
+              <div class="list-group overflow-auto">
                 <button
-                  *ngFor="
-                    let item of sportsServiceGetAll?.responseAll
-                  "
+                  *ngFor="let item of sportList"
                   type="button"
                   (click)="addSportPractice(item)"
                   class="list-group-item list-group-item-action"
                   aria-current="true"
                 >
-                  {{ item.title }}
+                  {{ item.name }}
                 </button>
-              </div> -->
+              </div>
             </div>
-            <!-- <div class="selected w-50 ps-1">
+            <div class="selected w-50 ps-1">
               <div class="list-group overflow-auto">
                 <button
                   *ngFor="let item of listSportPractice"
@@ -39,10 +36,10 @@
                   class="list-group-item list-group-item-action"
                   aria-current="true"
                 >
-                  {{ item.title }}
+                  {{ item.name }}
                 </button>
               </div>
-            </div> -->
+            </div>
           </div>
           <small *ngIf="sportPractice?.hasError('required')">{{
             "ERR.REQUIRED_FIELD" | translate
@@ -54,21 +51,19 @@
           ></app-ds-title>
           <div class="select_option d-flex">
             <div class="options w-50 pe-1">
-              <!-- <div class="list-group overflow-auto">
+              <div class="list-group overflow-auto">
                 <button
-                  *ngFor="
-                    let item of sportsServiceGetAll?.responseAll
-                  "
+                  *ngFor="let item of sportList"
                   type="button"
                   (click)="addSportInterest(item)"
                   class="list-group-item list-group-item-action"
                   aria-current="true"
                 >
-                  {{ item.title }}
+                  {{ item.name }}
                 </button>
-              </div> -->
+              </div>
             </div>
-            <!-- <div class="selected w-50 ps-1">
+            <div class="selected w-50 ps-1">
               <div class="list-group overflow-auto">
                 <button
                   *ngFor="let item of listSportInterest"
@@ -77,10 +72,10 @@
                   class="list-group-item list-group-item-action"
                   aria-current="true"
                 >
-                  {{ item.title }}
+                  {{ item.name }}
                 </button>
               </div>
-            </div> -->
+            </div>
           </div>
           <small *ngIf="sportInterest?.hasError('required')">{{
             "ERR.REQUIRED_FIELD" | translate
@@ -109,6 +104,7 @@
             id="disabilities_input"
             rows="2"
           ></textarea>
+          <!-- <p>{{ disabilities | json }}</p> -->
         </div>
         <div class="ds-input-group mt-3">
           <app-ds-title [title]="'LBL.PAINS' | translate"></app-ds-title>
