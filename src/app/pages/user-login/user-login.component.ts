@@ -32,7 +32,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._statusService.spinnerHide();
     sessionStorage.removeItem("status");
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userData");
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
   }
@@ -83,22 +87,22 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         (res: IResLogin) => {
           console.log("XXX - UserLoginComponent - .subscribe - res", res);
           if (!!res && res.success) {
-            setTimeout(() => {
-              if (res.user?.userType === THIRD) {
-                console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);
-                this._statusService.setUserId(res.userId!);
-                this._statusService.setToken(res.token!);
-                this._statusService.setUserName(res.user?.username!);
-                this._router.navigate([ROOT_ROUTES_NAMES.THIRD]);
-              }
-              if (res.user?.userType === SPORTSMAN) {
-                console.log("🚀 XXX - setTimeout - SPORTSMAN : ", SPORTSMAN);
-                this._statusService.setUserId(res.userId!);
-                this._statusService.setToken(res.token!);
-                this._statusService.setUserName(res.user?.username!);
-                this._router.navigate([ROOT_ROUTES_NAMES.USER]);
-              }
-            }, 1000);
+            if (res.user?.userType === THIRD) {
+              console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);
+              this._statusService.setUserId(res.userId!);
+              this._statusService.setToken(res.token!);
+              this._statusService.setUserName(res.user?.username!);
+              this._statusService.setUserData(res.user!);
+              this._router.navigate([ROOT_ROUTES_NAMES.THIRD]);
+            }
+            if (res.user?.userType === SPORTSMAN) {
+              console.log("🚀 XXX - setTimeout - SPORTSMAN : ", SPORTSMAN);
+              this._statusService.setUserId(res.userId!);
+              this._statusService.setToken(res.token!);
+              this._statusService.setUserName(res.user?.username!);
+              this._statusService.setUserData(res.user!);
+              this._router.navigate([ROOT_ROUTES_NAMES.USER]);
+            }
           } else {
             this.username?.setErrors({ error_login: true });
           }
