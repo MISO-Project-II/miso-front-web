@@ -26,18 +26,18 @@
         <p>{{ getRoute$.description }}</p>
         <div class="d-flex">
           <label>{{ "LBL.START_PLACE" | translate }}</label>
-          <p>{{ getRoute$.startPlace }}</p>
+          <p>{{ getRoute$.initPath }}</p>
         </div>
         <div class="d-flex">
           <label>{{ "LBL.DESTINY_PLACE" | translate }}</label>
-          <p>{{ getRoute$.destinyPlace }}</p>
+          <p>{{ getRoute$.endPath }}</p>
         </div>
         <div class="d-flex">
           <label>{{ "LBL.DISTANCE" | translate }}</label>
           <p>{{ getRoute$.distance }}</p>
         </div>
         <div class="d-flex">
-          <a href="{{ getRoute$.urlRoute }}" target="_blank"
+          <a href="{{ getRoute$.imageUrl }}" target="_blank"
             >{{ "LBL.SEE_ON_MAP" | translate }}
           </a>
         </div>

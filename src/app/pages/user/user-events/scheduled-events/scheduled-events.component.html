@@ -27,19 +27,21 @@
         <p>{{ getEvent$.description }}</p>
         <div class="d-flex">
           <label>{{ "LBL.DATE" | translate }}</label>
-          <p>{{ getEvent$.date }}</p>
+          <p>{{ getEventDate$ | date }}</p>
         </div>
-        <div class="d-flex">
+        <div class="d-flex" *ngIf="getEvent$.city">
           <label>{{ "LBL.UBICATION" | translate }}</label>
           <p>{{ getEvent$.city }}</p>
         </div>
-        <div class="d-flex" *ngIf="getEvent$.idSport > 0">
+        <div class="d-flex" *ngIf="!!getEventIdSports$">
           <label>{{ "LBL.SPORTS_RELATED" | translate }}</label>
-          <p>{{ getEvent$.idSport }}</p>
+          <p>{{ getEventSportSelected$ | json }}</p>
         </div>
-        <div class="d-flex" *ngIf="getEvent$.idUserCreator > 0">
+        <div class="d-flex" *ngIf="getEventIdUserCreator$">
           <label>{{ "LBL.CONTACT" | translate }}</label>
-          <p>{{ getEvent$.idUserCreator }}</p>
+          <p>{{ getEventIdUserCreator$ }}</p>
+          <!-- ::: Validar si se consume siempre este dato -->
+          <!-- <p> {{ eventNameUserCreator?.name }} {{ eventNameUserCreator?.lastName }} ({{ eventNameUserCreator?.username }})</p> -->
         </div>
         <div
           *ngIf="!!getEvent$?.contractType"
@@ -67,14 +69,14 @@
           </label>
         </div>
         <div
-          *ngIf="!!getEvent$?.eventType"
+          *ngIf="!!getEvent$?.evenType"
           class="alert alert-secondary"
           role="alert"
         >
           <label>{{
-            getEvent$.eventType === INSIDE_OF_HOUSE
+            getEvent$.evenType === INSIDE_OF_HOUSE
               ? ("LBL.INSIDE_OF_HOUSE" | translate)
-              : getEvent$.contractType === OUTSIDE_OF_HOUSE
+              : getEvent$.evenType === OUTSIDE_OF_HOUSE
               ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
               : ""
           }}</label>

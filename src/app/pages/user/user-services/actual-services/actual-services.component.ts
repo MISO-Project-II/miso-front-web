@@ -1,9 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IResServices,
   IResUserServices,
@@ -26,6 +30,9 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class ActualServicesComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   private _serviceSelected: IServices = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -58,6 +65,25 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   }
   get getServicesListScheduled(): IServices[] {
     return this._statusService.getServicesListScheduled();
+  }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
+  get getServiceIdSports$(): number {
+    return this._serviceSelected.idSport;
+  }
+  get getServiceSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
+      .map((sport) => sport.name)[0];
   }
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(

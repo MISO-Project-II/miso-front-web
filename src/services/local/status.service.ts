@@ -126,6 +126,7 @@ export class StatusService {
   }
 
   public setSportsList(sportsList: ISports[]) {
+    sessionStorage.setItem("sportsList", JSON.stringify(sportsList));
     this._sportsList = sportsList;
   }
   public setEventsList(eventsList: IEvents[]) {
@@ -183,7 +184,8 @@ export class StatusService {
     return status;
   }
   public getSportsList(): ISports[] {
-    return this._sportsList;
+    // return this._sportsList;
+    return JSON.parse(sessionStorage.getItem("sportsList")!);
   }
   public getEventsList(): IEvents[] {
     return this._eventsList;

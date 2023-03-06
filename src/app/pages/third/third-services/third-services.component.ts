@@ -10,7 +10,6 @@ import { StatusModel } from "src/models/local/status-model";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 import { RoutesService } from "src/services/general/routes.service";
-import { IResRoutes } from "src/models/general/routes.interface";
 
 @Component({
   selector: "app-third-services",

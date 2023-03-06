@@ -1,9 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subject, Observable, takeUntil } from "rxjs";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IProducts,
   IResProducts,
@@ -21,6 +25,9 @@ import { StatusService } from "src/services/local/status.service";
 export class ActualProductsComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   private _productSelected: IProducts = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -54,6 +61,16 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   get getProductsListScheduled(): IProducts[] {
     return this._statusService.getProductsListScheduled();
   }
+  get getProductIdSports$(): number {
+    return this._productSelected.idSport;
+  }
+  get getProductSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
+      .map((sport) => sport.name)[0];
+  }
+
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserProducts) => {
