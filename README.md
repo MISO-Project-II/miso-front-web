@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.19.0
+    * Version: 1.20.0
 ## Atomic Design
     
 # Info
@@ -22,7 +22,8 @@
     * npm install @fullcalendar/interaction
     * npm install @fullcalendar/list
     * npm install @fullcalendar/timegrid
-    * angular.json -> "scripts": ['node_modules/popper.js/dist/umd/popper.min.js']
+    * angular.json -> "scripts": ['node_modules/popper.js/dist/umd/popper.min.js'] 
+    * npm install ngx-gauge -> https://github.com/ashish-chopra/ngx-gauge
 # Commands
     * ng new SportApp
     * ng serve

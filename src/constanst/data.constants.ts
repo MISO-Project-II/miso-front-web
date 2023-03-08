@@ -25,6 +25,8 @@ export const SPORTS_PRACTICE: string = "SPORTS_PRACTICE";
 export const PLACE_OF_BIRTH: string = "PLACE_OF_BIRTH";
 export const PLACE_OF_RESIDENCE: string = "PLACE_OF_RESIDENCE";
 
+export declare type NgxGaugeType = "full" | "arch" | "semi";
+export declare type NgxGaugeCap = "round" | "butt";
 // export const LANG: GENERAL_LIST[] = [
 //     {
 //       ID: "es",

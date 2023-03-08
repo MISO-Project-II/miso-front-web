@@ -125,7 +125,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
           }
           this._statusService.spinnerHide();
         },
-        (err) => {
+        (err: any) => {
           console.error(err);
           this._statusService.spinnerHide();
         }
