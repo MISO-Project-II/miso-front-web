@@ -4,6 +4,9 @@ import { UserSessionComponent } from "./user-session.component";
 import { UserSessionRoutingModule } from "./user-session-routing.module";
 import { DsTitleModule } from "src/app/shared/ds-title/ds-title.module";
 import { TranslateModule } from "@ngx-translate/core";
+import { NgxGaugeModule } from "ngx-gauge";
+import { DsBannerTitleModule } from "src/app/shared/ds-banner-title/ds-banner-title.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -11,6 +14,11 @@ import { TranslateModule } from "@ngx-translate/core";
     UserSessionRoutingModule,
     DsTitleModule,
     TranslateModule,
+    DsTitleModule,
+    DsBannerTitleModule,
+    NgxGaugeModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [UserSessionComponent],
 })

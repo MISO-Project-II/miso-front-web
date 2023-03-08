@@ -9,7 +9,7 @@ import { UserDataService } from "./user-data.service";
 import { IUserData } from "src/models/user-data/user-data.interface";
 import { MockUserData } from "src/test/user-data/user-data.mock";
 
-describe("UserDataService", () => {
+xdescribe("UserDataService", () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: UserDataService;

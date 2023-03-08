@@ -14,9 +14,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public sportsList: ISports[] = [];
   constructor(
-    private _statusService: StatusService
-  ) // private _sportsService: SportsService
-  {}
+    private _statusService: StatusService // private _sportsService: SportsService
+  ) {}
 
   ngOnInit() {
     console.log("XXX - UserProfileComponent (Contiene el perfil del usuario)");
