@@ -15,13 +15,13 @@ export class SeeRoutesComponent implements OnInit {
   ngOnInit(): void {
     console.log("XXX - SeeRoutesComponent");
   }
-  get getRoutesList(): IRoutes[] {
+  get getRoutesList$(): IRoutes[] {
     return this._statusService.getRoutesList();
-  }
-  public setRoute(routeSelected: IRoutes) {
-    this._routeSelected = routeSelected;
   }
   get getRoute$(): IRoutes {
     return this._routeSelected;
+  }
+  public setRoute(routeSelected: IRoutes) {
+    this._routeSelected = routeSelected;
   }
 }

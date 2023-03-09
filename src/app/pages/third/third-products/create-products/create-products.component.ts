@@ -49,7 +49,7 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
       description: new FormControl("", [Validators.required]),
       price: new FormControl("", [Validators.required]),
       IdSport: new FormControl("", [Validators.required]),
-      ubicationType: new FormControl("", [Validators.required]),
+      eventType: new FormControl("", [Validators.required]),
       contractType: new FormControl("", [Validators.required]),
     });
   }
@@ -77,8 +77,8 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
     return this.formUserCreateProduct.get("IdSport");
   }
 
-  get getUbicationType() {
-    return this.formUserCreateProduct.get("ubicationType");
+  get getEventType() {
+    return this.formUserCreateProduct.get("eventType");
   }
   get getContractType() {
     return this.formUserCreateProduct.get("contractType");
@@ -98,7 +98,7 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
       price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
       idSport: this.getIdSport?.value,
-      productType: this.getUbicationType?.value,
+      eventType: this.getEventType?.value,
       contractType: this.getContractType?.value,
     };
     this._callService(data);

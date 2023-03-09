@@ -57,21 +57,21 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   }
   get getServicesList$(): IServices[] {
     return this._statusService.getServicesList().filter((data: IServices) => {
-      var contract = data.contract === FREE_CONTRACT;
+      var contract = data.contractType === FREE_CONTRACT;
       switch (this.getContractType$) {
         case FREE_CONTRACT:
-          contract = data.contract === FREE_CONTRACT;
+          contract = data.contractType === FREE_CONTRACT;
           break;
         case INTERMEDIATE_CONTRACT:
           contract =
-            data.contract === FREE_CONTRACT ||
-            data.contract === INTERMEDIATE_CONTRACT;
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT;
           break;
         case PREMIUM_CONTRACT:
           contract =
-            data.contract === FREE_CONTRACT ||
-            data.contract === INTERMEDIATE_CONTRACT ||
-            data.contract === PREMIUM_CONTRACT;
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT ||
+            data.contractType === PREMIUM_CONTRACT;
           break;
       }
       return contract;
@@ -96,11 +96,11 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   get getServiceIdSports$(): number {
     return this._serviceSelected.idSport;
   }
-  get getServiceSportSelected$(): string {
+  get getServiceSportSelected$(): ISports {
     return this._statusService
       .getSportsList()
       .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
-      .map((sport) => sport.name)[0];
+      .map((sport) => sport)[0];
   }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;

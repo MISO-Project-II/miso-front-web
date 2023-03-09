@@ -7,8 +7,8 @@ export interface IProducts {
   price?: number;
   idUserCreator: number;
   idSport: number;
-  contractType?: string;
-  productType?: string;
+  contractType: string;
+  eventType: string;
 }
 export interface IResProducts extends IGenericResponse {
   result: IProducts[] | null;

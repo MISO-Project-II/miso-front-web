@@ -50,7 +50,7 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
       IdSport: new FormControl("", [Validators.required]), // XXX
       price: new FormControl("", [Validators.required]),
       contract: new FormControl("", [Validators.required]),
-      ubicationType: new FormControl("", [Validators.required]),
+      eventType: new FormControl("", [Validators.required]),
     });
   }
   get getForm() {
@@ -73,8 +73,8 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
   get getContractType() {
     return this.formUserCreateService.get("contract");
   }
-  get getUbicationType() {
-    return this.formUserCreateService.get("ubicationType");
+  get getEventType() {
+    return this.formUserCreateService.get("eventType");
   }
 
   get getGeneralStatus(): StatusModel {
@@ -98,7 +98,8 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
       price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
       idSport: this.getIdSport?.value,
-      serviceType: this.getUbicationType?.value,
+      eventType: this.getEventType?.value,
+      contractType: this.getContractType?.value,
       contract: this.getContractType?.value,
     };
     this._callService(data);

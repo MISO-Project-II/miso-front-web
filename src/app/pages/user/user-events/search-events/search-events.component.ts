@@ -69,18 +69,14 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   get getSports$(): ISports[] {
     return this._statusService.getSportsList();
   }
-  get getEventSportSelected$(): string {
+  get getEventSportSelected$(): ISports {
     return this._statusService
       .getSportsList()
       .filter((sport: ISports) => sport.idsports === this.getEventIdSports$)
-      .map((sport) => sport.name)[0];
+      .map((sport) => sport)[0];
   }
   get getEventIdUserCreator$(): number {
     return this._eventSelected.idUserCreator;
-  }
-  public setEvent(eventSelected: IEvents) {
-    this._eventSelected = eventSelected;
-    this.loadThirdName(eventSelected.idUserCreator);
   }
   get getEventsList$(): IEvents[] {
     return this._statusService.getEventsList().filter((data: IEvents) => {
@@ -106,6 +102,10 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   }
   get getContractType$(): string {
     return this._statusService.getGeneralStatus().contractType;
+  }
+  public setEvent(eventSelected: IEvents) {
+    this._eventSelected = eventSelected;
+    this.loadThirdName(eventSelected.idUserCreator);
   }
 
   public addEvent(): void {

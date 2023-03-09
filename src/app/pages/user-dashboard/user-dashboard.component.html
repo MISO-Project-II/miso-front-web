@@ -5,13 +5,13 @@
   <div class="cont-right p-0 p-sm-5 pt-sm-3">
     <div class="row">
       <app-ds-horizontal-menu
-        [userName]="getGeneralStatus.username"
+        [userName]="getGeneralStatus$.username"
         [contractType]="
-          getGeneralStatus.contractType === FREE_CONTRACT
+          getGeneralStatus$.contractType === FREE_CONTRACT
             ? ('LBL.FREE_CONTRACT' | translate)
-            : getGeneralStatus.contractType === INTERMEDIATE_CONTRACT
+            : getGeneralStatus$.contractType === INTERMEDIATE_CONTRACT
             ? ('LBL.INTERMEDIATE_CONTRACT' | translate)
-            : getGeneralStatus.contractType === PREMIUM_CONTRACT
+            : getGeneralStatus$.contractType === PREMIUM_CONTRACT
             ? ('LBL.PREMIUM_CONTRACT' | translate)
             : ''
         "

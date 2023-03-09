@@ -55,15 +55,12 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   get getService$(): IServices {
     return this._serviceSelected;
   }
-  public setService(serviceSelected: IServices) {
-    this._serviceSelected = serviceSelected;
-  }
   get getServicesService$(): Observable<IResUserServices> {
     return this._servicesService.getUserServiceSportsman(
       this._statusService.getGeneralStatus().userId
     );
   }
-  get getServicesListScheduled(): IServices[] {
+  get getServicesListScheduled$(): IServices[] {
     return this._statusService.getServicesListScheduled();
   }
   get getCurrency$() {
@@ -79,11 +76,14 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   get getServiceIdSports$(): number {
     return this._serviceSelected.idSport;
   }
-  get getServiceSportSelected$(): string {
+  get getServiceSportSelected$(): ISports {
     return this._statusService
       .getSportsList()
       .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
-      .map((sport) => sport.name)[0];
+      .map((sport) => sport)[0];
+  }
+  public setService(serviceSelected: IServices) {
+    this._serviceSelected = serviceSelected;
   }
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -108,17 +108,21 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
    * Cancelar serviceo inscrito por el usuario
    */
   private _onSubmit(): void {
-    console.log("XXX - _onSubmit", this.getServicesListScheduled);
+    console.log("XXX - _onSubmit", this.getServicesListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
-    for (let index = 0; index < this.getServicesListScheduled.length; index++) {
-      data.push(this.getServicesListScheduled[index].id!);
+    for (
+      let index = 0;
+      index < this.getServicesListScheduled$.length;
+      index++
+    ) {
+      data.push(this.getServicesListScheduled$[index].id!);
     }
     this._callService(data);
   }
 
   public delService(item: any): void {
-    const servicesListScheduled = this.getServicesListScheduled.filter(
+    const servicesListScheduled = this.getServicesListScheduled$.filter(
       (data: IServices) => data.id != item.id
     );
     this._statusService.setServicesListScheduled(servicesListScheduled);

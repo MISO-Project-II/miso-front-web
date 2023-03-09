@@ -2,13 +2,22 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CalendarOptions } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Observable, Subject, takeUntil } from "rxjs";
-import { THIRD } from "src/constanst/data.constants";
-import { ILocation } from "src/models/general/locantion.interface";
+import { IRoutes } from "src/models/general/routes.interface";
 import { IResSports, ISports } from "src/models/general/sports.interface";
-import { IEvents } from "src/models/home/events.interface";
+import { IEvents, IResEvents } from "src/models/home/events.interface";
+import { IFoodPlans } from "src/models/home/food-plans.interface";
+import { IResProducts } from "src/models/home/products.interface";
+import { IResServices } from "src/models/home/services.interface";
+import { ISportPlans } from "src/models/home/sport-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IResUserData } from "src/models/user-data/user-data.interface";
+import { RoutesService } from "src/services/general/routes.service";
 import { SportsService } from "src/services/general/sports.service";
+import { EventsService } from "src/services/home/events/events.service";
+import { FoodPlansService } from "src/services/home/plans/food-plans.service";
+import { SportPlansService } from "src/services/home/plans/sport-plans.service";
+import { ProductsService } from "src/services/home/products/products.service";
+import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
 
@@ -36,87 +45,121 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   constructor(
     private _statusService: StatusService,
     private _userDataService: UserDataService,
-    private _sportsService: SportsService
+    private _sportsService: SportsService,
+    private _eventsService: EventsService,
+    private _routesService: RoutesService,
+    private _servicesService: ServicesService,
+    private _productsService: ProductsService,
+    private _sportPlansService: SportPlansService,
+    private _foodPlansService: FoodPlansService
   ) {}
   ngOnInit() {
     console.log("XXX - UserHomeComponent");
     this._loadGeneralData();
     this._loadSports();
+    this._loadEvents();
+    this._loadRoutes();
+    this._loadServices();
+    this._loadProducts();
+    this._loadSportPlans();
+    this._loadFoodPlans();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getEventsList(): IEvents[] {
+  get getEventsList$(): IEvents[] {
     return this._statusService.getEventsList();
   }
-  get getSportsList(): ISports[] {
+  get getSportsList$(): ISports[] {
     return this._statusService.getSportsList();
   }
-  get getLang() {
+  get getLang$() {
     return this._statusService.getLangLocation().lang;
   }
-  get getLangName() {
+  get getLangName$() {
     return this._statusService.getLangLocation().name;
   }
-  get getLocation() {
+  get getLocation$() {
     return this._statusService.getLangLocation().location;
   }
-  get getBirthdUbication() {
+  get getBirthdUbication$() {
     return this._statusService.getBirthdUbication();
   }
-  get getHomeUbication() {
+  get getHomeUbication$() {
     return this._statusService.getHomeUbication();
   }
-  get getAge() {
+  get getAge$() {
     return this._statusService.getGeneralStatus().age;
   }
-  get getCurrency(): string {
+  get getCurrency$(): string {
     return this._statusService?.getHomeUbication()?.currency;
   }
-  get getUserType() {
+  get getUserType$() {
     return this._statusService?.getGeneralStatus().userType;
   }
-  get getUserId() {
+  get getUserId$() {
     return this._statusService?.getGeneralStatus().userId;
   }
-  get getToken() {
+  get getToken$() {
     return this._statusService?.getGeneralStatus().token;
   }
-  get getUserName() {
+  get getUserName$() {
     return this._statusService?.getGeneralStatus().username;
   }
-  get getUser() {
+  get getUser$() {
     return this._statusService?.getUser();
   }
-  get getLangLocation() {
+  get getLangLocation$() {
     return (
       this._statusService?.getLangLocation()?.lang +
       "-" +
       this._statusService?.getLangLocation()?.location
     );
   }
+
   get getSportsService$(): Observable<IResSports> {
     return this._sportsService.getSports();
+  }
+  get getEventsService$(): Observable<IResEvents> {
+    return this._eventsService.getEvents();
+  }
+  get getRoutesService$(): Observable<IRoutes[]> {
+    return this._routesService.getRoutes();
+  }
+  get getServicesService$(): Observable<IResServices> {
+    return this._servicesService.getServices();
+  }
+  get getProductsService$(): Observable<IResProducts> {
+    return this._productsService.getProducts();
+  }
+  get getSportPlanService$(): Observable<ISportPlans[]> {
+    return this._sportPlansService.getSportPlan();
+  }
+  get getFoodPlansService$(): Observable<IFoodPlans[]> {
+    return this._foodPlansService.getFoodPlans();
   }
 
   private _loadGeneralData(): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .getGeneralData(this.getGeneralStatus.userId)
+      .getGeneralData(this.getGeneralStatus$.userId)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            this._statusService.setUserId(this.getUserId);
-            this._statusService.setToken(this.getToken);
-            this._statusService.setUserName(this.getUserName);
-            this._statusService.setUserData(this.getUser);
+            console.log(
+              "🚀 XXX - UserHomeComponent - _loadGeneralData - res : ",
+              res
+            );
+            this._statusService.setUserId(this.getUserId$);
+            this._statusService.setToken(this.getToken$);
+            this._statusService.setUserName(this.getUserName$);
+            this._statusService.setUserData(this.getUser$);
 
-            console.log("🚀 XXX - UserHomeComponent - _loadData - res : ", res);
             this._statusService.setName(res.result?.name!);
             this._statusService.setLastName(res.result?.lastName!);
             this._statusService.setIdIdentificationType(
@@ -127,12 +170,8 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             );
             this._statusService.setBirthdUbication(
               res.result?.birthdUbication!
-              // "CO-CUN-12312-COP"
             );
-            this._statusService.setHomeUbication(
-              res.result?.homeUbication!
-              // "CO-CUN-12312-COP-10"
-            );
+            this._statusService.setHomeUbication(res.result?.homeUbication!);
             this._statusService.setGender(res.result?.gender!);
             this._statusService.setWeight(res.result?.weight!);
             this._statusService.setAge(res.result?.age!);
@@ -153,8 +192,107 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResSports) => {
         if (!!res && res.success) {
+          console.log("🚀 XXX - UserHomeComponent - _loadSports - res : ", res);
           this._statusService.setSportsList(res.result!);
-          console.log("XXX - UserProfileComponent - _loadSports - res", res);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _loadEvents(): void {
+    this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResEvents) => {
+        if (!!res && res.success) {
+          console.log("🚀 XXX - UserHomeComponent - _loadEvents - res : ", res);
+          this._statusService.setEventsList(res.result!);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+
+  private _loadRoutes(): void {
+    this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IRoutes[]) => {
+        if (!!res) {
+          console.log("🚀 XXX - UserHomeComponent - _loadRoutes - res : ", res);
+          this._statusService.setRoutesList(res!);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+  private _loadServices(): void {
+    this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResServices) => {
+        if (!!res && res.success) {
+          console.log(
+            "🚀 XXX - UserHomeComponent - _loadServices - res : ",
+            res
+          );
+          this._statusService.setServicesList(res.result!);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+  private _loadProducts(): void {
+    this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IResProducts) => {
+        if (!!res && res.success) {
+          console.log(
+            "🚀 XXX - UserHomeComponent - _loadProducts - res : ",
+            res
+          );
+          this._statusService.setProductsList(res.result!);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _loadSportPlans(): void {
+    this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: ISportPlans[]) => {
+        if (!!res) {
+          console.log(
+            "🚀 XXX - UserHomeComponent - _loadSportPlans - res : ",
+            res
+          );
+          this._statusService.setSportPlansList(res);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _loadFoodPlans(): void {
+    this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: IFoodPlans[]) => {
+        if (!!res) {
+          console.log(
+            "🚀 XXX - UserHomeComponent - _loadFoodPlans - res : ",
+            res
+          );
+          this._statusService.setFoodPlansList(res);
         }
         this._statusService.spinnerHide();
       },

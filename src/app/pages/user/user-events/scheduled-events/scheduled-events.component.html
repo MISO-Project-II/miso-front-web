@@ -3,13 +3,13 @@
 
   <div
     class="d-flex min-width row justify-content-center"
-    *ngIf="getEventsListScheduled.length! > 0; else noSuccess"
+    *ngIf="getEventsListScheduled$.length! > 0; else noSuccess"
   >
     <div class="col-12 col-md-3 mx-auto">
       <div class="options pe-1">
         <div class="list-group overflow-auto">
           <button
-            *ngFor="let item of getEventsListScheduled"
+            *ngFor="let item of getEventsListScheduled$"
             type="button"
             (click)="setEvent(item)"
             class="list-group-item ds-list-group-item list-group-item-action"
@@ -106,4 +106,5 @@
       <label>{{ "ERR.NO_DATA" | translate }} </label>
     </div></ng-template
   >
+  <p>::: getEventsListScheduled$.length {{ getEventsListScheduled$.length }}</p>
 </div>

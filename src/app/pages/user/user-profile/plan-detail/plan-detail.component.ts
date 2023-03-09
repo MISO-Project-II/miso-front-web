@@ -86,17 +86,17 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
   get getServicesListFree(): IServices[] {
     return this._statusService
       .getServicesList()
-      .filter((data: IServices) => data.contract === FREE_CONTRACT);
+      .filter((data: IServices) => data.contractType === FREE_CONTRACT);
   }
   get getServicesListIntermediate(): IServices[] {
     return this._statusService
       .getServicesList()
-      .filter((data: IServices) => data.contract === INTERMEDIATE_CONTRACT);
+      .filter((data: IServices) => data.contractType === INTERMEDIATE_CONTRACT);
   }
   get getServicesListPremium(): IServices[] {
     return this._statusService
       .getServicesList()
-      .filter((data: IServices) => data.contract === PREMIUM_CONTRACT);
+      .filter((data: IServices) => data.contractType === PREMIUM_CONTRACT);
   }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();

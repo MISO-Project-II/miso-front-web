@@ -58,17 +58,17 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
       this._statusService.getGeneralStatus().userId
     );
   }
-  get getProductsListScheduled(): IProducts[] {
+  get getProductsListScheduled$(): IProducts[] {
     return this._statusService.getProductsListScheduled();
   }
   get getProductIdSports$(): number {
     return this._productSelected.idSport;
   }
-  get getProductSportSelected$(): string {
+  get getProductSportSelected$(): ISports {
     return this._statusService
       .getSportsList()
       .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
-      .map((sport) => sport.name)[0];
+      .map((sport) => sport)[0];
   }
 
   private _loadProductsScheduled(): void {
@@ -96,17 +96,21 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
    * Cancelar producto inscrito por el usuario
    */
   private _onSubmit(): void {
-    console.log("XXX - _onSubmit", this.getProductsListScheduled);
+    console.log("XXX - _onSubmit", this.getProductsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
-    for (let index = 0; index < this.getProductsListScheduled.length; index++) {
-      data.push(this.getProductsListScheduled[index].idProduct!);
+    for (
+      let index = 0;
+      index < this.getProductsListScheduled$.length;
+      index++
+    ) {
+      data.push(this.getProductsListScheduled$[index].idProduct!);
     }
     this._callService(data);
   }
 
   public delProduct(item: any): void {
-    const productsListScheduled = this.getProductsListScheduled.filter(
+    const productsListScheduled = this.getProductsListScheduled$.filter(
       (data: IProducts) => data.idProduct != item.idProduct
     );
     this._statusService.setProductsListScheduled(productsListScheduled);
