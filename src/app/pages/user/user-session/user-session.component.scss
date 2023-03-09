@@ -3,4 +3,102 @@
 #main-user-session {
   width: auto;
   height: auto;
+
+  // .container{
+  //   display: flex;
+  //   justify-content: center;
+  //   align-content: center;
+  // }
+
+  // footer, .content {
+  //   font-family: Lato;
+  // }
+
+  // .header{
+  //   display: flex;
+  //   justify-content: center;
+  //   font-size: 1.5em;
+  // }
+
+  // .footer{
+  //   text-align: right;
+  //   margin-top: 2em;
+  //   font-size: 0.8rem;
+  // }
+
+  .container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: monospace;
+
+    .timer-counter-label {
+      display: block;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      width: 100%;
+
+      .date {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+      }
+
+      .counter {
+        background-color: $ds-grey-02;
+      }
+    }
+
+    .timer-button-container {
+      display: flex;
+      width: 100%;
+    }
+
+    .timer-button {
+      background: none;
+      font-size: 32px;
+      padding: 10px;
+      margin: 5px 10px;
+      width: 50%;
+    }
+  }
+
+  .bi {
+    font-size: 128px;
+
+    label {
+      text-align: center;
+    }
+  }
+
+  .bi-play-circle-fill::before {
+    color: green;
+  }
+
+  .bi-play-circle::before {
+    color: green;
+  }
+
+  .bi-skip-end-circle-fill::before {
+    color: green;
+  }
+
+  .bi-stop-circle-fill::before {
+    color: red;
+  }
+
+  .bi-pause-circle-fill::before {
+    color: orange;
+  }
+
+  .bi-backspace-fill::before {
+    color: pink;
+  }
+
+  .bi-skip-backward-fill::before {
+    color: pink;
+  }
 }

@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.21.0
+    * Version: 1.22.0
 ## Atomic Design
     
 # Info
@@ -24,6 +24,7 @@
     * npm install @fullcalendar/timegrid
     * angular.json -> "scripts": ['node_modules/popper.js/dist/umd/popper.min.js'] 
     * npm install ngx-gauge -> https://github.com/ashish-chopra/ngx-gauge
+    * npm i ngx-chronometer --save
 # Commands
     * ng new SportApp
     * ng serve

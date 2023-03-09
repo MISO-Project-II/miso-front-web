@@ -27,3 +27,7 @@ export const PLACE_OF_RESIDENCE: string = "PLACE_OF_RESIDENCE";
 
 export declare type NgxGaugeType = "full" | "arch" | "semi";
 export declare type NgxGaugeCap = "round" | "butt";
+
+export const START: string = "START";
+export const STOP: string = "STOP";
+export const RESUME: string = "RESUME";

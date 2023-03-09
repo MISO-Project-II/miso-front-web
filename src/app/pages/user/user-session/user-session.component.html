@@ -15,19 +15,109 @@
     <div class="d-flex row px-3 height-90vh">
       <div class="cont-left ds-form-register col-12 col-md-6">
         <div class="register-data mb-3">
-          <app-ds-title
-            [title]="'TITLE.PRINCIPAL_DATA' | translate"
-          ></app-ds-title>
+          <app-ds-title [title]="'TITLE.SESSION' | translate"></app-ds-title>
           <div class="ds-input-group mt-3">
-            <label for="user">{{ "LBL.USER" | translate }}</label>
+            <!-- <i class="bi bi-play-circle-fill"></i>
+            <i class="bi bi-stop-circle-fill"></i>
+            <i class="bi bi-pause-circle-fill"></i>
+            <i class="bi bi-backspace-fill"></i>
+            <i class="bi bi-play-circle"></i>
+            <i class="bi bi-skip-end-circle-fill"></i>
+            <i class="bi bi-skip-backward-fill"></i> -->
+            <div class="container">
+              <section class="timer-button-container">
+                <button
+                  type="button"
+                  class="btn timer-button"
+                  (click)="startTimer()"
+                  *ngIf="startText === START"
+                >
+                  <i class="bi bi-play-circle-fill"
+                    ><label>:::Iniciar</label></i
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="btn timer-button"
+                  (click)="startTimer()"
+                  *ngIf="startText === STOP"
+                >
+                  <i class="bi bi-stop-circle-fill"
+                    ><label>:::Detener</label></i
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="btn timer-button"
+                  (click)="startTimer()"
+                  *ngIf="startText === RESUME"
+                >
+                  <i class="bi bi-skip-end-circle-fill"
+                    ><label>:::Reanudar</label></i
+                  >
+                </button>
+                <button
+                  type="button"
+                  class="btn timer-button"
+                  (click)="clearTimer()"
+                >
+                  <i class="bi bi-skip-backward-fill"
+                    ><label>:::Limpiar</label></i
+                  >
+                </button>
+              </section>
+              <section class="timer-counter-label">
+                <div class="date">
+                  <div class="w-50">
+                    <label>:::Inicio de sesion: </label>
+                    <p>{{ startSession | date : "medium" }}</p>
+                  </div>
+                  <div class="w-50">
+                    <label>:::Fin de sesion: </label>
+                    <p>{{ endSession | date : "medium" }}</p>
+                  </div>
+                </div>
+                <div class="counter" *ngIf="counter; else elseBlock">
+                  <div class="alert alert-success" role="alert">
+                    <h2>:::Sesion en progreso</h2>
+                  </div>
+                </div>
+                <ng-template #elseBlock>
+                  <div class="counter">
+                    <div class="alert alert-warning" role="alert">
+                      <h2 *ngIf="!diffSessionSec">:::Iniciar sesion</h2>
+                      <h2 *ngIf="!!diffSessionSec">
+                        Duracion de la ultima sesion
+                      </h2>
+                      <h2 *ngIf="!!diffSessionHour">
+                        Horas: {{ diffSessionHour * -1 }}
+                      </h2>
+                      <h2 *ngIf="!!diffSessionMin">
+                        Minutos: {{ diffSessionMin * -1 }}
+                      </h2>
+                      <h2 *ngIf="!!diffSessionSec">
+                        Segundos: {{ diffSessionSec * -1 }}
+                      </h2>
+                    </div>
+                    <div
+                      class="alert alert-warning"
+                      role="alert"
+                      *ngIf="!!diffSessionSec"
+                    >
+                      <h2>:::Datos promedio</h2>
+                      <p>:::averageData {{ averageData | json }}</p>
+                    </div>
+                  </div>
+                </ng-template>
+              </section>
+            </div>
           </div>
         </div>
       </div>
       <div class="cont-right ds-form-register col-12 col-md-6">
         <div class="ds-register-data mb-3">
-          <app-ds-title
-            [title]="'TITLE.SECONDARY_DATA' | translate"
-          ></app-ds-title>
+          <app-ds-title [title]="'TITLE.GAUGE' | translate"></app-ds-title>
+          <!-- <p>:::: sessionData {{sessionData| json}}</p> -->
           <div class="ds-input-group mt-3" *ngFor="let session of sessionData">
             <label for="user">{{ "LBL.USER" | translate }}</label>
             <ngx-gauge

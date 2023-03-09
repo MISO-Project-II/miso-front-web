@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { UserSessionComponent } from "./user-session.component";
 import { UserSessionRoutingModule } from "./user-session-routing.module";
@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     FormsModule,
     ReactiveFormsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [UserSessionComponent],
 })
 export class UserSessionModule {}
