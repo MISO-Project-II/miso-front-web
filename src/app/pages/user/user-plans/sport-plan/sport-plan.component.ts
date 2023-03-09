@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   ISportPlans,
@@ -22,23 +22,26 @@ import { StatusModel } from "src/models/local/status-model";
   templateUrl: "./sport-plan.component.html",
   styleUrls: ["./sport-plan.component.scss"],
 })
-export class SportPlanComponent implements OnInit {
+export class SportPlanComponent implements OnInit, OnDestroy {
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _sportPlanSelected: ISportPlans;
   private _sportRoutines: SportRoutineList;
   private _userData: IUserData;
-  private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _sportPlansService: SportPlansService,
-    private _statusService: StatusService,
-    private _userDataService: UserDataService
+    private _statusService: StatusService
   ) {}
 
   ngOnInit() {
-    this._loadSportPlans();
+    console.log("🚀 XXX - SportPlanComponent : ");
   }
-  get getGeneralStatus(): StatusModel {
+  ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.complete();
+  }
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
   get getSportPlanService$(): Observable<ISportPlans[]> {
@@ -107,19 +110,4 @@ export class SportPlanComponent implements OnInit {
   //       },
   //     });
   // }
-  private _loadSportPlans(): void {
-    this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: ISportPlans[]) => {
-        if (!!res) {
-          console.log("🚀 XXX - _loadSportPlans - res : ", res);
-          this._statusService.setSportPlansList(res);
-        }
-        this._statusService.spinnerHide();
-      },
-      (err) => {
-        console.error(err);
-        this._statusService.spinnerHide();
-      }
-    );
-  }
 }

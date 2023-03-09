@@ -138,12 +138,10 @@
               <input
                 id="age_input"
                 formControlName="age"
-                type="number"
+                type="date"
                 class="form-control ds-input"
                 aria-describedby="age_input"
                 [placeholder]="'PLACEHOLDER.YEARS' | translate"
-                minlength="1"
-                maxlength="2"
               />
               <small *ngIf="getAge?.hasError('required')">{{
                 "ERR.REQUIRED_FIELD" | translate

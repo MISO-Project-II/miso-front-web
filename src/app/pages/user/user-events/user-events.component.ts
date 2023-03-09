@@ -31,7 +31,7 @@ export class UserEventsComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
   get getEventsService$(): Observable<IResEvents> {

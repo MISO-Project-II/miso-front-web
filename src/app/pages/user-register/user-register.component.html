@@ -250,7 +250,7 @@
               <input
                 id="age_input"
                 formControlName="age"
-                type="string"
+                type="date"
                 class="form-control ds-input"
                 aria-describedby="age_input"
                 [placeholder]="'PLACEHOLDER.DATE_FORMAT' | translate"
@@ -485,4 +485,5 @@
       </div>
     </div>
   </form>
+  <p>::: formUserRegister.value {{ formUserRegister.value | json }}</p>
 </div>

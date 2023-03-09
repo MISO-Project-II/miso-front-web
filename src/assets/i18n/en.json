@@ -14,7 +14,8 @@
     "SERVICES": "Services",
     "PRODUCTS": "Products",
     "PLANS": "Plans",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "GAUGE": "Indicators"
   },
   "SUBTITLE": {
     "GENERAL_DATA": "General information",

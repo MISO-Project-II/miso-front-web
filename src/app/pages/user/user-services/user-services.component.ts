@@ -31,7 +31,7 @@ export class UserServicesComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
   get getServicesService$(): Observable<IResServices> {
@@ -44,7 +44,10 @@ export class UserServicesComponent implements OnInit, OnDestroy {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResServices) => {
         if (!!res && res.success) {
-          console.log("XXX - UserServicesComponent - _loadServices - res", res);
+          console.log(
+            "🚀 XXX - UserServicesComponent - _loadServices - res : ",
+            res
+          );
           this._statusService.setServicesList(res.result!);
         }
       },
@@ -57,7 +60,10 @@ export class UserServicesComponent implements OnInit, OnDestroy {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResProducts) => {
         if (!!res && res.success) {
-          console.log("XXX - UserServicesComponent - _loadProducts - res", res);
+          console.log(
+            "🚀 XXX - UserServicesComponent - _loadProducts - res : ",
+            res
+          );
           this._statusService.setProductsList(res.result!);
         }
         this._statusService.spinnerHide();

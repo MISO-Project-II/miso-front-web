@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
@@ -23,27 +23,25 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   templateUrl: "./food-plan.component.html",
   styleUrls: ["./food-plan.component.scss"],
 })
-export class FoodPlanComponent implements OnInit {
+export class FoodPlanComponent implements OnInit, OnDestroy {
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _foodPlanSelected: IFoodPlans;
   private _foodRoutines: FoodRoutineList;
-  private _userData: IUserData;
-  private _destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    private _foodPlansService: FoodPlansService,
-    private _statusService: StatusService
-  ) {}
+  constructor(private _statusService: StatusService) {}
 
   ngOnInit() {
-    this._loadFoodPlans();
+    console.log("🚀 XXX - FoodPlanComponent : ");
+  }
+  ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.complete();
   }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getFoodPlansService$(): Observable<IFoodPlans[]> {
-    return this._foodPlansService.getFoodPlans();
-  }
+
   get getFoodPlan$(): IFoodPlans {
     return this._foodPlanSelected;
   }
@@ -104,19 +102,4 @@ export class FoodPlanComponent implements OnInit {
   //       },
   //     });
   // }
-  private _loadFoodPlans(): void {
-    this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IFoodPlans[]) => {
-        if (!!res) {
-          console.log("🚀 XXX - _loadFoodPlans - res : ", res);
-          this._statusService.setFoodPlansList(res);
-        }
-        this._statusService.spinnerHide();
-      },
-      (err) => {
-        console.error(err);
-        this._statusService.spinnerHide();
-      }
-    );
-  }
 }

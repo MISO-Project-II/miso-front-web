@@ -69,6 +69,9 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   get getAge() {
     return this.formUserGeneralData.get("age");
   }
+  get getAgeDate() {
+    return new Date(this.getAge?.value);
+  }
   get getWeight() {
     return this.formUserGeneralData.get("weight");
   }

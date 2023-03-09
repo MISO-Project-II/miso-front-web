@@ -2,13 +2,13 @@
   <hr />
   <div
     class="d-flex min-width row justify-content-center"
-    *ngIf="getProductsList.length! >= 1; else noSuccess"
+    *ngIf="getProductsList$.length! >= 1; else noSuccess"
   >
     <div class="col-12 col-md-3 mx-auto">
       <div class="options pe-1">
         <div class="list-group overflow-auto">
           <button
-            *ngFor="let item of getProductsList"
+            *ngFor="let item of getProductsList$"
             type="button"
             (click)="setProduct(item)"
             class="list-group-item ds-list-group-item list-group-item-action"
@@ -30,12 +30,53 @@
         </div>
         <div class="d-flex" *ngIf="!!getProductIdSports$">
           <label>{{ "LBL.SPORTS_RELATED" | translate }}</label>
-          <p>{{ getProductSportSelected$ | json }}</p>
+          <p>{{ getProductSportSelected$.name | json }}</p>
+        </div>
+        <div class="d-flex" *ngIf="!!getProductIdSports$">
+          <p>{{ getProductSportSelected$.description | json }}</p>
         </div>
         <div class="d-flex" *ngIf="getProduct$.idUserCreator > 0">
           <label>{{ "LBL.CONTACT" | translate }}</label>
           <p>{{ getProduct$.idUserCreator }}</p>
         </div>
+      </div>
+      <div
+        *ngIf="!!getProduct$?.contractType"
+        class="alert alert-secondary"
+        role="alert"
+      >
+        <label
+          >{{
+            getProduct$.contractType === FREE_CONTRACT
+              ? ("LBL.FREE_CONTRACT" | translate)
+              : getProduct$.contractType === INTERMEDIATE_CONTRACT
+              ? ("LBL.INTERMEDIATE_CONTRACT" | translate)
+              : getProduct$.contractType === PREMIUM_CONTRACT
+              ? ("LBL.PREMIUM_CONTRACT" | translate)
+              : ""
+          }}{{
+            getProduct$.contractType === FREE_CONTRACT
+              ? ("LBL.FREE_CONTRACT_ICON" | translate)
+              : getProduct$.contractType === INTERMEDIATE_CONTRACT
+              ? ("LBL.INTERMEDIATE_CONTRACT_ICON" | translate)
+              : getProduct$.contractType === PREMIUM_CONTRACT
+              ? ("LBL.PREMIUM_CONTRACT_ICON" | translate)
+              : ""
+          }}
+        </label>
+      </div>
+      <div
+        *ngIf="getProduct$?.eventType"
+        class="alert alert-secondary"
+        role="alert"
+      >
+        <label>{{
+          getProduct$.eventType === INSIDE_OF_HOUSE
+            ? ("LBL.INSIDE_OF_HOUSE" | translate)
+            : getProduct$.eventType === OUTSIDE_OF_HOUSE
+            ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
+            : ""
+        }}</label>
       </div>
       <div class="ds-button-continue p-2">
         <button
@@ -61,4 +102,5 @@
       <label>{{ "ERR.NO_DATA" | translate }} </label>
     </div></ng-template
   >
+  <p>::: getProductsList$.length {{ getProductsList$.length }}</p>
 </div>

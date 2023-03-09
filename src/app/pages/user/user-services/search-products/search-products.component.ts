@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
@@ -19,6 +22,9 @@ import { StatusService } from "src/services/local/status.service";
 export class SearchProductsComponent implements OnInit, OnDestroy {
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
 
   private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
@@ -41,23 +47,23 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   get getProduct$(): IProducts {
     return this._productSelected;
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getProductsList(): IProducts[] {
+  get getProductsList$(): IProducts[] {
     return this._statusService.getProductsList();
   }
-  get getProductsListScheduled(): IProducts[] {
+  get getProductsListScheduled$(): IProducts[] {
     return this._statusService.getProductsListScheduled();
   }
   get getProductIdSports$(): number {
     return this._productSelected.idSport;
   }
-  get getProductSportSelected$(): string {
+  get getProductSportSelected$(): ISports {
     return this._statusService
       .getSportsList()
       .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
-      .map((sport) => sport.name)[0];
+      .map((sport) => sport)[0];
   }
 
   public setProduct(productSelected: IProducts) {
@@ -65,14 +71,18 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
   public addProduct(): void {
-    const productsListScheduled = this.getProductsListScheduled;
+    const productsListScheduled = this.getProductsListScheduled$;
     productsListScheduled.push(this._productSelected);
     this._statusService.setProductsListScheduled(productsListScheduled);
-    console.log("XXX - addProduct", this.getProductsListScheduled);
+    console.log("XXX - addProduct", this.getProductsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
-    for (let index = 0; index < this.getProductsListScheduled.length; index++) {
-      data.push(this.getProductsListScheduled[index].idProduct!);
+    for (
+      let index = 0;
+      index < this.getProductsListScheduled$.length;
+      index++
+    ) {
+      data.push(this.getProductsListScheduled$[index].idProduct!);
     }
 
     this._callService(data);
@@ -84,7 +94,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       listScheduled
     );
     this._productsService
-      .putUserProduct(this.getGeneralStatus.userId, listScheduled)
+      .putUserProduct(this.getGeneralStatus$.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {

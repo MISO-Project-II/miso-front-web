@@ -51,7 +51,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
       description: new FormControl("", [Validators.required]),
       city: new FormControl("", [Validators.required]),
       IdSport: new FormControl("", [Validators.required]),
-      ubicationType: new FormControl("", [Validators.required]),
+      eventType: new FormControl("", [Validators.required]),
       contractType: new FormControl("", [Validators.required]),
     });
   }
@@ -74,8 +74,8 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
   get getIdSport() {
     return this.formUserCreateEvent.get("IdSport");
   }
-  get getUbicationType() {
-    return this.formUserCreateEvent.get("ubicationType");
+  get getEventType() {
+    return this.formUserCreateEvent.get("eventType");
   }
   get getContractType() {
     return this.formUserCreateEvent.get("contractType");
@@ -103,7 +103,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
       city: this.getCity?.value,
       idUserCreator: this.getGeneralStatus.userId,
       idSport: this.getIdSport?.value,
-      evenType: this.getUbicationType?.value,
+      evenType: this.getEventType?.value,
       contractType: this.getContractType?.value,
     };
     this._callService(data);
@@ -125,7 +125,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
           }
           this._statusService.spinnerHide();
         },
-        (err) => {
+        (err: any) => {
           console.error(err);
           this._statusService.spinnerHide();
         }

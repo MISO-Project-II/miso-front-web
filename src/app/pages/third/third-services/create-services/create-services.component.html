@@ -94,7 +94,7 @@
               "LBL.WHAT_MODALITY" | translate
             }}</label>
             <select
-              formControlName="ubicationType"
+              formControlName="eventType"
               class="form-select max-width"
               #t
             >
@@ -108,7 +108,7 @@
                 {{ "LBL.OUTSIDE_OF_HOUSE" | translate }}
               </option>
             </select>
-            <small *ngIf="getUbicationType?.hasError('required')">{{
+            <small *ngIf="getEventType?.hasError('required')">{{
               "ERR.REQUIRED_FIELD" | translate
             }}</small>
           </div>
