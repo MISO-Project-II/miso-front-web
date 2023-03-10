@@ -15,7 +15,11 @@
     "PRODUCTS": "Products",
     "PLANS": "Plans",
     "PROFILE": "Profile",
-    "GAUGE": "Indicators"
+    "GAUGE": "Indicators",
+    "SUGGESTED_TRAINING_PLAN": "Suggested training plan",
+    "SUGGESTED_MEAL_PLAN": "Suggested meal plan",
+    "SUGGESTED_ROUTES": "Suggested routes",
+    "SUGGESTED_SERVICES": "Suggested services"
   },
   "SUBTITLE": {
     "GENERAL_DATA": "General information",

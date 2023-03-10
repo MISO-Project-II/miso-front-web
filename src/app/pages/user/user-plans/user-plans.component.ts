@@ -22,6 +22,7 @@ export class UserPlansComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log("XXX - UserPlansComponent");
     this._loadSportPlans();
+    this._loadFoodPlans();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
