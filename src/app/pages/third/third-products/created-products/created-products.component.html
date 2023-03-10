@@ -36,31 +36,31 @@
           <label>{{ "LBL.CONTACT" | translate }}</label>
           <p>{{ getProduct$.idUserCreator }}</p>
         </div>
-        <!-- <div
-        *ngIf="!!getProduct$?.contractType"
-        class="alert alert-secondary"
-        role="alert"
-      >
-        <label
-          >{{
-            getProduct$.contractType === FREE_CONTRACT
-              ? ("LBL.FREE_CONTRACT" | translate)
-              : getProduct$.contractType === INTERMEDIATE_CONTRACT
-              ? ("LBL.INTERMEDIATE_CONTRACT" | translate)
-              : getProduct$.contractType === PREMIUM_CONTRACT
-              ? ("LBL.PREMIUM_CONTRACT" | translate)
-              : ""
-          }}{{
-            getProduct$.contractType === FREE_CONTRACT
-              ? ("LBL.FREE_CONTRACT_ICON" | translate)
-              : getProduct$.contractType === INTERMEDIATE_CONTRACT
-              ? ("LBL.INTERMEDIATE_CONTRACT_ICON" | translate)
-              : getProduct$.contractType === PREMIUM_CONTRACT
-              ? ("LBL.PREMIUM_CONTRACT_ICON" | translate)
-              : ""
-          }}
-        </label> 
-      </div>-->
+        <div
+          *ngIf="!!getProduct$?.contractType"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label
+            >{{
+              getProduct$.contractType === FREE_CONTRACT
+                ? ("LBL.FREE_CONTRACT" | translate)
+                : getProduct$.contractType === INTERMEDIATE_CONTRACT
+                ? ("LBL.INTERMEDIATE_CONTRACT" | translate)
+                : getProduct$.contractType === PREMIUM_CONTRACT
+                ? ("LBL.PREMIUM_CONTRACT" | translate)
+                : ""
+            }}{{
+              getProduct$.contractType === FREE_CONTRACT
+                ? ("LBL.FREE_CONTRACT_ICON" | translate)
+                : getProduct$.contractType === INTERMEDIATE_CONTRACT
+                ? ("LBL.INTERMEDIATE_CONTRACT_ICON" | translate)
+                : getProduct$.contractType === PREMIUM_CONTRACT
+                ? ("LBL.PREMIUM_CONTRACT_ICON" | translate)
+                : ""
+            }}
+          </label>
+        </div>
         <div
           *ngIf="getProduct$?.eventType"
           class="alert alert-secondary"

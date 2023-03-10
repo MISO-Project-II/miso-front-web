@@ -1,4 +1,4 @@
-<div id="main-user-session" class="container-fluid height-100vh">
+<div id="main-user-session" class="container-fluid">
   <hr />
   <div class="p-3 d-block">
     <app-ds-banner-title
@@ -77,9 +77,14 @@
                     <p>{{ endSession | date : "medium" }}</p>
                   </div>
                 </div>
-                <div class="counter" *ngIf="counter; else elseBlock">
+                <div class="counter" *ngIf="timerSession; else elseBlock">
                   <div class="alert alert-success" role="alert">
-                    <h2>:::Sesion en progreso</h2>
+                    <h2 *ngIf="startText === STOP">:::Sesion en progreso</h2>
+                    <h2 *ngIf="startText === RESUME">:::Sesion en pausa</h2>
+                    <h2>
+                      {{ diffSessionHour }} : {{ diffSessionMin }} :
+                      {{ diffSessionSec }}
+                    </h2>
                   </div>
                 </div>
                 <ng-template #elseBlock>
@@ -89,14 +94,14 @@
                       <h2 *ngIf="!!diffSessionSec">
                         Duracion de la ultima sesion
                       </h2>
-                      <h2 *ngIf="!!diffSessionHour">
-                        Horas: {{ diffSessionHour * -1 }}
+                      <h2 *ngIf="diffSessionHour > 0">
+                        Horas: {{ diffSessionHour }}
                       </h2>
-                      <h2 *ngIf="!!diffSessionMin">
-                        Minutos: {{ diffSessionMin * -1 }}
+                      <h2 *ngIf="diffSessionMin > 0">
+                        Minutos: {{ diffSessionMin }}
                       </h2>
-                      <h2 *ngIf="!!diffSessionSec">
-                        Segundos: {{ diffSessionSec * -1 }}
+                      <h2 *ngIf="diffSessionSec > 0">
+                        Segundos: {{ diffSessionSec }}
                       </h2>
                     </div>
                     <div
@@ -118,31 +123,33 @@
         <div class="ds-register-data mb-3">
           <app-ds-title [title]="'TITLE.GAUGE' | translate"></app-ds-title>
           <!-- <p>:::: sessionData {{sessionData| json}}</p> -->
-          <div class="ds-input-group mt-3" *ngFor="let session of sessionData">
-            <label for="user">{{ "LBL.USER" | translate }}</label>
-            <ngx-gauge
-              [type]="session.type"
-              [value]="session.value"
-              [label]="session.label"
-              [append]="session.append"
-              [size]="session.size"
-              [min]="session.min"
-              [max]="session.max"
-              [cap]="session.cap"
-              [thick]="session.thick"
-              [foregroundColor]="session.foregroundColor"
-              [backgroundColor]="session.backgroundColor"
-              [append]="session.append"
-              [prepend]="session.prepend"
-              [duration]="session.duration"
-              [thresholds]="session.thresholds"
-              [markers]="session.markers"
-              [margin]="session.margin"
-              [animate]="session.animate"
-              [aria-label]="session.arialabel"
-              [aria-labelledby]="session.arialabelledby"
-            >
-            </ngx-gauge>
+
+          <div class="ds-input-group overflow-auto gauge">
+            <div class="mt-3 ds-gauge" *ngFor="let session of sessionData">
+              <ngx-gauge
+                [type]="session.type"
+                [value]="session.value"
+                [label]="session.label"
+                [append]="session.append"
+                [size]="session.size"
+                [min]="session.min"
+                [max]="session.max"
+                [cap]="session.cap"
+                [thick]="session.thick"
+                [foregroundColor]="session.foregroundColor"
+                [backgroundColor]="session.backgroundColor"
+                [append]="session.append"
+                [prepend]="session.prepend"
+                [duration]="session.duration"
+                [thresholds]="session.thresholds"
+                [markers]="session.markers"
+                [margin]="session.margin"
+                [animate]="session.animate"
+                [aria-label]="session.arialabel"
+                [aria-labelledby]="session.arialabelledby"
+              >
+              </ngx-gauge>
+            </div>
           </div>
         </div>
       </div>

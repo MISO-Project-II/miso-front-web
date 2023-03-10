@@ -3,16 +3,10 @@ import {
   ISetSession,
   Value,
 } from "./../../../../models/general/session.interface";
-import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
-import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 import { Subject } from "rxjs";
-import {
-  NgxGaugeCap,
-  NgxGaugeType,
-  RESUME,
-  START,
-  STOP,
-} from "src/constanst/data.constants";
+import { RESUME, START, STOP } from "src/constanst/data.constants";
 import { MockSessions } from "src/test/general/session.mock";
 @Component({
   selector: "app-user-session",
@@ -28,21 +22,27 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   public formSession: FormGroup;
   public sessionData: ISession[];
 
-  public counter: number;
-  public diffSessionHour: number;
-  public diffSessionMin: number;
-  public diffSessionSec: number;
+  public hour: number = 0;
+  public min: number = 0;
+  public sec: number = 0;
+  public diffSessionHour: any;
+  public diffSessionMin: any;
+  public diffSessionSec: any;
   public timerRef: any;
   public isSession: boolean = false;
   public startText: string = START;
   public startSession: Date = new Date();
-  public endSession: Date = new Date();
+  public startSessionCont: number;
+  public endSession: number | 0;
+  public timerSession: number = 0;
+  public timerSession2: any;
   public averageData: ISetSession;
+
   constructor() {}
   ngOnInit() {
     console.log("XXX - UserSessionComponent");
     this._initForm();
-    this.getSessionData();
+    this.sessionData = this._avgSessionValues();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -55,59 +55,73 @@ export class UserSessionComponent implements OnInit, OnDestroy {
       dato: new FormControl(MockSessions[0]),
     });
   }
-  get getHour() {
-    return this.startSession.getHours() - this.endSession.getHours();
-  }
-  get getMin() {
-    return this.startSession.getMinutes() - this.endSession.getMinutes();
-  }
-  get getSec() {
-    return this.startSession.getSeconds() - this.endSession.getSeconds();
-  }
 
   public onSubmit(): void {}
 
   public startTimer() {
-    this.endSession = new Date();
     this.isSession = !this.isSession;
     if (this.isSession) {
       this.startText = STOP;
-      const startTime = Date.now() - (this.counter || 0);
+      this.startSessionCont = Date.now() - this.timerSession;
       this.timerRef = setInterval(() => {
-        this.counter = Date.now() - startTime;
-        this.getSessionData();
-      }, 2000);
+        this.endSession = Date.now();
+        this.timerSession = this.endSession - this.startSessionCont;
+        this.timerSession2 = this.secondsToString(
+          Math.trunc(this.timerSession / 1000)
+        );
+        this.sessionData = this._avgSessionValues();
+      }, 1000);
     } else {
       this.startText = RESUME;
       clearInterval(this.timerRef);
     }
   }
+  private secondsToString(seconds: number | 0) {
+    this.diffSessionHour = Math.floor(seconds / 3600);
+    this.diffSessionHour =
+      this.diffSessionHour < 10
+        ? "0" + this.diffSessionHour
+        : this.diffSessionHour;
+    this.diffSessionMin = Math.floor((seconds / 60) % 60);
+    this.diffSessionMin =
+      this.diffSessionMin < 10
+        ? "0" + this.diffSessionMin
+        : this.diffSessionMin;
+    this.diffSessionSec = seconds % 60;
+    this.diffSessionSec =
+      this.diffSessionSec < 10
+        ? "0" + this.diffSessionSec
+        : this.diffSessionSec;
+    return (
+      this.diffSessionHour +
+      ":" +
+      this.diffSessionMin +
+      ":" +
+      this.diffSessionSec
+    );
+  }
 
   public clearTimer() {
     this.isSession = false;
     this.startText = START;
-    this.diffSessionHour =
-      this.startSession.getHours() - this.endSession.getHours();
-    this.diffSessionMin =
-      this.startSession.getMinutes() - this.endSession.getMinutes();
-    this.diffSessionSec =
-      this.startSession.getSeconds() - this.endSession.getSeconds();
-    this.counter = 0;
-    this.averageData = {
-      startSession: this.startSession + "",
-      endSession: this.endSession + "",
-      calories: this.getRandomInt(1000),
-      values: this.mapSessionData(),
-    };
     this.startSession = new Date();
-    this.endSession = new Date();
-
+    this.startSessionCont = Date.now();
+    this.endSession = Date.now();
+    this.timerSession = 0;
+    this.averageData = {
+      startSession: this.startSession.toISOString(),
+      endSession: new Date(this.endSession).toISOString(),
+      calories: this.getRandomInt(1000),
+      values: this._mapSessionData(),
+    };
     clearInterval(this.timerRef);
   }
-  private getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
+  private getRandomInt(avg: number) {
+    let min = avg - 5;
+    let max = avg + 3;
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
-  private mapSessionData(): Value[] {
+  private _mapSessionData(): Value[] {
     return this.sessionData.map((data: Value) => {
       return {
         value: data.value,
@@ -118,107 +132,90 @@ export class UserSessionComponent implements OnInit, OnDestroy {
       };
     });
   }
-  private getSessionData(): void {
-    this.sessionData = [
-      {
-        type: "full",
-        value: this.getRandomInt(100),
-        label: "Velocidad1",
-        append: "Km/h",
-        size: 250,
-        min: 0,
-        max: 100,
-        cap: "butt", // "round", "butt"
-        thick: 30,
-        foregroundColor: "#f85716",
-        backgroundColor: "#bababa",
-        prepend: "😀",
-        duration: 1000,
-        thresholds: {
-          "10": { color: "#fffc97" },
-          "50": { color: "#ceff97" },
-          "80": { color: "#ff9797" },
+  get getAvgSession$(): ISetSession {
+    return {
+      startSession: "2022-02-03:10",
+      endSession: "2022-02-03:10",
+      calories: 12345,
+      values: [
+        {
+          value: 10,
+          label: "TEST",
+          append: "TEST",
+          min: 0,
+          max: 20,
         },
-        markers: {
-          "50": {
-            color: "#f85716",
-            type: "triangle",
-            size: 8,
-            label: "Goal",
-            font: "12px arial",
-          },
+        {
+          value: 50,
+          label: "Vo2 máx",
+          append: "ml/min/kg",
+          min: 0,
+          max: 100,
         },
-        margin: 30,
-        animate: false,
-        arialabel: "Velocidad",
-        arialabelledby: "Velocidad",
-      },
-      {
-        type: "semi",
-        value: this.getRandomInt(100),
-        label: "Velocidad2",
-        append: "Km/h",
+        {
+          value: 80,
+          label: "FTP",
+          append: "FTP",
+          min: 0,
+          max: 100,
+        },
+        {
+          value: 33,
+          label: "Velocidad",
+          append: "Km/h",
+          min: 0,
+          max: 50,
+        },
+        {
+          value: 37,
+          label: "Temperatura",
+          append: "ºC",
+          min: 0,
+          max: 45,
+        },
+      ],
+    };
+  }
+  private _avgSessionValues(): ISession[] {
+    return this.getAvgSession$.values.map((data: Value) => {
+      var thresholdsMin = data.value - 5;
+      var thresholdsAvg = data.value;
+      var thresholdsMax = data.value + 3;
+
+      var avg = this.getRandomInt(data.value);
+      return {
+        type: "arch",
+        value: avg,
+        label: data.label,
+        append: data.append,
         size: 250,
-        min: 0,
-        max: 100,
-        cap: "butt", // "round", "butt"
-        thick: 30,
+        min: data.min,
+        max: data.max,
+        cap: "butt",
+        thick: 25,
         foregroundColor: "#f85716",
-        backgroundColor: "#bababa",
-        prepend: "😀",
+        backgroundColor: "#cbcbcb",
+        prepend: avg > thresholdsMax ? "😨" : avg < thresholdsMin ? "😓" : "😁",
         duration: 100,
         thresholds: {
-          "10": { color: "#fffc97" },
-          "50": { color: "#ceff97" },
-          "80": { color: "#ff9797" },
+          [thresholdsMin]: { color: "#fffc97" },
+          [thresholdsAvg]: { color: "#ceff97" },
+          [thresholdsMax]: { color: "#ff9797" },
         },
         markers: {
-          "50": {
+          [thresholdsAvg]: {
             color: "#f85716",
             type: "triangle",
             size: 8,
-            label: "Goal",
+            label: "Prom (" + thresholdsAvg + ")",
             font: "12px arial",
           },
         },
-        margin: 30,
-        animate: true,
-        arialabel: "Velocidad",
-        arialabelledby: "Velocidad",
-      },
-      {
-        type: "arch",
-        value: this.getRandomInt(100),
-        label: "Velocidad3",
-        append: "Km/h",
-        size: 250,
-        min: 0,
-        max: 100,
-        cap: "butt", // "round", "butt"
-        thick: 30,
-        foregroundColor: "#f85716",
-        backgroundColor: "#bababa",
-        prepend: "😀",
-        duration: 1000,
-        thresholds: {
-          "10": { color: "#fffc97" },
-          "50": { color: "#ceff97" },
-          "80": { color: "#ff9797" },
-        },
-        markers: {
-          "50": {
-            color: "#f85716",
-            type: "triangle",
-            size: 8,
-            label: "Goal",
-            font: "12px arial",
-          },
-        },
-        margin: 30,
-        animate: true,
-        arialabel: "Velocidad",
-        arialabelledby: "Velocidad",
-      },
-    ];
+        margin: 10,
+        animate: false,
+        arialabel: data.label,
+        arialabelledby: data.label,
+      };
+    });
   }
 }
