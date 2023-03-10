@@ -8,6 +8,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IServices,
   IResService,
@@ -28,6 +29,7 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class CreateServicesComponent implements OnInit, OnDestroy {
   public formUserCreateService: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public sportName: string;
   constructor(
     private _statusService: StatusService,
     private _servicesService: ServicesService
@@ -45,10 +47,10 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
     this.formUserCreateService = new FormGroup({
       name: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
-      IdSport: new FormControl("Futbol"), // XXX
-      price: new FormControl(""),
-      contract: new FormControl(""),
-      ubicationType: new FormControl(""),
+      IdSport: new FormControl("", [Validators.required]), // XXX
+      price: new FormControl("", [Validators.required]),
+      contract: new FormControl("", [Validators.required]),
+      eventType: new FormControl("", [Validators.required]),
     });
   }
   get getForm() {
@@ -71,8 +73,8 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
   get getContractType() {
     return this.formUserCreateService.get("contract");
   }
-  get getUbicationType() {
-    return this.formUserCreateService.get("ubicationType");
+  get getEventType() {
+    return this.formUserCreateService.get("eventType");
   }
 
   get getGeneralStatus(): StatusModel {
@@ -81,6 +83,13 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
   get getServicesListScheduled(): IServices[] {
     return this._statusService.getServicesListScheduled();
   }
+  get getSports$(): ISports[] {
+    return this._statusService.getSportsList();
+  }
+  public addSport(item: ISports): void {
+    this.formUserCreateService.get("IdSport")?.patchValue(item?.idsports);
+    this.sportName = item.name;
+  }
   public onSubmit(): void {
     this._statusService.spinnerShow();
     const data: IServices = {
@@ -88,9 +97,10 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
       description: this.getDescription?.value,
       price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
-      idSport: 1,
-      // serviceType: OUTSIDE_OF_HOUSE,
-      contract: FREE_CONTRACT,
+      idSport: this.getIdSport?.value,
+      eventType: this.getEventType?.value,
+      contractType: this.getContractType?.value,
+      contract: this.getContractType?.value,
     };
     this._callService(data);
   }

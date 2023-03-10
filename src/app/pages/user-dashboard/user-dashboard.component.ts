@@ -1,14 +1,18 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
   INTERMEDIATE_CONTRACT,
   PREMIUM_CONTRACT,
   SPORTSMAN,
 } from "src/constanst/data.constants";
+import { IResSports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { IResUserData } from "src/models/user-data/user-data.interface";
+import { SportsService } from "src/services/general/sports.service";
 
 import { StatusService } from "src/services/local/status.service";
+import { UserDataService } from "src/services/user-data/user-data.service";
 @Component({
   selector: "app-user-dashboard",
   templateUrl: "./user-dashboard.component.html",
@@ -29,7 +33,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
 }

@@ -1,15 +1,7 @@
 import { ICity } from "./../../../models/general/countryStateCity.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { ROUTES_NAMES } from "src/constanst/routes";
 import { StatusService } from "src/services/local/status.service";
 import {
   IResUserRegister,
@@ -271,6 +263,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       // Datos secundarios
       gender: this.genre?.value,
       age: Date_yyyymmdd(this.age?.value),
+      // age: new Date(this.age?.value) + "",
       weight: this.weight?.value,
       height: this.height?.value,
       // Datos de ubicacion
@@ -325,7 +318,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           }
           this._statusService.spinnerHide();
         },
-        (err) => {
+        (err: any) => {
           console.error(err);
           this._statusService.spinnerHide();
         }

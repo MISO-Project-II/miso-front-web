@@ -7,6 +7,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IServices,
   IResService,
@@ -57,6 +58,25 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
   }
   get getServicesListScheduled(): IServices[] {
     return this._statusService.getServicesListScheduled();
+  }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
+  get getServiceIdSports$(): number {
+    return this._serviceSelected.idSport;
+  }
+  get getServiceSportSelected$(): ISports {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
+      .map((sport) => sport)[0];
   }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;

@@ -11,6 +11,8 @@ export const MockProduct: IProducts = {
   idSport: 1,
   name: "Producto 1",
   description: "Esto es Producto 1",
+  contractType: "FREE_CONTRACT",
+  eventType: "OUTSIDE_OF_HOUSE",
 };
 // Data Response
 export const MockGetProducts: IProducts[] = [
@@ -21,6 +23,8 @@ export const MockGetProducts: IProducts[] = [
     name: "Producto 1",
     description: "Esto es Producto 1",
     price: 10.0,
+    contractType: "FREE_CONTRACT",
+    eventType: "OUTSIDE_OF_HOUSE",
   },
   {
     idProduct: 2,
@@ -28,6 +32,8 @@ export const MockGetProducts: IProducts[] = [
     idSport: 2,
     name: "Producto 2",
     description: "Esto es Producto 2",
+    contractType: "FREE_CONTRACT",
+    eventType: "OUTSIDE_OF_HOUSE",
   },
   {
     idProduct: 3,
@@ -35,6 +41,8 @@ export const MockGetProducts: IProducts[] = [
     idSport: 3,
     name: "Producto 3",
     description: "Esto es Producto 3",
+    contractType: "FREE_CONTRACT",
+    eventType: "OUTSIDE_OF_HOUSE",
   },
   {
     idProduct: 4,
@@ -42,6 +50,8 @@ export const MockGetProducts: IProducts[] = [
     idSport: 4,
     name: "Producto 4",
     description: "Esto es Producto 4",
+    contractType: "FREE_CONTRACT",
+    eventType: "OUTSIDE_OF_HOUSE",
   },
   {
     idProduct: 5,
@@ -49,6 +59,8 @@ export const MockGetProducts: IProducts[] = [
     idSport: 5,
     name: "Producto 5",
     description: "Esto es Producto 5",
+    contractType: "FREE_CONTRACT",
+    eventType: "OUTSIDE_OF_HOUSE",
   },
   {
     idProduct: 6,
@@ -56,6 +68,8 @@ export const MockGetProducts: IProducts[] = [
     idSport: 1,
     name: "Producto 6",
     description: "Esto es Producto 6",
+    contractType: "FREE_CONTRACT",
+    eventType: "OUTSIDE_OF_HOUSE",
   },
 ];
 
@@ -84,6 +98,8 @@ export const MockGetUserProductsConsume: IResUserProducts = {
         idUserCreator: 1,
         idSport: 1,
         description: "Sujetador deportivo en todas las tallas",
+        contractType: "FREE_CONTRACT",
+        eventType: "OUTSIDE_OF_HOUSE",
       },
       {
         name: "Bicicleta estatica",
@@ -91,6 +107,8 @@ export const MockGetUserProductsConsume: IResUserProducts = {
         idUserCreator: 1,
         idSport: 5,
         description: "Bicicleta estatica para el hogar",
+        contractType: "FREE_CONTRACT",
+        eventType: "OUTSIDE_OF_HOUSE",
       },
       {
         name: "Mancuernas",
@@ -98,6 +116,8 @@ export const MockGetUserProductsConsume: IResUserProducts = {
         idUserCreator: 1,
         idSport: 5,
         description: "Mancuernas de diferentes kilos",
+        contractType: "FREE_CONTRACT",
+        eventType: "OUTSIDE_OF_HOUSE",
       },
     ],
   },

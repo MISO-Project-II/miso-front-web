@@ -1,194 +1,197 @@
 {
   "TITLE": {
-    "SPORTAPP": "SportApp Portugues",
-    "USER_LOGIN": "Ingresa a tu portal deportivo",
-    "THIRD_LOGIN": "Ingresa como tercero",
-    "USER_REGISTER": "Registro de usuario",
-    "PRINCIPAL_DATA": "Datos principales",
-    "SPORT_DATA": "Datos deportivos",
-    "SECONDARY_DATA": "Datos secundarios",
-    "LOCATION_DATA": "Datos de ubicación",
-    "HOME": "Inicio",
-    "SESSION": "Sesión",
+    "SPORTAPP": "SportApp Português",
+    "USER_LOGIN": "Entrar no seu portal de esportes",
+    "THIRD_LOGIN": "Entrar como terceiro",
+    "USER_REGISTER": "inscreva-se como usuário",
+    "PRINCIPAL_DATA": "Dados principais",
+    "SPORT_DATA": "Dados esportivos",
+    "SECONDARY_DATA": "Dados secundarios",
+    "LOCATION_DATA": "dados de ubicação",
+    "HOME": "Começar",
+    "SESSION": "Sessão",
     "EVENTS": "Eventos",
-    "SERVICES": "Servicios",
-    "PRODUCTS": "Productos",
-    "PLANS": "Planes",
-    "PROFILE": "Perfil"
+    "SERVICES": "Serviços",
+    "PRODUCTS": "Produtos",
+    "PLANS": "Planos",
+    "PROFILE": "Perfil",
+    "GAUGE": "Medidor"
   },
   "SUBTITLE": {
-    "GENERAL_DATA": "Datos generales",
-    "SPORTS_PROFILE": "Perfil deportivo",
-    "FOOD_PROFILE": "Perfil alimenticio",
+    "GENERAL_DATA": "Dados gerais",
+    "SPORTS_PROFILE": "Perfil esportivo",
+    "FOOD_PROFILE": "Perfil alimentar",
     "GEOGRAPHIC_PROFILE": "Perfil demográfico",
-    "PLAN_DETAIL": "Detalle de plan",
-    "CONFIGURATION": "Configuración",
+    "PLAN_DETAIL": "Detalhe do plano",
+    "CONFIGURATION": "Configuração",
     "SCHEDULED_EVENTS": "Eventos programados",
     "SEARCH_EVENTS": "Buscar eventos",
     "SEE_ROUTES": "Ver rutas",
-    "ACTUAL_SERVICES": "Servicios actuales",
-    "SEARCH_SERVICES": "Buscar servicios",
-    "ACTUAL_PRODUCTS": "Productos actuales",
-    "SEARCH_PRODUCTS": "Buscar productos",
-    "SPORT_PLAN": "Plan de entrenamiento",
-    "FOOD_PLAN": "Plan alimenticio",
-    "CREATED_EVENTS": "Eventos creados",
-    "CREATE_EVENT": "Crear evento",
-    "CREATED_PRODUCTS": "Productos creados",
-    "CREATE_PRODUCT": "Crear producto",
-    "CREATED_SERVICES": "Servicios creados",
-    "CREATE_SERVICE": "Crear Servicio"
+    "ACTUAL_SERVICES": "Serviços atuais",
+    "SEARCH_SERVICES": "Buscar serviços",
+    "ACTUAL_PRODUCTS": "Produtos atuais",
+    "SEARCH_PRODUCTS": "Buscar produtos",
+    "SPORT_PLAN": "Plano de treinamento",
+    "FOOD_PLAN": "Plano alimentar",
+    "CREATED_EVENTS": "Eventos criados",
+    "CREATE_EVENT": "Criar evento",
+    "CREATED_PRODUCTS": "Produtos criados",
+    "CREATE_PRODUCT": "Criar produto",
+    "CREATED_SERVICES": "Serviços criados",
+    "CREATE_SERVICE": "Criar serviços"
   },
   "LBL": {
-    "USER_NAME": "Nombre de usuario",
-    "USER": "Usuario",
-    "PASSWORD": "Contraseña",
-    "CONFIRMATION_PASSWORD": "Confirma la contraseña",
-    "NAMES": "Nombres",
-    "NAME": "Nombre",
-    "LAST_NAME": "Apellidos",
-    "ID_TYPE": "Tipo de identificación",
+    "USER_NAME": "Nome de usuário",
+    "USER": "Usuário",
+    "PASSWORD": "Senha",
+    "CONFIRMATION_PASSWORD": "Confirme sua senha",
+    "NAMES": "Nomes",
+    "NAME": "Nome",
+    "LAST_NAME": "Sobrenome",
+    "ID_TYPE": "Tipo de identificação",
     "ID_NUMBER": "Número",
-    "SPORT_PRACTICE": "Deportes que practica",
-    "SPORT_INTEREST": "Deportes de interés",
-    "SECONDARY_DATA": "Datos secundarios",
-    "GENRE": "Género",
-    "AGE": "Edad",
-    "BIRTH_DATE": "Fecha de nacimiento",
+    "SPORT_PRACTICE": "Esportes que você pratica",
+    "SPORT_INTEREST": "Esportes de interesse",
+    "SECONDARY_DATA": "Datos secundários",
+    "GENRE": "Gênero",
+    "AGE": "Idade",
+    "BIRTH_DATE": "Data de nascimento",
     "WEIGHT": "Peso (Kg)",
     "HEIGHT": "Altura (cm)",
-    "PLACE_OF_BIRTH": "Lugar de nacimiento",
-    "PLACE_OF_RESIDENCE": "Lugar de residencia",
-    "MONTHS_OF_RESIDENCE": "Meses de residencia",
-    "FREE_CONTRACT": "Plan gratuito",
-    "INTERMEDIATE_CONTRACT": "Plan intermedio",
-    "PREMIUM_CONTRACT": "Plan premium",
+    "PLACE_OF_BIRTH": "Local de nascimento",
+    "PLACE_OF_RESIDENCE": "Lugar de residência",
+    "MONTHS_OF_RESIDENCE": "Meses de residência",
+    "FREE_CONTRACT": "Plano gratuito",
+    "INTERMEDIATE_CONTRACT": "Plano intermediário",
+    "PREMIUM_CONTRACT": "Plano premium",
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
     "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
-    "INSIDE_OF_HOUSE": "Dentro de casa",
-    "OUTSIDE_OF_HOUSE": "Fuera de casa",
-    "ALL_FREE_CONTRACT": "Todos los beneficios del plan gratuito",
-    "ALL_INTERMEDIATE_CONTRACT": "Todos los beneficios del plan intermedio",
-    "DEVELOPER_HELPER": "Ayuda al desarrollador",
+    "INSIDE_OF_HOUSE": "Interior",
+    "OUTSIDE_OF_HOUSE": "Ar livre",
+    "ALL_FREE_CONTRACT": "Todos os benefícios do plano gratuito",
+    "ALL_INTERMEDIATE_CONTRACT": "Todos os benefícios do plano intermediário",
+    "DEVELOPER_HELPER": "Ayuda al desenrollador",
     "ALLERGIES": "Alergias",
-    "SELECT_TYPE": "Selecciona una opción",
-    "PRACTICE_HOURS": "Horas de practica",
+    "SELECT_TYPE": "Selecione uma opção",
+    "PRACTICE_HOURS": "Horas de prática",
     "DISABILITIES": "Incapacidades",
     "PAINS": "Molestias",
-    "SPORTS_HISTORY": "Historia deportiva",
-    "FOODS_PREFERENCE": "Alimentos de preferencia",
-    "INTOLERANCE": "Intolerancias",
+    "SPORTS_HISTORY": "História esportiva",
+    "FOODS_PREFERENCE": "Alimentos de preferência",
+    "INTOLERANCE": "Intolerâncias",
     "LIFE_STYLE": "Estilo de vida",
     "VEGAN": "Vegano",
     "VEGETARIAN": "Vegetariano",
     "SELECT_LANGUAJE": "Selecione um idioma",
-    "SPANISH": "Español",
-    "ENGLISH": "Ingles",
-    "PORTUGUESE": "Portugues",
+    "SPANISH": "Espanhol",
+    "ENGLISH": "Inglês",
+    "PORTUGUESE": "Português",
     "COUNTRY": "Pais",
     "STATE": "Departamento",
-    "CITY": "Ciudad",
-    "FOOD_PLAN": "Plan alimenticio: ",
-    "SPORT_PLAN": "Plan de entrenamiento: ",
+    "CITY": "Cidade",
+    "FOOD_PLAN": "Plano alimentar: ",
+    "SPORT_PLAN": "Plano de trenamento: ",
     "EVENT": "Evento: ",
-    "SERVICE": "Servicio: ",
-    "ROUTE": "Ruta: ",
+    "SERVICE": "Serviço: ",
+    "ROUTE": "Rota: ",
     "SUGGESTED": "⭐Sugerido⭐",
-    "CALENDAR": "Calendario",
-    "LAST_MEASUREMENT": "Última medición",
-    "ROUTINES_FOR_TODAY": "Rutinas para hoy",
-    "DATE": "Fecha: ",
-    "START_PLACE": "Lugar de inicio: ",
-    "DESTINY_PLACE": "Lugar de llegada: ",
-    "SELECT_EVENT": "Selecciona un evento",
-    "SELECT_SERVICE": "Selecciona un servicio",
-    "SELECT_PRODUCT": "Selecciona un producto",
-    "SELECT_SPORT_PLAN": "Selecciona un plan deportivo",
-    "SELECT_FOOD_PLAN": "Selecciona un plan alimenticio",
-    "CONTACT": "Contacto: ",
-    "MANAGER": "Encargado: ",
-    "OBJECTIVES": "Objetivos: ",
-    "ROUTINES": "Rutinas: ",
-    "EXERCISE": "Ejercicio",
-    "CALORIES_1": "(calorías)",
+    "CALENDAR": "Calendário",
+    "LAST_MEASUREMENT": "Última medição",
+    "ROUTINES_FOR_TODAY": "Rotinas para hoje",
+    "DATE": "Data: ",
+    "START_PLACE": "Ponto de partida: ",
+    "DESTINY_PLACE": "Lugar de chegada: ",
+    "SELECT_EVENT": "Seleccione um evento",
+    "SELECT_SERVICE": "Seleccione um serviço",
+    "SELECT_PRODUCT": "Seleccione um produto",
+    "SELECT_SPORT_PLAN": "Seleccione um plano esportivo",
+    "SELECT_FOOD_PLAN": "Seleccione um plano alimentar",
+    "CONTACT": "Contato: ",
+    "MANAGER": "Gerente: ",
+    "OBJECTIVES": "Metas: ",
+    "ROUTINES": "Rotinas: ",
+    "EXERCISE": "Exercício",
+    "CALORIES_1": "(calorias)",
     "MIN_1": "(min)",
-    "SUGGESTED_EXERCISES": "Ejercicios sugeridos: ",
+    "SUGGESTED_EXERCISES": "Exercícios sugeridos: ",
     "SUGGESTED_FOODS": "Alimentos sugeridos: ",
-    "DISTANCE": "Distancia: ",
-    "SEE_ON_MAP": "Ver en el mapa",
-    "SELECT_ROUTE": "Selecciona una ruta",
-    "UBICATION": "Ubicación",
-    "SPORTS_RELATED": "Deportes relacionados",
-    "SPORT_RELATED": "Deporte relacionado",
-    "PRICE": "Precio",
-    "DESCRIPTION": "Descripción",
-    "UBICATION_TYPE": "Ubicación",
-    "CONTRACT_TYPE": "Tipo de servicio",
-    "VERSION": "Versión"
+    "DISTANCE": "Distância: ",
+    "SEE_ON_MAP": "Veja no mapa",
+    "SELECT_ROUTE": "Seleccione uma rota",
+    "UBICATION": "Localização",
+    "SPORTS_RELATED": "Relacionado a esportes",
+    "SPORT_RELATED": "relacionado ao esporte",
+    "PRICE": "Preço",
+    "DESCRIPTION": "Descrição",
+    "UBICATION_TYPE": "Localização",
+    "CONTRACT_TYPE": "Tipo de serviço",
+    "VERSION": "Versão",
+    "USER_ID": "Código de usuário",
+    "WHAT_MODALITY": "Que modalidade será?"
   },
   "PLACEHOLDER": {
-    "USER_1": "Usuario...",
-    "USER_2": "Usuario",
+    "USER_1": "Usuário...",
+    "USER_2": "Usuário",
     "PASSWORD_HIDDEN": "****",
-    "NAMES": "Nombres",
-    "NAME": "Nombre",
-    "LAST_NAME": "Apellidos",
-    "ID_TYPE": "Tipo de identificación",
+    "NAMES": "Nomes",
+    "NAME": "Nome",
+    "LAST_NAME": "Sobrenome",
+    "ID_TYPE": "Tipo de identificação",
     "ID_NUMBER": "Número",
-    "SPORT_PRACTICE": "Deportes que practica",
-    "SPORT_INTEREST": "Deportes de interés",
-    "GENRE": "Género",
-    "YEARS": "Años",
+    "SPORT_PRACTICE": "Esportes que você pratica",
+    "SPORT_INTEREST": "Esportes de interesse",
+    "GENRE": "Gênero",
+    "YEARS": "Anos",
     "MONTS": "Meses",
     "DATE_FORMAT": "yyyy-dd-mm",
     "WEIGHT": "Kg",
     "HEIGHT": "cm",
-    "COUNTRY": "Pais",
+    "COUNTRY": "País",
     "STATE": "Departamento",
-    "CITY": "Ciudad",
+    "CITY": "Cidade",
     "MONTHS_OF_RESIDENCE": "00",
     "HOUR": "1 hora",
-    "DESCRIPTION": "Descripción",
-    "SPORT": "Deporte",
-    "INSIDE_OF_HOUSE": "Dentro de casa",
-    "OUTSIDE_OF_HOUSE": "Fuera de casa",
-    "FREE_CONTRACT": "Plan gratuito",
-    "INTERMEDIATE_CONTRACT": "Plan intermedio",
-    "PREMIUM_CONTRACT": "Plan premium",
+    "DESCRIPTION": "Descrição",
+    "SPORT": "Esporte",
+    "INSIDE_OF_HOUSE": "Interior",
+    "OUTSIDE_OF_HOUSE": "Ar livre",
+    "FREE_CONTRACT": "Plano gratuito",
+    "INTERMEDIATE_CONTRACT": "Plano intermediário",
+    "PREMIUM_CONTRACT": "Plano premium",
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
     "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
-    "PRICE": "Precio"
+    "PRICE": "Preço"
   },
   "BTN": {
     "CONTINUE": "Continuar",
-    "NOT_REGISTERED_YET": "¿Aún no estás registrado?",
-    "LOGIN_THIRD": "Ingresa como tercero",
-    "LOGIN_USER": "Ingresa como usuario",
-    "RETURN": "Volver",
-    "EXIT": "Salir",
+    "NOT_REGISTERED_YET": "¿Você não está registrado??",
+    "LOGIN_THIRD": "Ingresa como terceiro",
+    "LOGIN_USER": "Ingresa como usuário",
+    "RETURN": "Retornar",
+    "EXIT": "Sair",
     "PROFILE": "Perfil",
-    "REGISTER": "Registrar",
-    "ACTUAL_PLAN": "Plan actual",
-    "UPDATE": "Actualizar",
-    "FREE_CONTRACT": "Plan gratuito",
-    "INTERMEDIATE_CONTRACT": "Plan intermedio",
-    "PREMIUM_CONTRACT": "Plan premium",
+    "REGISTER": "Registro",
+    "ACTUAL_PLAN": "Plano atual",
+    "UPDATE": "Atualizar",
+    "FREE_CONTRACT": "Plano gratuito",
+    "INTERMEDIATE_CONTRACT": "Plano intermediário",
+    "PREMIUM_CONTRACT": "Plano premium",
     "SCHEDULED_EVENTS": "Ver eventos",
-    "SPORT_PLANS": "Ver planes de entrenamiento",
-    "FOOD_PLANS": "Ver planes alimenticios",
-    "ROUTES": "Ver rutas",
-    "SERVICES": "Ver servicios",
+    "SPORT_PLANS": "Ver planos de treinamento",
+    "FOOD_PLANS": "Ver planos de refeições",
+    "ROUTES": "Ver rotas",
+    "SERVICES": "Ver serviços",
     "CANCEL": "Cancelar",
-    "ENROLL": "Inscribir",
-    "CREATE_ROUTINE": "Crear rutina",
-    "SELECT_SPORT_PLAN": "Seleccionar plan deportivo",
-    "SEE_DETAILS": "Ver detalles 👉",
-    "CLOSE": "Cerrar",
-    "CREATE_EVENT": "Crear evento",
-    "CREATE_PRODUCT": "Crear producto",
-    "CREATE_SERVICE": "Crear Servicio",
+    "ENROLL": "Matricular",
+    "CREATE_ROUTINE": "Criar rotina",
+    "SELECT_SPORT_PLAN": "Selecione o plano de esportes",
+    "SEE_DETAILS": "Veja detalhes 👉",
+    "CLOSE": "Fechar",
+    "CREATE_EVENT": "Criar evento",
+    "CREATE_PRODUCT": "Criar produto",
+    "CREATE_SERVICE": "Criar Serviço",
     "DELETE": "Eliminar"
   },
   "ERR": {
@@ -201,93 +204,93 @@
     "FREE_CONTRACT_SERVICES": [
       {
         "ID": "01",
-        "NAME": "Entrenamiento en base a caracteristicas fisiológicas"
+        "NAME": "Treinamento baseado em características fisiológicas"
       },
       {
         "ID": "02",
-        "NAME": "Entrenamiento en base a lugar de residencia"
+        "NAME": "Treinamento baseado no local de residência"
       },
       {
         "ID": "03",
-        "NAME": "Entrenamiento en base al historial deportivo"
+        "NAME": "Treinamento baseado na história do esporte"
       },
       {
         "ID": "04",
-        "NAME": "Sugerencia de rutas o eventos"
+        "NAME": "Sugestão de roteiros ou eventos"
       },
       {
         "ID": "05",
-        "NAME": "Sugerencia de entrenamientos dentro de casa"
+        "NAME": "Sugestão de treino indoor"
       },
       {
         "ID": "06",
-        "NAME": "Sugerencia de entrenamientos fuera de casa"
+        "NAME": "Sugestão de treinos fora de casa"
       },
       {
         "ID": "07",
-        "NAME": "Sugerencia de entrega de alimentación complementaria y de recuperación"
+        "NAME": "Sugestão de alimentação suplementar e alimentação de recuperação"
       },
       {
         "ID": "08",
-        "NAME": "Entrega de alimentos a domicilio"
+        "NAME": "entrega de comida em casa"
       },
       {
         "ID": "09",
-        "NAME": "Integración con aplicaciones externas"
+        "NAME": "Integração com aplicativos externos"
       },
       {
         "ID": "10",
-        "NAME": "Indicadores FTP y VO2max para ciclistas y atletas"
+        "NAME": "Indicadores de FTP e VO2max para ciclistas e atletas"
       },
       {
         "ID": "11",
-        "NAME": "Calendario de programación de eventos de entrenamiento"
+        "NAME": "Calendário de Agendamento de Eventos de Treinamento"
       }
     ],
     "INTERMEDIATE_CONTRACT_SERVICES": [
       {
         "ID": "01",
-        "NAME": "Seguimiento a tiempo real"
+        "NAME": "rastreamento em tempo real"
       },
       {
         "ID": "02",
-        "NAME": "Conexión con diversos dispositivos"
+        "NAME": "Conexão com vários dispositivos"
       },
       {
         "ID": "03",
-        "NAME": "Seguro médico de riesgo basado en monitoreo"
+        "NAME": "Seguro de saúde de risco baseado em monitoramento"
       },
       {
         "ID": "04",
-        "NAME": "Detección de cambios sesiones deportivas"
+        "NAME": "Alterar sessões de esportes de detecção"
       },
       {
         "ID": "05",
-        "NAME": "Detección de cambios de sesiones deportivas en base rendimiento corporal"
+        "NAME": "Detecção de alterações em sessões esportivas com base no desempenho corporal"
       }
     ],
     "PREMIUM_CONTRACT_SERVICES": [
       {
         "ID": "01",
-        "NAME": "Entrenador personalizado que ejecuta rutinas en base  al historial  clinico y deportivo"
+        "NAME": "Treinador personalizado que executa rotinas com base no histórico clínico e esportivo"
       },
       {
         "ID": "02",
-        "NAME": "Deportólogo de forma virtual / presencial"
+        "NAME": "Deportologista virtual / presencial"
       },
       {
         "ID": "03",
-        "NAME": "Entrenador diseña rutinas en base a historias de ejercicios y rutinas"
+        "NAME": "O treinador projeta rotinas com base em histórias e rotinas de exercícios"
       }
     ],
     "ID_TYPES": [
       {
         "ID": "CC",
-        "NAME": "Cédula de ciudadanía"
+        "NAME": "Cartão de cidadania"
       },
       {
         "ID": "TI",
-        "NAME": "Tarjeta de identidad"
+        "NAME": "Carteira de identidade"
       }
     ],
     "GERE_TYPES": [
@@ -297,7 +300,7 @@
       },
       {
         "ID": "F",
-        "NAME": "Femenino"
+        "NAME": "Fêmea"
       },
       {
         "ID": "O",
@@ -307,11 +310,11 @@
     "FOOD_CATEGORY": [
       {
         "ID": "SUGAR",
-        "NAME": "Azucares"
+        "NAME": "Açúcares"
       },
       {
         "ID": "FATS",
-        "NAME": "Grasas"
+        "NAME": "Gorduras"
       },
       {
         "ID": "CARBOHYDRATES",
@@ -319,7 +322,7 @@
       },
       {
         "ID": "HYDRATION",
-        "NAME": "Hidratación"
+        "NAME": "Hidratação"
       }
     ],
     "PLAN_TYPE": [
@@ -329,7 +332,7 @@
       },
       {
         "ID": "INTERMEDIATE_CONTRACT",
-        "NAME": "Intermedio"
+        "NAME": "Intermediário"
       },
       {
         "ID": "PREMIUM_CONTRACT",
@@ -339,35 +342,35 @@
     "USER_TYPE": [
       {
         "ID": "USER",
-        "NAME": "Deportista"
+        "NAME": "Desportista"
       },
       {
         "ID": "THIRD",
-        "NAME": "Terero"
+        "NAME": "Terceiro"
       }
     ],
     "EVENT_CATEGORY": [
       {
         "ID": "INSIDE_OF_HOUSE",
-        "NAME": "Dentro de casa"
-      },
+        "NAME": "Interior"
+      },  
       {
         "ID": "OUTSIDE_OF_HOUSE",
-        "NAME": "Fuera de casa"
+        "NAME": "Ar livre"
       }
     ],
     "SERVICE_CATEGORY": [
       {
         "ID": "HEALT",
-        "NAME": "Salud"
+        "NAME": "Saúde"
       },
       {
         "ID": "SPORT",
-        "NAME": "Deportes"
+        "NAME": "Esportes"
       },
       {
         "ID": "FOOD",
-        "NAME": "Comida"
+        "NAME": "Refeição"
       },
       {
         "ID": "TRANSPORT",

@@ -7,6 +7,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IEvents,
   IResEvent,
@@ -55,6 +56,15 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
   }
   get getEventsListScheduled(): IEvents[] {
     return this._statusService.getEventsListScheduled();
+  }
+  get getEventIdSports$(): number {
+    return this._eventSelected.idSport;
+  }
+  get getEventSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getEventIdSports$)
+      .map((sport) => sport.name)[0];
   }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;

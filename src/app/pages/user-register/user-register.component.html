@@ -250,7 +250,7 @@
               <input
                 id="age_input"
                 formControlName="age"
-                type="string"
+                type="date"
                 class="form-control ds-input"
                 aria-describedby="age_input"
                 [placeholder]="'PLACEHOLDER.DATE_FORMAT' | translate"
@@ -481,9 +481,9 @@
               {{ "BTN.REGISTER" | translate }}
             </button>
           </div>
-          :::formUserRegister{{ formUserRegister.value | json }}
         </div>
       </div>
     </div>
   </form>
+  <p>::: formUserRegister.value {{ formUserRegister.value | json }}</p>
 </div>

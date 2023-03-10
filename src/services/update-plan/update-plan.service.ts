@@ -1,12 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
-import {
-  IReqPlan,
-  IResPlan,
-  IPlan,
-} from "src/models/update-plan/update-plan.interface";
+import { IResPlan, IPlan } from "src/models/update-plan/update-plan.interface";
 import {
   MockResErrorPlan,
   MockResSuccessGetPlan,
@@ -21,40 +17,29 @@ import {
  */
 export class UpdatePlanService {
   private _baseUrl: string;
+  private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
-    this._baseUrl = environment.api.base + environment.api.update_plan;
-    // this._baseUrl =  "http://localhost:3000/Plan";
+    // this._baseUrl = "https://miso-back-upgrade-6equtupdiq-uc.a.run.app/payment/user/{{iUser}}/purchase-plan";
+    // XXX CORS
+    this._baseUrl =
+      environment.api.base + "/payment/{{iUser}}/purchase-plan/plan-name";
+    this._httpHeaders = new HttpHeaders(environment.api.headers);
   }
-  getAll(): Observable<IResPlan> {
-    return this._http.get<IResPlan>(this._baseUrl);
-    // const mock = of(MockResSuccessGetAllPlan);
+  updateContract(idUser: number, data: IPlan): Observable<IResPlan> {
+    return this._http
+      .get<IResPlan>(
+        this._baseUrl.replace("{{iUser}}", idUser + "") + "/" + data.idPlan,
+        { headers: this._httpHeaders }
+      )
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("🚀 XXX - UpdatePlanService - catchError - err : ", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockResSuccessPlan);
     // const mock = of(MockResErrorPlan);
     // return mock;
-  }
-  get(idUser: number): Observable<IResPlan> {
-    // return this._http.get<IResPlan>(`${this._baseUrl}/${idUser}`);
-    const mock = of(MockResSuccessGetPlan);
-    // const mock = of(MockResErrorPlan);
-    return mock;
-  }
-  create(data: IPlan): Observable<IResPlan> {
-    // const req: IReqPlan = { request: data, date: new Date() };
-    // return this._http.post<IResPlan>(this._baseUrl, req);
-    const mock = of(MockResSuccessPlan);
-    // const mock = of(MockResErrorPlan);
-    return mock;
-  }
-  update(idUser: number, data: IPlan): Observable<IResPlan> {
-    // const req: IReqPlan = { request: data, date: new Date() };
-    // return this._http.put<IResPlan>(`${this._baseUrl}/${idUser}`, req);
-    const mock = of(MockResSuccessPlan);
-    // const mock = of(MockResErrorPlan);
-    return mock;
-  }
-  delete(idUser: number): Observable<IResPlan> {
-    // return this._http.delete<IResPlan>(`${this._baseUrl}/${idUser}`);
-    const mock = of(MockResSuccessPlan);
-    // const mock = of(MockResErrorPlan);
-    return mock;
   }
 }

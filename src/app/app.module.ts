@@ -43,7 +43,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ThirdEventsModule } from "./pages/third/third-events/third-events.module";
 import { ThirdServicesModule } from "./pages/third/third-services/third-services.module";
 import { ThirdProductsModule } from "./pages/third/third-products/third-products.module";
-
+import { NgxGaugeModule } from "ngx-gauge";
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -74,6 +74,7 @@ registerLocaleData(localePt, "pt-BR");
         deps: [HttpClient],
       },
     }),
+    NgxGaugeModule,
     UserHomeModule,
     UserSessionModule,
     UserEventsModule,
@@ -102,7 +103,7 @@ registerLocaleData(localePt, "pt-BR");
     HttpClient,
     {
       provide: LOCALE_ID,
-      useValue: "es-*",
+      useValue: "es-CO",
     },
   ],
   bootstrap: [AppComponent],

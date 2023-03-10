@@ -14,13 +14,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public sportsList: ISports[] = [];
   constructor(
-    private _statusService: StatusService,
-    private _sportsService: SportsService
+    private _statusService: StatusService // private _sportsService: SportsService
   ) {}
 
   ngOnInit() {
     console.log("XXX - UserProfileComponent (Contiene el perfil del usuario)");
-    this._loadSports();
+    // this._loadSports();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -29,22 +28,22 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getSportsService$(): Observable<IResSports> {
-    return this._sportsService.getSports();
-  }
-  private _loadSports(): void {
-    this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResSports) => {
-        if (!!res && res.success) {
-          this._statusService.setSportsList(res.result!);
-          console.log("XXX - UserProfileComponent - _loadSports - res", res);
-        }
-        this._statusService.spinnerHide();
-      },
-      (err) => {
-        console.error(err);
-        this._statusService.spinnerHide();
-      }
-    );
-  }
+  // get getSportsService$(): Observable<IResSports> {
+  //   return this._sportsService.getSports();
+  // }
+  // private _loadSports(): void {
+  //   this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
+  //     (res: IResSports) => {
+  //       if (!!res && res.success) {
+  //         this._statusService.setSportsList(res.result!);
+  //         console.log("XXX - UserProfileComponent - _loadSports - res", res);
+  //       }
+  //       this._statusService.spinnerHide();
+  //     },
+  //     (err) => {
+  //       console.error(err);
+  //       this._statusService.spinnerHide();
+  //     }
+  //   );
+  // }
 }

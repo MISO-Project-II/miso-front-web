@@ -25,41 +25,9 @@ export const SPORTS_PRACTICE: string = "SPORTS_PRACTICE";
 export const PLACE_OF_BIRTH: string = "PLACE_OF_BIRTH";
 export const PLACE_OF_RESIDENCE: string = "PLACE_OF_RESIDENCE";
 
-// export const LANG: GENERAL_LIST[] = [
-//     {
-//       ID: "es",
-//       NAME: "Español"
-//     },
-//     {
-//       ID: "en",
-//       NAME: "Inglés"
-//     },
-//     {
-//       ID: "pt",
-//       NAME: "Portugués"
-//     }
-// ]
-// export const ID_TYPES: GENERAL_LIST[] = [
-//   {
-//     ID: "CC",
-//     NAME: "Cédula de ciudadanía"
-//   },
-//   {
-//     ID: "TI",
-//     NAME: "Tarjeta de identidad"
-//   },
-// ]
-// export const GERE_TYPES: GENERAL_LIST[] = [
-//   {
-//     ID: "M",
-//     NAME: "Masculino"
-//   },
-//   {
-//     ID: "F",
-//     NAME: "Femenino"
-//   },
-//   {
-//     ID: "O",
-//     NAME: "Otro"
-//   }
-// ]
+export declare type NgxGaugeType = "full" | "arch" | "semi";
+export declare type NgxGaugeCap = "round" | "butt";
+
+export const START: string = "START";
+export const STOP: string = "STOP";
+export const RESUME: string = "RESUME";

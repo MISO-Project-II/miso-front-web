@@ -7,6 +7,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IProducts,
   IResProduct,
@@ -57,6 +58,15 @@ export class CreatedProductsComponent implements OnInit, OnDestroy {
   }
   get getProductsListScheduled(): IProducts[] {
     return this._statusService.getProductsListScheduled();
+  }
+  get getProductIdSports$(): number {
+    return this._productSelected.idSport;
+  }
+  get getProductSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
+      .map((sport) => sport.name)[0];
   }
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;

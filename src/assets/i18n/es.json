@@ -14,7 +14,8 @@
     "SERVICES": "Servicios",
     "PRODUCTS": "Productos",
     "PLANS": "Planes",
-    "PROFILE": "Perfil"
+    "PROFILE": "Perfil",
+    "GAUGE": "Indicadores"
   },
   "SUBTITLE": {
     "GENERAL_DATA": "Datos generales",
@@ -125,7 +126,9 @@
     "DESCRIPTION": "Descripción",
     "UBICATION_TYPE": "Ubicación",
     "CONTRACT_TYPE": "Tipo de servicio",
-    "VERSION": "Versión"
+    "VERSION": "Versión",
+    "USER_ID": "Código de usuario",
+    "WHAT_MODALITY": "¿Qué modalidad será?"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",

@@ -7,6 +7,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IEvents,
   IResEvents,
@@ -49,16 +50,31 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   get getEvent$(): IEvents {
     return this._eventSelected;
   }
-  public setEvent(eventSelected: IEvents) {
-    this._eventSelected = eventSelected;
+  get getEventDate$(): Date {
+    return new Date(this._eventSelected.date);
+  }
+  get getEventIdSports$(): number {
+    return this._eventSelected.idSport;
+  }
+  get getEventSportSelected$(): string {
+    return this._statusService
+      .getSportsList()
+      .filter((sport: ISports) => sport.idsports === this.getEventIdSports$)
+      .map((sport) => sport.name)[0];
+  }
+  get getEventIdUserCreator$(): number {
+    return this._eventSelected.idUserCreator;
   }
   get getEventsService$(): Observable<IResUserEvents> {
     return this._eventsService.getUserEventSportsman(
       this._statusService.getGeneralStatus().userId
     );
   }
-  get getEventsListScheduled(): IEvents[] {
+  get getEventsListScheduled$(): IEvents[] {
     return this._statusService.getEventsListScheduled();
+  }
+  public setEvent(eventSelected: IEvents) {
+    this._eventSelected = eventSelected;
   }
   private _loadEventsScheduled(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -85,17 +101,17 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
    * Cancelar evento inscrito por el usuario
    */
   private _onSubmit(): void {
-    console.log("XXX - _onSubmit", this.getEventsListScheduled);
+    console.log("XXX - _onSubmit", this.getEventsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
-    for (let index = 0; index < this.getEventsListScheduled.length; index++) {
-      data.push(this.getEventsListScheduled[index].idEvent!);
+    for (let index = 0; index < this.getEventsListScheduled$.length; index++) {
+      data.push(this.getEventsListScheduled$[index].idEvent!);
     }
     this._callService(data);
   }
 
   public delEvent(item: any): void {
-    const eventsListScheduled = this.getEventsListScheduled.filter(
+    const eventsListScheduled = this.getEventsListScheduled$.filter(
       (data: IEvents) => data.idEvent != item.idEvent
     );
     this._statusService.setEventsListScheduled(eventsListScheduled);

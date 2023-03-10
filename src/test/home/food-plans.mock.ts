@@ -1,62 +1,104 @@
-import {
-  IResFoodPlans,
-  IFoodPlans,
-} from "src/models/home/food-plans.interface";
-import { MockGetAllFoodRoutines } from "../routines/food-routines.mock";
+import { IFoodPlans } from "src/models/home/food-plans.interface";
 
-// Data request
-export const MockFoodPlans: IFoodPlans = {
-  title: "Recuperacion",
-  description: "Este plan es recuperacion",
-  foodRoutines: MockGetAllFoodRoutines,
-};
-// Data Response
-export const MockGetFoodPlans: IFoodPlans = {
-  id: "1",
-  title: "Recuperacion",
-  description: "Este plan es recuperacion",
-  foodRoutines: MockGetAllFoodRoutines,
-};
 export const MockGetAllFoodPlans: IFoodPlans[] = [
   {
-    id: "1",
-    title: "Recuperacion",
-    description: "Este plan es recuperacion",
-    foodRoutines: MockGetAllFoodRoutines,
+    idFoodPlan: 1,
+    name: "Plan Más carne que tomate",
+    description: "Ganar mayor masa muscular",
+    planType: "FREE",
+    foodRoutineList: [
+      {
+        idFoodRoutine: 3,
+        foodFrecuency: {
+          idFoodFrecuency: 1,
+          minute: 0,
+          hour: 1,
+          dayLetter: "X",
+        },
+        food: [],
+        name: "Carne",
+        description: "Solo Carne",
+      },
+      {
+        idFoodRoutine: 2,
+        foodFrecuency: {
+          idFoodFrecuency: 1,
+          minute: 0,
+          hour: 1,
+          dayLetter: "X",
+        },
+        food: [
+          {
+            idFood: 2,
+            nameFood: "Tomate",
+            calories: 1,
+            description: "tomate",
+            idUbication: "co-",
+            foodType: {
+              idFoodType: 1,
+              name: "verdura",
+              isVegan: 1,
+              isVegetarian: 1,
+            },
+          },
+        ],
+        name: "dolore ea dolor velit exercitation",
+        description: "ad est consequat",
+      },
+    ],
   },
   {
-    id: "2",
-    title: "Bajar de peso",
-    description: "Este plan es bajar de peso",
-    foodRoutines: MockGetAllFoodRoutines,
+    idFoodPlan: 2,
+    name: "Plan Más carne ",
+    description: "Ganar mayor masa muscular solo con carne",
+    planType: "PREMIUM",
+    foodRoutineList: [
+      {
+        idFoodRoutine: 3,
+        foodFrecuency: {
+          idFoodFrecuency: 1,
+          minute: 0,
+          hour: 1,
+          dayLetter: "X",
+        },
+        food: [],
+        name: "Carne",
+        description: "Solo Carne",
+      },
+    ],
   },
   {
-    id: "3",
-    title: "Aumentar masa muscular",
-    description: "Este plan es aumentar masa muscular",
-    foodRoutines: MockGetAllFoodRoutines,
+    idFoodPlan: 3,
+    name: "Plan Más carne que tomate II",
+    description: "Ganar mayor masa muscular II",
+    planType: "FREE",
+    foodRoutineList: [
+      {
+        idFoodRoutine: 2,
+        foodFrecuency: {
+          idFoodFrecuency: 1,
+          minute: 0,
+          hour: 1,
+          dayLetter: "X",
+        },
+        food: [
+          {
+            idFood: 2,
+            nameFood: "Tomate",
+            calories: 1,
+            description: "tomate",
+            idUbication: "co-",
+            foodType: {
+              idFoodType: 1,
+              name: "verdura",
+              isVegan: 1,
+              isVegetarian: 1,
+            },
+          },
+        ],
+        name: "dolore ea dolor velit exercitation",
+        description: "ad est consequat",
+      },
+    ],
   },
 ];
-
-// Response
-// export const MockResSuccessGetFoodPlans: IResFoodPlans = {
-//   result: MockGetAllFoodPlans,
-//   success: true,
-//   message: "message",
-// };
-export const MockResSuccessGetAllFoodPlans: IResFoodPlans = {
-  result: MockGetAllFoodPlans,
-  success: true,
-  message: "message",
-};
-
-export const MockResSuccessFoodPlans: IResFoodPlans = {
-  result: null,
-  success: true,
-  message: "message",
-};
-export const MockResErrorFoodPlans: IResFoodPlans = {
-  result: null,
-  success: false,
-  message: "Error FoodPlans",
-};

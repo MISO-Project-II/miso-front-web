@@ -1,9 +1,8 @@
-import { ISportRoutines } from "src/models/routines/sport-routines.interface";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
-  IResSportPlans,
   ISportPlans,
+  SportRoutineList,
 } from "src/models/home/sport-plans.interface";
 import {
   IResUserData,
@@ -23,38 +22,41 @@ import { StatusModel } from "src/models/local/status-model";
   templateUrl: "./sport-plan.component.html",
   styleUrls: ["./sport-plan.component.scss"],
 })
-export class SportPlanComponent implements OnInit {
+export class SportPlanComponent implements OnInit, OnDestroy {
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   private _sportPlanSelected: ISportPlans;
-  private _sportRoutines: ISportRoutines;
+  private _sportRoutines: SportRoutineList;
   private _userData: IUserData;
-  private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _sportPlansService: SportPlansService,
-    private _statusService: StatusService,
-    private _userDataService: UserDataService
+    private _statusService: StatusService
   ) {}
 
   ngOnInit() {
-    this._loadSportPlans();
+    console.log("🚀 XXX - SportPlanComponent : ");
   }
-  get getGeneralStatus(): StatusModel {
+  ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.complete();
+  }
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getSportPlanService$(): Observable<IResSportPlans> {
+  get getSportPlanService$(): Observable<ISportPlans[]> {
     return this._sportPlansService.getSportPlan();
   }
   get getSportPlan$(): ISportPlans {
     return this._sportPlanSelected;
   }
-  get getSportRoutines$(): ISportRoutines {
+  get getSportRoutines$(): SportRoutineList {
     return this._sportRoutines;
   }
   public setSportPlan(sportPlanSelected: ISportPlans) {
     this._sportPlanSelected = sportPlanSelected;
   }
-  public setRoutine(sportRoutines: ISportRoutines) {
+  public setRoutine(sportRoutines: SportRoutineList) {
     this._sportRoutines = sportRoutines;
   }
   get getSportPlansList$(): ISportPlans[] {
@@ -108,19 +110,4 @@ export class SportPlanComponent implements OnInit {
   //       },
   //     });
   // }
-  private _loadSportPlans(): void {
-    this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResSportPlans) => {
-        if (!!res && res.success) {
-          console.log("🚀 XXX - _loadSportPlans - res : ", JSON.stringify(res));
-          this._statusService.setSportPlansList(res.result!);
-        }
-        this._statusService.spinnerHide();
-      },
-      (err) => {
-        console.error(err);
-        this._statusService.spinnerHide();
-      }
-    );
-  }
 }

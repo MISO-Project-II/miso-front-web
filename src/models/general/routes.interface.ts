@@ -1,15 +1,12 @@
 import { IGenericRequest, IGenericResponse } from "../local/generic.interface";
 
 export interface IRoutes {
-  id?: number;
+  idPath?: number;
   title: string;
   description: string;
-  idStartPlace: number;
-  startPlace: string;
-  destinyPlace: string;
-  urlRoute: string;
+  initPath: string;
+  endPath: string;
   distance: number;
-}
-export interface IResRoutes extends IGenericResponse {
-  result: IRoutes[] | null;
+  map: string;
+  imageUrl: string;
 }

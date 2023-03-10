@@ -8,6 +8,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { ISports } from "src/models/general/sports.interface";
 import {
   IProducts,
   IResProduct,
@@ -28,6 +29,7 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class CreateProductsComponent implements OnInit, OnDestroy {
   public formUserCreateProduct: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
+  public sportName: string;
   constructor(
     private _statusService: StatusService,
     private _productsService: ProductsService
@@ -46,10 +48,17 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
       name: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
       price: new FormControl("", [Validators.required]),
-      IdSport: new FormControl("Futbol"), // XXX
-      ubicationType: new FormControl(""),
-      contractType: new FormControl(""),
+      IdSport: new FormControl("", [Validators.required]),
+      eventType: new FormControl("", [Validators.required]),
+      contractType: new FormControl("", [Validators.required]),
     });
+  }
+  get getSports$(): ISports[] {
+    return this._statusService.getSportsList();
+  }
+  public addSport(item: ISports): void {
+    this.formUserCreateProduct.get("IdSport")?.patchValue(item?.idsports);
+    this.sportName = item.name;
   }
   get getForm() {
     return this.formUserCreateProduct.controls;
@@ -68,8 +77,8 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
     return this.formUserCreateProduct.get("IdSport");
   }
 
-  get getUbicationType() {
-    return this.formUserCreateProduct.get("ubicationType");
+  get getEventType() {
+    return this.formUserCreateProduct.get("eventType");
   }
   get getContractType() {
     return this.formUserCreateProduct.get("contractType");
@@ -88,9 +97,9 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
       description: this.getDescription?.value,
       price: this.getPrice?.value,
       idUserCreator: this.getGeneralStatus.userId,
-      idSport: 1,
-      productType: OUTSIDE_OF_HOUSE,
-      contractType: FREE_CONTRACT,
+      idSport: this.getIdSport?.value,
+      eventType: this.getEventType?.value,
+      contractType: this.getContractType?.value,
     };
     this._callService(data);
   }

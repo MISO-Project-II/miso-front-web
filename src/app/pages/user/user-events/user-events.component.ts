@@ -7,7 +7,7 @@ import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
 import { RoutesService } from "src/services/general/routes.service";
-import { IResRoutes } from "src/models/general/routes.interface";
+import { IRoutes } from "src/models/general/routes.interface";
 
 @Component({
   selector: "app-user-events",
@@ -31,13 +31,13 @@ export class UserEventsComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
   get getEventsService$(): Observable<IResEvents> {
     return this._eventsService.getEvents();
   }
-  get getRoutesService$(): Observable<IResRoutes> {
+  get getRoutesService$(): Observable<IRoutes[]> {
     return this._routesService.getRoutes();
   }
   private _loadEvents(): void {
@@ -58,10 +58,10 @@ export class UserEventsComponent implements OnInit, OnDestroy {
 
   private _loadRoutes(): void {
     this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: IResRoutes) => {
-        if (!!res && res.success) {
+      (res: IRoutes[]) => {
+        if (!!res) {
           console.log("XXX - UserEventsComponent - _loadRoutes - res", res);
-          this._statusService.setRoutesList(res.result!);
+          this._statusService.setRoutesList(res!);
         }
       },
       (err) => {
