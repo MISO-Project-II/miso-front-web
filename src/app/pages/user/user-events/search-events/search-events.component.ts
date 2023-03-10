@@ -40,7 +40,7 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
     private _eventsService: EventsService,
     private _statusService: StatusService,
     private _userDataService: UserDataService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     console.log("XXX - SearchEventsComponent (Eventos que ya existen)");
@@ -168,12 +168,12 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
         }
       );
   }
-  @HostListener('window:setEventById', ['$event'])
+  @HostListener("window:setEventById", ["$event"])
   setEventById($event: CustomEvent) {
     let idEvent = Number($event.detail || "0");
     let interval = setInterval(() => {
       if (!this.loading) {
-        let event = this.eventsList.find(e => e.idEvent == idEvent);
+        let event = this.eventsList.find((e) => e.idEvent == idEvent);
         if (event) {
           this.setEvent(event);
         }
