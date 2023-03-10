@@ -262,8 +262,8 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       // sportInterest: this.sportInterest?.value,
       // Datos secundarios
       gender: this.genre?.value,
-      age: Date_yyyymmdd(this.age?.value),
-      // age: new Date(this.age?.value) + "",
+      // age: Date_yyyymmdd(this.age?.value),
+      age: this.age?.value,
       weight: this.weight?.value,
       height: this.height?.value,
       // Datos de ubicacion

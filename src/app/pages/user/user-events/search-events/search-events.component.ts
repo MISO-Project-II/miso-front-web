@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -31,6 +31,8 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   public eventNameUserCreator: IUserData;
+  eventsList: IEvents[] = [];
+  loading: boolean = true;
 
   private _eventSelected: IEvents;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
@@ -42,6 +44,8 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("XXX - SearchEventsComponent (Eventos que ya existen)");
+    this.eventsList = this.getEventsList$;
+    this.loading = false;
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -163,5 +167,18 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }
       );
+  }
+  @HostListener("window:setEventById", ["$event"])
+  setEventById($event: CustomEvent) {
+    let idEvent = Number($event.detail || "0");
+    let interval = setInterval(() => {
+      if (!this.loading) {
+        let event = this.eventsList.find((e) => e.idEvent == idEvent);
+        if (event) {
+          this.setEvent(event);
+        }
+        clearInterval(interval);
+      }
+    }, 1000);
   }
 }

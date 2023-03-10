@@ -2,177 +2,152 @@
   <hr />
   <div class="d-flex min-width row justify-content-center">
     <div class="col-12 col-md-6 max-width mx-auto">
-      <div class="register-data mb-3">
-        <app-ds-title [title]="'Plan de entrenamiento sugerido'"></app-ds-title>
-        <table class="table table-hover" style="background-color: #fff">
-          <tbody>
-            <tr>
-              <td>
-                <p>Calentamiento</p>
-              </td>
-              <td>
-                <p>100 calorías</p>
-              </td>
-              <td>
-                <p>15 min</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Bicicleta estática</p>
-              </td>
-              <td>
-                <p>400 calorías</p>
-              </td>
-              <td>
-                <p>30 min</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Pesas</p>
-              </td>
-              <td>
-                <p>500 calorías</p>
-              </td>
-              <td>
-                <p>30 min</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <details [open]="true">
+        <summary>
+          <app-ds-title
+            [title]="'TITLE.SUGGESTED_TRAINING_PLAN' | translate"
+          ></app-ds-title>
+        </summary>
+        <div class="table-container">
+          <table class="table table-hover" style="background-color: #fff">
+            <tbody>
+              <tr *ngFor="let routine of sportRoutinesRecommended">
+                <td>
+                  <p>{{ routine.name }}</p>
+                </td>
+                <td>
+                  <p>{{ routine.description }}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="d-flex justify-content-end mb-3">
           <button
             id="btn-continue"
             type="button"
             class="btn ds-button pe-3 ps-3"
+            [routerLink]="['/usuario/planes']"
           >
-            Ver todos los planes
+            {{ "BTN.SPORT_PLANS" | translate }}
           </button>
         </div>
-      </div>
-      <div class="register-data mb-3">
-        <app-ds-title [title]="'Plan alimenticio sugerido'"></app-ds-title>
-        <table class="table table-hover" style="background-color: #fff">
-          <tbody>
-            <tr>
-              <td>
-                <p>Banano</p>
-              </td>
-              <td>
-                <p>100 calorías</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Barra energética</p>
-              </td>
-              <td>
-                <p>400 calorías</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Agua</p>
-              </td>
-              <td>
-                <p>1 litro</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      </details>
+
+      <details [open]="true">
+        <summary>
+          <app-ds-title
+            [title]="'TITLE.SUGGESTED_MEAL_PLAN' | translate"
+          ></app-ds-title>
+        </summary>
+        <div class="table-container">
+          <table class="table table-hover" style="background-color: #fff">
+            <tbody>
+              <tr *ngFor="let food of foodRoutinesRecommended">
+                <td>
+                  <p>{{ food.name }}</p>
+                </td>
+                <td>
+                  <p>{{ food.description }}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="d-flex justify-content-end mb-3">
           <button
             id="btn-continue"
             type="button"
             class="btn ds-button pe-3 ps-3"
+            [routerLink]="['/usuario/planes']"
           >
-            Ver todos los planes
+            {{ "BTN.FOOD_PLANS" | translate }}
           </button>
         </div>
-      </div>
-      <div class="register-data mb-3">
-        <app-ds-title [title]="'Ruta sugerida'"></app-ds-title>
-        <table class="table table-hover" style="background-color: #fff">
-          <tbody>
-            <tr>
-              <td>
-                <p>Ruta bicicleta</p>
-              </td>
-              <td>
-                <p>45 Km</p>
-              </td>
-              <td>
-                <p>Tunja</p>
-              </td>
-              <td>
-                <p>Paipa</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      </details>
+
+      <details [open]="true">
+        <summary>
+          <app-ds-title
+            [title]="'TITLE.SUGGESTED_ROUTES' | translate"
+          ></app-ds-title>
+        </summary>
+        <div class="table-container">
+          <table class="table table-hover" style="background-color: #fff">
+            <tbody>
+              <tr *ngFor="let route of routesRecommended">
+                <td>
+                  <p>{{ route.title }}</p>
+                </td>
+                <td>
+                  <p>{{ route.distance }} Km</p>
+                </td>
+                <td>
+                  <p>{{ route.initPath }}</p>
+                </td>
+                <td>
+                  <p>{{ route.endPath }}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="d-flex justify-content-end mb-3">
           <button
             id="btn-continue"
             type="button"
             class="btn ds-button pe-3 ps-3"
+            [routerLink]="['/usuario/eventos']"
           >
-            Ver todas las rutas
+            {{ "BTN.ROUTES" | translate }}
           </button>
         </div>
-      </div>
-      <div class="register-data mb-3">
-        <app-ds-title [title]="'Servicios sugeridos'"></app-ds-title>
-        <table class="table table-hover" style="background-color: #fff">
-          <tbody>
-            <tr>
-              <td>
-                <p>Servicio 1</p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Servicio 2</p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Servicio 3</p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      </details>
+
+      <details [open]="true">
+        <summary>
+          <app-ds-title
+            [title]="'TITLE.SUGGESTED_SERVICES' | translate"
+          ></app-ds-title>
+        </summary>
+        <div class="table-container">
+          <table class="table table-hover" style="background-color: #fff">
+            <tbody>
+              <tr *ngFor="let service of servicesRecommended">
+                <td>
+                  <p>{{ service.name }}</p>
+                </td>
+                <td>
+                  <p>
+                    {{ getCurrency$ }}
+                    {{
+                      service.price
+                        | currency
+                          : getCurrency$
+                          : "symbol"
+                          : "1.0"
+                          : getLangLocation$
+                    }}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="d-flex justify-content-end mb-3">
           <button
             id="btn-continue"
             type="button"
             class="btn ds-button pe-3 ps-3"
+            [routerLink]="['/usuario/servicios']"
           >
-            Ver todos los servicios
+            {{ "BTN.SERVICES" | translate }}
           </button>
         </div>
-      </div>
+      </details>
     </div>
     <div class="col-12 col-md-6 max-width mx-auto">
-      <div class="register-data mb-3">
+      <div class="mt-5 full-calendar-container">
         <full-calendar [options]="calendarOptions"></full-calendar>
       </div>
       <div class="register-data mb-3">
@@ -194,6 +169,36 @@
         </p>
 
         <p>XXX-getSportsList$?.length: {{ getSportsList$?.length | json }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Create Routine -->
+  <div
+    class="modal fade"
+    id="createRoutine"
+    tabindex="-1"
+    aria-labelledby="createRoutineLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createRoutineLabel">Modal title</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button type="button" class="btn ds-button" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
@@ -254,4 +259,52 @@
   <p>XXX-getEventsList: {{ getEventsList | json }}</p>
   <p></p>
   <p>XXX-getSportsList: {{ getSportsList | json }}</p> -->
+</div>
+
+<!-- Modal Event Details -->
+<button
+  id="btn-event-details"
+  type="button"
+  class="btn ds-button"
+  data-bs-toggle="modal"
+  data-bs-target="#eventDetails"
+  style="display: none"
+></button>
+<div
+  class="modal fade"
+  id="eventDetails"
+  tabindex="-1"
+  aria-labelledby="eventDetailsLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="eventDetailsLabel">Event details</h1>
+        <button
+          id="btn-close-event-details"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="eventSelected">
+          <h5>{{ eventSelected.title }}</h5>
+          <p>Decripción: {{ eventSelected.extendedProps.description }}</p>
+          <p>Fecha: {{ eventSelected.start | date : "short" }}</p>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="eventSelected">
+        <button
+          type="button"
+          class="btn ds-button"
+          (click)="goToEventSelected()"
+        >
+          Ver evento
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
