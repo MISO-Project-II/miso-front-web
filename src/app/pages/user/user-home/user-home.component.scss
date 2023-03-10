@@ -13,6 +13,29 @@
   }
 }
 
-::ng-deep .fc-icon {
-  color: #ffffff;
+::ng-deep {
+  .fc-icon {
+    color: #ffffff;
+  }
+  .fc .fc-view-harness {
+    min-height: 475px !important;
+  }
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.table-container {
+  max-height: 160px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.full-calendar-container {
+  padding: 1.5rem;
+  border: 2px solid #ff9000;
+  border-radius: 12px;
 }
