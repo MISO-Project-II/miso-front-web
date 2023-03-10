@@ -112,6 +112,10 @@
   left: 2%;
 }
 
+.ds-gauge {
+  text-align: center;
+}
+
 @media only screen and (min-width: $breakpoint-sm) {
   .ds-menu-vertical-item i {
     font-size: 32px;
