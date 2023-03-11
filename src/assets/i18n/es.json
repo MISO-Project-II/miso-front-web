@@ -16,6 +16,7 @@
     "PLANS": "Planes",
     "PROFILE": "Perfil",
     "GAUGE": "Indicadores",
+    "GAUGE_AVG": "Indicadores promedio",
     "SUGGESTED_TRAINING_PLAN": "Plan de entrenamiento sugerido",
     "SUGGESTED_MEAL_PLAN": "Plan alimenticio sugerido",
     "SUGGESTED_ROUTES": "Rutas sugeridas",
@@ -132,7 +133,24 @@
     "CONTRACT_TYPE": "Tipo de servicio",
     "VERSION": "Versión",
     "USER_ID": "Código de usuario",
-    "WHAT_MODALITY": "¿Qué modalidad será?"
+    "WHAT_MODALITY": "¿Qué modalidad será?",
+    "START": "Iniciar",
+    "STOP": "Detener",
+    "RESUME": "Reanudar",
+    "CLEAR": "Limpiar",
+    "START_OF_SESSION": "Inicio de sesión: ",
+    "END_OF_SESSION": "Fin de sesión: ",
+    "START_SESSION": "Iniciar sesión",
+    "SESSION_IN_PROGRESS": "Sesión en progreso",
+    "SESSION_IN_PAUSE": "Sesión en pausa",
+    "DURATION_LAST_SESSION": "Duración de la ultima sesión",
+    "HOURS": "Horas:",
+    "MINUTES": "Minutos",
+    "SECONDS": "Segundos",
+    "AVERAGE_DATA": "Datos promedio",
+    "CONNECT_OTHER_APP_ALERT": "Primero conecta un dispositivo externo para realizar mediciones",
+    "CONNECT_OTHER_APP": "Conectar con aplicaciones externas",
+    "APPS_CONNECTED": "Aplicaciones conectadas"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
@@ -196,7 +214,8 @@
     "CREATE_EVENT": "Crear evento",
     "CREATE_PRODUCT": "Crear producto",
     "CREATE_SERVICE": "Crear Servicio",
-    "DELETE": "Eliminar"
+    "DELETE": "Eliminar",
+    "DELETE_DATA": "Borrar datos"
   },
   "ERR": {
     "REQUIRED_FIELD": "Campo obligatorio",

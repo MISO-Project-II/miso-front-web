@@ -24,4 +24,37 @@
     <app-ds-title [title]="'LBL.VERSION' | translate"></app-ds-title>
     <p class="version">V{{ getVersion }} - {{ getIsMobile }}</p>
   </div>
+  <div class="col-12 col-md-6 mt-3 max-width mx-auto">
+    <app-ds-title [title]="'LBL.CONNECT_OTHER_APP' | translate"></app-ds-title>
+    <div class="input-group">
+      <input
+        type="file"
+        class="form-control"
+        placeholder="Upload file"
+        (change)="loadFile($event)"
+        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      />
+    </div>
+  </div>
+  <div
+    class="col-12 col-md-6 mt-3 max-width mx-auto"
+    *ngIf="getSessionData$.length > 0"
+  >
+    <app-ds-title [title]="'LBL.APPS_CONNECTED' | translate"></app-ds-title>
+    <div class="d-block" *ngFor="let sessionData of getSessionData$">
+      <label for="">{{ sessionData?.label }}</label>
+      <div class="d-flex justify-content-end mb-3">
+        <div class="ds-button-continue p-2">
+          <button
+            id="btn-continue"
+            type="submit"
+            class="btn ds-button"
+            (click)="delFiles()"
+          >
+            {{ "BTN.DELETE_DATA" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

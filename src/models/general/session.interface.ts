@@ -21,7 +21,7 @@ export interface ISession {
   arialabelledby: string;
 }
 
-export interface Value {
+export interface ValueSession {
   value: number;
   label: string;
   append: string;
@@ -33,5 +33,5 @@ export interface ISetSession {
   startSession: string;
   endSession: string;
   calories: number;
-  values: Value[];
+  values: ValueSession[];
 }

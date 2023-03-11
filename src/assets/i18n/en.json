@@ -132,7 +132,24 @@
     "CONTRACT_TYPE": "Service type",
     "VERSION": "Version",
     "USER_ID": "User code",
-    "WHAT_MODALITY": "What mode will it be?"
+    "WHAT_MODALITY": "What mode will it be?",
+    "START": "Start",
+    "STOP": "Stop",
+    "RESUME": "Resume",
+    "CLEAR": "Clear",
+    "START_OF_SESSION": "Star of session: ",
+    "END_OF_SESSION": "End of session: ",
+    "START_SESSION": "Start session",
+    "SESSION_IN_PROGRESS": "Session in progress",
+    "SESSION_IN_PAUSE": "Session in pause",
+    "DURATION_LAST_SESSION": "Duration of the last session",
+    "HOURS": "Hours:",
+    "MINUTES": "Minutes",
+    "SECONDS": "Seconds",
+    "AVERAGE_DATA": "Average data",
+    "CONNECT_OTHER_APP_ALERT": "First connect an external device to take measurements",
+    "CONNECT_OTHER_APP": "Connect with external applications",
+    "APPS_CONNECTED": "Connected apps"
   },
   "PLACEHOLDER": {
     "USER_1": "User...",
@@ -196,7 +213,8 @@
     "CREATE_EVENT": "Create event",
     "CREATE_PRODUCT": "Create product",
     "CREATE_SERVICE": "Create Services",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "DELETE_DATA": "Delete data"
   },
   "ERR": {
     "REQUIRED_FIELD": "Required field",

@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.23.0
+    * Version: 1.23.1
 ## Atomic Design
     
 # Info
@@ -25,6 +25,7 @@
     * angular.json -> "scripts": ['node_modules/popper.js/dist/umd/popper.min.js'] 
     * npm install ngx-gauge -> https://github.com/ashish-chopra/ngx-gauge
     * npm i ngx-chronometer --save
+    * npm i xlsx
 # Commands
     * ng new SportApp
     * ng serve

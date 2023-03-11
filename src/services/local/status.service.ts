@@ -1,3 +1,4 @@
+import { timeout } from "rxjs";
 import { ILangLocation } from "./../../models/local/languaje.interface";
 import { ISportPlans } from "./../../models/home/sport-plans.interface";
 import { IServices } from "src/models/home/services.interface";
@@ -12,6 +13,7 @@ import { IRoutes } from "src/models/general/routes.interface";
 import { IFoodPlans } from "src/models/home/food-plans.interface";
 import { ILocation } from "src/models/general/locantion.interface";
 import { IUser } from "src/models/login/login.interface";
+import { ValueSession } from "src/models/general/session.interface";
 
 @Injectable()
 export class StatusService {
@@ -31,6 +33,7 @@ export class StatusService {
   private _homeUbicationData: ILocation;
   private _isMobile: boolean = false;
   private _langLocation: ILangLocation;
+  private _valueSession: ValueSession[] = [];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
@@ -174,6 +177,24 @@ export class StatusService {
   public setLocation(location: string) {
     this._langLocation.location = location;
   }
+  public setSessionData(valueSession: ValueSession) {
+    this._valueSession.push(valueSession);
+    console.log(
+      "🚀 XXX - StatusService - setSessionData - this._valueSession1 : ",
+      this._valueSession
+    );
+    setTimeout(() => {
+      const newValueSession = new Set(this._valueSession);
+      this._valueSession = [...newValueSession];
+      console.log(
+        "🚀 XXX - StatusService - setSessionData - this._valueSession2 : ",
+        this._valueSession
+      );
+    }, 100);
+  }
+  public clearSetSessionData() {
+    this._valueSession = [];
+  }
   public getGeneralStatus(): StatusModel {
     // return this._status;
     const status: StatusModel = JSON.parse(sessionStorage.getItem("status")!);
@@ -234,6 +255,9 @@ export class StatusService {
   }
   public getUser(): IUser {
     return JSON.parse(sessionStorage.getItem("userData")!);
+  }
+  public getSessionData(): ValueSession[] {
+    return this._valueSession;
   }
   public spinnerShow(timeout?: number) {
     setTimeout(
