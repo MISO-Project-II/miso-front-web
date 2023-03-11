@@ -17,23 +17,17 @@
         <div class="register-data mb-3">
           <app-ds-title [title]="'TITLE.SESSION' | translate"></app-ds-title>
           <div class="ds-input-group mt-3">
-            <!-- <i class="bi bi-play-circle-fill"></i>
-            <i class="bi bi-stop-circle-fill"></i>
-            <i class="bi bi-pause-circle-fill"></i>
-            <i class="bi bi-backspace-fill"></i>
-            <i class="bi bi-play-circle"></i>
-            <i class="bi bi-skip-end-circle-fill"></i>
-            <i class="bi bi-skip-backward-fill"></i> -->
             <div class="container">
               <section class="timer-button-container">
                 <button
+                  [disabled]="sessionData.length === 0"
                   type="button"
                   class="btn timer-button"
                   (click)="startTimer()"
                   *ngIf="startText === START"
                 >
                   <i class="bi bi-play-circle-fill"
-                    ><label>:::Iniciar</label></i
+                    ><label>{{ "LBL.START" | translate }}</label></i
                   >
                 </button>
                 <button
@@ -43,7 +37,7 @@
                   *ngIf="startText === STOP"
                 >
                   <i class="bi bi-stop-circle-fill"
-                    ><label>:::Detener</label></i
+                    ><label>{{ "LBL.STOP" | translate }}</label></i
                   >
                 </button>
                 <button
@@ -53,34 +47,39 @@
                   *ngIf="startText === RESUME"
                 >
                   <i class="bi bi-skip-end-circle-fill"
-                    ><label>:::Reanudar</label></i
+                    ><label>{{ "LBL.RESUME" | translate }}</label></i
                   >
                 </button>
                 <button
+                  [disabled]="sessionData.length === 0"
                   type="button"
                   class="btn timer-button"
                   (click)="clearTimer()"
                 >
                   <i class="bi bi-skip-backward-fill"
-                    ><label>:::Limpiar</label></i
+                    ><label>{{ "LBL.CLEAR" | translate }}</label></i
                   >
                 </button>
               </section>
               <section class="timer-counter-label">
                 <div class="date">
                   <div class="w-50">
-                    <label>:::Inicio de sesion: </label>
-                    <p>{{ startSession | date : "medium" }}</p>
+                    <label>{{ "LBL.START_OF_SESSION" | translate }}</label>
+                    <p>{{ startSession | date: "medium" }}</p>
                   </div>
                   <div class="w-50">
-                    <label>:::Fin de sesion: </label>
-                    <p>{{ endSession | date : "medium" }}</p>
+                    <label>{{ "LBL.END_OF_SESSION" | translate }}</label>
+                    <p>{{ endSession | date: "medium" }}</p>
                   </div>
                 </div>
                 <div class="counter" *ngIf="timerSession; else elseBlock">
                   <div class="alert alert-success" role="alert">
-                    <h2 *ngIf="startText === STOP">:::Sesion en progreso</h2>
-                    <h2 *ngIf="startText === RESUME">:::Sesion en pausa</h2>
+                    <h2 *ngIf="startText === STOP">
+                      {{ "LBL.SESSION_IN_PROGRESS" | translate }}
+                    </h2>
+                    <h2 *ngIf="startText === RESUME">
+                      {{ "LBL.SESSION_IN_PAUSE" | translate }}
+                    </h2>
                     <h2>
                       {{ diffSessionHour }} : {{ diffSessionMin }} :
                       {{ diffSessionSec }}
@@ -90,18 +89,20 @@
                 <ng-template #elseBlock>
                   <div class="counter">
                     <div class="alert alert-warning" role="alert">
-                      <h2 *ngIf="!diffSessionSec">:::Iniciar sesion</h2>
+                      <h2 *ngIf="!diffSessionSec">
+                        {{ "LBL.START_SESSION" | translate }}
+                      </h2>
                       <h2 *ngIf="!!diffSessionSec">
-                        Duracion de la ultima sesion
+                        {{ "LBL.DURATION_LAST_SESSION" | translate }}
                       </h2>
                       <h2 *ngIf="diffSessionHour > 0">
-                        Horas: {{ diffSessionHour }}
+                        {{ "LBL.HOURS" | translate }} {{ diffSessionHour }}
                       </h2>
                       <h2 *ngIf="diffSessionMin > 0">
-                        Minutos: {{ diffSessionMin }}
+                        {{ "LBL.MINUTES" | translate }} {{ diffSessionMin }}
                       </h2>
                       <h2 *ngIf="diffSessionSec > 0">
-                        Segundos: {{ diffSessionSec }}
+                        {{ "LBL.SECONDS" | translate }} {{ diffSessionSec }}
                       </h2>
                     </div>
                     <div
@@ -109,8 +110,8 @@
                       role="alert"
                       *ngIf="!!diffSessionSec"
                     >
-                      <h2>:::Datos promedio</h2>
-                      <p>:::averageData {{ averageData | json }}</p>
+                      <h2>{{ "LBL.AVERAGE_DATA" | translate }}</h2>
+                      <p>{{ averageData | json }}</p>
                     </div>
                   </div>
                 </ng-template>
@@ -122,9 +123,10 @@
       <div class="cont-right ds-form-register col-12 col-md-6">
         <div class="ds-register-data mb-3">
           <app-ds-title [title]="'TITLE.GAUGE' | translate"></app-ds-title>
-          <!-- <p>:::: sessionData {{sessionData| json}}</p> -->
-
-          <div class="ds-input-group overflow-auto gauge">
+          <div
+            class="ds-input-group overflow-auto gauge"
+            *ngIf="sessionData.length > 0"
+          >
             <div class="mt-3 ds-gauge" *ngFor="let session of sessionData">
               <ngx-gauge
                 [type]="session.type"
@@ -151,6 +153,47 @@
               </ngx-gauge>
             </div>
           </div>
+          <div class="ds-input-group mt-3" *ngIf="sessionData.length === 0">
+            <div class="alert alert-success" role="alert">
+              <h2>{{ "LBL.CONNECT_OTHER_APP_ALERT" | translate }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="ds-register-data mb-3">
+          <details [open]="true">
+            <summary>
+              <app-ds-title
+                [title]="'TITLE.GAUGE_AVG' | translate"
+              ></app-ds-title>
+            </summary>
+            <div
+              class="ds-input-group overflow-auto gauge"
+              *ngIf="getLastSessionData$.values.length > 0"
+            >
+              <div class="date d-flex">
+                <div class="w-50">
+                  <label>{{ "LBL.START_OF_SESSION" | translate }}</label>
+                  <p>{{ getLastSessionData$.startSession | date: "medium" }}</p>
+                </div>
+                <div class="w-50">
+                  <label>{{ "LBL.END_OF_SESSION" | translate }}</label>
+                  <p>{{ getLastSessionData$.endSession | date: "medium" }}</p>
+                </div>
+              </div>
+              <div class="w-100 d-flex">
+                <label>{{ "LBL.CALORIES" | translate }}</label>
+                <p>{{ getLastSessionData$.calories }}</p>
+              </div>
+              <ul
+                class="list-group"
+                *ngFor="let item of getLastSessionData$.values"
+              >
+                <li class="list-group-item">
+                  {{ item.label }}: {{ item.value }} {{ item.append }}
+                </li>
+              </ul>
+            </div>
+          </details>
         </div>
       </div>
     </div>

@@ -5,11 +5,24 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { IRoutes } from "src/models/general/routes.interface";
 import { IResSports, ISports } from "src/models/general/sports.interface";
-import { IEvents, IResEvents, IResUserEvents } from "src/models/home/events.interface";
-import { Food, FoodRoutineList, IFoodPlans } from "src/models/home/food-plans.interface";
+import {
+  IEvents,
+  IResEvents,
+  IResUserEvents,
+} from "src/models/home/events.interface";
+import {
+  Food,
+  FoodRoutineList,
+  IFoodPlans,
+} from "src/models/home/food-plans.interface";
 import { IResProducts } from "src/models/home/products.interface";
 import { IResServices, IServices } from "src/models/home/services.interface";
-import { ISportPlans, Sport, SportFrecuency, SportRoutineList } from "src/models/home/sport-plans.interface";
+import {
+  ISportPlans,
+  Sport,
+  SportFrecuency,
+  SportRoutineList,
+} from "src/models/home/sport-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { IResUserData } from "src/models/user-data/user-data.interface";
 import { RoutesService } from "src/services/general/routes.service";
@@ -43,9 +56,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       // { title: "event 2", date: "2023-03-02" },
     ],
     eventClick: (arg) => {
-      console.log('click event', arg.event);
+      console.log("click event", arg.event);
       this.eventSelected = arg.event;
-      let btn = document.getElementById('btn-event-details');
+      let btn = document.getElementById("btn-event-details");
       btn?.click();
     },
   };
@@ -65,7 +78,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     private _sportPlansService: SportPlansService,
     private _foodPlansService: FoodPlansService,
     private router: Router
-  ) { }
+  ) {}
   ngOnInit() {
     console.log("XXX - UserHomeComponent");
     this._loadGeneralData();
@@ -227,13 +240,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           console.log("🚀 XXX - UserHomeComponent - _loadEvents - res : ", res);
           this._statusService.setEventsList(res.result!);
-          let events = res.result?.map(e => {
+          let events = res.result?.map((e) => {
             return {
               id: (e.idEvent || 0).toString(),
               title: e.name,
               description: e.description,
               date: e.date,
-              backgroundColor: "#03c5de"
+              backgroundColor: "#03c5de",
             };
           });
           this.calendarOptions.events = events;
@@ -259,13 +272,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           this._statusService.setEventsListScheduled(
             res.result["consume-event"]!
           );
-          let scheduledEvents = res.result["consume-event"]?.map(e => {
+          let scheduledEvents = res.result["consume-event"]?.map((e) => {
             return {
               id: (e.idEvent || 0).toString(),
               title: e.name,
               description: e.description,
               date: e.date,
-              backgroundColor: "#007bff"
+              backgroundColor: "#007bff",
             };
           });
           let allEvents = this.calendarOptions.events || [];
@@ -339,7 +352,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             res
           );
           this._statusService.setSportPlansList(res);
-          let sportPlans = res.filter(p => p.sportRoutineList && p.sportRoutineList.length > 0);
+          let sportPlans = res.filter(
+            (p) => p.sportRoutineList && p.sportRoutineList.length > 0
+          );
           if (sportPlans.length > 0) {
             this.sportRoutinesRecommended = sportPlans[0].sportRoutineList;
           }
@@ -361,7 +376,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             res
           );
           this._statusService.setFoodPlansList(res);
-          let foodPlans = res.filter(f => f.foodRoutineList && f.foodRoutineList.length > 0);
+          let foodPlans = res.filter(
+            (f) => f.foodRoutineList && f.foodRoutineList.length > 0
+          );
           if (foodPlans.length > 0) {
             this.foodRoutinesRecommended = foodPlans[0].foodRoutineList;
           }
@@ -376,15 +393,14 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
 
   goToEventSelected() {
-    let btn = document.getElementById('btn-close-event-details');
+    let btn = document.getElementById("btn-close-event-details");
     btn?.click();
     if (btn) {
-      this.router.navigateByUrl('/usuario/eventos', {
+      this.router.navigateByUrl("/usuario/eventos", {
         state: {
-          data: this.eventSelected && this.eventSelected.id
-        }
+          data: this.eventSelected && this.eventSelected.id,
+        },
       });
     }
   }
-
 }

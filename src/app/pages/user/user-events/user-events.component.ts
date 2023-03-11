@@ -28,9 +28,11 @@ export class UserEventsComponent implements OnInit, OnDestroy {
     this._loadRoutes();
     let idPrevEvent = history.state.data;
     if (idPrevEvent) {
-      let btnTabSearchEvents = document.getElementById('search_events_tab');
+      let btnTabSearchEvents = document.getElementById("search_events_tab");
       btnTabSearchEvents?.click();
-      window.dispatchEvent(new CustomEvent('setEventById', { detail: idPrevEvent }));
+      window.dispatchEvent(
+        new CustomEvent("setEventById", { detail: idPrevEvent })
+      );
     }
   }
   ngOnDestroy(): void {

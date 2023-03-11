@@ -17,6 +17,7 @@ import { RoutesService } from "./general/routes.service";
 import { UpdatePlanService } from "./update-plan/update-plan.service";
 import { SportPlansService } from "./home/plans/sport-plans.service";
 import { FoodPlansService } from "./home/plans/food-plans.service";
+import { SessionService } from "./general/session.service";
 
 @NgModule({
   imports: [CommonModule],
@@ -66,6 +67,7 @@ export class ServicesModule {
         // FoodsService,
 
         UbicationService,
+        SessionService,
       ],
     };
   }
