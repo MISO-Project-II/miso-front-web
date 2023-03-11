@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  version: "1.23.1",
+  version: "1.24.0",
   api: {
     base: "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1",
     general_data: "/users/general_data",
@@ -49,6 +49,7 @@ export const environment = {
     food_plans: "/food_plans",
     food_routines: "/food_routines",
     foods: "/foods",
+    session: "/session",
     headers: {
       "X-API-KEY": "EqYv56oSln9rs1Kirj8Fc7hzy6wWE6tY3NwtbE1M",
       Accept: "application/json",

@@ -1,0 +1,15 @@
+@import "../../../../../styles.scss";
+
+#main-configuration {
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .ds-button {
+    min-width: 128px;
+    max-width: 256px;
+    width: auto;
+  }
+}

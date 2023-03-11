@@ -1,4 +1,5 @@
 import { NgxGaugeCap, NgxGaugeType } from "src/constanst/data.constants";
+import { IGenericResponse } from "../local/generic.interface";
 export interface ISession {
   type: NgxGaugeType; // full, semi, arch
   value: number;
@@ -34,4 +35,8 @@ export interface ISetSession {
   endSession: string;
   calories: number;
   values: ValueSession[];
+}
+
+export interface IResSetSession extends IGenericResponse {
+  result: ISetSession | null;
 }

@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.23.1
+    * Version: 1.24.0
 ## Atomic Design
     
 # Info
@@ -26,6 +26,7 @@
     * npm install ngx-gauge -> https://github.com/ashish-chopra/ngx-gauge
     * npm i ngx-chronometer --save
     * npm i xlsx
+    * Info KCal https://colegiosaintmaurices.cl/wp-content/uploads/2020/04/Electivo-Ciencias-del-ejercicio-f%C3%ADsico-y-deportivo-Gu%C3%ADa-3.pdf
 # Commands
     * ng new SportApp
     * ng serve

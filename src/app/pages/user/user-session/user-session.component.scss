@@ -83,4 +83,10 @@
     max-height: 75vh;
     background-color: $ds-grey-02;
   }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
 }
