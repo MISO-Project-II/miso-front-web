@@ -13,7 +13,10 @@ import { IRoutes } from "src/models/general/routes.interface";
 import { IFoodPlans } from "src/models/home/food-plans.interface";
 import { ILocation } from "src/models/general/locantion.interface";
 import { IUser } from "src/models/login/login.interface";
-import { ValueSession } from "src/models/general/session.interface";
+import {
+  ISetSession,
+  ValueSession,
+} from "src/models/general/session.interface";
 
 @Injectable()
 export class StatusService {
@@ -34,6 +37,7 @@ export class StatusService {
   private _isMobile: boolean = false;
   private _langLocation: ILangLocation;
   private _valueSession: ValueSession[] = [];
+  private _lastSession: ISetSession;
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
@@ -192,6 +196,9 @@ export class StatusService {
       );
     }, 100);
   }
+  public setLastSessionData(lastSession: ISetSession) {
+    this._lastSession = lastSession;
+  }
   public clearSetSessionData() {
     this._valueSession = [];
   }
@@ -258,6 +265,9 @@ export class StatusService {
   }
   public getSessionData(): ValueSession[] {
     return this._valueSession;
+  }
+  public getLastSessionData(): ISetSession {
+    return this._lastSession;
   }
   public spinnerShow(timeout?: number) {
     setTimeout(

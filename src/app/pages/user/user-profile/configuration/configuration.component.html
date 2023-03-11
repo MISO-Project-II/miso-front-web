@@ -40,21 +40,23 @@
     class="col-12 col-md-6 mt-3 max-width mx-auto"
     *ngIf="getSessionData$.length > 0"
   >
-    <app-ds-title [title]="'LBL.APPS_CONNECTED' | translate"></app-ds-title>
-    <div class="d-block" *ngFor="let sessionData of getSessionData$">
-      <label for="">{{ sessionData?.label }}</label>
+    <details [open]="true">
+      <summary>
+        <app-ds-title [title]="'LBL.APPS_CONNECTED' | translate"></app-ds-title>
+      </summary>
+      <ul class="list-group" *ngFor="let sessionData of getSessionData$">
+        <li class="list-group-item">{{ sessionData?.label }}</li>
+      </ul>
       <div class="d-flex justify-content-end mb-3">
-        <div class="ds-button-continue p-2">
-          <button
-            id="btn-continue"
-            type="submit"
-            class="btn ds-button"
-            (click)="delFiles()"
-          >
-            {{ "BTN.DELETE_DATA" | translate }}
-          </button>
-        </div>
+        <button
+          id="btn-continue"
+          type="button"
+          class="btn ds-button"
+          (click)="delFiles()"
+        >
+          {{ "BTN.DELETE_DATA" | translate }}
+        </button>
       </div>
-    </div>
+    </details>
   </div>
 </div>

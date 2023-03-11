@@ -1,15 +1,16 @@
 import {
+  IResSetSession,
   ISession,
   ISetSession,
   ValueSession,
 } from "./../../../../models/general/session.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { RESUME, START, STOP } from "src/constanst/data.constants";
 import { StatusModel } from "src/models/local/status-model";
+import { SessionService } from "src/services/general/session.service";
 import { StatusService } from "src/services/local/status.service";
-import { MockSessions } from "src/test/general/session.mock";
 @Component({
   selector: "app-user-session",
   templateUrl: "./user-session.component.html",
@@ -23,6 +24,7 @@ export class UserSessionComponent implements OnInit, OnDestroy {
 
   public formSession: FormGroup;
   public sessionData: ISession[];
+  public sessionDataAvg: ISession[];
 
   public hour: number = 0;
   public min: number = 0;
@@ -40,11 +42,15 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   public timerSession2: any;
   public averageData: ISetSession;
   public false: boolean = false;
-  constructor(private _statusService: StatusService) {}
+  constructor(
+    private _statusService: StatusService,
+    private _sessionService: SessionService
+  ) {}
   ngOnInit() {
     console.log("XXX - UserSessionComponent");
     this._initForm();
     this.sessionData = this._avgSessionValues();
+    this._loadSession();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -57,11 +63,16 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   get getSessionData$(): ValueSession[] {
     return this._statusService.getSessionData();
   }
-
+  get getLastSessionData$(): ISetSession {
+    return this._statusService.getLastSessionData();
+  }
+  get getSessionService$(): Observable<ISetSession> {
+    return this._sessionService.getSession();
+  }
   private _initForm(): void {
     this.formSession = new FormGroup({
       actualDate: new FormControl(new Date()),
-      dato: new FormControl(MockSessions[0]),
+      // dato: new FormControl(MockSessions[0]),
     });
   }
 
@@ -116,19 +127,32 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     this.startSession = new Date();
     this.startSessionCont = Date.now();
     this.endSession = Date.now();
-    this.timerSession = 0;
     this.averageData = {
       startSession: this.startSession.toISOString(),
       endSession: new Date(this.endSession).toISOString(),
-      calories: this.getRandomInt(1000), // XXX Validar de donde sacar calorias
+      calories: this._generateKCalH(),
       values: this.getSessionData$,
     };
+    this.timerSession = 0;
+    this._callService(this.averageData);
     clearInterval(this.timerRef);
   }
   private getRandomInt(avg: number) {
     let min = avg - 5;
     let max = avg + 3;
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  private _generateKCalH(): number {
+    let kcalMin = this.getMET() * 0.0175 * this.getGeneralStatus$.weight;
+    let KCalHour = kcalMin * 0.0175 * Math.trunc(this.timerSession / 1000);
+    return Math.trunc(KCalHour);
+    // Kcal. /min. =MET x 0,0175 x PESO (Kg.)
+  }
+  public getMET(): number {
+    let min = 6; // Caminar rápido
+    let max = 11; //Saltar la cuerda
+    return Math.floor(Math.random() * (max - min + 1) + min);
+    // Un MET equivale a 0,0175 Kcal. x Kg.-1. x min.-1.
   }
 
   private _avgSessionValues(): ISession[] {
@@ -172,5 +196,42 @@ export class UserSessionComponent implements OnInit, OnDestroy {
         arialabelledby: data.label,
       };
     });
+  }
+  private _loadSession(): void {
+    this.getSessionService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: ISetSession) => {
+        if (!!res) {
+          console.log(
+            "🚀 XXX - UserSessionComponent - _loadSession - res : ",
+            res
+          );
+          this._statusService.setLastSessionData(res!);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _callService(data: ISetSession): void {
+    // XXX Actualizar envio de servicio Session
+    // this._sessionService
+    //   .postSession(data)
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(
+    //     (res: ISetSession) => {
+    //       if (!!res) {
+    // console.log('🚀 XXX - UserSessionComponent - _callService - data : ', data);
+    this._statusService.setLastSessionData(data);
+    //     }
+    //     this._statusService.spinnerHide();
+    //   },
+    //   (err: any) => {
+    //     console.error(err);
+    //     this._statusService.spinnerHide();
+    //   }
+    // );
   }
 }
