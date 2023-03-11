@@ -17,7 +17,7 @@
             <div class="options w-50 pe-1">
               <div class="list-group overflow-auto">
                 <button
-                  *ngFor="let item of sportList"
+                  *ngFor="let item of sportPracticeList"
                   type="button"
                   (click)="addSportPractice(item)"
                   class="list-group-item list-group-item-action"
@@ -53,7 +53,7 @@
             <div class="options w-50 pe-1">
               <div class="list-group overflow-auto">
                 <button
-                  *ngFor="let item of sportList"
+                  *ngFor="let item of sportPreferenceList"
                   type="button"
                   (click)="addSportInterest(item)"
                   class="list-group-item list-group-item-action"
@@ -98,22 +98,84 @@
       <div class="col-12 col-md-6 max-width mx-auto">
         <div class="ds-input-group mt-3">
           <app-ds-title [title]="'LBL.DISABILITIES' | translate"></app-ds-title>
-          <textarea
+          <!-- <textarea
             class="form-control ds-input"
             formControlName="disabilities"
             id="disabilities_input"
             rows="2"
-          ></textarea>
+          ></textarea> -->
           <!-- <p>{{ disabilities | json }}</p> -->
+          <div class="select_option d-flex">
+            <div class="options w-50 pe-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of disabilitiesList"
+                  type="button"
+                  (click)="addUserDisabilitie(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.name }}
+                </button>
+              </div>
+            </div>
+            <div class="selected w-50 ps-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of userDisabilitiesList"
+                  type="button"
+                  (click)="delUserDisabilitie(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="disabilities?.hasError('required')">{{
+            "ERR.REQUIRED_FIELD" | translate
+          }}</small>
         </div>
         <div class="ds-input-group mt-3">
           <app-ds-title [title]="'LBL.PAINS' | translate"></app-ds-title>
-          <textarea
+          <!-- <textarea
             class="form-control ds-input"
             formControlName="pains"
             id="discomfort_input"
             rows="2"
-          ></textarea>
+          ></textarea> -->
+          <div class="select_option d-flex">
+            <div class="options w-50 pe-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of painList"
+                  type="button"
+                  (click)="addUserPain(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.name }}
+                </button>
+              </div>
+            </div>
+            <div class="selected w-50 ps-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of userPainList"
+                  type="button"
+                  (click)="delUserPain(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="pains?.hasError('required')">{{
+            "ERR.REQUIRED_FIELD" | translate
+          }}</small>
         </div>
         <div class="ds-input-group mt-3">
           <app-ds-title

@@ -132,7 +132,8 @@
     "CONTRACT_TYPE": "Tipo de serviço",
     "VERSION": "Versão",
     "USER_ID": "Código de usuário",
-    "WHAT_MODALITY": "Que modalidade será?"
+    "WHAT_MODALITY": "Que modalidade será?",
+    "IMC": "Índice de massa corporal"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuário...",
@@ -166,7 +167,8 @@
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
     "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
-    "PRICE": "Preço"
+    "PRICE": "Preço",
+    "IMC": "IMC"
   },
   "BTN": {
     "CONTINUE": "Continuar",
