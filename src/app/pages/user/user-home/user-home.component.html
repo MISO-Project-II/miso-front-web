@@ -122,11 +122,7 @@
                     {{ getCurrency$ }}
                     {{
                       service.price
-                        | currency
-                          : getCurrency$
-                          : "symbol"
-                          : "1.0"
-                          : getLangLocation$
+                        | currency: getCurrency$:"symbol":"1.0":getLangLocation$
                     }}
                   </p>
                 </td>
@@ -293,7 +289,7 @@
         <div *ngIf="eventSelected">
           <h5>{{ eventSelected.title }}</h5>
           <p>Decripción: {{ eventSelected.extendedProps.description }}</p>
-          <p>Fecha: {{ eventSelected.start | date : "short" }}</p>
+          <p>Fecha: {{ eventSelected.start | date: "short" }}</p>
         </div>
       </div>
       <div class="modal-footer" *ngIf="eventSelected">

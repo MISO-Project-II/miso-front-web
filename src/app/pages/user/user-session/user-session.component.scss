@@ -53,34 +53,40 @@
   }
 
   .bi-play-circle-fill::before {
-    color: green;
+    color: $ds-primary-01;
   }
 
   .bi-play-circle::before {
-    color: green;
+    color: $ds-primary-01;
   }
 
   .bi-skip-end-circle-fill::before {
-    color: green;
+    color: $ds-primary-01;
   }
 
   .bi-stop-circle-fill::before {
-    color: red;
+    color: $ds-primary-02;
   }
 
   .bi-pause-circle-fill::before {
-    color: orange;
+    color: $ds-primary-02;
   }
 
   .bi-backspace-fill::before {
-    color: pink;
+    color: $ds-primary-01;
   }
 
   .bi-skip-backward-fill::before {
-    color: pink;
+    color: $ds-primary-01;
   }
   .gauge {
     max-height: 75vh;
     background-color: $ds-grey-02;
+  }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
   }
 }

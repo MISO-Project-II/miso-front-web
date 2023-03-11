@@ -16,6 +16,7 @@
     "PLANS": "Planos",
     "PROFILE": "Perfil",
     "GAUGE": "Medidor",
+    "GAUGE_AVG": "Indicadores promedio ultima sesión",
     "SUGGESTED_TRAINING_PLAN": "Plano de treinamento sugerido",
     "SUGGESTED_MEAL_PLAN": "Plano alimentar sugerido",
     "SUGGESTED_ROUTES": "Rotas sugeridas",
@@ -116,6 +117,7 @@
     "OBJECTIVES": "Metas: ",
     "ROUTINES": "Rotinas: ",
     "EXERCISE": "Exercício",
+    "CALORIES": "Calorias: ",
     "CALORIES_1": "(calorias)",
     "MIN_1": "(min)",
     "SUGGESTED_EXERCISES": "Exercícios sugeridos: ",
@@ -132,7 +134,24 @@
     "CONTRACT_TYPE": "Tipo de serviço",
     "VERSION": "Versão",
     "USER_ID": "Código de usuário",
-    "WHAT_MODALITY": "Que modalidade será?"
+    "WHAT_MODALITY": "Que modalidade será?",
+    "START": "Começar",
+    "STOP": "Parar",
+    "RESUME": "Retomar",
+    "CLEAR": "Limpar",
+    "START_OF_SESSION": "Início da sessão: ",
+    "END_OF_SESSION": "End of session: ",
+    "START_SESSION": "Fim da sessão",
+    "SESSION_IN_PROGRESS": "Sessão em andamento",
+    "SESSION_IN_PAUSE": "Sessão em pausa",
+    "DURATION_LAST_SESSION": "Duração da última sessão",
+    "HOURS": "Horas:",
+    "MINUTES": "Minutos",
+    "SECONDS": "Segundos",
+    "AVERAGE_DATA": "Dados médios",
+    "CONNECT_OTHER_APP_ALERT": "Primeiro conecte um dispositivo externo para fazer medições",
+    "CONNECT_OTHER_APP": "Conecte-se com aplicativos externos",
+    "APPS_CONNECTED": "Aplicativos conectados"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuário...",
@@ -196,7 +215,8 @@
     "CREATE_EVENT": "Criar evento",
     "CREATE_PRODUCT": "Criar produto",
     "CREATE_SERVICE": "Criar Serviço",
-    "DELETE": "Eliminar"
+    "DELETE": "Excluir",
+    "DELETE_DATA": "Excluir dados"
   },
   "ERR": {
     "REQUIRED_FIELD": "Campo obligatorio",

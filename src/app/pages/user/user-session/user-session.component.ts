@@ -1,13 +1,16 @@
 import {
+  IResSetSession,
   ISession,
   ISetSession,
-  Value,
+  ValueSession,
 } from "./../../../../models/general/session.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { RESUME, START, STOP } from "src/constanst/data.constants";
-import { MockSessions } from "src/test/general/session.mock";
+import { StatusModel } from "src/models/local/status-model";
+import { SessionService } from "src/services/general/session.service";
+import { StatusService } from "src/services/local/status.service";
 @Component({
   selector: "app-user-session",
   templateUrl: "./user-session.component.html",
@@ -21,6 +24,7 @@ export class UserSessionComponent implements OnInit, OnDestroy {
 
   public formSession: FormGroup;
   public sessionData: ISession[];
+  public sessionDataAvg: ISession[];
 
   public hour: number = 0;
   public min: number = 0;
@@ -37,22 +41,38 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   public timerSession: number = 0;
   public timerSession2: any;
   public averageData: ISetSession;
-
-  constructor() {}
+  public false: boolean = false;
+  constructor(
+    private _statusService: StatusService,
+    private _sessionService: SessionService
+  ) {}
   ngOnInit() {
     console.log("XXX - UserSessionComponent");
     this._initForm();
     this.sessionData = this._avgSessionValues();
+    this._loadSession();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
     clearInterval(this.timerRef);
   }
+  get getGeneralStatus$(): StatusModel {
+    return this._statusService.getGeneralStatus();
+  }
+  get getSessionData$(): ValueSession[] {
+    return this._statusService.getSessionData();
+  }
+  get getLastSessionData$(): ISetSession {
+    return this._statusService.getLastSessionData();
+  }
+  get getSessionService$(): Observable<ISetSession> {
+    return this._sessionService.getSession();
+  }
   private _initForm(): void {
     this.formSession = new FormGroup({
       actualDate: new FormControl(new Date()),
-      dato: new FormControl(MockSessions[0]),
+      // dato: new FormControl(MockSessions[0]),
     });
   }
 
@@ -107,13 +127,14 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     this.startSession = new Date();
     this.startSessionCont = Date.now();
     this.endSession = Date.now();
-    this.timerSession = 0;
     this.averageData = {
       startSession: this.startSession.toISOString(),
       endSession: new Date(this.endSession).toISOString(),
-      calories: this.getRandomInt(1000),
-      values: this._mapSessionData(),
+      calories: this._generateKCalH(),
+      values: this.getSessionData$,
     };
+    this.timerSession = 0;
+    this._callService(this.averageData);
     clearInterval(this.timerRef);
   }
   private getRandomInt(avg: number) {
@@ -121,66 +142,24 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     let max = avg + 3;
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-  private _mapSessionData(): Value[] {
-    return this.sessionData.map((data: Value) => {
-      return {
-        value: data.value,
-        label: data.label,
-        append: data.append,
-        min: data.min,
-        max: data.max,
-      };
-    });
+  private _generateKCalH(): number {
+    let kcalMin = this.getMET() * 0.0175 * this.getGeneralStatus$.weight;
+    let KCalHour = kcalMin * 0.0175 * Math.trunc(this.timerSession / 1000);
+    return Math.trunc(KCalHour);
+    // Kcal. /min. =MET x 0,0175 x PESO (Kg.)
   }
-  get getAvgSession$(): ISetSession {
-    return {
-      startSession: "2022-02-03:10",
-      endSession: "2022-02-03:10",
-      calories: 12345,
-      values: [
-        {
-          value: 10,
-          label: "TEST",
-          append: "TEST",
-          min: 0,
-          max: 20,
-        },
-        {
-          value: 50,
-          label: "Vo2 máx",
-          append: "ml/min/kg",
-          min: 0,
-          max: 100,
-        },
-        {
-          value: 80,
-          label: "FTP",
-          append: "FTP",
-          min: 0,
-          max: 100,
-        },
-        {
-          value: 33,
-          label: "Velocidad",
-          append: "Km/h",
-          min: 0,
-          max: 50,
-        },
-        {
-          value: 37,
-          label: "Temperatura",
-          append: "ºC",
-          min: 0,
-          max: 45,
-        },
-      ],
-    };
+  public getMET(): number {
+    let min = 6; // Caminar rápido
+    let max = 11; //Saltar la cuerda
+    return Math.floor(Math.random() * (max - min + 1) + min);
+    // Un MET equivale a 0,0175 Kcal. x Kg.-1. x min.-1.
   }
+
   private _avgSessionValues(): ISession[] {
-    return this.getAvgSession$.values.map((data: Value) => {
-      var thresholdsMin = data.value - 5;
+    return this.getSessionData$.map((data: ValueSession) => {
+      var thresholdsMin = data.value - 4;
       var thresholdsAvg = data.value;
-      var thresholdsMax = data.value + 3;
+      var thresholdsMax = data.value + 2;
 
       var avg = this.getRandomInt(data.value);
       return {
@@ -198,9 +177,9 @@ export class UserSessionComponent implements OnInit, OnDestroy {
         prepend: avg > thresholdsMax ? "😨" : avg < thresholdsMin ? "😓" : "😁",
         duration: 100,
         thresholds: {
-          [thresholdsMin]: { color: "#fffc97" },
-          [thresholdsAvg]: { color: "#ceff97" },
-          [thresholdsMax]: { color: "#ff9797" },
+          [thresholdsMin]: { color: "#f85716" },
+          [thresholdsAvg]: { color: "#f85716" },
+          [thresholdsMax]: { color: "#f85716" },
         },
         markers: {
           [thresholdsAvg]: {
@@ -217,5 +196,42 @@ export class UserSessionComponent implements OnInit, OnDestroy {
         arialabelledby: data.label,
       };
     });
+  }
+  private _loadSession(): void {
+    this.getSessionService$.pipe(takeUntil(this._destroy$)).subscribe(
+      (res: ISetSession) => {
+        if (!!res) {
+          console.log(
+            "🚀 XXX - UserSessionComponent - _loadSession - res : ",
+            res
+          );
+          this._statusService.setLastSessionData(res!);
+        }
+        this._statusService.spinnerHide();
+      },
+      (err) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
+  }
+  private _callService(data: ISetSession): void {
+    // XXX Actualizar envio de servicio Session
+    // this._sessionService
+    //   .postSession(data)
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(
+    //     (res: ISetSession) => {
+    //       if (!!res) {
+    // console.log('🚀 XXX - UserSessionComponent - _callService - data : ', data);
+    this._statusService.setLastSessionData(data);
+    //     }
+    //     this._statusService.spinnerHide();
+    //   },
+    //   (err: any) => {
+    //     console.error(err);
+    //     this._statusService.spinnerHide();
+    //   }
+    // );
   }
 }
