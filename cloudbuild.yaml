@@ -3,12 +3,14 @@ steps:
     name: gcr.io/cloud-builders/npm
     args: [ 'install' ]
 
-  - id: Package test
-    name: gcr.io/cloud-builders/npm
-    args: [ 'npm coverage' ]
-    volumes:
-      - name: 'myvolume'
-        path: '/persistent_volume'
+  - name: gcr.io/cloud-builders/npm
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
+        npm run coverage
   - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     args:
       - '-Dsonar.host.url=http://34.67.142.84:9001'
