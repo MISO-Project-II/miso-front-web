@@ -10,6 +10,7 @@ import { ILogin, IResLogin } from "src/models/login/login.interface";
 import { SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { removeSessionStorage } from "src/helper/sessionStorage.helper";
 
 @Component({
   selector: "app-user-login",
@@ -33,16 +34,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._statusService.spinnerHide();
-    sessionStorage.removeItem("status");
-    sessionStorage.removeItem("userId");
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userData");
-    sessionStorage.removeItem("sportsList");
-    sessionStorage.removeItem("eventsList");
-    sessionStorage.removeItem("servicesList");
-    sessionStorage.removeItem("productsList");
-    sessionStorage.removeItem("thirdList");
-    sessionStorage.removeItem("lastSession");
+    removeSessionStorage();
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
   }

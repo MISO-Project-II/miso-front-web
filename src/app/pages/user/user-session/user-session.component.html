@@ -166,7 +166,7 @@
             </summary>
             <div
               class="ds-input-group overflow-auto gauge"
-              *ngIf="(getLastSessionData$?.values)!.length > 0"
+              *ngIf="!!getLastSessionData$?.values"
             >
               <div class="date d-flex">
                 <div class="w-50">

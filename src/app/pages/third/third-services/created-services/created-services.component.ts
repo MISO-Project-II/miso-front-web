@@ -87,9 +87,11 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
   }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;
-    this.thirdData = this.getThirdList$.filter(
-      (data: IThirdDataMap) => data.idUser === serviceSelected.idUserCreator
-    )[0];
+    if (this.getThirdList$) {
+      this.thirdData = this.getThirdList$.filter(
+        (data: IThirdDataMap) => data.idUser === serviceSelected.idUserCreator
+      )[0];
+    }
   }
 
   public delService(item: any): void {

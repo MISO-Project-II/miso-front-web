@@ -96,6 +96,16 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   get getThirdList$(): IThirdDataMap[] {
     return this._statusService.getThirdList();
   }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
     this.thirdData = this.getThirdList$.filter(

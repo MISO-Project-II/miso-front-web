@@ -28,7 +28,7 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
   get getUserId() {
@@ -49,7 +49,7 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
   private _loadGeneralData(): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .getGeneralData(this.getGeneralStatus.userId)
+      .getGeneralData(this.getGeneralStatus$.userId)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
@@ -86,6 +86,7 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
               this._statusService.setContractType(res.result?.userPlan!);
               this._statusService.setIdSportPlan(res.result?.idSportPlan!);
               this._statusService.setIdFoodPlan(res.result?.idFoodPlan!);
+              this._statusService.setDescription(res.result?.description!);
             }, 200);
             this._statusService.spinnerHide();
           } else {

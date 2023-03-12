@@ -27,7 +27,6 @@
         <div class="d-flex" *ngIf="getService$?.price">
           <label>{{ "LBL.PRICE" | translate }}</label>
           <p>
-            {{ getCurrency$ }}
             {{
               getService$?.price
                 | currency: getCurrency$:"symbol":"1.0":getLangLocation$

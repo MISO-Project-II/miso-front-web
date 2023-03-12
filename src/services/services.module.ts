@@ -42,7 +42,6 @@ export class ServicesModule {
 
         LoginService,
         UserRegisterService,
-        // ThirdRegisterService,
 
         // SuggestionsFoodPlansService,
         // SuggestionsRoutesService,
@@ -51,20 +50,12 @@ export class ServicesModule {
         // SuggestionsServicesService,
 
         SportsService,
-        // AllergiesService,
-        // DisabilitiesService,
-        // PainsService,
-        // IntolerancesService,
 
         UserDataService,
         ThirdDataService,
 
         SportPlansService,
-        // SportRoutinesService,
-        // ExercisesService,
         FoodPlansService,
-        // FoodRoutinesService,
-        // FoodsService,
 
         UbicationService,
         SessionService,

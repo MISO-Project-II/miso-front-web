@@ -77,6 +77,16 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   get getProductIdUserCreator$(): number {
     return this._productSelected.idUserCreator;
   }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserProducts) => {

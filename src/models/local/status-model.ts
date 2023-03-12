@@ -22,6 +22,7 @@ export class StatusModel {
   isvegetarian: number;
   idSportPlan: number;
   idFoodPlan: number;
+  description?: string;
   constructor(userType: string) {
     this.userType = userType;
   }

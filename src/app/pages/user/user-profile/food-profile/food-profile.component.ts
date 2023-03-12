@@ -212,7 +212,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         imc: this.getGeneralStatus$?.imc,
         isVegan: this.is_vegan?.value ? 1 : 0,
         isvegetarian: this.is_vegetarian?.value ? 1 : 0,
-        idSportPlan: this.getGeneralStatus$?.idFoodPlan,
+        idSportPlan: this.getGeneralStatus$?.idSportPlan,
         idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
       };
     }
