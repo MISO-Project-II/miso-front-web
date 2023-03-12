@@ -2,7 +2,9 @@ steps:
   - id: Package image
     name: gcr.io/cloud-builders/npm
     args: [ 'install' ]
-
+    volumes:
+      - name: 'myvolume'
+        path: '/persistent_volume'
   - id: Execute test
     name: gcr.io/cloud-builders/npm
     entrypoint: bash
@@ -14,17 +16,19 @@ steps:
         npm install @capacitor/cli
         npm run build
         npx cap sync
-
-  - name: ubuntu
-    entrypoint: bash
+    volumes:
+      - name: 'myvolume'
+        path: '/persistent_volume'
+  - name: 'gcr.io/cloud-builders/git'
+    id: Clone env repository
+    entrypoint: /bin/sh
     args:
-      - -c
+      - '-c'
       - |
-        echo "First we saved " ls
-        echo "cd.." cd ..
-
-
-
+        ls
+    volumes:
+      - name: 'myvolume'
+        path: '/persistent_volume'
 
 
 substitutions:
