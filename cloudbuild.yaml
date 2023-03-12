@@ -27,7 +27,7 @@ steps:
       - -c
       - |
         cd android/
-        gradlew installDebug
+        installDebug
     volumes:
       - name: 'myvolume'
         path: '/persistent_volume'
