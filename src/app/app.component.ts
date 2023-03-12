@@ -1,6 +1,6 @@
 import { UbicationService } from "src/services/general/ubication.service";
 import { environment } from "src/environments/environment";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { StatusService } from "src/services/local/status.service";
 import { ILangLocation } from "src/models/local/languaje.interface";
@@ -10,7 +10,7 @@ import { ILangLocation } from "src/models/local/languaje.interface";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   private _version: string;
   private _langLocation: ILangLocation;
   constructor(
@@ -32,6 +32,17 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this._isMobile();
+  }
+  ngOnDestroy(): void {
+    sessionStorage.removeItem("status");
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userData");
+    sessionStorage.removeItem("sportsList");
+    sessionStorage.removeItem("eventsList");
+    sessionStorage.removeItem("servicesList");
+    sessionStorage.removeItem("productsList");
+    sessionStorage.removeItem("thirdList");
   }
   private _isMobile(): void {
     var isMobile = {

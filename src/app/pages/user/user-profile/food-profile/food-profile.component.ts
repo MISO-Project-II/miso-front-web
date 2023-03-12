@@ -62,6 +62,9 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     this._destroy$.next(true);
     this._destroy$.complete();
   }
+  get getGeneralStatus$(): StatusModel {
+    return this._statusService.getGeneralStatus();
+  }
   private _loadData(): void {
     this._userDataService
       .getGeneralData(this.getGeneralStatus.userId)
@@ -72,8 +75,10 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
             this.userData = res.result;
             this.is_vegetarian?.patchValue(this.userData.isvegetarian == 1);
             this.is_vegan?.patchValue(this.userData.isVegan == 1);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -176,7 +181,6 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    this._statusService.spinnerShow();
     let listFoods = ((this.foods_preference?.value as any[]) || []).map(
       (s) => s.idFood
     );
@@ -190,8 +194,27 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       (this.userPainList || []).map((s) => s.IdImpediment)
     );
     if (this.userData) {
-      this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
-      this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
+      // this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
+      // this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
+      this.userData = {
+        username: this.getGeneralStatus$?.username,
+        name: this.getGeneralStatus$?.name,
+        lastName: this.getGeneralStatus$?.lastName,
+        idIdentificationType: this.getGeneralStatus$?.idIdentificationType,
+        identificationNumber: this.getGeneralStatus$?.identificationNumber,
+        birthdUbication: this.getGeneralStatus$?.birthdUbication,
+        homeUbication: this.getGeneralStatus$?.homeUbication,
+        gender: this.getGeneralStatus$?.gender,
+        age: this.getGeneralStatus$?.age,
+        weight: this.getGeneralStatus$?.weight,
+        height: this.getGeneralStatus$?.height,
+        userPlan: this.getGeneralStatus$?.contractType,
+        imc: this.getGeneralStatus$?.imc,
+        isVegan: this.is_vegan?.value ? 1 : 0,
+        isvegetarian: this.is_vegetarian?.value ? 1 : 0,
+        idSportPlan: this.getGeneralStatus$?.idFoodPlan,
+        idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
+      };
     }
     this._callService(listFoods, listImpediments, this.userData);
   }
@@ -200,10 +223,13 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     listImpediments: number[],
     data: IUserData
   ): void {
+    this._statusService.spinnerShow();
+    // Falta Enviar FOODS
     this._sportProfileService
       .postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments)
       .subscribe({
         next: () => {
+          // XXX Validar rta
           this._statusService.spinnerHide();
         },
       });
@@ -215,8 +241,10 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
           if (!!res && res.success) {
             console.log("🚀 XXX - FoodProfileComponent - res : ", res);
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         () => {}
       );

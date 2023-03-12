@@ -198,7 +198,6 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    this._statusService.spinnerShow();
     let listSports = ((this.sportPractice?.value as ISports[]) || []).map(
       (s) => s.idsports
     );
@@ -217,10 +216,12 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this._callService(listSports, listImpediments);
   }
   private _callService(listSports: number[], listImpediments: number[]): void {
+    this._statusService.spinnerShow();
     this._sportProfileService
       .putSportsByUser(this.getGeneralStatus.userId, listSports)
       .subscribe({
         next: () => {
+          // XXX Validar rta
           this._statusService.spinnerHide();
         },
       });

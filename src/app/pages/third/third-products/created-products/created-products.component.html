@@ -21,12 +21,12 @@
       </div>
     </div>
     <div class="col-12 col-md-9 mx-auto" *ngIf="!!getProduct$; else noItem">
-      <app-ds-title [title]="getProduct$.name! | translate"></app-ds-title>
+      <app-ds-title [title]="getProduct$?.name! | translate"></app-ds-title>
       <div class="body">
-        <p>{{ getProduct$.description }}</p>
-        <div class="d-flex" *ngIf="getProduct$.price">
+        <p>{{ getProduct$?.description }}</p>
+        <div class="d-flex" *ngIf="getProduct$?.price">
           <label>{{ "LBL.PRICE" | translate }}</label>
-          <p>{{ getProduct$.price }}</p>
+          <p>{{ getProduct$?.price }}</p>
         </div>
         <div class="d-flex" *ngIf="!!getProductIdSports$">
           <label>{{ "LBL.SPORTS_RELATED" | translate }}</label>
@@ -57,19 +57,19 @@
         >
           <label
             >{{
-              getProduct$.contractType === FREE_CONTRACT
+              getProduct$?.contractType === FREE_CONTRACT
                 ? ("LBL.FREE_CONTRACT" | translate)
-                : getProduct$.contractType === INTERMEDIATE_CONTRACT
+                : getProduct$?.contractType === INTERMEDIATE_CONTRACT
                 ? ("LBL.INTERMEDIATE_CONTRACT" | translate)
-                : getProduct$.contractType === PREMIUM_CONTRACT
+                : getProduct$?.contractType === PREMIUM_CONTRACT
                 ? ("LBL.PREMIUM_CONTRACT" | translate)
                 : ""
             }}{{
-              getProduct$.contractType === FREE_CONTRACT
+              getProduct$?.contractType === FREE_CONTRACT
                 ? ("LBL.FREE_CONTRACT_ICON" | translate)
-                : getProduct$.contractType === INTERMEDIATE_CONTRACT
+                : getProduct$?.contractType === INTERMEDIATE_CONTRACT
                 ? ("LBL.INTERMEDIATE_CONTRACT_ICON" | translate)
-                : getProduct$.contractType === PREMIUM_CONTRACT
+                : getProduct$?.contractType === PREMIUM_CONTRACT
                 ? ("LBL.PREMIUM_CONTRACT_ICON" | translate)
                 : ""
             }}

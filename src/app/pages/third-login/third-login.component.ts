@@ -91,11 +91,12 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
                 this._statusService.setUserData(res.user!);
                 this._router.navigate([ROOT_ROUTES_NAMES.USER]);
               }
-            }, 1000);
+            }, 100);
+            this._statusService.spinnerHide();
           } else {
             this.username?.setErrors({ error_login: true });
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

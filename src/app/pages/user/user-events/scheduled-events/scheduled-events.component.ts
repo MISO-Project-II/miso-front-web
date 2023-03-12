@@ -84,12 +84,15 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           // if (!!res) {
           console.log("🚀 XXX - _loadEventsScheduled - res : ", res);
-
-          this._statusService.setEventsListScheduled(
-            res.result["consume-event"]!
-          );
+          setTimeout(() => {
+            this._statusService.setEventsListScheduled(
+              res.result["consume-event"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -101,7 +104,6 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
    * Cancelar evento inscrito por el usuario
    */
   private _onSubmit(): void {
-    this._statusService.spinnerShow();
     const data: number[] = [];
     for (let index = 0; index < this.getEventsListScheduled$.length; index++) {
       data.push(this.getEventsListScheduled$[index].idEvent!);
@@ -119,6 +121,7 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
+    this._statusService.spinnerShow();
     this._eventsService
       .putUserEvent(
         this._statusService.getGeneralStatus().userId,
@@ -130,8 +133,9 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
           if (!!res && res.success) {
             // XXX
             this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

@@ -40,11 +40,15 @@ export class ThirdProductsComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           // if (!!res) {
           console.log("🚀 XXX - _loadProductsScheduled - res : ", res);
-          this._statusService.setProductsListScheduled(
-            res.result["produce-product"]!
-          );
+          setTimeout(() => {
+            this._statusService.setProductsListScheduled(
+              res.result["produce-product"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

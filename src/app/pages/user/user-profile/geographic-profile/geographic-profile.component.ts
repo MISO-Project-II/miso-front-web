@@ -103,7 +103,7 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
   get imc() {
     return this.formUserGeographicProfile.get("imc");
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
 
@@ -184,7 +184,7 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
   private _loadData(): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .getGeneralData(this.getGeneralStatus.userId)
+      .getGeneralData(this.getGeneralStatus$.userId)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
@@ -203,6 +203,8 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
             this.setHomeUbication(res.result?.homeUbication);
             let bornDate = new Date(res.result?.age || "");
             this.age?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
+            this._statusService.spinnerHide();
+          } else {
             this._statusService.spinnerHide();
           }
         },
@@ -257,29 +259,32 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
         this._countryCodeOfResidence.currency
       }-${this.montsOfResidence?.value || 0}`;
       const data: IUserData = {
-        username: this.getGeneralStatus.username,
-        name: this.getGeneralStatus.name,
-        lastName: this.getGeneralStatus.lastName,
-        idIdentificationType: this.getGeneralStatus.idIdentificationType,
-        identificationNumber: this.getGeneralStatus.identificationNumber,
+        username: this.getGeneralStatus$.username,
+        name: this.getGeneralStatus$.name,
+        lastName: this.getGeneralStatus$.lastName,
+        idIdentificationType: this.getGeneralStatus$.idIdentificationType,
+        identificationNumber: this.getGeneralStatus$.identificationNumber,
         birthdUbication: _birthdUbication,
         homeUbication: _homeUbication,
-        gender: this.getGeneralStatus.gender,
+        gender: this.getGeneralStatus$.gender,
         age: this.age?.value,
         weight: this.weight?.value,
         height: (this.height?.value || 0) / 100,
-        userPlan: this.getGeneralStatus.contractType,
+        userPlan: this.getGeneralStatus$.contractType,
+        isVegan: this.getGeneralStatus$?.isVegan,
+        isvegetarian: this.getGeneralStatus$?.isvegetarian,
         imc: this.imc?.value,
-        idSportPlan: 0,
-        idFoodPlan: 0,
+        idSportPlan: this.getGeneralStatus$?.idSportPlan,
+        idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
       };
       this._callService(data);
     }
   }
 
   private _callService(data: IUserData): void {
+    this._statusService.spinnerShow();
     this._userDataService
-      .updateGeneralData(this.getGeneralStatus.userId, data)
+      .updateGeneralData(this.getGeneralStatus$.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
@@ -289,8 +294,10 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
               res
             );
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

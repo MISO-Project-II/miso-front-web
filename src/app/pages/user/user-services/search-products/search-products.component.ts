@@ -132,8 +132,10 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
               "🚀 XXX - SearchProductsComponent - _callService - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

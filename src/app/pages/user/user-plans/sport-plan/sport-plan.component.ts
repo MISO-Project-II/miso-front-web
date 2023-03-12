@@ -1,17 +1,22 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import {
   ISportPlans,
   SportRoutineList,
 } from "src/models/home/sport-plans.interface";
-import { IUserData } from "src/models/user-data/user-data.interface";
-import { SportPlansService } from "src/services/home/plans/sport-plans.service";
+import {
+  IResUserData,
+  IUserData,
+} from "src/models/user-data/user-data.interface";
 import { StatusService } from "src/services/local/status.service";
 import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
 } from "src/constanst/data.constants";
 import { StatusModel } from "src/models/local/status-model";
+import { UserDataService } from "src/services/user-data/user-data.service";
+import { Router } from "@angular/router";
+import { ROUTES_NAMES } from "src/constanst/routes";
 
 @Component({
   selector: "app-sport-plan",
@@ -26,8 +31,9 @@ export class SportPlanComponent implements OnInit, OnDestroy {
   private _sportRoutines: SportRoutineList;
 
   constructor(
-    private _sportPlansService: SportPlansService,
-    private _statusService: StatusService
+    private _statusService: StatusService,
+    private _userDataService: UserDataService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -40,14 +46,17 @@ export class SportPlanComponent implements OnInit, OnDestroy {
   get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
-  get getSportPlanService$(): Observable<ISportPlans[]> {
-    return this._sportPlansService.getSportPlan();
-  }
   get getSportPlan$(): ISportPlans {
     return this._sportPlanSelected;
   }
   get getSportRoutines$(): SportRoutineList {
     return this._sportRoutines;
+  }
+  get getIdSportPlan$(): number {
+    return this.getGeneralStatus$.idSportPlan;
+  }
+  get getSportPlansList$(): ISportPlans[] {
+    return this._statusService.getSportPlansList();
   }
   public setSportPlan(sportPlanSelected: ISportPlans) {
     this._sportPlanSelected = sportPlanSelected;
@@ -55,7 +64,55 @@ export class SportPlanComponent implements OnInit, OnDestroy {
   public setRoutine(sportRoutines: SportRoutineList) {
     this._sportRoutines = sportRoutines;
   }
-  get getSportPlansList$(): ISportPlans[] {
-    return this._statusService.getSportPlansList();
+
+  public selectSportPlan(idSportPlan: number): void {
+    this._statusService.spinnerShow();
+    const data: IUserData = {
+      username: this.getGeneralStatus$?.username,
+      name: this.getGeneralStatus$?.name,
+      lastName: this.getGeneralStatus$?.lastName,
+      idIdentificationType: this.getGeneralStatus$?.idIdentificationType,
+      identificationNumber: this.getGeneralStatus$?.identificationNumber,
+      birthdUbication: this.getGeneralStatus$?.birthdUbication,
+      homeUbication: this.getGeneralStatus$?.homeUbication,
+      gender: this.getGeneralStatus$?.gender,
+      age: this.getGeneralStatus$?.age,
+      weight: this.getGeneralStatus$?.weight,
+      height: this.getGeneralStatus$?.height,
+      userPlan: this.getGeneralStatus$?.contractType,
+      imc: this.getGeneralStatus$?.imc,
+      isVegan: this.getGeneralStatus$?.isVegan,
+      isvegetarian: this.getGeneralStatus$?.isvegetarian,
+      idSportPlan: idSportPlan ? idSportPlan : 0,
+      idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
+    };
+    console.log("🚀 XXX - SportPlanComponent - onSubmit - data : ", data);
+
+    this._callService(data);
+  }
+  private _callService(data: IUserData): void {
+    this._userDataService
+      .updateGeneralData(this.getGeneralStatus$.userId, data)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResUserData) => {
+          if (!!res && res.success) {
+            console.log(
+              "🚀 XXX - SportPlanComponent - _callService - res : ",
+              res
+            );
+            this._router.navigate([
+              this.getGeneralStatus$.userUrl + ROUTES_NAMES.HOME,
+            ]);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
+          }
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
   }
 }

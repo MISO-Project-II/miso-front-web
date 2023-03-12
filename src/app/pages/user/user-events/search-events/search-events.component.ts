@@ -133,8 +133,9 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
           if (!!res && res.success) {
             // XXX
             this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

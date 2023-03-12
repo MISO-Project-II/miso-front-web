@@ -75,7 +75,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       sportInterest: new FormControl([]),
       // Datos secundarios
       genre: new FormControl("", [Validators.required]),
-      // age: new FormControl("", [Validators.required, Validators.pattern("^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$")]),
       age: new FormControl("", [Validators.required]),
       weight: new FormControl("", [
         Validators.required,
@@ -185,8 +184,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
               "🚀 XXX - UserRegisterComponent - _loadSports - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -239,7 +240,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    // this._statusService.spinnerShow();
     const data: IUserRegister = {
       // Datos principales
       username: this.user?.value,
@@ -285,6 +285,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   }
 
   private _createUserRegisterService(data: IUserRegister): void {
+    this._statusService.spinnerShow();
     this._userRegisterService
       .create(data)
       .pipe(takeUntil(this._destroy$))
@@ -296,8 +297,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           );
           if (!!res && res.success) {
             this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err: any) => {
           console.error(err);

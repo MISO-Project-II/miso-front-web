@@ -7,6 +7,8 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { RESUME, START, STOP } from "src/constanst/data.constants";
+import { IFoodPlans } from "src/models/home/food-plans.interface";
+import { ISportPlans } from "src/models/home/sport-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { SessionService } from "src/services/general/session.service";
 import { StatusService } from "src/services/local/status.service";
@@ -67,6 +69,36 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   get getSessionService$(): Observable<ISetSession> {
     return this._sessionService.getSession();
   }
+
+  get getFoodPlansList$(): IFoodPlans[] {
+    return this._statusService.getFoodPlansList();
+  }
+  get getSportPlansList$(): ISportPlans[] {
+    return this._statusService.getSportPlansList();
+  }
+
+  get getIdFoodPlan$(): number {
+    return this.getGeneralStatus$.idFoodPlan;
+  }
+  get getIdSportPlan$(): number {
+    return this.getGeneralStatus$.idSportPlan;
+  }
+
+  get getSportPlan$(): ISportPlans {
+    return this._statusService
+      .getSportPlansList()
+      .filter(
+        (data: ISportPlans) => data.idSportPlan === this.getIdSportPlan$
+      )[0];
+  }
+  get getFoodPlan$(): IFoodPlans {
+    return this._statusService
+      .getFoodPlansList()
+      .filter(
+        (data: IFoodPlans) => data.idFoodPlan === this.getIdSportPlan$
+      )[0];
+  }
+
   private _initForm(): void {
     this.formSession = new FormGroup({});
   }
@@ -200,9 +232,13 @@ export class UserSessionComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserSessionComponent - _loadSession - res : ",
             res
           );
-          this._statusService.setLastSessionData(res!);
+          setTimeout(() => {
+            this._statusService.setLastSessionData(res!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -219,7 +255,9 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     //     (res: ISetSession) => {
     //       if (!!res) {
     // console.log('🚀 XXX - UserSessionComponent - _callService - data : ', data);
-    this._statusService.setLastSessionData(data);
+    setTimeout(() => {
+      this._statusService.setLastSessionData(data);
+    }, 100);
     //     }
     //     this._statusService.spinnerHide();
     //   },

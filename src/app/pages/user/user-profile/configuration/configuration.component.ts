@@ -64,7 +64,9 @@ export class ConfigurationComponent implements OnInit {
         raw: true,
       });
       var valueSession: ValueSession[] = this._mapArrayList(arraylist);
-      this._statusService.setSessionData(valueSession[0]);
+      setTimeout(() => {
+        this._statusService.setSessionData(valueSession[0]);
+      }, 100);
     };
   }
   public delFiles(): void {

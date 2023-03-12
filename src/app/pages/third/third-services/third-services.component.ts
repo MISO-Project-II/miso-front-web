@@ -39,11 +39,15 @@ export class ThirdServicesComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           // if (!!res) {
           console.log("🚀 XXX - _loadServicesScheduled - res : ", res);
-          this._statusService.setServicesListScheduled(
-            res.result["produce-services"]!
-          );
+          setTimeout(() => {
+            this._statusService.setServicesListScheduled(
+              res.result["produce-services"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

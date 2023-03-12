@@ -85,7 +85,6 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
     this.sportName = item.name;
   }
   public onSubmit(): void {
-    this._statusService.spinnerShow();
     const data: IEvents = {
       name: this.getName?.value,
       description: this.getDescription?.value,
@@ -99,6 +98,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
     this._callService(data);
   }
   private _callService(data: IEvents): void {
+    this._statusService.spinnerShow();
     this._eventsService
       .postCreateEvent(data)
       .pipe(takeUntil(this._destroy$))
@@ -109,11 +109,16 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
               "🚀 XXX - CreateEventsComponent - _callService - res : ",
               res
             );
-            const eventsListScheduled = this.getEventsListScheduled;
-            eventsListScheduled.push(res.result!);
-            this._statusService.setEventsListScheduled(eventsListScheduled);
+            setTimeout(() => {
+              const eventsListScheduled = this.getEventsListScheduled;
+              eventsListScheduled.push(res.result!);
+              this._statusService.setEventsListScheduled(eventsListScheduled);
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            // XXX toast fail
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err: any) => {
           console.error(err);

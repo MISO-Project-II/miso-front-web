@@ -76,7 +76,6 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
     return this._statusService.getProductsListScheduled();
   }
   public onSubmit(): void {
-    this._statusService.spinnerShow();
     const data: IProducts = {
       name: this.getName?.value,
       description: this.getDescription?.value,
@@ -89,6 +88,7 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
     this._callService(data);
   }
   private _callService(data: IProducts): void {
+    this._statusService.spinnerShow();
     this._productsService
       .postCreateProduct(data)
       .pipe(takeUntil(this._destroy$))
@@ -99,11 +99,17 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
               "🚀 XXX - CreateProductsComponent - _callService - res : ",
               res
             );
-            const productsListScheduled = this.getProductsListScheduled;
-            productsListScheduled.push(res.result!);
-            this._statusService.setProductsListScheduled(productsListScheduled);
+            setTimeout(() => {
+              const productsListScheduled = this.getProductsListScheduled;
+              productsListScheduled.push(res.result!);
+              this._statusService.setProductsListScheduled(
+                productsListScheduled
+              );
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

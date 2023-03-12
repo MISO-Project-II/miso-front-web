@@ -100,11 +100,17 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
               "🚀 XXX - CreateServicesComponent - _callService - res : ",
               res
             );
-            const servicesListScheduled = this.getServicesListScheduled;
-            servicesListScheduled.push(res.result!);
-            this._statusService.setServicesListScheduled(servicesListScheduled);
+            setTimeout(() => {
+              const servicesListScheduled = this.getServicesListScheduled;
+              servicesListScheduled.push(res.result!);
+              this._statusService.setServicesListScheduled(
+                servicesListScheduled
+              );
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

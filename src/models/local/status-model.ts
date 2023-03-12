@@ -18,6 +18,10 @@ export class StatusModel {
   weight: number;
   height: number;
   imc: number;
+  isVegan: number;
+  isvegetarian: number;
+  idSportPlan: number;
+  idFoodPlan: number;
   constructor(userType: string) {
     this.userType = userType;
   }

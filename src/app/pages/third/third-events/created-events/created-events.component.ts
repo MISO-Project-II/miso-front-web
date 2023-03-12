@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -35,7 +36,8 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _eventsService: EventsService,
-    private _statusService: StatusService
+    private _statusService: StatusService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -93,8 +95,10 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
               "🚀 XXX - CreatedEventsComponent - delEvent - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -122,12 +126,15 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
+            // XXX
             console.log(
               "🚀 XXX - CreatedEventsComponent - _callService - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

@@ -115,7 +115,6 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
     const servicesListScheduled = this.getServicesListScheduled$;
     servicesListScheduled.push(this._serviceSelected);
     this._statusService.setServicesListScheduled(servicesListScheduled);
-    this._statusService.spinnerShow();
     const data: number[] = [];
     for (
       let index = 0;
@@ -129,6 +128,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
+    this._statusService.spinnerShow();
     this._servicesService
       .putUserService(this.getGeneralStatus$.userId, listScheduled)
       .subscribe((res: IGenericResponse) => {
@@ -138,8 +138,10 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
             "🚀 XXX - SearchServicesComponent - .subscribe - res : ",
             res
           );
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       });
   }
 }

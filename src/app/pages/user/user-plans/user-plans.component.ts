@@ -41,9 +41,13 @@ export class UserPlansComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserPlansComponent - _loadSportPlans - res : ",
             res
           );
-          this._statusService.setSportPlansList(res);
+          setTimeout(() => {
+            this._statusService.setSportPlansList(res);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -59,9 +63,13 @@ export class UserPlansComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserPlansComponent - _loadFoodPlans - res : ",
             res
           );
-          this._statusService.setFoodPlansList(res);
+          setTimeout(() => {
+            this._statusService.setFoodPlansList(res);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
