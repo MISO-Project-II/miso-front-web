@@ -1,15 +1,9 @@
-import { IResProducts } from "src/models/home/products.interface";
-import { ProductsService } from "../../../../services/home/products/products.service";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
-import {
-  IResServices,
-  IResUserServices,
-} from "src/models/home/services.interface";
+import { IResUserServices } from "src/models/home/services.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
-import { RoutesService } from "src/services/general/routes.service";
 
 @Component({
   selector: "app-third-services",
@@ -20,12 +14,11 @@ export class ThirdServicesComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _statusService: StatusService,
-    private _servicesService: ServicesService,
-    private _routesService: RoutesService
+    private _servicesService: ServicesService
   ) {}
 
   ngOnInit() {
-    console.log("XXX - ThirdServicesComponent (Contiene a serviceos y rutas)");
+    console.log("🚀 XXX - ngOnInit (Contiene a serviceos y rutas) ");
     this._loadServicesScheduled();
   }
   ngOnDestroy(): void {
@@ -45,10 +38,7 @@ export class ThirdServicesComponent implements OnInit, OnDestroy {
       (res: IResUserServices) => {
         if (!!res && res.success) {
           // if (!!res) {
-          console.log(
-            "XXX - ScheduledServicesComponent - _loadServicesScheduled - res",
-            res
-          );
+          console.log("🚀 XXX - _loadServicesScheduled - res : ", res);
           this._statusService.setServicesListScheduled(
             res.result["produce-services"]!
           );

@@ -1,6 +1,6 @@
 import { UbicationService } from "src/services/general/ubication.service";
 import { environment } from "src/environments/environment";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { StatusService } from "src/services/local/status.service";
 import { ILangLocation } from "src/models/local/languaje.interface";
@@ -10,13 +10,12 @@ import { ILangLocation } from "src/models/local/languaje.interface";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   private _version: string;
   private _langLocation: ILangLocation;
   constructor(
     private _translateService: TranslateService,
-    private _statusService: StatusService,
-    private _ubicationService: UbicationService
+    private _statusService: StatusService
   ) {
     this._langLocation = {
       lang: "es",
@@ -32,11 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._version = environment.version;
   }
   ngOnInit() {
-    console.log("XXX - Entra a AppComponent");
     this._isMobile();
-  }
-  ngOnDestroy(): void {
-    console.log("XXX - Sale de AppComponent");
   }
   private _isMobile(): void {
     var isMobile = {

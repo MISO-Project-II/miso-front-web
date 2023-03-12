@@ -29,21 +29,12 @@ export class HelperComponent implements OnInit {
 
   private async getCountries() {
     this.countries = await this._ubicationService.getCountries();
-    await console.log(
-      "XXX - HelperComponent - ngOnInit - this.countries ",
-      this.countries
-    );
   }
   private async getCountry(countryCode: string) {
     this.country = await this._ubicationService.getCountry(countryCode);
   }
   private async getStates(countryCode: string) {
-    // this.states = await this._ubicationService.getStatesByCountry(countryCode);
     this.states = await this._ubicationService.getStatesByCountry(countryCode);
-    await console.log(
-      "XXX - UserRegisterComponent - getStates - this.states",
-      this.states
-    );
   }
   private async getCities(countryCode: string, cityCode: string) {
     this.cities = await this._ubicationService.getCitiesBtStateByCountry(

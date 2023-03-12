@@ -1,7 +1,7 @@
 import { Router } from "@angular/router";
 import { IGenericResponse } from "./../../../../../models/local/generic.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject, takeUntil, timeout } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
   INTERMEDIATE_CONTRACT,
@@ -18,7 +18,6 @@ import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 import { UpdatePlanService } from "src/services/update-plan/update-plan.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
-import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { IProducts } from "src/models/home/products.interface";
 
@@ -42,10 +41,6 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {}
   ngOnInit() {
-    console.log(
-      "this._statusService.getPlanType()",
-      this._statusService.getGeneralStatus().contractType
-    );
     this._loadEvents();
     this._loadServices();
   }
@@ -134,6 +129,10 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           if (!!res && res.success) {
+            console.log(
+              "🚀 XXX - PlanDetailComponent - _updatePlan - res : ",
+              res
+            );
             this._statusService.spinnerHide();
             this._loadUpdatePlan(res.result?.idPlan!);
           }
@@ -147,8 +146,6 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
   }
 
   private _loadUpdatePlan(contractPlan: string): void {
-    console.log("XXX-llama plan detail?");
-
     this._statusService.spinnerShow();
     this._userDataService
       .updatePlan(this.getGeneralStatus.userId)
@@ -167,7 +164,6 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
               this._router.navigate([
                 this.getGeneralStatus.userUrl + ROUTES_NAMES.HOME,
               ]);
-              // window.location.reload();
             }, 1000);
           }
           this._statusService.spinnerHide();
@@ -190,7 +186,6 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
               "🚀 XXX - PlanDetailComponent - _loadGeneralData - res : ",
               res
             );
-            // this._statusService.setContractType(res.result?.userPlan!);
             this._statusService.setContractType(contractPlan);
           }
           this._statusService.spinnerHide();
@@ -205,7 +200,10 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResEvents) => {
         if (!!res && res.success) {
-          console.log("XXX - UserEventsComponent - _loadEvents - res", res);
+          console.log(
+            "🚀 XXX - PlanDetailComponent - _loadEvents - res : ",
+            res
+          );
           this._statusService.setEventsList(res.result!);
         }
         this._statusService.spinnerHide();
@@ -220,7 +218,10 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResServices) => {
         if (!!res && res.success) {
-          console.log("XXX - UserServicesComponent - _loadServices - res", res);
+          console.log(
+            "🚀 XXX - PlanDetailComponent - _loadServices - res : ",
+            res
+          );
           this._statusService.setServicesList(res.result!);
         }
         this._statusService.spinnerHide();

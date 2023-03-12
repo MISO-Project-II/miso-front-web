@@ -21,7 +21,6 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - ThirdHomeComponent");
     this._loadGeneralData();
     this._loadSports();
   }

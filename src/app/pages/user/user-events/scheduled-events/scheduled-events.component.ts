@@ -8,12 +8,9 @@ import {
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
-import {
-  IEvents,
-  IResEvents,
-  IResUserEvents,
-} from "src/models/home/events.interface";
+import { IEvents, IResUserEvents } from "src/models/home/events.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -28,6 +25,7 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
+  public thirdData: IThirdDataMap;
   private _eventSelected: IEvents = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -37,9 +35,7 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log(
-      "XXX - ScheduledEventsComponentngOnInit (Eventos Inscritos por el usuario)"
-    );
+    console.log("🚀 XXX - ngOnInit (Eventos Inscritos por el usuario) ");
     this._loadEventsScheduled();
   }
   ngOnDestroy(): void {
@@ -73,18 +69,22 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   get getEventsListScheduled$(): IEvents[] {
     return this._statusService.getEventsListScheduled();
   }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === eventSelected.idUserCreator
+    )[0];
   }
   private _loadEventsScheduled(): void {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserEvents) => {
         if (!!res && res.success) {
           // if (!!res) {
-          console.log(
-            "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
-            res
-          );
+          console.log("🚀 XXX - _loadEventsScheduled - res : ", res);
+
           this._statusService.setEventsListScheduled(
             res.result["consume-event"]!
           );
@@ -101,7 +101,6 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
    * Cancelar evento inscrito por el usuario
    */
   private _onSubmit(): void {
-    console.log("XXX - _onSubmit", this.getEventsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
     for (let index = 0; index < this.getEventsListScheduled$.length; index++) {
@@ -120,10 +119,6 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - ScheduledEventsComponent - _callService - listScheduled",
-      listScheduled
-    );
     this._eventsService
       .putUserEvent(
         this._statusService.getGeneralStatus().userId,
@@ -133,10 +128,8 @@ export class ScheduledEventsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
-            console.log(
-              "XXX - ScheduledEventsComponent - _callService - res",
-              res
-            );
+            // XXX
+            this._statusService.spinnerHide();
           }
           this._statusService.spinnerHide();
         },

@@ -1,11 +1,10 @@
 import {
-  IResSetSession,
   ISession,
   ISetSession,
   ValueSession,
 } from "./../../../../models/general/session.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { RESUME, START, STOP } from "src/constanst/data.constants";
 import { StatusModel } from "src/models/local/status-model";
@@ -47,7 +46,6 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     private _sessionService: SessionService
   ) {}
   ngOnInit() {
-    console.log("XXX - UserSessionComponent");
     this._initForm();
     this.sessionData = this._avgSessionValues();
     this._loadSession();
@@ -70,10 +68,7 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     return this._sessionService.getSession();
   }
   private _initForm(): void {
-    this.formSession = new FormGroup({
-      actualDate: new FormControl(new Date()),
-      // dato: new FormControl(MockSessions[0]),
-    });
+    this.formSession = new FormGroup({});
   }
 
   public onSubmit(): void {}

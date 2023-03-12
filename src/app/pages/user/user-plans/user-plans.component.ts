@@ -20,7 +20,6 @@ export class UserPlansComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - UserPlansComponent");
     this._loadSportPlans();
     this._loadFoodPlans();
   }
@@ -38,7 +37,10 @@ export class UserPlansComponent implements OnInit, OnDestroy {
     this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: ISportPlans[]) => {
         if (!!res) {
-          console.log("🚀 XXX - _loadSportPlans - res : ", res);
+          console.log(
+            "🚀 XXX - UserPlansComponent - _loadSportPlans - res : ",
+            res
+          );
           this._statusService.setSportPlansList(res);
         }
         this._statusService.spinnerHide();
@@ -53,7 +55,10 @@ export class UserPlansComponent implements OnInit, OnDestroy {
     this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IFoodPlans[]) => {
         if (!!res) {
-          console.log("🚀 XXX - _loadFoodPlans - res : ", res);
+          console.log(
+            "🚀 XXX - UserPlansComponent - _loadFoodPlans - res : ",
+            res
+          );
           this._statusService.setFoodPlansList(res);
         }
         this._statusService.spinnerHide();

@@ -41,9 +41,23 @@
         <div class="d-flex" *ngIf="!!getServiceIdSports$">
           <p>{{ getServiceSportSelected$.description | json }}</p>
         </div>
-        <div class="d-flex" *ngIf="getService$.idUserCreator">
-          <label>{{ "LBL.CONTACT" | translate }}</label>
-          <p>{{ getService$.idUserCreator }}</p>
+        <div class="d-block" *ngIf="getServiceIdUserCreator$">
+          <label class="d-flex" *ngIf="thirdData?.name"
+            >{{ "LBL.CONTACT" | translate }}
+            <p>{{ thirdData?.name }} {{ thirdData?.lastName }}</p></label
+          >
+          <label class="d-flex" *ngIf="thirdData?.username"
+            >{{ "LBL.CONTACT_NAME" | translate }}
+            <p>{{ thirdData?.username }}</p></label
+          >
+          <label class="d-flex" *ngIf="thirdData?.description"
+            >{{ "LBL.CONTACT_DESC" | translate }}
+            <p>{{ thirdData?.description }}</p></label
+          >
+          <label class="d-flex"
+            >{{ "LBL.CONTACT_CODE" | translate }}
+            <p>{{ getServiceIdUserCreator$ }}</p></label
+          >
         </div>
         <div
           *ngIf="!!getService$?.contractType"
@@ -108,5 +122,4 @@
       <label>{{ "ERR.NO_DATA" | translate }} </label>
     </div></ng-template
   >
-  <p>::: getServicesList$.length {{ getServicesList$.length }}</p>
 </div>

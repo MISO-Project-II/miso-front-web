@@ -4,7 +4,7 @@ import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { IResDisabilities } from "src/models/general/disabilities.interface";
 import { IResPains } from "src/models/general/pains.interface";
-import { IResSports, ISports } from "src/models/general/sports.interface";
+import { IResSports } from "src/models/general/sports.interface";
 import {
   MockResErrorSports,
   MockResSuccessGetSports,
@@ -29,7 +29,6 @@ export class SportsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - UserDataService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -44,7 +43,6 @@ export class SportsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - UserDataService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -54,7 +52,6 @@ export class SportsService {
     return this._http.get<IResPains>(url, { headers: this._httpHeaders }).pipe(
       retry(3),
       catchError((err: any) => {
-        console.log("XXX - UserDataService - catchError - err", err);
         return throwError(err);
       })
     );

@@ -114,6 +114,9 @@
     "SELECT_SPORT_PLAN": "Select a sport plan",
     "SELECT_FOOD_PLAN": "Select a food plan",
     "CONTACT": "Contact: ",
+    "CONTACT_NAME": "Contact name: ",
+    "CONTACT_CODE": "Contact code: ",
+    "CONTACT_DESC": "Contact description: ",
     "MANAGER": "Manager: ",
     "OBJECTIVES": "Objectives: ",
     "ROUTINES": "Routines: ",
@@ -153,7 +156,8 @@
     "CONNECT_OTHER_APP_ALERT": "First connect an external device to take measurements",
     "CONNECT_OTHER_APP": "Connect with external applications",
     "APPS_CONNECTED": "Connected apps",
-    "IMC": "Body mass index"
+    "IMC": "Body mass index",
+    "EVENT_DETAIL": "Event detail"
   },
   "PLACEHOLDER": {
     "USER_1": "User...",
@@ -205,6 +209,7 @@
     "INTERMEDIATE_CONTRACT": "Intermediate plan",
     "PREMIUM_CONTRACT": "Premium plan",
     "SCHEDULED_EVENTS": "Events view",
+    "SCHEDULED_EVENT": "Event view",
     "SPORT_PLANS": "Sport plans view",
     "FOOD_PLANS": "Food plans view",
     "ROUTES": "Routes view",

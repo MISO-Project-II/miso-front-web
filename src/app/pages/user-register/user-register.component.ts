@@ -19,7 +19,6 @@ import { StatusModel } from "src/models/local/status-model";
 import { SPORTSMAN } from "src/constanst/data.constants";
 import { UbicationService } from "src/services/general/ubication.service";
 import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
-import { Date_yyyymmdd } from "src/helper/date.helper";
 
 @Component({
   selector: "app-user-register",
@@ -182,7 +181,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
         (res: IResSports) => {
           if (!!res && res.success) {
             this.sportList = res.result!;
-            console.log("XXX - UserRegisterComponent - ngOnInit - res", res);
+            console.log(
+              "🚀 XXX - UserRegisterComponent - _loadSports - res : ",
+              res
+            );
           }
           this._statusService.spinnerHide();
         },
@@ -196,19 +198,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     this.statesOfBirth = [];
     this.citiesOfBirth = [];
     this.countriesOfBirth = await this._ubicationService.getCountries();
-    await console.log(
-      "XXX - HelperComponent - ngOnInit - this.countries ",
-      this.countriesOfBirth
-    );
   }
   public async getStatesOfBirth(countryCode: ICountry) {
-    // this._countryCodeOfBirth = countryCode;
     this._countryCodeOfBirth = await this._ubicationService.getCountry(
       countryCode.iso2
-    );
-    console.log(
-      "🚀 XXX - UserRegisterComponent - getStatesOfBirth - _countryCodeOfBirth : ",
-      this._countryCodeOfBirth
     );
     this.statesOfBirth = [];
     this.citiesOfBirth = [];
@@ -228,7 +221,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     this.countriesOfResidence = await this._ubicationService.getCountries();
   }
   public async getStatesOfResidence(countryCode: ICountry) {
-    // this._countryCodeOfResidence = countryCode;
     this._countryCodeOfResidence = await this._ubicationService.getCountry(
       countryCode.iso2
     );
@@ -262,13 +254,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       // sportInterest: this.sportInterest?.value,
       // Datos secundarios
       gender: this.genre?.value,
-      // age: Date_yyyymmdd(this.age?.value),
       age: this.age?.value,
       weight: this.weight?.value,
       height: this.height?.value,
       // Datos de ubicacion
-      // countryOfBirth: this.countryOfBirth?.value,
-      // stateOfBirth: this.stateOfBirth?.value,
       birthdUbication:
         this.countryOfBirth?.value.iso2 +
         "-" +
@@ -277,8 +266,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
         this.cityOfBirth?.value.id +
         "-" +
         this._countryCodeOfBirth.currency,
-      // countryOfResidence: this.countryOfResidence?.value,
-      // stateOfResidence: this.stateOfResidence?.value,
       homeUbication:
         this.countryOfResidence?.value.iso2 +
         "-" +
@@ -298,21 +285,15 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   }
 
   private _createUserRegisterService(data: IUserRegister): void {
-    console.log(
-      "XXX - UserRegisterComponent - _createUserRegisterService - data",
-      JSON.stringify(data)
-    );
-
     this._userRegisterService
       .create(data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserRegister) => {
           console.log(
-            "XXX - UserRegisterComponent - this._userRegisterService.create - res",
+            "🚀 XXX - UserRegisterComponent - _createUserRegisterService - res : ",
             res
           );
-
           if (!!res && res.success) {
             this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
           }

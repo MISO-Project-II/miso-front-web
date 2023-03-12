@@ -34,7 +34,6 @@ import { DsVerticalMenuModule } from "./shared/ds-vertical-menu/ds-vertical-menu
 import { UserProfileModule } from "./pages/user/user-profile/user-profile.module";
 import { UserEventsModule } from "./pages/user/user-events/user-events.module";
 import { ThirdLoginModule } from "./pages/third-login/third-login.module";
-import { ThirdRegisterModule } from "./pages/third-register/third-register.module";
 import { ThirdDashboardModule } from "./pages/third-dashboard/third-dashboard.module";
 import { ServicesModule } from "src/services/services.module";
 import { ThirdHomeModule } from "./pages/third/third-home/third-home.module";
@@ -90,7 +89,6 @@ registerLocaleData(localePt, "pt-BR");
     UserLoginModule,
     UserRegisterModule,
     ThirdLoginModule,
-    ThirdRegisterModule,
     HelperModule,
     ErrorModule,
 

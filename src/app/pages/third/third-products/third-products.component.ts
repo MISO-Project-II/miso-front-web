@@ -20,7 +20,6 @@ export class ThirdProductsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - ThirdProductsComponent (Contiene a productos y rutas)");
     this._loadProductsScheduled();
   }
   ngOnDestroy(): void {
@@ -40,10 +39,7 @@ export class ThirdProductsComponent implements OnInit, OnDestroy {
       (res: IResUserProducts) => {
         if (!!res && res.success) {
           // if (!!res) {
-          console.log(
-            "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",
-            res
-          );
+          console.log("🚀 XXX - _loadProductsScheduled - res : ", res);
           this._statusService.setProductsListScheduled(
             res.result["produce-product"]!
           );

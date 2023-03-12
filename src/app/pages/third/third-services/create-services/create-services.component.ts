@@ -1,25 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subject, takeUntil } from "rxjs";
-import {
-  FREE_CONTRACT,
-  INSIDE_OF_HOUSE,
-  INTERMEDIATE_CONTRACT,
-  OUTSIDE_OF_HOUSE,
-  PREMIUM_CONTRACT,
-} from "src/constanst/data.constants";
+import { Subject, takeUntil } from "rxjs";
 import { ISports } from "src/models/general/sports.interface";
-import {
-  IServices,
-  IResService,
-  IResServices,
-  IResUserServices,
-} from "src/models/home/services.interface";
-import { IGenericResponse } from "src/models/local/generic.interface";
+import { IServices, IResService } from "src/models/home/services.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-create-services",
@@ -36,7 +22,6 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - CreateServiceComponent");
     this._initForm();
   }
   ngOnDestroy(): void {
@@ -47,7 +32,7 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
     this.formUserCreateService = new FormGroup({
       name: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
-      IdSport: new FormControl("", [Validators.required]), // XXX
+      IdSport: new FormControl("", [Validators.required]),
       price: new FormControl("", [Validators.required]),
       contract: new FormControl("", [Validators.required]),
       eventType: new FormControl("", [Validators.required]),
@@ -112,7 +97,7 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
         (res: IResService) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - CreateServicesComponent - _callService - res",
+              "🚀 XXX - CreateServicesComponent - _callService - res : ",
               res
             );
             const servicesListScheduled = this.getServicesListScheduled;

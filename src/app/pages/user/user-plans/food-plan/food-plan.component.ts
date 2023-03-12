@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Subject } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
   OUTSIDE_OF_HOUSE,
@@ -9,14 +9,7 @@ import {
   IFoodPlans,
 } from "src/models/home/food-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
-// import { IFoodRoutines } from "src/models/routines/food-routines.interface";
-import {
-  IResUserData,
-  IUserData,
-} from "src/models/user-data/user-data.interface";
-import { FoodPlansService } from "src/services/home/plans/food-plans.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-food-plan",
@@ -32,7 +25,7 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
   constructor(private _statusService: StatusService) {}
 
   ngOnInit() {
-    console.log("🚀 XXX - FoodPlanComponent : ");
+    console.log("🚀 XXX - FoodPlanComponent - ngOnInit - ngOnInit : ");
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -57,49 +50,4 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
   get getFoodPlansList$(): IFoodPlans[] {
     return this._statusService.getFoodPlansList();
   }
-  // public selectFoodPlan() {
-  //   this._statusService.spinnerShow();
-  //   const data: IUserData = this._userData;
-  //   data.foodPlan = this._foodPlanSelected;
-  //   this._callService(data);
-  // }
-  // private _loadData(): void {
-  //   this._statusService.spinnerShow();
-  //   this._userDataService
-  //     .get(this.getGeneralStatus.userId)
-  //     .subscribe({
-  //       next: (res: IResUserData) => {
-  //         if (!!res && res.success) {
-  //           this._userData = res?.result!;
-  //         }
-  //         setTimeout(() => {
-  //           this._statusService.spinnerHide();
-  //         }, 500);
-  //       },
-  //       error: (e) => {
-  //         console.error(e);
-  //         this._statusService.spinnerHide();
-  //       },
-  //     })
-  //     .unsubscribe();
-  // }
-  // private _callService(data: IUserData): void {
-  //   this._userDataService
-  //     .update(this._statusService.getUserId(), data)
-  //     .pipe(takeUntil(this._destroy$))
-  //     .subscribe({
-  //       next: (res: IResUserData) => {
-  //         if (!!res && res.success) {
-  //           console.log("XXX - FoodPlanComponent - _callService - res", res);
-  //         }
-  //         setTimeout(() => {
-  //           this._statusService.spinnerHide();
-  //         }, 500);
-  //       },
-  //       error: (e) => {
-  //         console.error(e);
-  //         this._statusService.spinnerHide();
-  //       },
-  //     });
-  // }
 }

@@ -1,3 +1,7 @@
+import {
+  IResThirdData,
+  IThirdDataMap,
+} from "./../../../../models/third-data/third-data.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { CalendarOptions } from "@fullcalendar/core";
@@ -11,7 +15,6 @@ import {
   IResUserEvents,
 } from "src/models/home/events.interface";
 import {
-  Food,
   FoodRoutineList,
   IFoodPlans,
 } from "src/models/home/food-plans.interface";
@@ -19,11 +22,10 @@ import { IResProducts } from "src/models/home/products.interface";
 import { IResServices, IServices } from "src/models/home/services.interface";
 import {
   ISportPlans,
-  Sport,
-  SportFrecuency,
   SportRoutineList,
 } from "src/models/home/sport-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { IThirdData } from "src/models/third-data/third-data.interface";
 import { IResUserData } from "src/models/user-data/user-data.interface";
 import { RoutesService } from "src/services/general/routes.service";
 import { SportsService } from "src/services/general/sports.service";
@@ -51,12 +53,8 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     },
     initialView: "dayGridMonth",
     plugins: [dayGridPlugin],
-    events: [
-      // { title: "event 1", date: "2023-03-01" },
-      // { title: "event 2", date: "2023-03-02" },
-    ],
+    events: [],
     eventClick: (arg) => {
-      console.log("click event", arg.event);
       this.eventSelected = arg.event;
       let btn = document.getElementById("btn-event-details");
       btn?.click();
@@ -80,7 +78,6 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
   ngOnInit() {
-    console.log("XXX - UserHomeComponent");
     this._loadGeneralData();
     this._loadSports();
     this._loadEvents();
@@ -89,6 +86,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this._loadProducts();
     this._loadSportPlans();
     this._loadFoodPlans();
+    this._loadGeneralDataThird();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -102,6 +100,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
   get getSportsList$(): ISports[] {
     return this._statusService.getSportsList();
+  }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
   }
   get getLang$() {
     return this._statusService.getLangLocation().lang;
@@ -224,13 +225,14 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       .getGeneralDataThird()
       .pipe(takeUntil(this._destroy$))
       .subscribe(
-        (res: IResUserData) => {
+        (res: IResThirdData) => {
           if (!!res && res.success) {
             console.log(
-              "🚀 XXX - UserHomeComponent - _loadGeneralData - res : ",
+              "🚀 XXX - UserHomeComponent - _loadGeneralDataThird - res : ",
               res
             );
-            this._statusService.setUserId(this.getUserId$);
+            let dataThird = this._mapGeneralDataThird(res.result!);
+            this._statusService.setThirdList(dataThird);
           }
           this._statusService.spinnerHide();
         },
@@ -240,6 +242,23 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         }
       );
   }
+  private _mapGeneralDataThird(thirdData: IThirdData[]): IThirdDataMap[] {
+    return thirdData.map((data: IThirdData) => {
+      return {
+        idUser: data.idUser,
+        username: data.username,
+        name: data.name,
+        lastName: data.lastName,
+        idIdentificationType: data.idIdentificationType.name,
+        identificationNumber: data.identificationNumber,
+        homeUbication: data.homeUbication,
+        description: data.description,
+        userType: data.idUserType.nameType,
+        isThrid: data.isThrid,
+      };
+    });
+  }
+
   private _loadSports(): void {
     this._statusService.spinnerShow();
     this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(
@@ -288,7 +307,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       (res: IResUserEvents) => {
         if (!!res && res.success) {
           console.log(
-            "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
+            "🚀 XXX - UserHomeComponent - _loadEventsScheduled - res : ",
             res
           );
           this._statusService.setEventsListScheduled(

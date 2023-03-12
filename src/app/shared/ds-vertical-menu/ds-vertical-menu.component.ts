@@ -36,10 +36,6 @@ export class DsVerticalMenuComponent implements OnInit {
     ]);
   }
   public goUserEvents(): void {
-    console.log(
-      "XXX - goUserEvents: ",
-      this.getGeneralStatus.userUrl + ROUTES_NAMES.EVENTS
-    );
     this._router.navigate([
       this.getGeneralStatus.userUrl + ROUTES_NAMES.EVENTS,
     ]);

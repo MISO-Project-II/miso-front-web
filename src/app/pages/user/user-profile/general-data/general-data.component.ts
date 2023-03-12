@@ -1,7 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserData,
@@ -25,7 +25,6 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - GeneralDataComponent");
     this._initForm();
     this._loadGeneralData();
   }
@@ -91,7 +90,10 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeneralDataComponent - _loadData - res", res);
+            console.log(
+              "🚀 XXX - GeneralDataComponent - _loadGeneralData - res : ",
+              res
+            );
             this.formUserGeneralData
               .get("user")
               ?.patchValue(res.result?.username);
@@ -172,7 +174,10 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeneralDataComponent - _callService - res", res);
+            console.log(
+              "🚀 XXX - GeneralDataComponent - _callService - res : ",
+              res
+            );
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
           }
           this._statusService.spinnerHide();
