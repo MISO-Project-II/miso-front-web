@@ -36,6 +36,13 @@ import { ProductsService } from "src/services/home/products/products.service";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
+import {
+  FREE_CONTRACT,
+  INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
+  OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
+} from "src/constanst/data.constants";
 
 @Component({
   selector: "app-user-home",
@@ -43,6 +50,11 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   styleUrls: ["./user-home.component.scss"],
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
+  public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
+  public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   eventSelected: any;
   calendarOptions: CalendarOptions = {
@@ -51,9 +63,11 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       center: "title",
       right: "next",
     },
+    locale: "es",
     initialView: "dayGridMonth",
     plugins: [dayGridPlugin],
     events: [],
+    eventColor: "#f85716",
     eventClick: (arg) => {
       this.eventSelected = arg.event;
       let btn = document.getElementById("btn-event-details");
@@ -63,7 +77,6 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   sportRoutinesRecommended: SportRoutineList[] = [];
   foodRoutinesRecommended: FoodRoutineList[] = [];
   routesRecommended: IRoutes[] = [];
-  servicesRecommended: IServices[] = [];
 
   constructor(
     private _statusService: StatusService,
@@ -168,11 +181,78 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   get getProductsService$(): Observable<IResProducts> {
     return this._productsService.getProducts();
   }
+
   get getSportPlanService$(): Observable<ISportPlans[]> {
     return this._sportPlansService.getSportPlan();
   }
   get getFoodPlansService$(): Observable<IFoodPlans[]> {
     return this._foodPlansService.getFoodPlans();
+  }
+
+  get getContractType$(): string {
+    return this._statusService.getGeneralStatus().contractType;
+  }
+  get getServicesRecommended$(): IServices[] {
+    return this._statusService?.getServicesList()?.filter((data: IServices) => {
+      var contract = data.contractType === FREE_CONTRACT;
+      switch (this.getContractType$) {
+        case FREE_CONTRACT:
+          contract = data.contractType === FREE_CONTRACT;
+          break;
+        case INTERMEDIATE_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT;
+          break;
+        case PREMIUM_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT ||
+            data.contractType === PREMIUM_CONTRACT;
+          break;
+      }
+      return contract;
+    });
+  }
+  // XXX Parametro de filtro
+  get getServicesRecommendedFilter$(): IServices[] {
+    return this.getServicesRecommended$?.filter((data: IServices) => {
+      return data.idSport === 1 || data.idSport === 2 || data.idSport === 3;
+    });
+  }
+  get getEventsRecommended$(): IEvents[] {
+    return this._statusService?.getEventsList()?.filter((data: IEvents) => {
+      var contract = data.contractType === FREE_CONTRACT;
+      switch (this.getContractType$) {
+        case FREE_CONTRACT:
+          contract = data.contractType === FREE_CONTRACT;
+          break;
+        case INTERMEDIATE_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT;
+          break;
+        case PREMIUM_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT ||
+            data.contractType === PREMIUM_CONTRACT;
+          break;
+      }
+      return contract;
+    });
+  }
+  // XXX Parametro de filtro
+  get getEventsRecommendedFilter$(): IEvents[] {
+    return this.getEventsRecommended$?.filter((data: IEvents) => {
+      return data.idSport === 10;
+    });
+  }
+  get getSportPlansList$(): ISportPlans[] {
+    return this._statusService.getSportPlansList();
+  }
+  get getFoodPlansList$(): IFoodPlans[] {
+    return this._statusService.getFoodPlansList();
   }
 
   private _loadGeneralData(): void {
@@ -305,7 +385,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
                 title: e.name,
                 description: e.description,
                 date: e.date,
-                backgroundColor: "#03c5de",
+                backgroundColor: "#cbcbcb",
               };
             });
             this.calendarOptions.events = events;
@@ -342,11 +422,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
                 title: e.name,
                 description: e.description,
                 date: e.date,
-                backgroundColor: "#007bff",
+                backgroundColor: "#f85716",
               };
             });
             let allEvents = this.calendarOptions.events || [];
+            // Filtrar todos los eventos
             allEvents = (allEvents as any[]).concat(scheduledEvents);
+
             this.calendarOptions.events = allEvents;
           }, 100);
           this._statusService.spinnerHide();
@@ -369,7 +451,8 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           console.log("🚀 XXX - UserHomeComponent - _loadRoutes - res : ", res);
           setTimeout(() => {
             this._statusService.setRoutesList(res!);
-            this.routesRecommended = res || [];
+            // Filtro
+            this.routesRecommended = [res[0], res[1], res[2]] || [];
           }, 100);
         }
       },
@@ -389,7 +472,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           );
           setTimeout(() => {
             this._statusService.setServicesList(res.result!);
-            this.servicesRecommended = res.result || [];
+            // this.servicesRecommended = res.result || [];
           }, 100);
           this._statusService.spinnerHide();
         } else {

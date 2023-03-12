@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.25.4
+    * Version: 1.25.5
 ## Atomic Design
     
 # Info
@@ -25,7 +25,7 @@
     * angular.json -> "scripts": ['node_modules/popper.js/dist/umd/popper.min.js'] 
     * npm install ngx-gauge -> https://github.com/ashish-chopra/ngx-gauge
     * npm i ngx-chronometer --save
-    * npm i xlsx
+    * npm i xlsx --save
     * Info KCal https://colegiosaintmaurices.cl/wp-content/uploads/2020/04/Electivo-Ciencias-del-ejercicio-f%C3%ADsico-y-deportivo-Gu%C3%ADa-3.pdf
 # Commands
     * ng new SportApp

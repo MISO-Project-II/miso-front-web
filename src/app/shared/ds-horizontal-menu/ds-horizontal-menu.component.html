@@ -19,13 +19,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-end align-items-center">
           <li class="nav-item pe-3">
-            <h3 *ngIf="getGeneralStatus.userType === SPORTSMAN">
+            <h3 *ngIf="getGeneralStatus$.userType === SPORTSMAN">
               {{ contractType }}
             </h3>
           </li>
           <li class="nav-item pe-3">
             <button
-              *ngIf="getGeneralStatus.userType === SPORTSMAN"
+              *ngIf="getGeneralStatus$.userType === SPORTSMAN"
               id="btn-continue"
               type="button"
               (click)="goProfile()"
