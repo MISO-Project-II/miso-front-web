@@ -26,7 +26,6 @@ export class RoutesService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("🚀 XXX - RoutesService - catchError - err : ", err);
           return throwError(err);
         })
       );

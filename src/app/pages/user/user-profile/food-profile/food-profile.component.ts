@@ -3,10 +3,6 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
-  IResUserFoodProfile,
-  IUserFoodProfile,
-} from "src/models/profile/food-profile.interface";
-import {
   IResUserData,
   IUserData,
 } from "src/models/user-data/user-data.interface";
@@ -104,35 +100,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         },
         error: () => {},
       });
-    // this._statusService.spinnerShow();
-    // this._foodProfileService
-    //   .get(this.getGeneralStatus.userId)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserFoodProfile) => {
-    //       if (!!res && res.success) {
-    //         this.formUserFoodProfile
-    //           .get("foods_preference")
-    //           ?.patchValue(res.response?.foods_preference);
-    //         this.formUserFoodProfile
-    //           .get("intolerances")
-    //           ?.patchValue(res.response?.intolerances);
-    //         this.formUserFoodProfile
-    //           .get("is_vegan")
-    //           ?.patchValue(res.response?.is_vegan);
-    //         this.formUserFoodProfile
-    //           .get("is_vegetarian")
-    //           ?.patchValue(res.response?.is_vegetarian);
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
-
   private _initForm(): void {
     this.formUserFoodProfile = new FormGroup({
       foods_preference: new FormControl("", [Validators.required]),
@@ -197,7 +165,6 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       !this.userAllergiesList?.find((a) => a.IdImpediment == item.IdImpediment)
     ) {
       this.userAllergiesList?.push(item);
-      // this.userAllergiesList = [...new Set(this.userAllergiesList)];
     }
     this.intolerances?.patchValue(this.userAllergiesList);
   }
@@ -226,12 +193,6 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
       this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
     }
-    // const data: IUserFoodProfile = {
-    //   foods_preference: this.foods_preference?.value,
-    //   intolerances: this.intolerances?.value,
-    //   is_vegan: this.is_vegan?.value,
-    //   is_vegetarian: this.is_vegetarian?.value,
-    // };
     this._callService(listFoods, listImpediments, this.userData);
   }
   private _callService(
@@ -243,7 +204,6 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       .postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments)
       .subscribe({
         next: () => {
-          console.log("success impediments");
           this._statusService.spinnerHide();
         },
       });
@@ -253,34 +213,14 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log(
-              "XXX - GeographicProfileComponent - _callService - res",
-              res
-            );
+            console.log("🚀 XXX - FoodProfileComponent - res : ", res);
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
           }
           this._statusService.spinnerHide();
         },
         () => {}
       );
-    // this._foodProfileService
-    //   .update(this.getGeneralStatus.userId, data)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserFoodProfile) => {
-    //       if (!!res && res.success) {
-    //         console.log("XXX - FoodProfileComponent - _callService - res", res);
-    //         this._loadData();
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
-
   @HostListener("window:updateGeneralData")
   updateGeneralData() {
     this._loadData();

@@ -1,5 +1,5 @@
 import { formatDate } from "@angular/common";
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import {
@@ -22,7 +22,7 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   templateUrl: "./geographic-profile.component.html",
   styleUrls: ["./geographic-profile.component.scss"],
 })
-export class GeographicProfileComponent implements OnInit {
+export class GeographicProfileComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   formUserGeographicProfile: FormGroup;
   public countriesOfBirth: ICountry[];
@@ -44,7 +44,6 @@ export class GeographicProfileComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log("XXX - GeographicProfileComponent");
     this._initForm();
     await this.getCountriesOfBirth();
     await this.getCountriesOfResidence();
@@ -191,7 +190,7 @@ export class GeographicProfileComponent implements OnInit {
         (res: IResUserData) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - GeographicProfileComponent - _loadData - res",
+              "🚀 XXX - GeographicProfileComponent - _loadData - res : ",
               res
             );
             this.age?.patchValue(res.result?.age);
@@ -246,7 +245,6 @@ export class GeographicProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.formUserGeographicProfile.valid) {
-      // this._statusService.spinnerShow();
       let countryOfBirthIso = (this.countryOfBirth?.value as ICountry).iso2;
       let stateOfBirthIso = (this.stateOfBirth?.value as IState).iso2;
       let cityOfBirthId = (this.cityOfBirth?.value as ICity).id;
@@ -287,7 +285,7 @@ export class GeographicProfileComponent implements OnInit {
         (res: IResUserData) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - GeographicProfileComponent - _callService - res",
+              "🚀 XXX - GeographicProfileComponent - _callService - res : ",
               res
             );
             window.dispatchEvent(new CustomEvent("updateGeneralData"));

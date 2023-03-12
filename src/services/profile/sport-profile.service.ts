@@ -70,7 +70,6 @@ export class SportProfileService {
     return this._http.get<any>(url, { headers: this._httpHeaders }).pipe(
       retry(2),
       catchError((err: any) => {
-        console.log("XXX - GetImpediments - catchError - err", err);
         return throwError(err);
       })
     );
@@ -83,7 +82,6 @@ export class SportProfileService {
       .pipe(
         // retry(2),
         catchError((err: any) => {
-          console.log("XXX - PutSportsByUser - catchError - err", err);
           return throwError(err);
         })
       );
@@ -94,7 +92,6 @@ export class SportProfileService {
     return this._http.get<any>(url, { headers: this._httpHeaders }).pipe(
       // retry(2),
       catchError((err: any) => {
-        console.log("XXX - GetSportsByUser - catchError - err", err);
         return throwError(err);
       })
     );
@@ -106,7 +103,6 @@ export class SportProfileService {
     return this._http.post<any>(url, impediments).pipe(
       // retry(2),
       catchError((err: any) => {
-        console.log("XXX - PostImpediments - catchError - err", err);
         return throwError(err);
       })
     );
@@ -118,7 +114,6 @@ export class SportProfileService {
     return this._http.get<any>(url).pipe(
       // retry(2),
       catchError((err: any) => {
-        console.log("XXX - GetImpedimentsByUser - catchError - err", err);
         return throwError(err);
       })
     );

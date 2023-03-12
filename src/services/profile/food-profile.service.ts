@@ -72,7 +72,6 @@ export class FoodProfileService {
     return this._http.get<any>(url, { headers: this._httpHeaders }).pipe(
       retry(3),
       catchError((err: any) => {
-        console.log("XXX - GetImpediments - catchError - err", err);
         return throwError(err);
       })
     );

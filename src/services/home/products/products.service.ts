@@ -34,7 +34,6 @@ export class ProductsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - ProductsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -51,7 +50,6 @@ export class ProductsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - ProductsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -64,10 +62,6 @@ export class ProductsService {
       environment.api.base +
       environment.api.user_product +
       environment.api.user_product_consume;
-    console.log(
-      "XXX - getUserProductSportsman",
-      this._baseUrl.replace("{{id}}", idSportsman + "")
-    );
     return this._http
       .get<IResUserProducts>(
         this._baseUrl.replace("{{id}}", idSportsman + ""),
@@ -76,7 +70,6 @@ export class ProductsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - ProductsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -89,10 +82,6 @@ export class ProductsService {
       environment.api.base +
       environment.api.user_product +
       environment.api.user_product_created;
-    console.log(
-      "XXX - getUserProductSportsman",
-      this._baseUrl.replace("{{id}}", idThird + "")
-    );
     return this._http
       .get<IResUserProducts>(this._baseUrl.replace("{{id}}", idThird + ""), {
         headers: this._httpHeaders,
@@ -100,7 +89,6 @@ export class ProductsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - ProductsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -113,10 +101,6 @@ export class ProductsService {
     listScheduled: number[]
   ): Observable<IGenericResponse> {
     this._baseUrl = environment.api.base + environment.api.user_product;
-    console.log(
-      "XXX - putUserProduct",
-      this._baseUrl.replace("{{id}}", idUser + "")
-    );
     return this._http
       .put<IGenericResponse>(
         this._baseUrl.replace("{{id}}", idUser + ""),
@@ -126,7 +110,6 @@ export class ProductsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - ProductsService - catchError - err", err);
           return throwError(err);
         })
       );

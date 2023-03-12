@@ -17,6 +17,7 @@ import {
   ISetSession,
   ValueSession,
 } from "src/models/general/session.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 
 @Injectable()
 export class StatusService {
@@ -38,6 +39,7 @@ export class StatusService {
   private _langLocation: ILangLocation;
   private _valueSession: ValueSession[] = [];
   private _lastSession: ISetSession;
+  private _thirdList: IThirdDataMap[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
@@ -79,10 +81,6 @@ export class StatusService {
   }
   public setContractType(contractType: string) {
     this._status.contractType = contractType;
-    console.log(
-      "🚀 XXX - StatusService - setContractType -  this._status : ",
-      this._status
-    );
     sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setName(name: string) {
@@ -186,27 +184,22 @@ export class StatusService {
   }
   public setSessionData(valueSession: ValueSession) {
     this._valueSession.push(valueSession);
-    console.log(
-      "🚀 XXX - StatusService - setSessionData - this._valueSession1 : ",
-      this._valueSession
-    );
     setTimeout(() => {
       const newValueSession = new Set(this._valueSession);
       this._valueSession = [...newValueSession];
-      console.log(
-        "🚀 XXX - StatusService - setSessionData - this._valueSession2 : ",
-        this._valueSession
-      );
     }, 100);
   }
   public setLastSessionData(lastSession: ISetSession) {
     this._lastSession = lastSession;
   }
+  public setThirdList(thirdList: IThirdDataMap[]) {
+    sessionStorage.setItem("thirdList", JSON.stringify(thirdList));
+    this._thirdList = thirdList;
+  }
   public clearSetSessionData() {
     this._valueSession = [];
   }
   public getGeneralStatus(): StatusModel {
-    // return this._status;
     const status: StatusModel = JSON.parse(sessionStorage.getItem("status")!);
     status.userId = this.getUserId();
     status.token = this.getToken();
@@ -215,25 +208,21 @@ export class StatusService {
     return status;
   }
   public getSportsList(): ISports[] {
-    // return this._sportsList;
     return JSON.parse(sessionStorage.getItem("sportsList")!);
   }
   public getEventsList(): IEvents[] {
-    // return this._eventsList;
     return JSON.parse(sessionStorage.getItem("eventsList")!);
   }
   public getEventsListScheduled(): IEvents[] {
     return this._eventsListScheduled;
   }
   public getServicesList(): IServices[] {
-    // return this._servicesList;
     return JSON.parse(sessionStorage.getItem("servicesList")!);
   }
   public getServicesListScheduled(): IServices[] {
     return this._servicesListScheduled;
   }
   public getProductsList(): IProducts[] {
-    // return this._productsList;
     return JSON.parse(sessionStorage.getItem("productsList")!);
   }
   public getProductsListScheduled(): IProducts[] {
@@ -275,6 +264,10 @@ export class StatusService {
   public getLastSessionData(): ISetSession {
     return this._lastSession;
   }
+  public getThirdList(): IThirdDataMap[] {
+    return JSON.parse(sessionStorage.getItem("thirdList")!);
+  }
+
   public spinnerShow(timeout?: number) {
     setTimeout(
       () => {

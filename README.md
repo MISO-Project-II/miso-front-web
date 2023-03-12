@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.25.0
+    * Version: 1.25.1
 ## Atomic Design
     
 # Info

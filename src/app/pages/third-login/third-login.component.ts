@@ -74,7 +74,7 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResLogin) => {
-          console.log("XXX - UserLoginComponent - .subscribe - res", res);
+          console.log("🚀 XXX - ThirdLoginComponent - onSubmit - res : ", res);
           if (!!res && res.success) {
             setTimeout(() => {
               if (res.user?.userType === THIRD) {

@@ -11,10 +11,7 @@ import { ISports } from "src/models/general/sports.interface";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import {
-  IResUserData,
-  IUserData,
-} from "src/models/user-data/user-data.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
@@ -30,18 +27,17 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
-  public eventNameUserCreator: IUserData;
+  public thirdData: IThirdDataMap;
 
   private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _productsService: ProductsService,
-    private _statusService: StatusService,
-    private _userDataService: UserDataService
+    private _statusService: StatusService
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - SearchProductsComponent (Productos que ya existen)");
+    console.log("🚀 XXX - SearchProductsComponent (Productos que ya existen)");
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -58,7 +54,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     return this._statusService.getGeneralStatus();
   }
   get getProductsList$(): IProducts[] {
-    // return this._statusService.getProductsList();
     return this._statusService.getProductsList().filter((data: IProducts) => {
       var contract = data.contractType === FREE_CONTRACT;
       switch (this.getContractType$) {
@@ -95,18 +90,23 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
       .map((sport) => sport)[0];
   }
-
+  get getProductIdUserCreator$(): number {
+    return this._productSelected.idUserCreator;
+  }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
-    // XXX Validar si se consume siempre este dato
-    // this.loadThirdName(productSelected.idUserCreator);
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === productSelected.idUserCreator
+    )[0];
   }
 
   public addProduct(): void {
     const productsListScheduled = this.getProductsListScheduled$;
     productsListScheduled.push(this._productSelected);
     this._statusService.setProductsListScheduled(productsListScheduled);
-    console.log("XXX - addProduct", this.getProductsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
     for (
@@ -121,38 +121,17 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - SearchProductsComponent - _callService - listScheduled",
-      listScheduled
-    );
     this._productsService
       .putUserProduct(this.getGeneralStatus$.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
+            // XXX
             console.log(
-              "XXX - SearchProductsComponent - _callService - res",
+              "🚀 XXX - SearchProductsComponent - _callService - res : ",
               res
             );
-          }
-          this._statusService.spinnerHide();
-        },
-        (err) => {
-          console.error(err);
-          this._statusService.spinnerHide();
-        }
-      );
-  }
-  public loadThirdName(id: number): void {
-    this._statusService.spinnerShow();
-    this._userDataService
-      .getGeneralData(this.getGeneralStatus$.userId)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(
-        (res: IResUserData) => {
-          if (!!res && res.success) {
-            this.eventNameUserCreator = res.result!;
           }
           this._statusService.spinnerHide();
         },

@@ -25,7 +25,6 @@ export class FoodPlansService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("🚀 XXX - FoodPlansService - catchError - err : ", err);
           return throwError(err);
         })
       );

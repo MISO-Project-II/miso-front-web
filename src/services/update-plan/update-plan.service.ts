@@ -34,7 +34,6 @@ export class UpdatePlanService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("🚀 XXX - UpdatePlanService - catchError - err : ", err);
           return throwError(err);
         })
       );

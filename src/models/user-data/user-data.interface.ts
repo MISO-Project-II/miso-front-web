@@ -18,6 +18,7 @@ export interface IUserData {
   idFoodPlan?: number;
   isVegan?: number;
   isvegetarian?: number;
+  description?: string;
 }
 
 export interface IResUserData extends IGenericResponse {

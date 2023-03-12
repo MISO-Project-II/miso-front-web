@@ -41,6 +41,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem("eventsList");
     sessionStorage.removeItem("servicesList");
     sessionStorage.removeItem("productsList");
+    sessionStorage.removeItem("thirdList");
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
   }
@@ -89,7 +90,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResLogin) => {
-          console.log("XXX - UserLoginComponent - .subscribe - res", res);
+          console.log("🚀 XXX - UserLoginComponent - onSubmit - res : ", res);
           if (!!res && res.success) {
             if (res.user?.userType === THIRD) {
               console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);

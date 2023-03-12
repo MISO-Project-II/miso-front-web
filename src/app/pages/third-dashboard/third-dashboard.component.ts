@@ -22,11 +22,9 @@ export class ThirdDashboardComponent implements OnInit, OnDestroy {
   constructor(private _statusService: StatusService) {}
 
   ngOnInit() {
-    console.log("XXX - Sale de ThirdDashboardComponent");
     this._statusService.setUserType(THIRD);
   }
   ngOnDestroy(): void {
-    console.log("XXX - Sale de ThirdDashboardComponent");
     this._destroy$.next(true);
     this._destroy$.complete();
   }

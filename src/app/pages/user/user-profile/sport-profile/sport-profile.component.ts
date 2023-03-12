@@ -1,17 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { forkJoin, Observable, Subject, takeUntil } from "rxjs";
-import {
-  IDisabilities,
-  IResDisabilities,
-} from "src/models/general/disabilities.interface";
-import { IPains, IResPains } from "src/models/general/pains.interface";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { IResSports, ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
-import {
-  IResUserSportProfile,
-  IUserSportProfile,
-} from "src/models/profile/sport-profile.interface";
 import { SportsService } from "src/services/general/sports.service";
 import { StatusService } from "src/services/local/status.service";
 import { SportProfileService } from "src/services/profile/sport-profile.service";
@@ -116,7 +107,6 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     return this._sportProfileService.getImpediments();
   }
   private _loadData(): void {
-    // this._statusService.spinnerShow();
     this._sportProfileService
       .getSportsByUser(this.getGeneralStatus.userId)
       .subscribe({
@@ -150,46 +140,11 @@ export class SportProfileComponent implements OnInit, OnDestroy {
         },
         error: () => {},
       });
-    // this._sportProfileService
-    //   .get(this.getGeneralStatus.userId)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserSportProfile) => {
-    //       console.log("XXX - SportProfileComponent - _loadData - res", res);
-    //       if (!!res && res.success) {
-    //         this.formUserSportProfile.get("id")?.patchValue(res.response?.id);
-    //         this.formUserSportProfile
-    //           .get("sportPractice")
-    //           ?.patchValue(res.response?.sport_practice);
-    //         this.formUserSportProfile
-    //           .get("sportInterest")
-    //           ?.patchValue(res.response?.sport_interest);
-    //         this.formUserSportProfile
-    //           .get("practice_hours")
-    //           ?.patchValue(res.response?.practice_hours);
-    //         this.formUserSportProfile
-    //           .get("disabilities")
-    //           ?.patchValue(res.response?.disabilities);
-    //         this.formUserSportProfile
-    //           .get("pains")
-    //           ?.patchValue(res.response?.pains);
-    //         this.formUserSportProfile
-    //           .get("sports_history")
-    //           ?.patchValue(res.response?.sports_history);
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
 
   public addSportPractice(item: ISports): void {
     if (!this.listSportPractice.find((s) => s.idsports == item.idsports)) {
       this.listSportPractice.push(item);
-      // this.listSportPractice = [...new Set(this.listSportPractice)];
     }
     this.sportPractice?.patchValue(this.listSportPractice);
   }
@@ -202,7 +157,6 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   public addSportInterest(item: any): void {
     if (!this.listSportInterest.find((s) => s.idsports == item.idsports)) {
       this.listSportInterest.push(item);
-      // this.listSportInterest = [...new Set(this.listSportInterest)];
     }
     this.sportInterest?.patchValue(this.listSportInterest);
   }
@@ -260,14 +214,6 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     listImpediments = listImpediments.concat(
       (this.userAllegiesList || []).map((s) => s.IdImpediment)
     );
-    // const data: IUserSportProfile = {
-    //   sport_practice: this.sportPractice?.value,
-    //   sport_interest: this.sportInterest?.value,
-    //   practice_hours: this.practice_hours?.value,
-    //   disabilities: this.disabilities?.value,
-    //   pains: this.pains?.value,
-    //   sports_history: this.sports_history?.value,
-    // };
     this._callService(listSports, listImpediments);
   }
   private _callService(listSports: number[], listImpediments: number[]): void {
@@ -275,7 +221,6 @@ export class SportProfileComponent implements OnInit, OnDestroy {
       .putSportsByUser(this.getGeneralStatus.userId, listSports)
       .subscribe({
         next: () => {
-          console.log("success");
           this._statusService.spinnerHide();
         },
       });
@@ -283,24 +228,8 @@ export class SportProfileComponent implements OnInit, OnDestroy {
       .postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments)
       .subscribe({
         next: () => {
-          console.log("success impediments");
           this._statusService.spinnerHide();
         },
       });
-    // this._sportProfileService
-    //   .update(this.getGeneralStatus.userId, data)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserSportProfile) => {
-    //       if (!!res && res.success) {
-    //         this._loadData();
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
 }

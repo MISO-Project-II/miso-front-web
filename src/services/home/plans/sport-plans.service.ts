@@ -27,7 +27,6 @@ export class SportPlansService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("🚀 XXX - SportPlansService - catchError - err : ", err);
           return throwError(err);
         })
       );

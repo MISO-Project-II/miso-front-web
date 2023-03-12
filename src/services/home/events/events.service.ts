@@ -36,7 +36,6 @@ export class EventsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - EventsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -53,7 +52,6 @@ export class EventsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - EventsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -66,10 +64,6 @@ export class EventsService {
       environment.api.base +
       environment.api.user_event +
       environment.api.user_event_consume;
-    console.log(
-      "XXX - getUserEventSportsman",
-      this._baseUrl.replace("{{id}}", idSportsman + "")
-    );
     return this._http
       .get<IResUserEvents>(this._baseUrl.replace("{{id}}", idSportsman + ""), {
         headers: this._httpHeaders,
@@ -77,7 +71,6 @@ export class EventsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - EventsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -90,10 +83,6 @@ export class EventsService {
       environment.api.base +
       environment.api.user_event +
       environment.api.user_event_created;
-    console.log(
-      "XXX - getUserEventSportsman",
-      this._baseUrl.replace("{{id}}", idThird + "")
-    );
     return this._http
       .get<IResUserEvents>(this._baseUrl.replace("{{id}}", idThird + ""), {
         headers: this._httpHeaders,
@@ -101,7 +90,6 @@ export class EventsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - EventsService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -114,10 +102,6 @@ export class EventsService {
     listScheduled: number[]
   ): Observable<IGenericResponse> {
     this._baseUrl = environment.api.base + environment.api.user_event;
-    console.log(
-      "XXX - putUserEvent",
-      this._baseUrl.replace("{{id}}", idUser + "")
-    );
     return this._http
       .put<IGenericResponse>(
         this._baseUrl.replace("{{id}}", idUser + ""),
@@ -127,7 +111,6 @@ export class EventsService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - EventsService - catchError - err", err);
           return throwError(err);
         })
       );

@@ -114,6 +114,9 @@
     "SELECT_SPORT_PLAN": "Selecciona un plan deportivo",
     "SELECT_FOOD_PLAN": "Selecciona un plan alimenticio",
     "CONTACT": "Contacto: ",
+    "CONTACT_NAME": "Nombre de contacto: ",
+    "CONTACT_CODE": "Código de contacto: ",
+    "CONTACT_DESC": "Descripción de contacto: ",
     "MANAGER": "Encargado: ",
     "OBJECTIVES": "Objetivos: ",
     "ROUTINES": "Rutinas: ",
@@ -153,7 +156,8 @@
     "CONNECT_OTHER_APP_ALERT": "Primero conecta un dispositivo externo para realizar mediciones",
     "CONNECT_OTHER_APP": "Conectar con aplicaciones externas",
     "APPS_CONNECTED": "Aplicaciones conectadas",
-    "IMC": "Índice de masa corporal"
+    "IMC": "Índice de masa corporal",
+    "EVENT_DETAIL": "Detalles del evento"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
@@ -205,6 +209,7 @@
     "INTERMEDIATE_CONTRACT": "Plan intermedio",
     "PREMIUM_CONTRACT": "Plan premium",
     "SCHEDULED_EVENTS": "Ver eventos",
+    "SCHEDULED_EVENT": "Ver evento",
     "SPORT_PLANS": "Ver planes de entrenamiento",
     "FOOD_PLANS": "Ver planes alimenticios",
     "ROUTES": "Ver rutas",

@@ -15,6 +15,7 @@ import {
 } from "src/models/home/services.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -29,7 +30,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
-
+  public thirdData: IThirdDataMap;
   private _serviceSelected: IServices;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -39,7 +40,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log(
-      "XXX - CreatedServicesComponent (Servicios que creo el tercero)"
+      "🚀 XXX - CreatedServicesComponent (Servicios que creo el tercero)"
     );
   }
   ngOnDestroy(): void {
@@ -78,8 +79,17 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
       .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
       .map((sport) => sport)[0];
   }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
+  get getServiceIdUserCreator$(): number {
+    return this._serviceSelected.idUserCreator;
+  }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === serviceSelected.idUserCreator
+    )[0];
   }
 
   public delService(item: any): void {
@@ -90,7 +100,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
         (res: IResService) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - CreatedServicesComponent - delService - res",
+              "🚀 XXX - CreatedServicesComponent - delService - res : ",
               res
             );
           }
@@ -107,7 +117,6 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
     const servicesListScheduled = this.getServicesListScheduled;
     servicesListScheduled.push(this._serviceSelected);
     this._statusService.setServicesListScheduled(servicesListScheduled);
-    console.log("XXX - addService", this.getServicesListScheduled);
     this._statusService.spinnerShow();
     const data: number[] = [];
     for (let index = 0; index < this.getServicesListScheduled.length; index++) {
@@ -118,10 +127,6 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - CreatedServicesComponent - _callService - listScheduled",
-      listScheduled
-    );
     this._servicesService
       .putUserService(this.getGeneralStatus.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
@@ -129,7 +134,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
         (res: IGenericResponse) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - CreatedServicesComponent - _callService - res",
+              "🚀 XXX - CreatedServicesComponent - _callService - res : ",
               res
             );
           }
