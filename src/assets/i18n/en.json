@@ -229,6 +229,7 @@
   },
   "ERR": {
     "REQUIRED_FIELD": "Required field",
+    "SUGGESTED_FIELD": "Suggested field",
     "WRONG_USER_PASSWORD": "Wrong User or password",
     "PAGE_NOT_FOUND": "Page not found",
     "NO_DATA": "No data available"

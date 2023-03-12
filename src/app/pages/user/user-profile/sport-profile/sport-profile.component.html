@@ -3,7 +3,7 @@
   <!-- <p>XXX - sportsServiceGetAll {{ sportsServiceGetAll | json }}</p> -->
   <form
     [formGroup]="formUserSportProfile"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="onSubmitSportProfile()"
     novalidate
     autocomplete="off"
   >
@@ -42,7 +42,7 @@
             </div>
           </div>
           <small *ngIf="sportPractice?.hasError('required')">{{
-            "ERR.REQUIRED_FIELD" | translate
+            "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
         <div class="ds-input-group mt-3">
@@ -78,7 +78,7 @@
             </div>
           </div>
           <small *ngIf="sportInterest?.hasError('required')">{{
-            "ERR.REQUIRED_FIELD" | translate
+            "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
         <div class="ds-input-group mt-3">
@@ -134,7 +134,7 @@
             </div>
           </div>
           <small *ngIf="disabilities?.hasError('required')">{{
-            "ERR.REQUIRED_FIELD" | translate
+            "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
         <div class="ds-input-group mt-3">
@@ -174,7 +174,7 @@
             </div>
           </div>
           <small *ngIf="pains?.hasError('required')">{{
-            "ERR.REQUIRED_FIELD" | translate
+            "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
         <div class="ds-input-group mt-3">

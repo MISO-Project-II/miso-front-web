@@ -197,7 +197,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this.pains?.patchValue(this.userPainList);
   }
 
-  public onSubmit(): void {
+  public onSubmitSportProfile(): void {
     let listSports = ((this.sportPractice?.value as ISports[]) || []).map(
       (s) => s.idsports
     );

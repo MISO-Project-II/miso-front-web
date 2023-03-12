@@ -42,6 +42,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem("servicesList");
     sessionStorage.removeItem("productsList");
     sessionStorage.removeItem("thirdList");
+    sessionStorage.removeItem("lastSession");
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
   }

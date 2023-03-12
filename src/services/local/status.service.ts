@@ -85,15 +85,19 @@ export class StatusService {
   }
   public setName(name: string) {
     this._status.name = name;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setLastName(lastName: string) {
     this._status.lastName = lastName;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIdIdentificationType(idIdentificationType: string) {
     this._status.idIdentificationType = idIdentificationType;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIdentificationNumber(identificationNumber: string) {
     this._status.identificationNumber = identificationNumber;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setBirthdUbication(birthdUbication: string) {
     this._status.birthdUbication = birthdUbication;
@@ -103,6 +107,7 @@ export class StatusService {
       city: parseInt(birthdUbication.split("-")[2]),
       currency: birthdUbication.split("-")[3],
     };
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setHomeUbication(homeUbication: string) {
     this._status.homeUbication = homeUbication;
@@ -113,33 +118,41 @@ export class StatusService {
       currency: homeUbication.split("-")[3],
       monthsOfResidence: parseInt(homeUbication.split("-")[4]),
     };
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setGender(gender: string) {
     this._status.gender = gender;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setWeight(weight: number) {
     this._status.weight = weight;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setAge(age: Date) {
     this._status.age = age;
   }
   public setHeight(height: number) {
     this._status.height = height;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIsVegan(isVegan: number) {
     this._status.isVegan = isVegan;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIsvegetarian(isvegetarian: number) {
     this._status.isvegetarian = isvegetarian;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIMC(imc: number) {
     this._status.imc = imc;
   }
   public setIdSportPlan(idSportPlan: number) {
     this._status.idSportPlan = idSportPlan;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIdFoodPlan(idFoodPlan: number) {
     this._status.idFoodPlan = idFoodPlan;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
 
   public setSportsList(sportsList: ISports[]) {
@@ -200,7 +213,8 @@ export class StatusService {
     }, 100);
   }
   public setLastSessionData(lastSession: ISetSession) {
-    this._lastSession = lastSession;
+    // this._lastSession = lastSession;
+    sessionStorage.setItem("lastSession", JSON.stringify(lastSession));
   }
   public setThirdList(thirdList: IThirdDataMap[]) {
     sessionStorage.setItem("thirdList", JSON.stringify(thirdList));
@@ -272,7 +286,8 @@ export class StatusService {
     return this._valueSession;
   }
   public getLastSessionData(): ISetSession {
-    return this._lastSession;
+    // return this._lastSession;
+    return JSON.parse(sessionStorage.getItem("lastSession")!);
   }
   public getThirdList(): IThirdDataMap[] {
     return JSON.parse(sessionStorage.getItem("thirdList")!);
