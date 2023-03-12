@@ -93,8 +93,10 @@ export class CreatedProductsComponent implements OnInit, OnDestroy {
               "🚀 XXX - CreatedProductsComponent - delProduct - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -107,7 +109,6 @@ export class CreatedProductsComponent implements OnInit, OnDestroy {
     const productsListScheduled = this.getProductsListScheduled;
     productsListScheduled.push(this._productSelected);
     this._statusService.setProductsListScheduled(productsListScheduled);
-    this._statusService.spinnerShow();
     const data: number[] = [];
     for (let index = 0; index < this.getProductsListScheduled.length; index++) {
       data.push(this.getProductsListScheduled[index].idProduct!);
@@ -116,18 +117,22 @@ export class CreatedProductsComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
+    this._statusService.spinnerShow();
     this._productsService
       .putUserProduct(this.getGeneralStatus.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
+            // XXX
             console.log(
               "🚀 XXX - CreatedProductsComponent - _callService - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

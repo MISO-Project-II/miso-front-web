@@ -83,7 +83,6 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   }
 
   private _loadGeneralData(): void {
-    this._statusService.spinnerShow();
     this._userDataService
       .getGeneralData(this.getGeneralStatus.userId)
       .pipe(takeUntil(this._destroy$))
@@ -94,32 +93,38 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
               "🚀 XXX - GeneralDataComponent - _loadGeneralData - res : ",
               res
             );
-            this.formUserGeneralData
-              .get("user")
-              ?.patchValue(res.result?.username);
-            this.formUserGeneralData.get("name")?.patchValue(res.result?.name);
-            this.formUserGeneralData
-              .get("lastName")
-              ?.patchValue(res.result?.lastName);
-            this.formUserGeneralData
-              .get("IdType")
-              ?.patchValue(res.result?.idIdentificationType);
-            this.formUserGeneralData
-              .get("IdNumber")
-              ?.patchValue(res.result?.identificationNumber);
-            this.formUserGeneralData
-              .get("genre")
-              ?.patchValue(res.result?.gender);
-            let bornDate = new Date(res.result?.age || "");
-            this.formUserGeneralData
-              .get("age")
-              ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
-            this.formUserGeneralData
-              .get("weight")
-              ?.patchValue(res.result?.weight);
-            this.getHeight?.patchValue(
-              ((res.result && res.result.height) || 0) * 100
-            );
+            setTimeout(() => {
+              this.formUserGeneralData
+                .get("user")
+                ?.patchValue(res.result?.username);
+              this.formUserGeneralData
+                .get("name")
+                ?.patchValue(res.result?.name);
+              this.formUserGeneralData
+                .get("lastName")
+                ?.patchValue(res.result?.lastName);
+              this.formUserGeneralData
+                .get("IdType")
+                ?.patchValue(res.result?.idIdentificationType);
+              this.formUserGeneralData
+                .get("IdNumber")
+                ?.patchValue(res.result?.identificationNumber);
+              this.formUserGeneralData
+                .get("genre")
+                ?.patchValue(res.result?.gender);
+              let bornDate = new Date(res.result?.age || "");
+              this.formUserGeneralData
+                .get("age")
+                ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
+              this.formUserGeneralData
+                .get("weight")
+                ?.patchValue(res.result?.weight);
+              this.getHeight?.patchValue(
+                ((res.result && res.result.height) || 0) * 100
+              );
+            }, 200);
+            this._statusService.spinnerHide();
+          } else {
             this._statusService.spinnerHide();
           }
         },
@@ -161,9 +166,11 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
         ? (this.getHeight?.value || 0) / 100
         : this.getGeneralStatus.height,
       userPlan: this.getGeneralStatus.contractType,
+      isVegan: this.getGeneralStatus.isVegan,
+      isvegetarian: this.getGeneralStatus.isvegetarian,
       imc: this.getGeneralStatus.imc,
-      idSportPlan: 0,
-      idFoodPlan: 0,
+      idSportPlan: this.getGeneralStatus.idSportPlan,
+      idFoodPlan: this.getGeneralStatus.idFoodPlan,
     };
     this._callService(data);
   }
@@ -178,9 +185,13 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
               "🚀 XXX - GeneralDataComponent - _callService - res : ",
               res
             );
-            window.dispatchEvent(new CustomEvent("updateGeneralData"));
+            setTimeout(() => {
+              window.dispatchEvent(new CustomEvent("updateGeneralData"));
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

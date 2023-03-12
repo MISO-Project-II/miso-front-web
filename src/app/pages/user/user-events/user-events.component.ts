@@ -53,9 +53,13 @@ export class UserEventsComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserEventsComponent - _loadEvents - res : ",
             res
           );
-          this._statusService.setEventsList(res.result!);
+          setTimeout(() => {
+            this._statusService.setEventsList(res.result!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -72,7 +76,9 @@ export class UserEventsComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserEventsComponent - _loadRoutes - res : ",
             res
           );
-          this._statusService.setRoutesList(res!);
+          setTimeout(() => {
+            this._statusService.setRoutesList(res!);
+          }, 100);
         }
       },
       (err) => {

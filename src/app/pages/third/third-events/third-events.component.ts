@@ -37,11 +37,16 @@ export class ThirdEventsComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           // if (!!res) {
           console.log("🚀 XXX - _loadEventsScheduled - res : ", res);
-          this._statusService.setEventsListScheduled(
-            res.result["produce-event"]!
-          );
+          setTimeout(() => {
+            this._statusService.setEventsListScheduled(
+              res.result["produce-event"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          // XXX toast fail
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

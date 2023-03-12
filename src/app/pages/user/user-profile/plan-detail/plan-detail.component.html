@@ -34,7 +34,7 @@
         type="submit"
         (click)="onSubmit(FREE_CONTRACT)"
         class="btn btn-primary ds-button"
-        [disabled]="getContractType === FREE_CONTRACT ? true : false"
+        [disabled]="getContractType$ === FREE_CONTRACT ? true : false"
       >
         <!-- [disabled]="
           getContractType === FREE_CONTRACT ||
@@ -44,7 +44,7 @@
             : false
         " -->
         {{
-          getContractType === FREE_CONTRACT
+          getContractType$ === FREE_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
             : ("BTN.FREE_CONTRACT" | translate)
         }}
@@ -92,7 +92,7 @@
         (click)="onSubmit(INTERMEDIATE_CONTRACT)"
         class="btn btn-primary ds-button"
         target="_blank"
-        [disabled]="getContractType === INTERMEDIATE_CONTRACT ? true : false"
+        [disabled]="getContractType$ === INTERMEDIATE_CONTRACT ? true : false"
       >
         <!-- [disabled]="
       getContractType === INTERMEDIATE_CONTRACT ||
@@ -101,7 +101,7 @@
         : false
     " -->
         {{
-          getContractType === INTERMEDIATE_CONTRACT
+          getContractType$ === INTERMEDIATE_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
             : ("BTN.INTERMEDIATE_CONTRACT" | translate)
         }}
@@ -147,10 +147,10 @@
         type="button"
         (click)="onSubmit(PREMIUM_CONTRACT)"
         class="btn btn-primary ds-button"
-        [disabled]="getContractType === PREMIUM_CONTRACT ? true : false"
+        [disabled]="getContractType$ === PREMIUM_CONTRACT ? true : false"
       >
         {{
-          getContractType === PREMIUM_CONTRACT
+          getContractType$ === PREMIUM_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
             : ("BTN.PREMIUM_CONTRACT" | translate)
         }}

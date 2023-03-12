@@ -93,9 +93,11 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           console.log("🚀 XXX - _loadServicesScheduled - res : ", res);
           // if (!!res) {
-          this._statusService.setServicesListScheduled(
-            res.result["consume-services"]!
-          );
+          setTimeout(() => {
+            this._statusService.setServicesListScheduled(
+              res.result["consume-services"]!
+            );
+          }, 100);
         }
       },
       (err) => {
@@ -107,7 +109,6 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
    * Cancelar serviceo inscrito por el usuario
    */
   private _onSubmit(): void {
-    this._statusService.spinnerShow();
     const data: number[] = [];
     for (
       let index = 0;
@@ -129,6 +130,7 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
+    this._statusService.spinnerShow();
     this._servicesService
       .putUserService(
         this._statusService.getGeneralStatus().userId,
@@ -139,8 +141,10 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
         (res: IGenericResponse) => {
           if (!!res && res.success) {
             console.log("🚀 XXX - _callService - res : ", res);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

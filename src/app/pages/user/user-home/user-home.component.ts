@@ -187,31 +187,39 @@ export class UserHomeComponent implements OnInit, OnDestroy {
               "🚀 XXX - UserHomeComponent - _loadGeneralData - res : ",
               res
             );
-            this._statusService.setUserId(this.getUserId$);
-            this._statusService.setToken(this.getToken$);
-            this._statusService.setUserName(this.getUserName$);
-            this._statusService.setUserData(this.getUser$);
+            setTimeout(() => {
+              this._statusService.setUserId(this.getUserId$);
+              this._statusService.setToken(this.getToken$);
+              this._statusService.setUserName(this.getUserName$);
+              this._statusService.setUserData(this.getUser$);
 
-            this._statusService.setName(res.result?.name!);
-            this._statusService.setLastName(res.result?.lastName!);
-            this._statusService.setIdIdentificationType(
-              res.result?.idIdentificationType!
-            );
-            this._statusService.setIdentificationNumber(
-              res.result?.identificationNumber!
-            );
-            this._statusService.setBirthdUbication(
-              res.result?.birthdUbication!
-            );
-            this._statusService.setHomeUbication(res.result?.homeUbication!);
-            this._statusService.setGender(res.result?.gender!);
-            this._statusService.setWeight(res.result?.weight!);
-            this._statusService.setAge(res.result?.age!);
-            this._statusService.setHeight(res.result?.height!);
-            this._statusService.setIMC(res.result?.imc!);
-            this._statusService.setContractType(res.result?.userPlan!);
+              this._statusService.setName(res.result?.name!);
+              this._statusService.setLastName(res.result?.lastName!);
+              this._statusService.setIdIdentificationType(
+                res.result?.idIdentificationType!
+              );
+              this._statusService.setIdentificationNumber(
+                res.result?.identificationNumber!
+              );
+              this._statusService.setBirthdUbication(
+                res.result?.birthdUbication!
+              );
+              this._statusService.setHomeUbication(res.result?.homeUbication!);
+              this._statusService.setGender(res.result?.gender!);
+              this._statusService.setWeight(res.result?.weight!);
+              this._statusService.setAge(res.result?.age!);
+              this._statusService.setHeight(res.result?.height!);
+              this._statusService.setIsVegan(res.result?.isVegan!);
+              this._statusService.setIsvegetarian(res.result?.isvegetarian!);
+              this._statusService.setIMC(res.result?.imc!);
+              this._statusService.setContractType(res.result?.userPlan!);
+              this._statusService.setIdSportPlan(res.result?.idSportPlan!);
+              this._statusService.setIdFoodPlan(res.result?.idFoodPlan!);
+            }, 200);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -231,10 +239,14 @@ export class UserHomeComponent implements OnInit, OnDestroy {
               "🚀 XXX - UserHomeComponent - _loadGeneralDataThird - res : ",
               res
             );
-            let dataThird = this._mapGeneralDataThird(res.result!);
-            this._statusService.setThirdList(dataThird);
+            setTimeout(() => {
+              let dataThird = this._mapGeneralDataThird(res.result!);
+              this._statusService.setThirdList(dataThird);
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -265,9 +277,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       (res: IResSports) => {
         if (!!res && res.success) {
           console.log("🚀 XXX - UserHomeComponent - _loadSports - res : ", res);
-          this._statusService.setSportsList(res.result!);
+          setTimeout(() => {
+            this._statusService.setSportsList(res.result!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -276,24 +292,29 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     );
   }
   private _loadEvents(): void {
+    this._statusService.spinnerShow();
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResEvents) => {
         if (!!res && res.success) {
           console.log("🚀 XXX - UserHomeComponent - _loadEvents - res : ", res);
-          this._statusService.setEventsList(res.result!);
-          let events = res.result?.map((e) => {
-            return {
-              id: (e.idEvent || 0).toString(),
-              title: e.name,
-              description: e.description,
-              date: e.date,
-              backgroundColor: "#03c5de",
-            };
-          });
-          this.calendarOptions.events = events;
-          this._loadEventsScheduled();
+          setTimeout(() => {
+            this._statusService.setEventsList(res.result!);
+            let events = res.result?.map((e) => {
+              return {
+                id: (e.idEvent || 0).toString(),
+                title: e.name,
+                description: e.description,
+                date: e.date,
+                backgroundColor: "#03c5de",
+              };
+            });
+            this.calendarOptions.events = events;
+            this._loadEventsScheduled();
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -303,6 +324,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
 
   private _loadEventsScheduled(): void {
+    this._statusService.spinnerShow();
     this.getEventsScheduledService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserEvents) => {
         if (!!res && res.success) {
@@ -310,23 +332,27 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserHomeComponent - _loadEventsScheduled - res : ",
             res
           );
-          this._statusService.setEventsListScheduled(
-            res.result["consume-event"]!
-          );
-          let scheduledEvents = res.result["consume-event"]?.map((e) => {
-            return {
-              id: (e.idEvent || 0).toString(),
-              title: e.name,
-              description: e.description,
-              date: e.date,
-              backgroundColor: "#007bff",
-            };
-          });
-          let allEvents = this.calendarOptions.events || [];
-          allEvents = (allEvents as any[]).concat(scheduledEvents);
-          this.calendarOptions.events = allEvents;
+          setTimeout(() => {
+            this._statusService.setEventsListScheduled(
+              res.result["consume-event"]!
+            );
+            let scheduledEvents = res.result["consume-event"]?.map((e) => {
+              return {
+                id: (e.idEvent || 0).toString(),
+                title: e.name,
+                description: e.description,
+                date: e.date,
+                backgroundColor: "#007bff",
+              };
+            });
+            let allEvents = this.calendarOptions.events || [];
+            allEvents = (allEvents as any[]).concat(scheduledEvents);
+            this.calendarOptions.events = allEvents;
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -336,12 +362,15 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
 
   private _loadRoutes(): void {
+    this._statusService.spinnerShow();
     this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IRoutes[]) => {
         if (!!res) {
           console.log("🚀 XXX - UserHomeComponent - _loadRoutes - res : ", res);
-          this._statusService.setRoutesList(res!);
-          this.routesRecommended = res || [];
+          setTimeout(() => {
+            this._statusService.setRoutesList(res!);
+            this.routesRecommended = res || [];
+          }, 100);
         }
       },
       (err) => {
@@ -350,6 +379,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     );
   }
   private _loadServices(): void {
+    this._statusService.spinnerShow();
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResServices) => {
         if (!!res && res.success) {
@@ -357,8 +387,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserHomeComponent - _loadServices - res : ",
             res
           );
-          this._statusService.setServicesList(res.result!);
-          this.servicesRecommended = res.result || [];
+          setTimeout(() => {
+            this._statusService.setServicesList(res.result!);
+            this.servicesRecommended = res.result || [];
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
       },
       (err) => {
@@ -367,6 +402,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     );
   }
   private _loadProducts(): void {
+    this._statusService.spinnerShow();
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResProducts) => {
         if (!!res && res.success) {
@@ -374,9 +410,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserHomeComponent - _loadProducts - res : ",
             res
           );
-          this._statusService.setProductsList(res.result!);
+          setTimeout(() => {
+            this._statusService.setProductsList(res.result!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -385,6 +425,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     );
   }
   private _loadSportPlans(): void {
+    this._statusService.spinnerShow();
     this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: ISportPlans[]) => {
         if (!!res) {
@@ -392,15 +433,19 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserHomeComponent - _loadSportPlans - res : ",
             res
           );
-          this._statusService.setSportPlansList(res);
-          let sportPlans = res.filter(
-            (p) => p.sportRoutineList && p.sportRoutineList.length > 0
-          );
-          if (sportPlans.length > 0) {
-            this.sportRoutinesRecommended = sportPlans[0].sportRoutineList;
-          }
+          setTimeout(() => {
+            this._statusService.setSportPlansList(res);
+            let sportPlans = res.filter(
+              (p) => p.sportRoutineList && p.sportRoutineList.length > 0
+            );
+            if (sportPlans.length > 0) {
+              this.sportRoutinesRecommended = sportPlans[0].sportRoutineList;
+            }
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -409,6 +454,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     );
   }
   private _loadFoodPlans(): void {
+    this._statusService.spinnerShow();
     this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IFoodPlans[]) => {
         if (!!res) {
@@ -416,15 +462,19 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserHomeComponent - _loadFoodPlans - res : ",
             res
           );
-          this._statusService.setFoodPlansList(res);
-          let foodPlans = res.filter(
-            (f) => f.foodRoutineList && f.foodRoutineList.length > 0
-          );
-          if (foodPlans.length > 0) {
-            this.foodRoutinesRecommended = foodPlans[0].foodRoutineList;
-          }
+          setTimeout(() => {
+            this._statusService.setFoodPlansList(res);
+            let foodPlans = res.filter(
+              (f) => f.foodRoutineList && f.foodRoutineList.length > 0
+            );
+            if (foodPlans.length > 0) {
+              this.foodRoutinesRecommended = foodPlans[0].foodRoutineList;
+            }
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

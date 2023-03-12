@@ -83,11 +83,15 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           // if (!!res) {
           console.log("🚀 XXX - _loadProductsScheduled - res : ", res);
-          this._statusService.setProductsListScheduled(
-            res.result["consume-product"]!
-          );
+          setTimeout(() => {
+            this._statusService.setProductsListScheduled(
+              res.result["consume-product"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -132,8 +136,10 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
           if (!!res && res.success) {
             // XXX
             console.log("🚀 XXX - _callService - res : ", res);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

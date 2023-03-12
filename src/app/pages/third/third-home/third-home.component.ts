@@ -58,35 +58,39 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
               "🚀 XXX - ThirdHomeComponent - _loadGeneralData - res : ",
               res
             );
-            this._statusService.setUserId(this.getUserId);
-            this._statusService.setToken(this.getToken);
-            this._statusService.setUserName(this.getUserName);
-            this._statusService.setUserData(this.getUser);
+            setTimeout(() => {
+              this._statusService.setUserId(this.getUserId);
+              this._statusService.setToken(this.getToken);
+              this._statusService.setUserName(this.getUserName);
+              this._statusService.setUserData(this.getUser);
 
-            this._statusService.setName(res.result?.name!);
-            this._statusService.setLastName(res.result?.lastName!);
-            this._statusService.setIdIdentificationType(
-              res.result?.idIdentificationType!
-            );
-            this._statusService.setIdentificationNumber(
-              res.result?.identificationNumber!
-            );
-            this._statusService.setBirthdUbication(
-              res.result?.birthdUbication!
-              // "CO-CUN-12312-COP"
-            );
-            this._statusService.setHomeUbication(
-              res.result?.homeUbication!
-              // "CO-CUN-12312-COP-10"
-            );
-            this._statusService.setGender(res.result?.gender!);
-            this._statusService.setWeight(res.result?.weight!);
-            this._statusService.setAge(res.result?.age!);
-            this._statusService.setHeight(res.result?.height!);
-            this._statusService.setIMC(res.result?.imc!);
-            this._statusService.setContractType(res.result?.userPlan!);
+              this._statusService.setName(res.result?.name!);
+              this._statusService.setLastName(res.result?.lastName!);
+              this._statusService.setIdIdentificationType(
+                res.result?.idIdentificationType!
+              );
+              this._statusService.setIdentificationNumber(
+                res.result?.identificationNumber!
+              );
+              this._statusService.setBirthdUbication(
+                res.result?.birthdUbication!
+              );
+              this._statusService.setHomeUbication(res.result?.homeUbication!);
+              this._statusService.setGender(res.result?.gender!);
+              this._statusService.setWeight(res.result?.weight!);
+              this._statusService.setAge(res.result?.age!);
+              this._statusService.setHeight(res.result?.height!);
+              this._statusService.setIsVegan(res.result?.isVegan!);
+              this._statusService.setIsvegetarian(res.result?.isvegetarian!);
+              this._statusService.setIMC(res.result?.imc!);
+              this._statusService.setContractType(res.result?.userPlan!);
+              this._statusService.setIdSportPlan(res.result?.idSportPlan!);
+              this._statusService.setIdFoodPlan(res.result?.idFoodPlan!);
+            }, 200);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -101,8 +105,10 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
         if (!!res && res.success) {
           this._statusService.setSportsList(res.result!);
           console.log("XXX - UserProfileComponent - _loadSports - res", res);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

@@ -2,7 +2,7 @@
   <hr />
   <div
     class="d-flex min-width row justify-content-center"
-    *ngIf="getRoutesList$.length! > 0; else noSuccess"
+    *ngIf="getRoutesList$?.length! > 0; else noSuccess"
   >
     <div class="col-12 col-md-3 mx-auto">
       <div class="options pe-1">
@@ -21,23 +21,23 @@
       </div>
     </div>
     <div class="col-12 col-md-9 mx-auto" *ngIf="!!getRoute$; else noItem">
-      <app-ds-title [title]="getRoute$.title! | translate"></app-ds-title>
+      <app-ds-title [title]="getRoute$?.title! | translate"></app-ds-title>
       <div class="body">
-        <p>{{ getRoute$.description }}</p>
+        <p>{{ getRoute$?.description }}</p>
         <div class="d-flex">
           <label>{{ "LBL.START_PLACE" | translate }}</label>
-          <p>{{ getRoute$.initPath }}</p>
+          <p>{{ getRoute$?.initPath }}</p>
         </div>
         <div class="d-flex">
           <label>{{ "LBL.DESTINY_PLACE" | translate }}</label>
-          <p>{{ getRoute$.endPath }}</p>
+          <p>{{ getRoute$?.endPath }}</p>
         </div>
         <div class="d-flex">
           <label>{{ "LBL.DISTANCE" | translate }}</label>
-          <p>{{ getRoute$.distance }}</p>
+          <p>{{ getRoute$?.distance }}</p>
         </div>
         <div class="d-flex">
-          <a href="{{ getRoute$.imageUrl }}" target="_blank"
+          <a href="{{ getRoute$?.imageUrl }}" target="_blank"
             >{{ "LBL.SEE_ON_MAP" | translate }}
           </a>
         </div>

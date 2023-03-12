@@ -126,17 +126,27 @@ export class StatusService {
   public setHeight(height: number) {
     this._status.height = height;
   }
+  public setIsVegan(isVegan: number) {
+    this._status.isVegan = isVegan;
+  }
+  public setIsvegetarian(isvegetarian: number) {
+    this._status.isvegetarian = isvegetarian;
+  }
   public setIMC(imc: number) {
     this._status.imc = imc;
+  }
+  public setIdSportPlan(idSportPlan: number) {
+    this._status.idSportPlan = idSportPlan;
+  }
+  public setIdFoodPlan(idFoodPlan: number) {
+    this._status.idFoodPlan = idFoodPlan;
   }
 
   public setSportsList(sportsList: ISports[]) {
     sessionStorage.setItem("sportsList", JSON.stringify(sportsList));
-    this._sportsList = sportsList;
   }
   public setEventsList(eventsList: IEvents[]) {
     sessionStorage.setItem("eventsList", JSON.stringify(eventsList));
-    this._eventsList = eventsList;
   }
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
     const newEventsListScheduled = new Set(eventsListScheduled);
@@ -268,13 +278,8 @@ export class StatusService {
     return JSON.parse(sessionStorage.getItem("thirdList")!);
   }
 
-  public spinnerShow(timeout?: number) {
-    setTimeout(
-      () => {
-        this._spinner.show();
-      },
-      timeout ? timeout : 10
-    );
+  public spinnerShow() {
+    this._spinner.show();
   }
   public spinnerHide() {
     setTimeout(() => {
