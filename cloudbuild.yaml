@@ -14,6 +14,8 @@ steps:
         npm i xlsx --save
         npm install @capacitor/core
         npm install @capacitor/cli
+        npm install @capacitor/android
+        npx cap add android
         npm run build
         npx cap sync
     volumes:
