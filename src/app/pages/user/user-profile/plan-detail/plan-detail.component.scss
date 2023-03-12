@@ -1,4 +1,8 @@
 @import "../../../../../styles.scss";
 
 #main-plan-detail {
+    .height65vh {
+        max-height: 65vh;
+        background-color: $ds-grey-02;
+      }
 }

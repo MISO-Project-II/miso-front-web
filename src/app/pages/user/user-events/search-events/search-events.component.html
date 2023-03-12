@@ -42,8 +42,7 @@
         <div class="d-flex" *ngIf="getEventIdUserCreator$">
           <label>{{ "LBL.CONTACT" | translate }}</label>
           <p>{{ getEventIdUserCreator$ }}</p>
-          <!-- ::: Validar si se consume siempre este dato -->
-          <!-- <p> {{ eventNameUserCreator?.name }} {{ eventNameUserCreator?.lastName }} ({{ eventNameUserCreator?.username }})</p> -->
+          <p> {{ eventNameUserCreator?.name }} {{ eventNameUserCreator?.lastName }} ({{ eventNameUserCreator?.username }})</p>
         </div>
         <div
           *ngIf="!!getEvent$?.contractType"
