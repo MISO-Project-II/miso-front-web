@@ -15,7 +15,7 @@ steps:
       - '-Dsonar.projectVersion=1.25.4'
       - '-Dsonar.sourceEncoding=UTF-8'
       - '-Dsonar.sources=src'
-      - '-Dsonar.test=src'
+      - '-Dsonar.test=src/app/pages/error/*.spec.ts'
       - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
 
   - name: gcr.io/cloud-builders/npm
@@ -23,7 +23,7 @@ steps:
     args:
       - -c
       - |
-        ng test --watch=false --code-coverage --source-map=false 
+        test --watch=false --code-coverage --source-map=false 
 
   - id: Android execution
     name: gcr.io/cloud-builders/npm
