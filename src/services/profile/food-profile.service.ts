@@ -69,14 +69,12 @@ export class FoodProfileService {
   getFoodList() {
     // const url = "https://miso-back-food-6equtupdiq-uc.a.run.app/food";
     const url = `${environment.api.base}/food`;
-    return this._http
-      .get<any>(url, { headers: this._httpHeaders })
-      .pipe(
-        retry(3),
-        catchError((err: any) => {
-          console.log("XXX - GetImpediments - catchError - err", err);
-          return throwError(err);
-        })
-      );
+    return this._http.get<any>(url, { headers: this._httpHeaders }).pipe(
+      retry(3),
+      catchError((err: any) => {
+        console.log("XXX - GetImpediments - catchError - err", err);
+        return throwError(err);
+      })
+    );
   }
 }

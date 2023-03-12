@@ -6,7 +6,10 @@ import {
   IResUserFoodProfile,
   IUserFoodProfile,
 } from "src/models/profile/food-profile.interface";
-import { IResUserData, IUserData } from "src/models/user-data/user-data.interface";
+import {
+  IResUserData,
+  IUserData,
+} from "src/models/user-data/user-data.interface";
 import { StatusService } from "src/services/local/status.service";
 import { FoodProfileService } from "src/services/profile/food-profile.service";
 import { SportProfileService } from "src/services/profile/sport-profile.service";
@@ -18,7 +21,6 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   styleUrls: ["./food-profile.component.scss"],
 })
 export class FoodProfileComponent implements OnInit, OnDestroy {
-
   public formUserFoodProfile: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public foodList: any[] = [];
@@ -44,15 +46,21 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         if (data.success) {
           this.foodList = data.result || [];
         }
-      }, error: (err) => { }
+      },
+      error: (err) => {},
     });
-    this._sportsServiceGetImpediments$.pipe(takeUntil(this._destroy$)).subscribe({
-      next: (data) => {
-        if (data.success && data.result && data.result.length > 0) {
-          this.allergiesList = data.result.filter((r: any) => r.impedimentType == 'ALLERGY');
-        }
-      }, error: () => { }
-    });
+    this._sportsServiceGetImpediments$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe({
+        next: (data) => {
+          if (data.success && data.result && data.result.length > 0) {
+            this.allergiesList = data.result.filter(
+              (r: any) => r.impedimentType == "ALLERGY"
+            );
+          }
+        },
+        error: () => {},
+      });
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -117,14 +125,14 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         if (value && this.is_vegetarian?.value) {
           this.is_vegetarian.setValue(false);
         }
-      }
+      },
     });
     this.is_vegetarian?.valueChanges.subscribe({
       next: (value) => {
         if (value && this.is_vegan?.value) {
           this.is_vegan.setValue(false);
         }
-      }
+      },
     });
   }
   get f() {
@@ -177,10 +185,18 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    let listFoods = ((this.foods_preference?.value as any[]) || []).map(s => s.idFood);
-    let listImpediments = ((this.intolerances?.value as any[]) || []).map(s => s.IdImpediment);
-    listImpediments = listImpediments.concat((this.userDisabilitiesList || []).map(s => s.IdImpediment));
-    listImpediments = listImpediments.concat((this.userPainList || []).map(s => s.IdImpediment));
+    let listFoods = ((this.foods_preference?.value as any[]) || []).map(
+      (s) => s.idFood
+    );
+    let listImpediments = ((this.intolerances?.value as any[]) || []).map(
+      (s) => s.IdImpediment
+    );
+    listImpediments = listImpediments.concat(
+      (this.userDisabilitiesList || []).map((s) => s.IdImpediment)
+    );
+    listImpediments = listImpediments.concat(
+      (this.userPainList || []).map((s) => s.IdImpediment)
+    );
     if (this.userData) {
       this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
       this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
@@ -194,24 +210,34 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     // };
     this._callService(listFoods, listImpediments, this.userData);
   }
-  private _callService(listFoods: number[], listImpediments: number[], data: IUserData): void {
-    this._sportProfileService.postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments).subscribe({
-      next: () => {
-        console.log('success impediments');
-        this._statusService.spinnerHide();
-      }
-    });
+  private _callService(
+    listFoods: number[],
+    listImpediments: number[],
+    data: IUserData
+  ): void {
+    this._sportProfileService
+      .postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments)
+      .subscribe({
+        next: () => {
+          console.log("success impediments");
+          this._statusService.spinnerHide();
+        },
+      });
     this._userDataService
       .updateGeneralData(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeographicProfileComponent - _callService - res", res);
-            window.dispatchEvent(new CustomEvent('updateGeneralData'));
+            console.log(
+              "XXX - GeographicProfileComponent - _callService - res",
+              res
+            );
+            window.dispatchEvent(new CustomEvent("updateGeneralData"));
           }
           this._statusService.spinnerHide();
-        }, () => { }
+        },
+        () => {}
       );
     // this._foodProfileService
     //   .update(this.getGeneralStatus.userId, data)
@@ -231,9 +257,8 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     //   );
   }
 
-  @HostListener('window:updateGeneralData')
+  @HostListener("window:updateGeneralData")
   updateGeneralData() {
     this._loadData();
   }
-
 }

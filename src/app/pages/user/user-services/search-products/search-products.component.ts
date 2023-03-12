@@ -11,7 +11,10 @@ import { ISports } from "src/models/general/sports.interface";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { IResUserData, IUserData } from "src/models/user-data/user-data.interface";
+import {
+  IResUserData,
+  IUserData,
+} from "src/models/user-data/user-data.interface";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
@@ -28,7 +31,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   public eventNameUserCreator: IUserData;
-  
+
   private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -77,7 +80,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       return contract;
     });
   }
-    get getContractType$(): string {
+  get getContractType$(): string {
     return this._statusService.getGeneralStatus().contractType;
   }
   get getProductsListScheduled$(): IProducts[] {

@@ -108,12 +108,16 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
             this.formUserGeneralData
               .get("genre")
               ?.patchValue(res.result?.gender);
-            let bornDate = new Date(res.result?.age || "")
-            this.formUserGeneralData.get("age")?.patchValue(formatDate(bornDate, 'yyyy-MM-dd', 'en'));
+            let bornDate = new Date(res.result?.age || "");
+            this.formUserGeneralData
+              .get("age")
+              ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
             this.formUserGeneralData
               .get("weight")
               ?.patchValue(res.result?.weight);
-            this.getHeight?.patchValue(((res.result && res.result.height) || 0) * 100);
+            this.getHeight?.patchValue(
+              ((res.result && res.result.height) || 0) * 100
+            );
             this._statusService.spinnerHide();
           }
         },
@@ -157,7 +161,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       userPlan: this.getGeneralStatus.contractType,
       imc: this.getGeneralStatus.imc,
       idSportPlan: 0,
-      idFoodPlan: 0
+      idFoodPlan: 0,
     };
     this._callService(data);
   }
@@ -169,7 +173,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
         (res: IResUserData) => {
           if (!!res && res.success) {
             console.log("XXX - GeneralDataComponent - _callService - res", res);
-            window.dispatchEvent(new CustomEvent('updateGeneralData'));
+            window.dispatchEvent(new CustomEvent("updateGeneralData"));
           }
           this._statusService.spinnerHide();
         },
@@ -180,9 +184,8 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       );
   }
 
-  @HostListener('window:updateGeneralData')
+  @HostListener("window:updateGeneralData")
   updateGeneralData() {
     this._loadGeneralData();
   }
-
 }
