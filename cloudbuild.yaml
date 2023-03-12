@@ -21,16 +21,11 @@ steps:
     volumes:
       - name: 'myvolume'
         path: '/persistent_volume'
-  - name: gradle:7.3.3-jdk17
-    entrypoint: bash
-    args:
-      - -c
-      - |
-        cd android/
-        gradle installDebug
+  - name: 'gcr.io/cloud-builders/docker'
     volumes:
       - name: 'myvolume'
         path: '/persistent_volume'
+    args: ['ls','run', '-v', 'myvolume:/home/app', '--rm', 'gcr.io/fullstackgcp/gradle', '/bin/sh', '-c', 'cd /home/app && ./gradlew clean assembleDebug']
 
 
 substitutions:
