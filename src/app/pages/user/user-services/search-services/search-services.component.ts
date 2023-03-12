@@ -141,4 +141,5 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
         this._statusService.spinnerHide();
       });
   }
+  
 }
