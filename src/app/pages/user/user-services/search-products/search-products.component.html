@@ -38,6 +38,12 @@
         <div class="d-flex" *ngIf="getProduct$.idUserCreator > 0">
           <label>{{ "LBL.CONTACT" | translate }}</label>
           <p>{{ getProduct$.idUserCreator }}</p>
+          <p>
+            {{ eventNameUserCreator?.name }}
+            {{ eventNameUserCreator?.lastName }} ({{
+              eventNameUserCreator?.username
+            }})
+          </p>
         </div>
       </div>
       <div

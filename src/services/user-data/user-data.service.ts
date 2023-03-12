@@ -70,4 +70,20 @@ export class UserDataService {
     // const mock = of(MockResErrorGeneralData);
     // return mock;
   }
+  getGeneralDataThird(): Observable<IResUserData> {
+    return this._http
+      .get<IResUserData>(`${this._baseUrl}` + "/third", {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          console.log("XXX - UserDataService - catchError - err", err);
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockResSuccessUserData);
+    // const mock = of(MockResErrorUserData);
+    // return mock;
+  }
 }

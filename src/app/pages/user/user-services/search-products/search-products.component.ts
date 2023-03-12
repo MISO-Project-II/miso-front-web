@@ -11,8 +11,13 @@ import { ISports } from "src/models/general/sports.interface";
 import { IProducts, IResProducts } from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
+import {
+  IResUserData,
+  IUserData,
+} from "src/models/user-data/user-data.interface";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
+import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-search-products",
@@ -25,12 +30,14 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
+  public eventNameUserCreator: IUserData;
 
   private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _productsService: ProductsService,
-    private _statusService: StatusService
+    private _statusService: StatusService,
+    private _userDataService: UserDataService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +58,30 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     return this._statusService.getGeneralStatus();
   }
   get getProductsList$(): IProducts[] {
-    return this._statusService.getProductsList();
+    // return this._statusService.getProductsList();
+    return this._statusService.getProductsList().filter((data: IProducts) => {
+      var contract = data.contractType === FREE_CONTRACT;
+      switch (this.getContractType$) {
+        case FREE_CONTRACT:
+          contract = data.contractType === FREE_CONTRACT;
+          break;
+        case INTERMEDIATE_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT;
+          break;
+        case PREMIUM_CONTRACT:
+          contract =
+            data.contractType === FREE_CONTRACT ||
+            data.contractType === INTERMEDIATE_CONTRACT ||
+            data.contractType === PREMIUM_CONTRACT;
+          break;
+      }
+      return contract;
+    });
+  }
+  get getContractType$(): string {
+    return this._statusService.getGeneralStatus().contractType;
   }
   get getProductsListScheduled$(): IProducts[] {
     return this._statusService.getProductsListScheduled();
@@ -68,6 +98,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
+    // XXX Validar si se consume siempre este dato
+    // this.loadThirdName(productSelected.idUserCreator);
   }
 
   public addProduct(): void {
@@ -103,6 +135,24 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
               "XXX - SearchProductsComponent - _callService - res",
               res
             );
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
+  }
+  public loadThirdName(id: number): void {
+    this._statusService.spinnerShow();
+    this._userDataService
+      .getGeneralData(this.getGeneralStatus$.userId)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResUserData) => {
+          if (!!res && res.success) {
+            this.eventNameUserCreator = res.result!;
           }
           this._statusService.spinnerHide();
         },

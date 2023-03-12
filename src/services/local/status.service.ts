@@ -137,6 +137,7 @@ export class StatusService {
     this._sportsList = sportsList;
   }
   public setEventsList(eventsList: IEvents[]) {
+    sessionStorage.setItem("eventsList", JSON.stringify(eventsList));
     this._eventsList = eventsList;
   }
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
@@ -144,6 +145,7 @@ export class StatusService {
     this._eventsListScheduled = [...newEventsListScheduled];
   }
   public setServicesList(servicesList: IServices[]) {
+    sessionStorage.setItem("servicesList", JSON.stringify(servicesList));
     this._servicesList = servicesList;
   }
   public setProductsListScheduled(productsListScheduled: IProducts[]) {
@@ -151,6 +153,7 @@ export class StatusService {
     this._productsListScheduled = [...newProductsListScheduled];
   }
   public setProductsList(productsList: IProducts[]) {
+    sessionStorage.setItem("productsList", JSON.stringify(productsList));
     this._productsList = productsList;
   }
   public setServicesListScheduled(servicesListScheduled: IServices[]) {
@@ -216,19 +219,22 @@ export class StatusService {
     return JSON.parse(sessionStorage.getItem("sportsList")!);
   }
   public getEventsList(): IEvents[] {
-    return this._eventsList;
+    // return this._eventsList;
+    return JSON.parse(sessionStorage.getItem("eventsList")!);
   }
   public getEventsListScheduled(): IEvents[] {
     return this._eventsListScheduled;
   }
   public getServicesList(): IServices[] {
-    return this._servicesList;
+    // return this._servicesList;
+    return JSON.parse(sessionStorage.getItem("servicesList")!);
   }
   public getServicesListScheduled(): IServices[] {
     return this._servicesListScheduled;
   }
   public getProductsList(): IProducts[] {
-    return this._productsList;
+    // return this._productsList;
+    return JSON.parse(sessionStorage.getItem("productsList")!);
   }
   public getProductsListScheduled(): IProducts[] {
     return this._productsListScheduled;

@@ -120,10 +120,7 @@
               <option selected disabled value="">
                 {{ "LBL.SELECT_TYPE" | translate }}
               </option>
-              <option
-                *ngFor="let state of statesOfResidence"
-                [ngValue]="state"
-              >
+              <option *ngFor="let state of statesOfResidence" [ngValue]="state">
                 {{ state.name }}
               </option>
             </select>

@@ -218,6 +218,28 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         }
       );
   }
+  private _loadGeneralDataThird(): void {
+    this._statusService.spinnerShow();
+    this._userDataService
+      .getGeneralDataThird()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: IResUserData) => {
+          if (!!res && res.success) {
+            console.log(
+              "🚀 XXX - UserHomeComponent - _loadGeneralData - res : ",
+              res
+            );
+            this._statusService.setUserId(this.getUserId$);
+          }
+          this._statusService.spinnerHide();
+        },
+        (err) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
+      );
+  }
   private _loadSports(): void {
     this._statusService.spinnerShow();
     this.getSportsService$.pipe(takeUntil(this._destroy$)).subscribe(

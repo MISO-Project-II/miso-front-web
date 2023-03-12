@@ -2,10 +2,17 @@ import { formatDate } from "@angular/common";
 import { Component, HostListener, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
-import { ICity, ICountry, IState } from "src/models/general/countryStateCity.interface";
+import {
+  ICity,
+  ICountry,
+  IState,
+} from "src/models/general/countryStateCity.interface";
 import { ILocation } from "src/models/general/locantion.interface";
 import { StatusModel } from "src/models/local/status-model";
-import { IResUserData, IUserData } from "src/models/user-data/user-data.interface";
+import {
+  IResUserData,
+  IUserData,
+} from "src/models/user-data/user-data.interface";
 import { UbicationService } from "src/services/general/ubication.service";
 import { StatusService } from "src/services/local/status.service";
 import { UserDataService } from "src/services/user-data/user-data.service";
@@ -16,7 +23,6 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   styleUrls: ["./geographic-profile.component.scss"],
 })
 export class GeographicProfileComponent implements OnInit {
-
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   formUserGeographicProfile: FormGroup;
   public countriesOfBirth: ICountry[];
@@ -61,42 +67,42 @@ export class GeographicProfileComponent implements OnInit {
       age: [null, [Validators.required]],
       height: [null, [Validators.required]],
       weight: [null, [Validators.required]],
-      imc: [null, [Validators.required]]
+      imc: [null, [Validators.required]],
     });
   }
 
   get countryOfBirth() {
-    return this.formUserGeographicProfile.get('countryOfBirth');
+    return this.formUserGeographicProfile.get("countryOfBirth");
   }
   get stateOfBirth() {
-    return this.formUserGeographicProfile.get('stateOfBirth');
+    return this.formUserGeographicProfile.get("stateOfBirth");
   }
   get cityOfBirth() {
-    return this.formUserGeographicProfile.get('cityOfBirth');
+    return this.formUserGeographicProfile.get("cityOfBirth");
   }
   get countryOfResidence() {
-    return this.formUserGeographicProfile.get('countryOfResidence');
+    return this.formUserGeographicProfile.get("countryOfResidence");
   }
   get stateOfResidence() {
-    return this.formUserGeographicProfile.get('stateOfResidence');
+    return this.formUserGeographicProfile.get("stateOfResidence");
   }
   get cityOfResidence() {
-    return this.formUserGeographicProfile.get('cityOfResidence');
+    return this.formUserGeographicProfile.get("cityOfResidence");
   }
   get montsOfResidence() {
-    return this.formUserGeographicProfile.get('montsOfResidence');
+    return this.formUserGeographicProfile.get("montsOfResidence");
   }
   get age() {
-    return this.formUserGeographicProfile.get('age');
+    return this.formUserGeographicProfile.get("age");
   }
   get height() {
-    return this.formUserGeographicProfile.get('height');
+    return this.formUserGeographicProfile.get("height");
   }
   get weight() {
-    return this.formUserGeographicProfile.get('weight');
+    return this.formUserGeographicProfile.get("weight");
   }
   get imc() {
-    return this.formUserGeographicProfile.get('imc');
+    return this.formUserGeographicProfile.get("imc");
   }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
@@ -116,8 +122,13 @@ export class GeographicProfileComponent implements OnInit {
     this.statesOfBirth = await this._ubicationService.getStatesByCountry(
       countryCode.iso2
     );
-    if (this._birthUbication && this._birthUbication.country == countryCode.iso2) {
-      let state = this.statesOfBirth.find(s => s.iso2 == this._birthUbication.state);
+    if (
+      this._birthUbication &&
+      this._birthUbication.country == countryCode.iso2
+    ) {
+      let state = this.statesOfBirth.find(
+        (s) => s.iso2 == this._birthUbication.state
+      );
       this.stateOfBirth?.patchValue(state);
     }
   }
@@ -127,7 +138,9 @@ export class GeographicProfileComponent implements OnInit {
       stateCode.iso2
     );
     if (this._birthUbication && this._birthUbication.state == stateCode.iso2) {
-      let city = this.citiesOfBirth.find(c => c.id == this._birthUbication.city);
+      let city = this.citiesOfBirth.find(
+        (c) => c.id == this._birthUbication.city
+      );
       this.cityOfBirth?.patchValue(city);
     }
   }
@@ -145,18 +158,26 @@ export class GeographicProfileComponent implements OnInit {
     this.statesOfResidence = await this._ubicationService.getStatesByCountry(
       countryCode.iso2
     );
-    if (this._homeUbication && this._homeUbication.country == countryCode.iso2) {
-      let state = this.statesOfResidence.find(s => s.iso2 == this._homeUbication.state);
+    if (
+      this._homeUbication &&
+      this._homeUbication.country == countryCode.iso2
+    ) {
+      let state = this.statesOfResidence.find(
+        (s) => s.iso2 == this._homeUbication.state
+      );
       this.stateOfResidence?.patchValue(state);
     }
   }
   public async getCitiesOfResidence(stateCode: IState) {
-    this.citiesOfResidence = await this._ubicationService.getCitiesBtStateByCountry(
-      this._countryCodeOfResidence.iso2,
-      stateCode.iso2
-    );
+    this.citiesOfResidence =
+      await this._ubicationService.getCitiesBtStateByCountry(
+        this._countryCodeOfResidence.iso2,
+        stateCode.iso2
+      );
     if (this._homeUbication && this._homeUbication.state == stateCode.iso2) {
-      let city = this.citiesOfResidence.find(c => c.id == this._homeUbication.city);
+      let city = this.citiesOfResidence.find(
+        (c) => c.id == this._homeUbication.city
+      );
       this.cityOfResidence?.patchValue(city);
     }
   }
@@ -169,15 +190,20 @@ export class GeographicProfileComponent implements OnInit {
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeographicProfileComponent - _loadData - res", res);
+            console.log(
+              "XXX - GeographicProfileComponent - _loadData - res",
+              res
+            );
             this.age?.patchValue(res.result?.age);
             this.weight?.patchValue(res.result?.weight);
-            this.height?.patchValue(((res.result && res.result.height) || 0) * 100);
+            this.height?.patchValue(
+              ((res.result && res.result.height) || 0) * 100
+            );
             this.imc?.patchValue(res.result?.imc);
             this.setBirthdUbication(res.result?.birthdUbication);
             this.setHomeUbication(res.result?.homeUbication);
             let bornDate = new Date(res.result?.age || "");
-            this.age?.patchValue(formatDate(bornDate, 'yyyy-MM-dd', 'en'));
+            this.age?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
             this._statusService.spinnerHide();
           }
         },
@@ -195,7 +221,9 @@ export class GeographicProfileComponent implements OnInit {
         city: parseInt(birthdUbication.split("-")[2]),
         currency: birthdUbication.split("-")[3],
       };
-      let country = this.countriesOfBirth.find(c => c.iso2 == this._birthUbication.country);
+      let country = this.countriesOfBirth.find(
+        (c) => c.iso2 == this._birthUbication.country
+      );
       this.countryOfBirth?.patchValue(country || null);
     }
   }
@@ -208,7 +236,9 @@ export class GeographicProfileComponent implements OnInit {
         currency: homeUbication.split("-")[3],
         monthsOfResidence: parseInt(homeUbication.split("-")[4]),
       };
-      let country = this.countriesOfResidence.find(c => c.iso2 == this._homeUbication.country);
+      let country = this.countriesOfResidence.find(
+        (c) => c.iso2 == this._homeUbication.country
+      );
       this.countryOfResidence?.patchValue(country);
       this.montsOfResidence?.patchValue(this._homeUbication.monthsOfResidence);
     }
@@ -220,11 +250,14 @@ export class GeographicProfileComponent implements OnInit {
       let countryOfBirthIso = (this.countryOfBirth?.value as ICountry).iso2;
       let stateOfBirthIso = (this.stateOfBirth?.value as IState).iso2;
       let cityOfBirthId = (this.cityOfBirth?.value as ICity).id;
-      let countryOfResidenceIso = (this.countryOfResidence?.value as ICountry).iso2;
+      let countryOfResidenceIso = (this.countryOfResidence?.value as ICountry)
+        .iso2;
       let stateOfResidenceIso = (this.stateOfResidence?.value as IState).iso2;
       let cityOfResidenceId = (this.cityOfResidence?.value as ICity).id;
       let _birthdUbication = `${countryOfBirthIso}-${stateOfBirthIso}-${cityOfBirthId}-${this._countryCodeOfBirth.currency}`;
-      let _homeUbication = `${countryOfResidenceIso}-${stateOfResidenceIso}-${cityOfResidenceId}-${this._countryCodeOfResidence.currency}-${this.montsOfResidence?.value || 0}`;
+      let _homeUbication = `${countryOfResidenceIso}-${stateOfResidenceIso}-${cityOfResidenceId}-${
+        this._countryCodeOfResidence.currency
+      }-${this.montsOfResidence?.value || 0}`;
       const data: IUserData = {
         username: this.getGeneralStatus.username,
         name: this.getGeneralStatus.name,
@@ -240,7 +273,7 @@ export class GeographicProfileComponent implements OnInit {
         userPlan: this.getGeneralStatus.contractType,
         imc: this.imc?.value,
         idSportPlan: 0,
-        idFoodPlan: 0
+        idFoodPlan: 0,
       };
       this._callService(data);
     }
@@ -253,8 +286,11 @@ export class GeographicProfileComponent implements OnInit {
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeographicProfileComponent - _callService - res", res);
-            window.dispatchEvent(new CustomEvent('updateGeneralData'));
+            console.log(
+              "XXX - GeographicProfileComponent - _callService - res",
+              res
+            );
+            window.dispatchEvent(new CustomEvent("updateGeneralData"));
           }
           this._statusService.spinnerHide();
         },
@@ -265,9 +301,8 @@ export class GeographicProfileComponent implements OnInit {
       );
   }
 
-  @HostListener('window:updateGeneralData')
+  @HostListener("window:updateGeneralData")
   updateGeneralData() {
     this._loadData();
   }
-
 }
