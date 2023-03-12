@@ -15,17 +15,17 @@ steps:
       - '-Dsonar.projectVersion=1.25.4'
       - '-Dsonar.sourceEncoding=UTF-8'
       - '-Dsonar.sources=src'
-      - '-Dsonar.test=src/app/pages/error/*.spec.ts'
+      - '-Dsonar.test.exclusions=**/node_modules/**'
+      - '-Dsonar.test.exclusions=**/src/app/**'
+      - '-Dsonar.test.exclusions=**/src/assets/**'
+      - '-Dsonar.test.exclusions=**/src/constants/**'
+      - '-Dsonar.test.exclusions=**/src/helper/**'
+      - '-Dsonar.test.exclusions=**/src/models/**'
+      - '-Dsonar.test.exclusions=**/src/styles/**'
+      - '-Dsonar.test.exclusions=**/src/test/**'
+      - '-Dsonar.test=src'
       - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
-
-  - name: gcr.io/cloud-builders/npm
-    entrypoint: bash
-    args:
-      - -c
-      - |
-        test --watch=false --code-coverage --source-map=false 
-
-  - id: Android execution
+  - id: Execute test
     name: gcr.io/cloud-builders/npm
     entrypoint: bash
     args:
