@@ -71,15 +71,18 @@ export class SportPlanComponent implements OnInit, OnDestroy {
       username: this.getGeneralStatus$?.username,
       name: this.getGeneralStatus$?.name,
       lastName: this.getGeneralStatus$?.lastName,
+
       idIdentificationType: this.getGeneralStatus$?.idIdentificationType,
       identificationNumber: this.getGeneralStatus$?.identificationNumber,
       birthdUbication: this.getGeneralStatus$?.birthdUbication,
       homeUbication: this.getGeneralStatus$?.homeUbication,
+
       gender: this.getGeneralStatus$?.gender,
       age: this.getGeneralStatus$?.age,
       weight: this.getGeneralStatus$?.weight,
       height: this.getGeneralStatus$?.height,
       userPlan: this.getGeneralStatus$?.contractType,
+
       imc: this.getGeneralStatus$?.imc,
       isVegan: this.getGeneralStatus$?.isVegan,
       isvegetarian: this.getGeneralStatus$?.isvegetarian,

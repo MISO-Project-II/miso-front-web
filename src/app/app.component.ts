@@ -43,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem("servicesList");
     sessionStorage.removeItem("productsList");
     sessionStorage.removeItem("thirdList");
+    sessionStorage.removeItem("lastSession");
   }
   private _isMobile(): void {
     var isMobile = {

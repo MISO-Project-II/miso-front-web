@@ -120,7 +120,7 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
   get isMobile() {
     return this._statusService.getIsMobile();
   }
-  public onSubmit(contractType: string): void {
+  public onSubmitPlanDetail(contractType: string): void {
     const data: IPlan = {
       idPlan: contractType,
     };

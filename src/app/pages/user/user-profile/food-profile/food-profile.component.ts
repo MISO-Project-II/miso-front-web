@@ -180,7 +180,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     this.intolerances?.patchValue(this.userAllergiesList);
   }
 
-  public onSubmit(): void {
+  public onSubmitFoodProfile(): void {
     let listFoods = ((this.foods_preference?.value as any[]) || []).map(
       (s) => s.idFood
     );
@@ -249,8 +249,8 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         () => {}
       );
   }
-  @HostListener("window:updateGeneralData")
-  updateGeneralData() {
-    this._loadData();
-  }
+  // @HostListener("window:updateGeneralData")
+  // updateGeneralData() {
+  //   this._loadData();
+  // }
 }

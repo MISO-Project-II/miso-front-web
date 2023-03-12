@@ -245,7 +245,7 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  public onSubmitDemographicProfile(): void {
     if (this.formUserGeographicProfile.valid) {
       let countryOfBirthIso = (this.countryOfBirth?.value as ICountry).iso2;
       let stateOfBirthIso = (this.stateOfBirth?.value as IState).iso2;
@@ -258,10 +258,20 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
       let _homeUbication = `${countryOfResidenceIso}-${stateOfResidenceIso}-${cityOfResidenceId}-${
         this._countryCodeOfResidence.currency
       }-${this.montsOfResidence?.value || 0}`;
+      console.log(
+        "🚀 XXX - GeographicProfileComponent - onSubmit - _homeUbication : ",
+        _homeUbication
+      );
+      console.log(
+        "🚀 XXX - GeographicProfileComponent - onSubmit - _birthdUbication : ",
+        _birthdUbication
+      );
+
       const data: IUserData = {
         username: this.getGeneralStatus$.username,
         name: this.getGeneralStatus$.name,
         lastName: this.getGeneralStatus$.lastName,
+
         idIdentificationType: this.getGeneralStatus$.idIdentificationType,
         identificationNumber: this.getGeneralStatus$.identificationNumber,
         birthdUbication: _birthdUbication,
@@ -271,12 +281,22 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
         weight: this.weight?.value,
         height: (this.height?.value || 0) / 100,
         userPlan: this.getGeneralStatus$.contractType,
+
         isVegan: this.getGeneralStatus$?.isVegan,
         isvegetarian: this.getGeneralStatus$?.isvegetarian,
         imc: this.imc?.value,
-        idSportPlan: this.getGeneralStatus$?.idSportPlan,
-        idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
+        idSportPlan: this.getGeneralStatus$?.idSportPlan
+          ? this.getGeneralStatus$?.idSportPlan
+          : 0,
+        idFoodPlan: this.getGeneralStatus$?.idFoodPlan
+          ? this.getGeneralStatus$?.idFoodPlan
+          : 0,
       };
+      console.log(
+        "🚀 XXX - GeographicProfileComponent - onSubmit - data : ",
+        data
+      );
+
       this._callService(data);
     }
   }
@@ -291,7 +311,7 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
           if (!!res && res.success) {
             console.log(
               "🚀 XXX - GeographicProfileComponent - _callService - res : ",
-              res
+              JSON.stringify(res)
             );
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
             this._statusService.spinnerHide();
@@ -306,8 +326,8 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
       );
   }
 
-  @HostListener("window:updateGeneralData")
-  updateGeneralData() {
-    this._loadData();
-  }
+  // @HostListener("window:updateGeneralData")
+  // updateGeneralData() {
+  //   this._loadData();
+  // }
 }
