@@ -2,7 +2,8 @@ steps:
   - id: Package image
     name: gcr.io/cloud-builders/npm
     args: [ 'install' ]
-  - id: Package image
+
+  - id: Package test
     name: gcr.io/cloud-builders/npm
     args: [ 'coverage' ]
     volumes:
