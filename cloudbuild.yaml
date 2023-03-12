@@ -44,9 +44,6 @@ steps:
         npx cap add android
         npm run build
         npx cap sync
-    volumes:
-      - name: 'myvolume'
-        path: '/persistent_volume'
 #  - name: gradle:5.6.2-jdk8
 #    entrypoint: bash
 #    args:
