@@ -12,21 +12,83 @@
           <app-ds-title
             [title]="'LBL.FOODS_PREFERENCE' | translate"
           ></app-ds-title>
-          <textarea
+          <!-- <textarea
             class="form-control ds-input"
             formControlName="foods_preference"
             id="foods_preference_input"
             rows="2"
-          ></textarea>
+          ></textarea> -->
+          <div class="select_option d-flex">
+            <div class="options w-50 pe-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of foodList"
+                  type="button"
+                  (click)="addFoodPreference(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.nameFood }}
+                </button>
+              </div>
+            </div>
+            <div class="selected w-50 ps-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of listFoodPreference"
+                  type="button"
+                  (click)="delFoodPreference(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.nameFood }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="foods_preference?.hasError('required')">{{
+            "ERR.REQUIRED_FIELD" | translate
+          }}</small>
         </div>
         <div class="ds-input-group mt-3">
           <app-ds-title [title]="'LBL.INTOLERANCE' | translate"></app-ds-title>
-          <textarea
+          <!-- <textarea
             class="form-control ds-input"
             formControlName="intolerances"
             id="intolerances_input"
             rows="2"
-          ></textarea>
+          ></textarea> -->
+          <div class="select_option d-flex">
+            <div class="options w-50 pe-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of allergiesList"
+                  type="button"
+                  (click)="addAllergie(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.name }}
+                </button>
+              </div>
+            </div>
+            <div class="selected w-50 ps-1">
+              <div class="list-group overflow-auto">
+                <button
+                  *ngFor="let item of userAllergiesList"
+                  type="button"
+                  (click)="delAllergie(item)"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  {{ item.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="intolerances?.hasError('required')">{{
+            "ERR.REQUIRED_FIELD" | translate
+          }}</small>
         </div>
       </div>
       <div class="col-12 col-md-6 max-width mx-auto">

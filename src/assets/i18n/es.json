@@ -151,7 +151,8 @@
     "AVERAGE_DATA": "Datos promedio",
     "CONNECT_OTHER_APP_ALERT": "Primero conecta un dispositivo externo para realizar mediciones",
     "CONNECT_OTHER_APP": "Conectar con aplicaciones externas",
-    "APPS_CONNECTED": "Aplicaciones conectadas"
+    "APPS_CONNECTED": "Aplicaciones conectadas",
+    "IMC": "Índice de masa corporal"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuario...",
@@ -185,7 +186,8 @@
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
     "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
-    "PRICE": "Precio"
+    "PRICE": "Precio",
+    "IMC": "IMC"
   },
   "BTN": {
     "CONTINUE": "Continuar",
