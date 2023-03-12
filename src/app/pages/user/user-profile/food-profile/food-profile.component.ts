@@ -84,6 +84,16 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }
       );
+      this._sportProfileService.getImpedimentsByUser(this.getGeneralStatus.userId).subscribe({
+        next: (response) => {
+          if (response.success && response.result && response.result.impediments) {
+            this.userDisabilitiesList = response.result.impediments['INJURY'] || [];
+            this.userPainList = response.result.impediments['INCONVENIENCE'] || [];
+            this.userAllergiesList = response.result.impediments['ALLERGY'] || [];
+            this.intolerances?.patchValue(this.userAllergiesList);
+          }
+        }, error: () => { }
+      });
     // this._statusService.spinnerShow();
     // this._foodProfileService
     //   .get(this.getGeneralStatus.userId)
@@ -172,12 +182,14 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     this.foods_preference?.patchValue(this.listFoodPreference);
   }
 
-  public addAllergie(item: any): void {
-    this.userAllergiesList?.push(item);
-    this.userAllergiesList = [...new Set(this.userAllergiesList)];
+  public addAllergy(item: any): void {
+    if (!this.userAllergiesList?.find(a => a.IdImpediment == item.IdImpediment)) {
+      this.userAllergiesList?.push(item);
+      // this.userAllergiesList = [...new Set(this.userAllergiesList)];
+    }
     this.intolerances?.patchValue(this.userAllergiesList);
   }
-  public delAllergie(item: any): void {
+  public delAllergy(item: any): void {
     this.userAllergiesList = this.userAllergiesList?.filter(
       (data: any) => data.IdImpediment != item.IdImpediment
     );
@@ -185,23 +197,15 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    let listFoods = ((this.foods_preference?.value as any[]) || []).map(
-      (s) => s.idFood
-    );
-    let listImpediments = ((this.intolerances?.value as any[]) || []).map(
-      (s) => s.IdImpediment
-    );
-    listImpediments = listImpediments.concat(
-      (this.userDisabilitiesList || []).map((s) => s.IdImpediment)
-    );
-    listImpediments = listImpediments.concat(
-      (this.userPainList || []).map((s) => s.IdImpediment)
-    );
+    this._statusService.spinnerShow();
+    let listFoods = ((this.foods_preference?.value as any[]) || []).map(s => s.idFood);
+    let listImpediments = ((this.intolerances?.value as any[]) || []).map(s => s.IdImpediment);
+    listImpediments = listImpediments.concat((this.userDisabilitiesList || []).map(s => s.IdImpediment));
+    listImpediments = listImpediments.concat((this.userPainList || []).map(s => s.IdImpediment));
     if (this.userData) {
       this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
       this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
     }
-    // this._statusService.spinnerShow();
     // const data: IUserFoodProfile = {
     //   foods_preference: this.foods_preference?.value,
     //   intolerances: this.intolerances?.value,

@@ -101,9 +101,10 @@ export class SportProfileService {
   }
 
   postImpedimentsByUser(idUser: number, impediments: number[]) {
-    const url = `${environment.api.base}/users/${idUser}/impediment`;
+    const url = `https://miso-user-6equtupdiq-uc.a.run.app/${idUser}/impediment`;
+    // const url = `${environment.api.base}/users/${idUser}/impediment`;
     return this._http
-      .post<any>(url, impediments, { headers: this._httpHeaders })
+      .post<any>(url, impediments)
       .pipe(
         // retry(2),
         catchError((err: any) => {
@@ -114,13 +115,16 @@ export class SportProfileService {
   }
 
   getImpedimentsByUser(idUser: number) {
-    const url = `${environment.api.base}/users/${idUser}/impediment/created`;
-    return this._http.get<any>(url, { headers: this._httpHeaders }).pipe(
-      // retry(2),
-      catchError((err: any) => {
-        console.log("XXX - GetImpedimentsByUser - catchError - err", err);
-        return throwError(err);
-      })
-    );
+    const url = `https://miso-user-6equtupdiq-uc.a.run.app/${idUser}/impediment/created`;
+    // const url = `${environment.api.base}/users/${idUser}/impediment/created`;
+    return this._http
+      .get<any>(url)
+      .pipe(
+        // retry(2),
+        catchError((err: any) => {
+          console.log("XXX - GetImpedimentsByUser - catchError - err", err);
+          return throwError(err);
+        })
+      );
   }
 }
