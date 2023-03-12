@@ -1,26 +1,30 @@
 <div id="main-third-home" class="container-fluid height-100vh">
   <hr />
-  <div class="col-12 col-md-6 max-width mx-auto" *ngIf="getGeneralStatus">
-    <app-ds-title [title]="getGeneralStatus.username"></app-ds-title>
+  <div class="col-12 col-md-6 max-width mx-auto" *ngIf="getGeneralStatus$">
+    <app-ds-title [title]="getGeneralStatus$.username"></app-ds-title>
     <div class="d-flex">
-      <label>{{ "LBL.USER_NAME" | translate }}</label>
-      <p>{{ getGeneralStatus.username }}</p>
+      <label>{{ "LBL.USER_NAME" | translate }}: </label>
+      <p>{{ getGeneralStatus$.username }}</p>
     </div>
     <div class="d-flex">
-      <label>{{ "LBL.NAME" | translate }}</label>
-      <p>{{ getGeneralStatus.name }} {{ getGeneralStatus.lastName }}</p>
+      <label>{{ "LBL.NAME" | translate }}: </label>
+      <p>{{ getGeneralStatus$.name }} {{ getGeneralStatus$.lastName }}</p>
     </div>
     <div class="d-flex">
-      <label>{{ "LBL.USER_ID" | translate }}</label>
-      <p>{{ getGeneralStatus.userId }}</p>
+      <label>{{ "LBL.USER_ID" | translate }}: </label>
+      <p>{{ getGeneralStatus$.userId }}</p>
     </div>
     <div class="d-flex">
-      <label>{{ "LBL.ID_TYPE" | translate }}</label>
-      <p>{{ getGeneralStatus.idIdentificationType }}</p>
+      <label>{{ "LBL.ID_TYPE" | translate }}: </label>
+      <p>{{ getGeneralStatus$.idIdentificationType }}</p>
     </div>
     <div class="d-flex">
-      <label>{{ "LBL.ID_NUMBER" | translate }}</label>
-      <p>{{ getGeneralStatus.identificationNumber }}</p>
+      <label>{{ "LBL.ID_NUMBER" | translate }}: </label>
+      <p>{{ getGeneralStatus$.identificationNumber }}</p>
+    </div>
+    <div class="d-flex" *ngIf="getGeneralStatus$.description">
+      <label>{{ "LBL.DESCRIPTION" | translate }}: </label>
+      <p>{{ getGeneralStatus$.description }}</p>
     </div>
   </div>
 </div>

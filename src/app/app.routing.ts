@@ -40,13 +40,6 @@ export const ROOT_ROUTES: Routes = [
       ),
   },
   {
-    path: ROOT_ROUTES_NAMES.THIRD_REGISTER,
-    loadChildren: () =>
-      import("../app/pages/third-register/third-register.module").then(
-        (m) => m.ThirdRegisterModule
-      ),
-  },
-  {
     path: ROOT_ROUTES_NAMES.ERROR,
     loadChildren: () =>
       import("../app/pages/error/error.module").then((m) => m.ErrorModule),

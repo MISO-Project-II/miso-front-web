@@ -2,7 +2,7 @@
   <hr />
   <form
     [formGroup]="formUserFoodProfile"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="onSubmitFoodProfile()"
     novalidate
     autocomplete="off"
   >
@@ -47,7 +47,7 @@
             </div>
           </div>
           <small *ngIf="foods_preference?.hasError('required')">{{
-            "ERR.REQUIRED_FIELD" | translate
+            "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
         <div class="ds-input-group mt-3">
@@ -87,7 +87,7 @@
             </div>
           </div>
           <small *ngIf="intolerances?.hasError('required')">{{
-            "ERR.REQUIRED_FIELD" | translate
+            "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
       </div>

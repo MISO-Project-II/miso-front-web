@@ -11,13 +11,9 @@ import { ISports } from "src/models/general/sports.interface";
 import { IEvents, IResEvents } from "src/models/home/events.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import {
-  IResUserData,
-  IUserData,
-} from "src/models/user-data/user-data.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-search-events",
@@ -30,7 +26,7 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
-  public eventNameUserCreator: IUserData;
+  public thirdData: IThirdDataMap;
   eventsList: IEvents[] = [];
   loading: boolean = true;
 
@@ -38,12 +34,10 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _eventsService: EventsService,
-    private _statusService: StatusService,
-    private _userDataService: UserDataService
+    private _statusService: StatusService
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - SearchEventsComponent (Eventos que ya existen)");
     this.eventsList = this.getEventsList$;
     this.loading = false;
   }
@@ -107,16 +101,20 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   get getContractType$(): string {
     return this._statusService.getGeneralStatus().contractType;
   }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
-    this.loadThirdName(eventSelected.idUserCreator);
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === eventSelected.idUserCreator
+    )[0];
   }
 
   public addEvent(): void {
     const eventsListScheduled = this.getEventsListScheduled$;
     eventsListScheduled.push(this._eventSelected);
     this._statusService.setEventsListScheduled(eventsListScheduled);
-    console.log("XXX - addEvent", this.getEventsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
     for (let index = 0; index < this.getEventsListScheduled$.length; index++) {
@@ -127,40 +125,17 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - SearchEventsComponent - _callService - listScheduled",
-      listScheduled
-    );
     this._eventsService
       .putUserEvent(this.getGeneralStatus$.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
-            console.log(
-              "XXX - SearchEventsComponent - _callService - res",
-              res
-            );
+            // XXX
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
-        },
-        (err) => {
-          console.error(err);
-          this._statusService.spinnerHide();
-        }
-      );
-  }
-  public loadThirdName(id: number): void {
-    this._statusService.spinnerShow();
-    this._userDataService
-      .getGeneralData(this.getGeneralStatus$.userId)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(
-        (res: IResUserData) => {
-          if (!!res && res.success) {
-            this.eventNameUserCreator = res.result!;
-          }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

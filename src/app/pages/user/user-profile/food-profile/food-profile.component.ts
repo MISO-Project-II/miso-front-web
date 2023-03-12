@@ -3,10 +3,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
-  IResUserFoodProfile,
-  IUserFoodProfile,
-} from "src/models/profile/food-profile.interface";
-import { IResUserData, IUserData } from "src/models/user-data/user-data.interface";
+  IResUserData,
+  IUserData,
+} from "src/models/user-data/user-data.interface";
 import { StatusService } from "src/services/local/status.service";
 import { FoodProfileService } from "src/services/profile/food-profile.service";
 import { SportProfileService } from "src/services/profile/sport-profile.service";
@@ -18,7 +17,6 @@ import { UserDataService } from "src/services/user-data/user-data.service";
   styleUrls: ["./food-profile.component.scss"],
 })
 export class FoodProfileComponent implements OnInit, OnDestroy {
-
   public formUserFoodProfile: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public foodList: any[] = [];
@@ -44,19 +42,28 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         if (data.success) {
           this.foodList = data.result || [];
         }
-      }, error: (err) => { }
+      },
+      error: (err) => {},
     });
-    this._sportsServiceGetImpediments$.pipe(takeUntil(this._destroy$)).subscribe({
-      next: (data) => {
-        if (data.success && data.result && data.result.length > 0) {
-          this.allergiesList = data.result.filter((r: any) => r.impedimentType == 'ALLERGY');
-        }
-      }, error: () => { }
-    });
+    this._sportsServiceGetImpediments$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe({
+        next: (data) => {
+          if (data.success && data.result && data.result.length > 0) {
+            this.allergiesList = data.result.filter(
+              (r: any) => r.impedimentType == "ALLERGY"
+            );
+          }
+        },
+        error: () => {},
+      });
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
+  }
+  get getGeneralStatus$(): StatusModel {
+    return this._statusService.getGeneralStatus();
   }
   private _loadData(): void {
     this._userDataService
@@ -68,53 +75,37 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
             this.userData = res.result;
             this.is_vegetarian?.patchValue(this.userData.isvegetarian == 1);
             this.is_vegan?.patchValue(this.userData.isVegan == 1);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
           this._statusService.spinnerHide();
         }
       );
-      this._sportProfileService.getImpedimentsByUser(this.getGeneralStatus.userId).subscribe({
+    this._sportProfileService
+      .getImpedimentsByUser(this.getGeneralStatus.userId)
+      .subscribe({
         next: (response) => {
-          if (response.success && response.result && response.result.impediments) {
-            this.userDisabilitiesList = response.result.impediments['INJURY'] || [];
-            this.userPainList = response.result.impediments['INCONVENIENCE'] || [];
-            this.userAllergiesList = response.result.impediments['ALLERGY'] || [];
+          if (
+            response.success &&
+            response.result &&
+            response.result.impediments
+          ) {
+            this.userDisabilitiesList =
+              response.result.impediments["INJURY"] || [];
+            this.userPainList =
+              response.result.impediments["INCONVENIENCE"] || [];
+            this.userAllergiesList =
+              response.result.impediments["ALLERGY"] || [];
             this.intolerances?.patchValue(this.userAllergiesList);
           }
-        }, error: () => { }
+        },
+        error: () => {},
       });
-    // this._statusService.spinnerShow();
-    // this._foodProfileService
-    //   .get(this.getGeneralStatus.userId)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserFoodProfile) => {
-    //       if (!!res && res.success) {
-    //         this.formUserFoodProfile
-    //           .get("foods_preference")
-    //           ?.patchValue(res.response?.foods_preference);
-    //         this.formUserFoodProfile
-    //           .get("intolerances")
-    //           ?.patchValue(res.response?.intolerances);
-    //         this.formUserFoodProfile
-    //           .get("is_vegan")
-    //           ?.patchValue(res.response?.is_vegan);
-    //         this.formUserFoodProfile
-    //           .get("is_vegetarian")
-    //           ?.patchValue(res.response?.is_vegetarian);
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
-
   private _initForm(): void {
     this.formUserFoodProfile = new FormGroup({
       foods_preference: new FormControl("", [Validators.required]),
@@ -127,14 +118,14 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
         if (value && this.is_vegetarian?.value) {
           this.is_vegetarian.setValue(false);
         }
-      }
+      },
     });
     this.is_vegetarian?.valueChanges.subscribe({
       next: (value) => {
         if (value && this.is_vegan?.value) {
           this.is_vegan.setValue(false);
         }
-      }
+      },
     });
   }
   get f() {
@@ -175,9 +166,10 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   }
 
   public addAllergy(item: any): void {
-    if (!this.userAllergiesList?.find(a => a.IdImpediment == item.IdImpediment)) {
+    if (
+      !this.userAllergiesList?.find((a) => a.IdImpediment == item.IdImpediment)
+    ) {
       this.userAllergiesList?.push(item);
-      // this.userAllergiesList = [...new Set(this.userAllergiesList)];
     }
     this.intolerances?.patchValue(this.userAllergiesList);
   }
@@ -188,64 +180,77 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
     this.intolerances?.patchValue(this.userAllergiesList);
   }
 
-  public onSubmit(): void {
-    this._statusService.spinnerShow();
-    let listFoods = ((this.foods_preference?.value as any[]) || []).map(s => s.idFood);
-    let listImpediments = ((this.intolerances?.value as any[]) || []).map(s => s.IdImpediment);
-    listImpediments = listImpediments.concat((this.userDisabilitiesList || []).map(s => s.IdImpediment));
-    listImpediments = listImpediments.concat((this.userPainList || []).map(s => s.IdImpediment));
+  public onSubmitFoodProfile(): void {
+    let listFoods = ((this.foods_preference?.value as any[]) || []).map(
+      (s) => s.idFood
+    );
+    let listImpediments = ((this.intolerances?.value as any[]) || []).map(
+      (s) => s.IdImpediment
+    );
+    listImpediments = listImpediments.concat(
+      (this.userDisabilitiesList || []).map((s) => s.IdImpediment)
+    );
+    listImpediments = listImpediments.concat(
+      (this.userPainList || []).map((s) => s.IdImpediment)
+    );
     if (this.userData) {
-      this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
-      this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
+      // this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
+      // this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
+      this.userData = {
+        username: this.getGeneralStatus$?.username,
+        name: this.getGeneralStatus$?.name,
+        lastName: this.getGeneralStatus$?.lastName,
+        idIdentificationType: this.getGeneralStatus$?.idIdentificationType,
+        identificationNumber: this.getGeneralStatus$?.identificationNumber,
+        birthdUbication: this.getGeneralStatus$?.birthdUbication,
+        homeUbication: this.getGeneralStatus$?.homeUbication,
+        gender: this.getGeneralStatus$?.gender,
+        age: this.getGeneralStatus$?.age,
+        weight: this.getGeneralStatus$?.weight,
+        height: this.getGeneralStatus$?.height,
+        userPlan: this.getGeneralStatus$?.contractType,
+        imc: this.getGeneralStatus$?.imc,
+        isVegan: this.is_vegan?.value ? 1 : 0,
+        isvegetarian: this.is_vegetarian?.value ? 1 : 0,
+        idSportPlan: this.getGeneralStatus$?.idSportPlan,
+        idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
+      };
     }
-    // const data: IUserFoodProfile = {
-    //   foods_preference: this.foods_preference?.value,
-    //   intolerances: this.intolerances?.value,
-    //   is_vegan: this.is_vegan?.value,
-    //   is_vegetarian: this.is_vegetarian?.value,
-    // };
     this._callService(listFoods, listImpediments, this.userData);
   }
-  private _callService(listFoods: number[], listImpediments: number[], data: IUserData): void {
-    this._sportProfileService.postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments).subscribe({
-      next: () => {
-        console.log('success impediments');
-        this._statusService.spinnerHide();
-      }
-    });
+  private _callService(
+    listFoods: number[],
+    listImpediments: number[],
+    data: IUserData
+  ): void {
+    this._statusService.spinnerShow();
+    // Falta Enviar FOODS
+    this._sportProfileService
+      .postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments)
+      .subscribe({
+        next: () => {
+          // XXX Validar rta
+          this._statusService.spinnerHide();
+        },
+      });
     this._userDataService
       .updateGeneralData(this.getGeneralStatus.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeographicProfileComponent - _callService - res", res);
-            window.dispatchEvent(new CustomEvent('updateGeneralData'));
+            console.log("🚀 XXX - FoodProfileComponent - res : ", res);
+            window.dispatchEvent(new CustomEvent("updateGeneralData"));
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
-        }, () => { }
+        },
+        () => {}
       );
-    // this._foodProfileService
-    //   .update(this.getGeneralStatus.userId, data)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserFoodProfile) => {
-    //       if (!!res && res.success) {
-    //         console.log("XXX - FoodProfileComponent - _callService - res", res);
-    //         this._loadData();
-    //       }
-    //       this._statusService.spinnerHide();
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
-
-  @HostListener('window:updateGeneralData')
-  updateGeneralData() {
-    this._loadData();
-  }
-
+  // @HostListener("window:updateGeneralData")
+  // updateGeneralData() {
+  //   this._loadData();
+  // }
 }

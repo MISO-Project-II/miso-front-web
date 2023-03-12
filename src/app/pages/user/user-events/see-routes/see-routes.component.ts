@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
 import { IRoutes } from "src/models/general/routes.interface";
 import { StatusService } from "src/services/local/status.service";
 
@@ -13,7 +12,7 @@ export class SeeRoutesComponent implements OnInit {
   constructor(private _statusService: StatusService) {}
 
   ngOnInit(): void {
-    console.log("XXX - SeeRoutesComponent");
+    console.log("🚀 XXX - SeeRoutesComponent - ngOnInit - ngOnInit : ");
   }
   get getRoutesList$(): IRoutes[] {
     return this._statusService.getRoutesList();

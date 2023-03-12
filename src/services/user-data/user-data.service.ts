@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
+import { IResThirdData } from "src/models/third-data/third-data.interface";
 import {
   IResUserData,
   IUserData,
@@ -33,7 +34,6 @@ export class UserDataService {
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("XXX - UserDataService - catchError - err", err);
           return throwError(err);
         })
       );
@@ -62,12 +62,26 @@ export class UserDataService {
       .pipe(
         retry(5),
         catchError((err: any) => {
-          console.log("🚀 XXX - UserDataService - catchError - err : ", err);
           return throwError(err);
         })
       );
     // const mock = of(MockResSuccessUserData);
     // const mock = of(MockResErrorGeneralData);
+    // return mock;
+  }
+  getGeneralDataThird(): Observable<IResThirdData> {
+    return this._http
+      .get<IResThirdData>(`${this._baseUrl}` + "/thirds", {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockResSuccessUserData);
+    // const mock = of(MockResErrorUserData);
     // return mock;
   }
 }

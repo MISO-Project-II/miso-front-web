@@ -1,25 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subject, takeUntil } from "rxjs";
-import {
-  FREE_CONTRACT,
-  INSIDE_OF_HOUSE,
-  INTERMEDIATE_CONTRACT,
-  OUTSIDE_OF_HOUSE,
-  PREMIUM_CONTRACT,
-} from "src/constanst/data.constants";
+import { Subject, takeUntil } from "rxjs";
 import { ISports } from "src/models/general/sports.interface";
-import {
-  IProducts,
-  IResProduct,
-  IResProducts,
-  IResUserProducts,
-} from "src/models/home/products.interface";
-import { IGenericResponse } from "src/models/local/generic.interface";
+import { IProducts, IResProduct } from "src/models/home/products.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-create-products",
@@ -36,7 +22,6 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - CreateProductComponent");
     this._initForm();
   }
   ngOnDestroy(): void {
@@ -91,7 +76,6 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
     return this._statusService.getProductsListScheduled();
   }
   public onSubmit(): void {
-    this._statusService.spinnerShow();
     const data: IProducts = {
       name: this.getName?.value,
       description: this.getDescription?.value,
@@ -104,6 +88,7 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
     this._callService(data);
   }
   private _callService(data: IProducts): void {
+    this._statusService.spinnerShow();
     this._productsService
       .postCreateProduct(data)
       .pipe(takeUntil(this._destroy$))
@@ -111,14 +96,20 @@ export class CreateProductsComponent implements OnInit, OnDestroy {
         (res: IResProduct) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - CreateProductsComponent - _callService - res",
+              "🚀 XXX - CreateProductsComponent - _callService - res : ",
               res
             );
-            const productsListScheduled = this.getProductsListScheduled;
-            productsListScheduled.push(res.result!);
-            this._statusService.setProductsListScheduled(productsListScheduled);
+            setTimeout(() => {
+              const productsListScheduled = this.getProductsListScheduled;
+              productsListScheduled.push(res.result!);
+              this._statusService.setProductsListScheduled(
+                productsListScheduled
+              );
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

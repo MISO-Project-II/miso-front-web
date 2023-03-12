@@ -1,21 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import {
-  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
-  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
-  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
-import {
-  IEvents,
-  IResEvent,
-  IResEvents,
-  IResUserEvents,
-} from "src/models/home/events.interface";
-import { IGenericResponse } from "src/models/local/generic.interface";
+import { IEvents, IResEvent } from "src/models/home/events.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
@@ -37,7 +28,6 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - CreateEventComponent");
     this._initForm();
   }
   ngOnDestroy(): void {
@@ -95,7 +85,6 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
     this.sportName = item.name;
   }
   public onSubmit(): void {
-    this._statusService.spinnerShow();
     const data: IEvents = {
       name: this.getName?.value,
       description: this.getDescription?.value,
@@ -109,6 +98,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
     this._callService(data);
   }
   private _callService(data: IEvents): void {
+    this._statusService.spinnerShow();
     this._eventsService
       .postCreateEvent(data)
       .pipe(takeUntil(this._destroy$))
@@ -116,14 +106,19 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
         (res: IResEvent) => {
           if (!!res && res.success) {
             console.log(
-              "XXX - CreateEventsComponent - _callService - res",
+              "🚀 XXX - CreateEventsComponent - _callService - res : ",
               res
             );
-            const eventsListScheduled = this.getEventsListScheduled;
-            eventsListScheduled.push(res.result!);
-            this._statusService.setEventsListScheduled(eventsListScheduled);
+            setTimeout(() => {
+              const eventsListScheduled = this.getEventsListScheduled;
+              eventsListScheduled.push(res.result!);
+              this._statusService.setEventsListScheduled(eventsListScheduled);
+            }, 100);
+            this._statusService.spinnerHide();
+          } else {
+            // XXX toast fail
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err: any) => {
           console.error(err);

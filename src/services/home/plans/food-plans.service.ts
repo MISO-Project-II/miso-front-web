@@ -19,13 +19,11 @@ export class FoodPlansService {
     this._httpHeaders = new HttpHeaders(environment.api.headers2);
   }
   getFoodPlans(): Observable<IFoodPlans[]> {
-    // https://miso-back-food-6equtupdiq-uc.a.run.app/food-plan
     return this._http
       .get<IFoodPlans[]>(this._baseUrl, { headers: this._httpHeaders })
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("🚀 XXX - FoodPlansService - catchError - err : ", err);
           return throwError(err);
         })
       );

@@ -1,18 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Subject } from "rxjs";
 import {
   FREE_CONTRACT,
   INTERMEDIATE_CONTRACT,
   PREMIUM_CONTRACT,
-  SPORTSMAN,
 } from "src/constanst/data.constants";
-import { IResSports } from "src/models/general/sports.interface";
+import { removeSessionStorage } from "src/helper/sessionStorage.helper";
 import { StatusModel } from "src/models/local/status-model";
-import { IResUserData } from "src/models/user-data/user-data.interface";
-import { SportsService } from "src/services/general/sports.service";
-
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 @Component({
   selector: "app-user-dashboard",
   templateUrl: "./user-dashboard.component.html",
@@ -26,12 +21,12 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   constructor(private _statusService: StatusService) {}
 
   ngOnInit() {
-    console.log("XXX - Entra a UserDashboardComponent");
+    console.log("🚀 XXX - UserDashboardComponent - ngOnInit - ngOnInit : ");
   }
   ngOnDestroy(): void {
-    console.log("XXX - Sale de UserDashboardComponent");
     this._destroy$.next(true);
     this._destroy$.complete();
+    removeSessionStorage();
   }
   get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();

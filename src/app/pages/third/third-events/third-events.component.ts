@@ -4,8 +4,6 @@ import { IResUserEvents } from "src/models/home/events.interface";
 import { StatusModel } from "src/models/local/status-model";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
-import { RoutesService } from "src/services/general/routes.service";
-
 @Component({
   selector: "app-third-events",
   templateUrl: "./third-events.component.html",
@@ -15,12 +13,10 @@ export class ThirdEventsComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _statusService: StatusService,
-    private _eventsService: EventsService,
-    private _routesService: RoutesService
+    private _eventsService: EventsService
   ) {}
 
   ngOnInit() {
-    console.log("XXX - ThirdEventsComponent (Contiene a eventos y rutas)");
     this._loadEventsScheduled();
   }
   ngOnDestroy(): void {
@@ -40,15 +36,17 @@ export class ThirdEventsComponent implements OnInit, OnDestroy {
       (res: IResUserEvents) => {
         if (!!res && res.success) {
           // if (!!res) {
-          console.log(
-            "XXX - ScheduledEventsComponent - _loadEventsScheduled - res",
-            res
-          );
-          this._statusService.setEventsListScheduled(
-            res.result["produce-event"]!
-          );
+          console.log("🚀 XXX - _loadEventsScheduled - res : ", res);
+          setTimeout(() => {
+            this._statusService.setEventsListScheduled(
+              res.result["produce-event"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          // XXX toast fail
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

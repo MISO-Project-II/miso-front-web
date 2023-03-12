@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import {
   FREE_CONTRACT,
   INSIDE_OF_HOUSE,
@@ -11,13 +11,9 @@ import { ISports } from "src/models/general/sports.interface";
 import { IResServices, IServices } from "src/models/home/services.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
-import {
-  IResUserData,
-  IUserData,
-} from "src/models/user-data/user-data.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-search-services",
@@ -30,7 +26,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
-
+  public thirdData: IThirdDataMap;
   private _serviceSelected: IServices;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -39,7 +35,7 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - SearchServicesComponent (Servicios que ya existen)");
+    console.log("🚀 XXX - SearchServicesComponent (Servicios que ya existen)");
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -102,16 +98,23 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
       .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
       .map((sport) => sport)[0];
   }
+  get getServiceIdUserCreator$(): number {
+    return this._serviceSelected.idUserCreator;
+  }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === serviceSelected.idUserCreator
+    )[0];
   }
 
   public addService(): void {
     const servicesListScheduled = this.getServicesListScheduled$;
     servicesListScheduled.push(this._serviceSelected);
     this._statusService.setServicesListScheduled(servicesListScheduled);
-    console.log("XXX - addService", this.getServicesListScheduled$);
-    this._statusService.spinnerShow();
     const data: number[] = [];
     for (
       let index = 0;
@@ -125,20 +128,20 @@ export class SearchServicesComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - SearchServicesComponent - _callService - listScheduled",
-      listScheduled
-    );
+    this._statusService.spinnerShow();
     this._servicesService
       .putUserService(this.getGeneralStatus$.userId, listScheduled)
       .subscribe((res: IGenericResponse) => {
         if (!!res && res.success) {
+          // XXX
           console.log(
-            "XXX - SearchServicesComponent - _callService - res",
+            "🚀 XXX - SearchServicesComponent - .subscribe - res : ",
             res
           );
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       });
   }
 }

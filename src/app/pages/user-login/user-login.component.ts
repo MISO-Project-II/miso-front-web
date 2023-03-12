@@ -10,6 +10,7 @@ import { ILogin, IResLogin } from "src/models/login/login.interface";
 import { SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { removeSessionStorage } from "src/helper/sessionStorage.helper";
 
 @Component({
   selector: "app-user-login",
@@ -33,10 +34,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._statusService.spinnerHide();
-    sessionStorage.removeItem("status");
-    sessionStorage.removeItem("userId");
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userData");
+    removeSessionStorage();
     this._statusService.setUserType(SPORTSMAN);
     this._initForm();
   }
@@ -85,7 +83,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResLogin) => {
-          console.log("XXX - UserLoginComponent - .subscribe - res", res);
+          console.log("🚀 XXX - UserLoginComponent - onSubmit - res : ", res);
           if (!!res && res.success) {
             if (res.user?.userType === THIRD) {
               console.log("🚀 XXX - setTimeout - THIRD : ", THIRD);
@@ -103,10 +101,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
               this._statusService.setUserData(res.user!);
               this._router.navigate([ROOT_ROUTES_NAMES.USER]);
             }
+            this._statusService.spinnerHide();
           } else {
             this.username?.setErrors({ error_login: true });
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

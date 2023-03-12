@@ -21,13 +21,11 @@ export class SportPlansService {
     this._httpHeaders = new HttpHeaders(environment.api.headers2);
   }
   getSportPlan(): Observable<ISportPlans[]> {
-    // https://miso-back-food-6equtupdiq-uc.a.run.app/food-plan
     return this._http
       .get<ISportPlans[]>(this._baseUrl, { headers: this._httpHeaders })
       .pipe(
         retry(3),
         catchError((err: any) => {
-          console.log("🚀 XXX - SportPlansService - catchError - err : ", err);
           return throwError(err);
         })
       );

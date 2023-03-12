@@ -1,5 +1,3 @@
-import { IResProducts } from "src/models/home/products.interface";
-import { ProductsService } from "./../../../../services/home/products/products.service";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { IResEvents } from "src/models/home/events.interface";
@@ -23,7 +21,6 @@ export class UserEventsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - UserEventsComponent (Contiene a eventos y rutas)");
     this._loadEvents();
     this._loadRoutes();
     let idPrevEvent = history.state.data;
@@ -52,10 +49,17 @@ export class UserEventsComponent implements OnInit, OnDestroy {
     this.getEventsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResEvents) => {
         if (!!res && res.success) {
-          console.log("XXX - UserEventsComponent - _loadEvents - res", res);
-          this._statusService.setEventsList(res.result!);
+          console.log(
+            "🚀 XXX - UserEventsComponent - _loadEvents - res : ",
+            res
+          );
+          setTimeout(() => {
+            this._statusService.setEventsList(res.result!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -68,8 +72,13 @@ export class UserEventsComponent implements OnInit, OnDestroy {
     this.getRoutesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IRoutes[]) => {
         if (!!res) {
-          console.log("XXX - UserEventsComponent - _loadRoutes - res", res);
-          this._statusService.setRoutesList(res!);
+          console.log(
+            "🚀 XXX - UserEventsComponent - _loadRoutes - res : ",
+            res
+          );
+          setTimeout(() => {
+            this._statusService.setRoutesList(res!);
+          }, 100);
         }
       },
       (err) => {

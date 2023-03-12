@@ -1,9 +1,7 @@
 <div id="main-user-session" class="container-fluid">
   <hr />
   <div class="p-3 d-block">
-    <app-ds-banner-title
-      [title]="'TITLE.SPORTAPP' | translate"
-    ></app-ds-banner-title>
+    <app-ds-banner-title [title]="getSportPlan$?.name!"></app-ds-banner-title>
   </div>
 
   <form
@@ -168,25 +166,27 @@
             </summary>
             <div
               class="ds-input-group overflow-auto gauge"
-              *ngIf="getLastSessionData$.values.length > 0"
+              *ngIf="!!getLastSessionData$?.values"
             >
               <div class="date d-flex">
                 <div class="w-50">
                   <label>{{ "LBL.START_OF_SESSION" | translate }}</label>
-                  <p>{{ getLastSessionData$.startSession | date: "medium" }}</p>
+                  <p>
+                    {{ getLastSessionData$?.startSession | date: "medium" }}
+                  </p>
                 </div>
                 <div class="w-50">
                   <label>{{ "LBL.END_OF_SESSION" | translate }}</label>
-                  <p>{{ getLastSessionData$.endSession | date: "medium" }}</p>
+                  <p>{{ getLastSessionData$?.endSession | date: "medium" }}</p>
                 </div>
               </div>
               <div class="w-100 d-flex">
                 <label>{{ "LBL.CALORIES" | translate }}</label>
-                <p>{{ getLastSessionData$.calories }}</p>
+                <p>{{ getLastSessionData$?.calories }}</p>
               </div>
               <ul
                 class="list-group"
-                *ngFor="let item of getLastSessionData$.values"
+                *ngFor="let item of getLastSessionData$?.values"
               >
                 <li class="list-group-item">
                   {{ item.label }}: {{ item.value }} {{ item.append }}

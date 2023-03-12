@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -15,6 +16,7 @@ import {
 } from "src/models/home/events.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
 import { StatusModel } from "src/models/local/status-model";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { EventsService } from "src/services/home/events/events.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -29,16 +31,19 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
-
+  public thirdData: IThirdDataMap;
   private _eventSelected: IEvents;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _eventsService: EventsService,
-    private _statusService: StatusService
+    private _statusService: StatusService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
-    console.log("XXX - CreatedEventsComponent (Eventos que creo el tercero)");
+    console.log(
+      "🚀 XXX - CreatedEventsComponent (Eventos que creo el tercero) "
+    );
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -66,8 +71,19 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
       .filter((sport: ISports) => sport.idsports === this.getEventIdSports$)
       .map((sport) => sport.name)[0];
   }
+  get getEventIdUserCreator$(): number {
+    return this._eventSelected.idUserCreator;
+  }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
+    if (this.getThirdList$) {
+      this.thirdData = this.getThirdList$.filter(
+        (data: IThirdDataMap) => data.idUser === eventSelected.idUserCreator
+      )[0];
+    }
   }
 
   public delEvent(item: any): void {
@@ -77,9 +93,14 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IResEvent) => {
           if (!!res && res.success) {
-            console.log("XXX - CreatedEventsComponent - delEvent - res", res);
+            console.log(
+              "🚀 XXX - CreatedEventsComponent - delEvent - res : ",
+              res
+            );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);
@@ -92,33 +113,30 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
     const eventsListScheduled = this.getEventsListScheduled;
     eventsListScheduled.push(this._eventSelected);
     this._statusService.setEventsListScheduled(eventsListScheduled);
-    console.log("XXX - addEvent", this.getEventsListScheduled);
     this._statusService.spinnerShow();
     const data: number[] = [];
     for (let index = 0; index < this.getEventsListScheduled.length; index++) {
       data.push(this.getEventsListScheduled[index].idEvent!);
     }
-
     this._callService(data);
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - CreatedEventsComponent - _callService - listScheduled",
-      listScheduled
-    );
     this._eventsService
       .putUserEvent(this.getGeneralStatus.userId, listScheduled)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
+            // XXX
             console.log(
-              "XXX - CreatedEventsComponent - _callService - res",
+              "🚀 XXX - CreatedEventsComponent - _callService - res : ",
               res
             );
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

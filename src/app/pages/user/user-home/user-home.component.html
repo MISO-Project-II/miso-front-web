@@ -146,26 +146,6 @@
       <div class="mt-5 full-calendar-container">
         <full-calendar [options]="calendarOptions"></full-calendar>
       </div>
-      <div class="register-data mb-3">
-        <p>
-          XXX-getGeneralStatus$.userId: {{ getGeneralStatus$?.userId | json }}
-        </p>
-        <p>
-          XXX-getGeneralStatus$.contractType:
-          {{ getGeneralStatus$?.contractType | json }}
-        </p>
-        <p>
-          XXX-getGeneralStatus$.userType:
-          {{ getGeneralStatus$?.userType | json }}
-        </p>
-        <p>XXX-getGeneralStatus$.name: {{ getGeneralStatus$?.name | json }}</p>
-        <p>
-          XXX-getGeneralStatus$.lastName:
-          {{ getGeneralStatus$?.lastName | json }}
-        </p>
-
-        <p>XXX-getSportsList$?.length: {{ getSportsList$?.length | json }}</p>
-      </div>
     </div>
   </div>
 
@@ -180,7 +160,9 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createRoutineLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="createRoutineLabel">
+            {{ "TITLE.SPORTAPP" | translate }}
+          </h1>
           <button
             type="button"
             class="btn-close"
@@ -191,70 +173,15 @@
         <div class="modal-body">...</div>
         <div class="modal-footer">
           <button type="button" class="btn ds-button" data-bs-dismiss="modal">
-            Close
+            {{ "BTN.CLOSE" | translate }}
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">
+            {{ "BTN.CONTINUE" | translate }}
+          </button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- <p>
-    XXX-getCurrency: {{ getCurrency }} : {{ getLangLocation }}
-    {{ 50 | currency : getCurrency : true }}
-  </p>
-  <p>
-    XXX-getCurrency: es-CO :
-    {{ 50 | currency : "COP" : true }}
-  </p> -->
-  <!-- <p>XXX-getGeneralStatus.userId: {{ getGeneralStatus.userId | json }}</p>
-  <p>
-    XXX-getGeneralStatus.contractType:
-    {{ getGeneralStatus.contractType | json }}
-  </p>
-  <p>XXX-getGeneralStatus.userName: {{ getGeneralStatus.username | json }}</p>
-  <p>XXX-getGeneralStatus.userType: {{ getGeneralStatus.userType | json }}</p>
-  <p>
-    XXX-getGeneralStatus.homeUbication:
-    {{ getGeneralStatus.homeUbication | json }}
-  </p>
-  <p>
-    XXX-getGeneralStatus.birthdUbication:
-    {{ getGeneralStatus.birthdUbication | json }}
-  </p> -->
-  <!-- <p>main-user-home</p>
-  <p>XXX-getGeneralStatus: {{ getGeneralStatus | json }}</p>
-  <p></p>
-  <p>XXX-getBirthdUbication: {{ getBirthdUbication | json }}</p>
-  <p></p>
-  <p>XXX-getHomeUbication: {{ getHomeUbication | json }}</p>
-  <p></p>
-  <p>XXX-getAge {{ getAge | date }}</p>
-  <p></p>
-  <p>
-    XXX-getCurrency: es-CO :
-    {{ 123456789 | currency: "COP":"symbol":"":"es-CO" }}
-  </p>
-  <p>
-    XXX-getCurrency: es-MX:
-    {{ 123456789 | currency: "MXP":"symbol":"":"es-MX" }}
-  </p>
-  <p>
-    XXX-getCurrency: {{ getCurrency }} : {{ getLangLocation }}
-    {{ 123456789 | currency: getCurrency:"symbol":"":getLangLocation }}
-  </p>
-  <p></p>
-  <p>XXX-getSportsList: {{ getSportsList | json }}</p>
-  <p></p>
-  <p>XXX-getLang: {{ getLang | json }}</p>
-  <p></p>
-  <p>XXX-getLangName: {{ getLangName | json }}</p>
-  <p></p>
-  <p>XXX-getLocation: {{ getLocation | json }}</p>
-  <p></p>
-  <p>XXX-getEventsList: {{ getEventsList | json }}</p>
-  <p></p>
-  <p>XXX-getSportsList: {{ getSportsList | json }}</p> -->
 </div>
 
 <!-- Modal Event Details -->
@@ -276,7 +203,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="eventDetailsLabel">Event details</h1>
+        <h1 class="modal-title fs-5" id="eventDetailsLabel">
+          {{ "LBL.EVENT_DETAIL" | translate }}
+        </h1>
         <button
           id="btn-close-event-details"
           type="button"
@@ -288,8 +217,14 @@
       <div class="modal-body">
         <div *ngIf="eventSelected">
           <h5>{{ eventSelected.title }}</h5>
-          <p>Decripción: {{ eventSelected.extendedProps.description }}</p>
-          <p>Fecha: {{ eventSelected.start | date: "short" }}</p>
+          <p>
+            {{ "LBL.DESCRIPTION" | translate }}:
+            {{ eventSelected.extendedProps.description }}
+          </p>
+          <p>
+            {{ "LBL.DATE" | translate }}:
+            {{ eventSelected.start | date: "short" }}
+          </p>
         </div>
       </div>
       <div class="modal-footer" *ngIf="eventSelected">
@@ -298,7 +233,7 @@
           class="btn ds-button"
           (click)="goToEventSelected()"
         >
-          Ver evento
+          {{ "BTN.SCHEDULED_EVENT" | translate }}
         </button>
       </div>
     </div>

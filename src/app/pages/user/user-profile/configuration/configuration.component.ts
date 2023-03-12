@@ -52,23 +52,21 @@ export class ConfigurationComponent implements OnInit {
     fileReader.readAsArrayBuffer(this.file);
     fileReader.onload = (e) => {
       this.arrayBuffer = fileReader.result;
-      var data = new Uint8Array(this.arrayBuffer);
-      var arr = new Array();
-      for (var i = 0; i != data.length; ++i)
+      let data = new Uint8Array(this.arrayBuffer);
+      let arr = new Array();
+      for (let i = 0; i != data.length; ++i)
         arr[i] = String.fromCharCode(data[i]);
-      var bstr = arr.join("");
-      var workbook = XLSX.read(bstr, { type: "binary" });
-      var first_sheet_name = workbook.SheetNames[0];
-      var worksheet = workbook.Sheets[first_sheet_name];
-      var arraylist: Array<T> = XLSX.utils.sheet_to_json(worksheet, {
+      let bstr = arr.join("");
+      let workbook = XLSX.read(bstr, { type: "binary" });
+      let first_sheet_name = workbook.SheetNames[0];
+      let worksheet = workbook.Sheets[first_sheet_name];
+      let arraylist: Array<T> = XLSX.utils.sheet_to_json(worksheet, {
         raw: true,
       });
       var valueSession: ValueSession[] = this._mapArrayList(arraylist);
-      this._statusService.setSessionData(valueSession[0]);
-      console.log(
-        "🚀 XXX - ConfigurationComponent - valueSession : ",
-        valueSession
-      );
+      setTimeout(() => {
+        this._statusService.setSessionData(valueSession[0]);
+      }, 100);
     };
   }
   public delFiles(): void {

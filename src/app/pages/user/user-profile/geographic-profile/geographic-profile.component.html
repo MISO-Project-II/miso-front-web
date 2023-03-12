@@ -2,7 +2,7 @@
   <hr />
   <form
     [formGroup]="formUserGeographicProfile"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="onSubmitDemographicProfile()"
     novalidate
     autocomplete="off"
   >
@@ -120,10 +120,7 @@
               <option selected disabled value="">
                 {{ "LBL.SELECT_TYPE" | translate }}
               </option>
-              <option
-                *ngFor="let state of statesOfResidence"
-                [ngValue]="state"
-              >
+              <option *ngFor="let state of statesOfResidence" [ngValue]="state">
                 {{ state.name }}
               </option>
             </select>
@@ -154,7 +151,7 @@
         </div>
         <div class="ds-input-group mt-3 ds-card-flex flex-column">
           <label for="months_of_residence">{{
-            "LBL.MONTHS_OF_RESIDENCE" | translate
+            "LBL.YEARS_OF_RESIDENCE" | translate
           }}</label>
           <input
             id="months_of_residence_input"
@@ -162,7 +159,7 @@
             type="number"
             class="form-control ds-input"
             aria-describedby="months_of_residence_input"
-            [placeholder]="'PLACEHOLDER.MONTS' | translate"
+            [placeholder]="'PLACEHOLDER.YEARS' | translate"
             minlength="1"
             maxlength="2"
           />

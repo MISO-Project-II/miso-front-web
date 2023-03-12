@@ -49,24 +49,6 @@
             }}</small>
           </div>
           <div class="ds-input-group mt-3">
-            <label for="confirmation">{{
-              "LBL.CONFIRMATION_PASSWORD" | translate
-            }}</label>
-            <input
-              id="confirmation_input"
-              formControlName="confirmation"
-              type="password"
-              class="form-control ds-input"
-              aria-describedby="confirmation_input"
-              [placeholder]="'PLACEHOLDER.PASSWORD_HIDDEN' | translate"
-              minlength="1"
-              maxlength="20"
-            />
-            <small *ngIf="confirmation?.hasError('required')">{{
-              "ERR.REQUIRED_FIELD" | translate
-            }}</small>
-          </div>
-          <div class="ds-input-group mt-3">
             <label for="name">{{ "LBL.NAMES" | translate }}</label>
             <input
               id="name_input"
@@ -150,7 +132,7 @@
               <div class="options w-50 pe-1">
                 <div class="list-group overflow-auto">
                   <button
-                    *ngFor="let item of sportList"
+                    *ngFor="let item of sportPracticeList"
                     type="button"
                     (click)="addSportPractice(item)"
                     class="list-group-item list-group-item-action"
@@ -175,7 +157,7 @@
               </div>
             </div>
             <small *ngIf="sportPractice?.hasError('required')">{{
-              "ERR.REQUIRED_FIELD" | translate
+              "ERR.SUGGESTED_FIELD" | translate
             }}</small>
           </div>
           <div class="ds-input-group mt-3">
@@ -186,7 +168,7 @@
               <div class="options w-50 pe-1">
                 <div class="list-group overflow-auto">
                   <button
-                    *ngFor="let item of sportList"
+                    *ngFor="let item of sportPreferenceList"
                     type="button"
                     (click)="addSportInterest(item)"
                     class="list-group-item list-group-item-action"
@@ -211,7 +193,7 @@
               </div>
             </div>
             <small *ngIf="sportInterest?.hasError('required')">{{
-              "ERR.REQUIRED_FIELD" | translate
+              "ERR.SUGGESTED_FIELD" | translate
             }}</small>
           </div>
         </div>
@@ -454,7 +436,7 @@
           <div class="ds-input-group mt-3 ds-card-flex">
             <div class="ds-input-group mt-3 ds-card-left">
               <label for="months_of_residence">{{
-                "LBL.MONTHS_OF_RESIDENCE" | translate
+                "LBL.YEARS_OF_RESIDENCE" | translate
               }}</label>
               <input
                 id="months_of_residence_input"
@@ -462,7 +444,7 @@
                 type="number"
                 class="form-control ds-input"
                 aria-describedby="months_of_residence_input"
-                [placeholder]="'PLACEHOLDER.MONTS' | translate"
+                [placeholder]="'PLACEHOLDER.YEARS' | translate"
                 minlength="1"
                 maxlength="2"
               />
@@ -485,5 +467,4 @@
       </div>
     </div>
   </form>
-  <p>::: formUserRegister.value {{ formUserRegister.value | json }}</p>
 </div>

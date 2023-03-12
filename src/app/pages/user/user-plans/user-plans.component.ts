@@ -20,7 +20,6 @@ export class UserPlansComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - UserPlansComponent");
     this._loadSportPlans();
     this._loadFoodPlans();
   }
@@ -38,10 +37,17 @@ export class UserPlansComponent implements OnInit, OnDestroy {
     this.getSportPlanService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: ISportPlans[]) => {
         if (!!res) {
-          console.log("🚀 XXX - _loadSportPlans - res : ", res);
-          this._statusService.setSportPlansList(res);
+          console.log(
+            "🚀 XXX - UserPlansComponent - _loadSportPlans - res : ",
+            res
+          );
+          setTimeout(() => {
+            this._statusService.setSportPlansList(res);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -53,10 +59,17 @@ export class UserPlansComponent implements OnInit, OnDestroy {
     this.getFoodPlansService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IFoodPlans[]) => {
         if (!!res) {
-          console.log("🚀 XXX - _loadFoodPlans - res : ", res);
-          this._statusService.setFoodPlansList(res);
+          console.log(
+            "🚀 XXX - UserPlansComponent - _loadFoodPlans - res : ",
+            res
+          );
+          setTimeout(() => {
+            this._statusService.setFoodPlansList(res);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);

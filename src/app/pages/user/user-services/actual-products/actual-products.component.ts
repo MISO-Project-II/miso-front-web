@@ -10,10 +10,10 @@ import {
 import { ISports } from "src/models/general/sports.interface";
 import {
   IProducts,
-  IResProducts,
   IResUserProducts,
 } from "src/models/home/products.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { ProductsService } from "src/services/home/products/products.service";
 import { StatusService } from "src/services/local/status.service";
 
@@ -28,6 +28,7 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
+  public thirdData: IThirdDataMap;
   private _productSelected: IProducts = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -37,9 +38,6 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log(
-      "XXX - ActualProductsComponent (Productos Inscritos por el usuario)"
-    );
     this._loadProductsScheduled();
   }
   ngOnDestroy(): void {
@@ -50,8 +48,14 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   get getProduct$(): IProducts {
     return this._productSelected;
   }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === productSelected.idUserCreator
+    )[0];
   }
   get getProductsService$(): Observable<IResUserProducts> {
     return this._productsService.getUserProductSportsman(
@@ -70,21 +74,34 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
       .filter((sport: ISports) => sport.idsports === this.getProductIdSports$)
       .map((sport) => sport)[0];
   }
-
+  get getProductIdUserCreator$(): number {
+    return this._productSelected.idUserCreator;
+  }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
   private _loadProductsScheduled(): void {
     this.getProductsService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserProducts) => {
         if (!!res && res.success) {
           // if (!!res) {
-          console.log(
-            "XXX - ScheduledProductsComponent - _loadProductsScheduled - res",
-            res
-          );
-          this._statusService.setProductsListScheduled(
-            res.result["consume-product"]!
-          );
+          console.log("🚀 XXX - _loadProductsScheduled - res : ", res);
+          setTimeout(() => {
+            this._statusService.setProductsListScheduled(
+              res.result["consume-product"]!
+            );
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
@@ -96,7 +113,6 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
    * Cancelar producto inscrito por el usuario
    */
   private _onSubmit(): void {
-    console.log("XXX - _onSubmit", this.getProductsListScheduled$);
     this._statusService.spinnerShow();
     const data: number[] = [];
     for (
@@ -119,10 +135,6 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - ScheduledProductsComponent - _callService - listScheduled",
-      listScheduled
-    );
     this._productsService
       .putUserProduct(
         this._statusService.getGeneralStatus().userId,
@@ -132,12 +144,12 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
-            console.log(
-              "XXX - ScheduledProductsComponent - _callService - res",
-              res
-            );
+            // XXX
+            console.log("🚀 XXX - _callService - res : ", res);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

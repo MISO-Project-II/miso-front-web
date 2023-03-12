@@ -14,10 +14,11 @@ export interface IUserData {
   height: number;
   userPlan: string;
   imc?: number;
-  idSportPlan?: number;
-  idFoodPlan?: number;
-  isVegan?: number;
-  isvegetarian?: number;
+  idSportPlan: number;
+  idFoodPlan: number;
+  isVegan: number;
+  isvegetarian: number;
+  description?: string;
 }
 
 export interface IResUserData extends IGenericResponse {

@@ -1,7 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserData,
@@ -25,7 +25,6 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("XXX - GeneralDataComponent");
     this._initForm();
     this._loadGeneralData();
   }
@@ -79,41 +78,201 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   get getHeight() {
     return this.formUserGeneralData.get("height");
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
+  }
+  get getUserId$() {
+    return this._statusService?.getGeneralStatus().userId;
+  }
+  get getToken$() {
+    return this._statusService?.getGeneralStatus().token;
+  }
+  get getUserName$() {
+    return this._statusService?.getGeneralStatus().username;
+  }
+  get getUser$() {
+    return this._statusService?.getUser();
   }
 
   private _loadGeneralData(): void {
+    setTimeout(() => {
+      this.formUserGeneralData
+        .get("user")
+        ?.patchValue(this.getGeneralStatus$?.username);
+      this.formUserGeneralData
+        .get("name")
+        ?.patchValue(this.getGeneralStatus$?.name);
+      this.formUserGeneralData
+        .get("lastName")
+        ?.patchValue(this.getGeneralStatus$?.lastName);
+      this.formUserGeneralData
+        .get("IdType")
+        ?.patchValue(this.getGeneralStatus$?.idIdentificationType);
+      this.formUserGeneralData
+        .get("IdNumber")
+        ?.patchValue(this.getGeneralStatus$?.identificationNumber);
+      this.formUserGeneralData
+        .get("genre")
+        ?.patchValue(this.getGeneralStatus$?.gender);
+      let bornDate = new Date(this.getGeneralStatus$?.age || "");
+      this.formUserGeneralData
+        .get("age")
+        ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
+      this.formUserGeneralData
+        .get("weight")
+        ?.patchValue(this.getGeneralStatus$?.weight);
+      this.getHeight?.patchValue((this.getGeneralStatus$?.height || 0) * 100);
+    }, 200);
+    this._statusService.spinnerHide();
+
+    // this._userDataService
+    //   .getGeneralData(this.getGeneralStatus$.userId)
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(
+    //     (res: IResUserData) => {
+    //       if (!!res && res.success) {
+    //         console.log(
+    //           "🚀 XXX - GeneralDataComponent - _loadGeneralData - res : ",
+    //           res
+    //         );
+    //         setTimeout(() => {
+    //           this.formUserGeneralData
+    //             .get("user")
+    //             ?.patchValue(res.result?.username);
+    //           this.formUserGeneralData
+    //             .get("name")
+    //             ?.patchValue(res.result?.name);
+    //           this.formUserGeneralData
+    //             .get("lastName")
+    //             ?.patchValue(res.result?.lastName);
+    //           this.formUserGeneralData
+    //             .get("IdType")
+    //             ?.patchValue(res.result?.idIdentificationType);
+    //           this.formUserGeneralData
+    //             .get("IdNumber")
+    //             ?.patchValue(res.result?.identificationNumber);
+    //           this.formUserGeneralData
+    //             .get("genre")
+    //             ?.patchValue(res.result?.gender);
+    //           let bornDate = new Date(res.result?.age || "");
+    //           this.formUserGeneralData
+    //             .get("age")
+    //             ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
+    //           this.formUserGeneralData
+    //             .get("weight")
+    //             ?.patchValue(res.result?.weight);
+    //           this.getHeight?.patchValue(
+    //             ((res.result && res.result.height) || 0) * 100
+    //           );
+    //         }, 200);
+    //         this._statusService.spinnerHide();
+    //       } else {
+    //         this._statusService.spinnerHide();
+    //       }
+    //     },
+    //     (err) => {
+    //       console.error(err);
+    //       this._statusService.spinnerHide();
+    //     }
+    //   );
+  }
+
+  public onSubmitGeneralData(): void {
+    const data: IUserData = {
+      username: this.getUser?.value
+        ? this.getUser?.value
+        : this.getGeneralStatus$.username,
+      name: this.getName?.value
+        ? this.getName?.value
+        : this.getGeneralStatus$.name,
+      lastName: this.getLastName?.value
+        ? this.getLastName?.value
+        : this.getGeneralStatus$.lastName,
+      idIdentificationType: this.getIdType?.value
+        ? this.getIdType?.value
+        : this.getGeneralStatus$.idIdentificationType,
+      identificationNumber: this.getIdNumber?.value
+        ? this.getIdNumber?.value
+        : this.getGeneralStatus$.identificationNumber,
+      birthdUbication: this.getGeneralStatus$.birthdUbication,
+      homeUbication: this.getGeneralStatus$.homeUbication,
+      gender: this.getGenre?.value
+        ? this.getGenre?.value
+        : this.getGeneralStatus$.gender,
+      age: this.getAge?.value ? this.getAge?.value : this.getGeneralStatus$.age,
+      weight: this.getWeight?.value
+        ? this.getWeight?.value
+        : this.getGeneralStatus$.weight,
+      height: this.getHeight?.value
+        ? this.getHeight?.value / 100
+        : this.getGeneralStatus$.height,
+      // height: this.getHeight?.value
+      //   ? (this.getHeight?.value || 0) / 100
+      //   : this.getGeneralStatus$.height,
+      userPlan: this.getGeneralStatus$.contractType,
+      isVegan: this.getGeneralStatus$.isVegan,
+      isvegetarian: this.getGeneralStatus$.isvegetarian,
+      imc: this.getGeneralStatus$.imc,
+      idSportPlan: this.getGeneralStatus$.idSportPlan
+        ? this.getGeneralStatus$.idSportPlan
+        : 0,
+      idFoodPlan: this.getGeneralStatus$.idFoodPlan
+        ? this.getGeneralStatus$.idFoodPlan
+        : 0,
+    };
+    console.log(
+      "🚀 XXX - GeneralDataComponent - onSubmitGeneralData - data : ",
+      data
+    );
+
+    this._callService(data);
+  }
+  private _callService(data: IUserData): void {
     this._statusService.spinnerShow();
     this._userDataService
-      .getGeneralData(this.getGeneralStatus.userId)
+      .updateGeneralData(this.getGeneralStatus$.userId, data)
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (res: IResUserData) => {
           if (!!res && res.success) {
-            console.log("XXX - GeneralDataComponent - _loadData - res", res);
-            this.formUserGeneralData
-              .get("user")
-              ?.patchValue(res.result?.username);
-            this.formUserGeneralData.get("name")?.patchValue(res.result?.name);
-            this.formUserGeneralData
-              .get("lastName")
-              ?.patchValue(res.result?.lastName);
-            this.formUserGeneralData
-              .get("IdType")
-              ?.patchValue(res.result?.idIdentificationType);
-            this.formUserGeneralData
-              .get("IdNumber")
-              ?.patchValue(res.result?.identificationNumber);
-            this.formUserGeneralData
-              .get("genre")
-              ?.patchValue(res.result?.gender);
-            let bornDate = new Date(res.result?.age || "")
-            this.formUserGeneralData.get("age")?.patchValue(formatDate(bornDate, 'yyyy-MM-dd', 'en'));
-            this.formUserGeneralData
-              .get("weight")
-              ?.patchValue(res.result?.weight);
-            this.getHeight?.patchValue(((res.result && res.result.height) || 0) * 100);
+            console.log(
+              "🚀 XXX - GeneralDataComponent - _callService - res : ",
+              res
+            );
+            // setTimeout(() => {
+            //   window.dispatchEvent(new CustomEvent("updateGeneralData"));
+            setTimeout(() => {
+              this._statusService.setUserId(this.getUserId$);
+              this._statusService.setToken(this.getToken$);
+              this._statusService.setUserName(this.getUserName$);
+              this._statusService.setUserData(this.getUser$);
+
+              this._statusService.setName(res.result?.name!);
+              this._statusService.setLastName(res.result?.lastName!);
+              this._statusService.setIdIdentificationType(
+                res.result?.idIdentificationType!
+              );
+              this._statusService.setIdentificationNumber(
+                res.result?.identificationNumber!
+              );
+              this._statusService.setBirthdUbication(
+                res.result?.birthdUbication!
+              );
+              this._statusService.setHomeUbication(res.result?.homeUbication!);
+              this._statusService.setGender(res.result?.gender!);
+              this._statusService.setWeight(res.result?.weight!);
+              this._statusService.setAge(res.result?.age!);
+              this._statusService.setHeight(res.result?.height!);
+              this._statusService.setIsVegan(res.result?.isVegan!);
+              this._statusService.setIsvegetarian(res.result?.isvegetarian!);
+              this._statusService.setIMC(res.result?.imc!);
+              this._statusService.setContractType(res.result?.userPlan!);
+              this._statusService.setIdSportPlan(res.result?.idSportPlan!);
+              this._statusService.setIdFoodPlan(res.result?.idFoodPlan!);
+            }, 200);
+            // }, 100);
+            this._statusService.spinnerHide();
+          } else {
             this._statusService.spinnerHide();
           }
         },
@@ -124,65 +283,8 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onSubmit(): void {
-    this._statusService.spinnerShow();
-    const data: IUserData = {
-      username: this.getUser?.value
-        ? this.getUser?.value
-        : this.getGeneralStatus.username,
-      name: this.getName?.value
-        ? this.getName?.value
-        : this.getGeneralStatus.name,
-      lastName: this.getLastName?.value
-        ? this.getLastName?.value
-        : this.getGeneralStatus.lastName,
-      idIdentificationType: this.getIdType?.value
-        ? this.getIdType?.value
-        : this.getGeneralStatus.idIdentificationType,
-      identificationNumber: this.getIdNumber?.value
-        ? this.getIdNumber?.value
-        : this.getGeneralStatus.identificationNumber,
-      birthdUbication: this.getGeneralStatus.birthdUbication,
-      homeUbication: this.getGeneralStatus.homeUbication,
-      gender: this.getGenre?.value
-        ? this.getGenre?.value
-        : this.getGeneralStatus.gender,
-      age: this.getAge?.value ? this.getAge?.value : this.getGeneralStatus.age,
-      weight: this.getWeight?.value
-        ? this.getWeight?.value
-        : this.getGeneralStatus.weight,
-      height: this.getHeight?.value
-        ? (this.getHeight?.value || 0) / 100
-        : this.getGeneralStatus.height,
-      userPlan: this.getGeneralStatus.contractType,
-      imc: this.getGeneralStatus.imc,
-      idSportPlan: 0,
-      idFoodPlan: 0
-    };
-    this._callService(data);
-  }
-  private _callService(data: IUserData): void {
-    this._userDataService
-      .updateGeneralData(this.getGeneralStatus.userId, data)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(
-        (res: IResUserData) => {
-          if (!!res && res.success) {
-            console.log("XXX - GeneralDataComponent - _callService - res", res);
-            window.dispatchEvent(new CustomEvent('updateGeneralData'));
-          }
-          this._statusService.spinnerHide();
-        },
-        (err) => {
-          console.error(err);
-          this._statusService.spinnerHide();
-        }
-      );
-  }
-
-  @HostListener('window:updateGeneralData')
-  updateGeneralData() {
-    this._loadGeneralData();
-  }
-
+  // @HostListener("window:updateGeneralData")
+  // updateGeneralData() {
+  //   this._loadGeneralData();
+  // }
 }

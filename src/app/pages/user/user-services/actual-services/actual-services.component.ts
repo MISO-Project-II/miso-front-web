@@ -9,18 +9,13 @@ import {
 } from "src/constanst/data.constants";
 import { ISports } from "src/models/general/sports.interface";
 import {
-  IResServices,
   IResUserServices,
   IServices,
 } from "src/models/home/services.interface";
 import { IGenericResponse } from "src/models/local/generic.interface";
-import {
-  IResUserData,
-  IUserData,
-} from "src/models/user-data/user-data.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 import { ServicesService } from "src/services/home/services/services.service";
 import { StatusService } from "src/services/local/status.service";
-import { UserDataService } from "src/services/user-data/user-data.service";
 
 @Component({
   selector: "app-actual-services",
@@ -33,6 +28,7 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
+  public thirdData: IThirdDataMap;
   private _serviceSelected: IServices = null!;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -42,9 +38,6 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log(
-      "XXX - ActualServicesComponent (Servicios Inscritos por el usuario)"
-    );
     this._loadServicesScheduled();
   }
   ngOnDestroy(): void {
@@ -82,21 +75,29 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
       .filter((sport: ISports) => sport.idsports === this.getServiceIdSports$)
       .map((sport) => sport)[0];
   }
+  get getServiceIdUserCreator$(): number {
+    return this._serviceSelected.idUserCreator;
+  }
+  get getThirdList$(): IThirdDataMap[] {
+    return this._statusService.getThirdList();
+  }
   public setService(serviceSelected: IServices) {
     this._serviceSelected = serviceSelected;
+    this.thirdData = this.getThirdList$.filter(
+      (data: IThirdDataMap) => data.idUser === serviceSelected.idUserCreator
+    )[0];
   }
   private _loadServicesScheduled(): void {
     this.getServicesService$.pipe(takeUntil(this._destroy$)).subscribe(
       (res: IResUserServices) => {
         if (!!res && res.success) {
+          console.log("🚀 XXX - _loadServicesScheduled - res : ", res);
           // if (!!res) {
-          console.log(
-            "XXX - ActualServicesComponent - _loadServicesScheduled - res",
-            res
-          );
-          this._statusService.setServicesListScheduled(
-            res.result["consume-services"]!
-          );
+          setTimeout(() => {
+            this._statusService.setServicesListScheduled(
+              res.result["consume-services"]!
+            );
+          }, 100);
         }
       },
       (err) => {
@@ -108,8 +109,6 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
    * Cancelar serviceo inscrito por el usuario
    */
   private _onSubmit(): void {
-    console.log("XXX - _onSubmit", this.getServicesListScheduled$);
-    this._statusService.spinnerShow();
     const data: number[] = [];
     for (
       let index = 0;
@@ -131,10 +130,7 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
   }
 
   private _callService(listScheduled: number[]): void {
-    console.log(
-      "XXX - ScheduledServicesComponent - _callService - listScheduled",
-      listScheduled
-    );
+    this._statusService.spinnerShow();
     this._servicesService
       .putUserService(
         this._statusService.getGeneralStatus().userId,
@@ -144,12 +140,11 @@ export class ActualServicesComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
-            console.log(
-              "XXX - ScheduledServicesComponent - _callService - res",
-              res
-            );
+            console.log("🚀 XXX - _callService - res : ", res);
+            this._statusService.spinnerHide();
+          } else {
+            this._statusService.spinnerHide();
           }
-          this._statusService.spinnerHide();
         },
         (err) => {
           console.error(err);

@@ -3,19 +3,38 @@
   <div class="d-flex min-width row justify-content-center">
     <div class="col-12 col-sm-4 pb-5 pe-sm-1 max-width">
       <app-ds-title [title]="'LBL.FREE_CONTRACT' | translate"></app-ds-title>
-      <ul class="list-group">
-        <!-- <li class="list-group-item" *ngFor="let item of getEventsListFree"> -->
-        <li class="list-group-item" *ngFor="let item of getServicesListFree">
-          <p>{{ item.name }}</p>
-        </li>
-      </ul>
+      <div class="overflow-auto height65vh">
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let service of getServicesListFree"
+          >
+            <p>
+              <b>{{ "LBL.SERVICE" | translate }}</b> {{ service.name }}
+            </p>
+          </li>
+          <li class="list-group-item" *ngFor="let event of getEventsListFree">
+            <p>
+              <b>{{ "LBL.EVENT" | translate }}</b> {{ event.name }}
+            </p>
+          </li>
+          <li
+            class="list-group-item"
+            *ngFor="let product of getProductsListFree"
+          >
+            <p>
+              <b>{{ "LBL.PRODUCT" | translate }}</b> {{ product.name }}
+            </p>
+          </li>
+        </ul>
+      </div>
       <hr />
       <button
         *ngIf="!isMobile"
         type="submit"
-        (click)="onSubmit(FREE_CONTRACT)"
+        (click)="onSubmitPlanDetail(FREE_CONTRACT)"
         class="btn btn-primary ds-button"
-        [disabled]="getContractType === FREE_CONTRACT ? true : false"
+        [disabled]="getContractType$ === FREE_CONTRACT ? true : false"
       >
         <!-- [disabled]="
           getContractType === FREE_CONTRACT ||
@@ -25,7 +44,7 @@
             : false
         " -->
         {{
-          getContractType === FREE_CONTRACT
+          getContractType$ === FREE_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
             : ("BTN.FREE_CONTRACT" | translate)
         }}
@@ -35,26 +54,45 @@
       <app-ds-title
         [title]="'LBL.INTERMEDIATE_CONTRACT' | translate"
       ></app-ds-title>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <label>{{ "LBL.ALL_FREE_CONTRACT" | translate }}</label>
-        </li>
-        <!-- *ngFor="let item of getEventsListIntermediate" -->
-        <li
-          class="list-group-item"
-          *ngFor="let item of getServicesListIntermediate"
-        >
-          <p>{{ item.name }}</p>
-        </li>
-      </ul>
+      <div class="overflow-auto height65vh">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <label>{{ "LBL.ALL_FREE_CONTRACT" | translate }}</label>
+          </li>
+          <li
+            class="list-group-item d-block"
+            *ngFor="let service of getServicesListIntermediate"
+          >
+            <p>
+              <b>{{ "LBL.SERVICE" | translate }}</b> {{ service.name }}
+            </p>
+          </li>
+          <li
+            class="list-group-item"
+            *ngFor="let event of getEventsListIntermediate"
+          >
+            <p>
+              <b>{{ "LBL.EVENT" | translate }}</b> {{ event.name }}
+            </p>
+          </li>
+          <li
+            class="list-group-item"
+            *ngFor="let product of getProductsListIntermediate"
+          >
+            <p>
+              <b>{{ "LBL.PRODUCT" | translate }}</b> {{ product.name }}
+            </p>
+          </li>
+        </ul>
+      </div>
       <hr />
       <button
         *ngIf="!isMobile"
         type="button"
-        (click)="onSubmit(INTERMEDIATE_CONTRACT)"
+        (click)="onSubmitPlanDetail(INTERMEDIATE_CONTRACT)"
         class="btn btn-primary ds-button"
         target="_blank"
-        [disabled]="getContractType === INTERMEDIATE_CONTRACT ? true : false"
+        [disabled]="getContractType$ === INTERMEDIATE_CONTRACT ? true : false"
       >
         <!-- [disabled]="
       getContractType === INTERMEDIATE_CONTRACT ||
@@ -63,7 +101,7 @@
         : false
     " -->
         {{
-          getContractType === INTERMEDIATE_CONTRACT
+          getContractType$ === INTERMEDIATE_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
             : ("BTN.INTERMEDIATE_CONTRACT" | translate)
         }}
@@ -71,25 +109,48 @@
     </div>
     <div class="col-12 col-sm-4 pb-5 ps-sm-1 max-width">
       <app-ds-title [title]="'LBL.PREMIUM_CONTRACT' | translate"></app-ds-title>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <label>{{ "LBL.ALL_INTERMEDIATE_CONTRACT" | translate }}</label>
-        </li>
-        <!-- <li class="list-group-item" *ngFor="let item of getEventsListPremium"> -->
-        <li class="list-group-item" *ngFor="let item of getServicesListPremium">
-          <p>{{ item.name }}</p>
-        </li>
-      </ul>
+      <div class="overflow-auto height65vh">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <label>{{ "LBL.ALL_INTERMEDIATE_CONTRACT" | translate }}</label>
+          </li>
+          <!-- <li class="list-group-item" *ngFor="let item of getEventsListPremium"> -->
+          <li
+            class="list-group-item"
+            *ngFor="let service of getServicesListPremium"
+          >
+            <p>
+              <b>{{ "LBL.SERVICE" | translate }}</b> {{ service.name }}
+            </p>
+          </li>
+          <li
+            class="list-group-item"
+            *ngFor="let event of getEventsListPremium"
+          >
+            <p>
+              <b>{{ "LBL.EVENT" | translate }}</b> {{ event.name }}
+            </p>
+          </li>
+          <li
+            class="list-group-item"
+            *ngFor="let product of getProductsListPremium"
+          >
+            <p>
+              <b>{{ "LBL.PRODUCT" | translate }}</b> {{ product.name }}
+            </p>
+          </li>
+        </ul>
+      </div>
       <hr />
       <button
         *ngIf="!isMobile"
         type="button"
-        (click)="onSubmit(PREMIUM_CONTRACT)"
+        (click)="onSubmitPlanDetail(PREMIUM_CONTRACT)"
         class="btn btn-primary ds-button"
-        [disabled]="getContractType === PREMIUM_CONTRACT ? true : false"
+        [disabled]="getContractType$ === PREMIUM_CONTRACT ? true : false"
       >
         {{
-          getContractType === PREMIUM_CONTRACT
+          getContractType$ === PREMIUM_CONTRACT
             ? ("BTN.ACTUAL_PLAN" | translate)
             : ("BTN.PREMIUM_CONTRACT" | translate)
         }}

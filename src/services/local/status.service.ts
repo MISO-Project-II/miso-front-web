@@ -17,6 +17,7 @@ import {
   ISetSession,
   ValueSession,
 } from "src/models/general/session.interface";
+import { IThirdDataMap } from "src/models/third-data/third-data.interface";
 
 @Injectable()
 export class StatusService {
@@ -38,6 +39,7 @@ export class StatusService {
   private _langLocation: ILangLocation;
   private _valueSession: ValueSession[] = [];
   private _lastSession: ISetSession;
+  private _thirdList: IThirdDataMap[];
   constructor(private _spinner: NgxSpinnerService) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
@@ -79,23 +81,23 @@ export class StatusService {
   }
   public setContractType(contractType: string) {
     this._status.contractType = contractType;
-    console.log(
-      "🚀 XXX - StatusService - setContractType -  this._status : ",
-      this._status
-    );
     sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setName(name: string) {
     this._status.name = name;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setLastName(lastName: string) {
     this._status.lastName = lastName;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIdIdentificationType(idIdentificationType: string) {
     this._status.idIdentificationType = idIdentificationType;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIdentificationNumber(identificationNumber: string) {
     this._status.identificationNumber = identificationNumber;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setBirthdUbication(birthdUbication: string) {
     this._status.birthdUbication = birthdUbication;
@@ -105,6 +107,7 @@ export class StatusService {
       city: parseInt(birthdUbication.split("-")[2]),
       currency: birthdUbication.split("-")[3],
     };
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setHomeUbication(homeUbication: string) {
     this._status.homeUbication = homeUbication;
@@ -115,35 +118,59 @@ export class StatusService {
       currency: homeUbication.split("-")[3],
       monthsOfResidence: parseInt(homeUbication.split("-")[4]),
     };
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setGender(gender: string) {
     this._status.gender = gender;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setWeight(weight: number) {
     this._status.weight = weight;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setAge(age: Date) {
     this._status.age = age;
   }
   public setHeight(height: number) {
     this._status.height = height;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
+  }
+  public setIsVegan(isVegan: number) {
+    this._status.isVegan = isVegan;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
+  }
+  public setIsvegetarian(isvegetarian: number) {
+    this._status.isvegetarian = isvegetarian;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
   }
   public setIMC(imc: number) {
     this._status.imc = imc;
   }
+  public setIdSportPlan(idSportPlan: number) {
+    this._status.idSportPlan = idSportPlan;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
+  }
+  public setIdFoodPlan(idFoodPlan: number) {
+    this._status.idFoodPlan = idFoodPlan;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
+  }
+  public setDescription(description: string) {
+    this._status.description = description;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
+  }
 
   public setSportsList(sportsList: ISports[]) {
     sessionStorage.setItem("sportsList", JSON.stringify(sportsList));
-    this._sportsList = sportsList;
   }
   public setEventsList(eventsList: IEvents[]) {
-    this._eventsList = eventsList;
+    sessionStorage.setItem("eventsList", JSON.stringify(eventsList));
   }
   public setEventsListScheduled(eventsListScheduled: IEvents[]) {
     const newEventsListScheduled = new Set(eventsListScheduled);
     this._eventsListScheduled = [...newEventsListScheduled];
   }
   public setServicesList(servicesList: IServices[]) {
+    sessionStorage.setItem("servicesList", JSON.stringify(servicesList));
     this._servicesList = servicesList;
   }
   public setProductsListScheduled(productsListScheduled: IProducts[]) {
@@ -151,6 +178,7 @@ export class StatusService {
     this._productsListScheduled = [...newProductsListScheduled];
   }
   public setProductsList(productsList: IProducts[]) {
+    sessionStorage.setItem("productsList", JSON.stringify(productsList));
     this._productsList = productsList;
   }
   public setServicesListScheduled(servicesListScheduled: IServices[]) {
@@ -183,52 +211,47 @@ export class StatusService {
   }
   public setSessionData(valueSession: ValueSession) {
     this._valueSession.push(valueSession);
-    console.log(
-      "🚀 XXX - StatusService - setSessionData - this._valueSession1 : ",
-      this._valueSession
-    );
     setTimeout(() => {
       const newValueSession = new Set(this._valueSession);
       this._valueSession = [...newValueSession];
-      console.log(
-        "🚀 XXX - StatusService - setSessionData - this._valueSession2 : ",
-        this._valueSession
-      );
     }, 100);
   }
   public setLastSessionData(lastSession: ISetSession) {
-    this._lastSession = lastSession;
+    // this._lastSession = lastSession;
+    sessionStorage.setItem("lastSession", JSON.stringify(lastSession));
+  }
+  public setThirdList(thirdList: IThirdDataMap[]) {
+    sessionStorage.setItem("thirdList", JSON.stringify(thirdList));
+    this._thirdList = thirdList;
   }
   public clearSetSessionData() {
     this._valueSession = [];
   }
   public getGeneralStatus(): StatusModel {
-    // return this._status;
     const status: StatusModel = JSON.parse(sessionStorage.getItem("status")!);
     status.userId = this.getUserId();
     status.token = this.getToken();
     this._userData = this.getUser();
-    status.username = this._userData.username;
+    status.username = this._userData.username ? this._userData.username : "";
     return status;
   }
   public getSportsList(): ISports[] {
-    // return this._sportsList;
     return JSON.parse(sessionStorage.getItem("sportsList")!);
   }
   public getEventsList(): IEvents[] {
-    return this._eventsList;
+    return JSON.parse(sessionStorage.getItem("eventsList")!);
   }
   public getEventsListScheduled(): IEvents[] {
     return this._eventsListScheduled;
   }
   public getServicesList(): IServices[] {
-    return this._servicesList;
+    return JSON.parse(sessionStorage.getItem("servicesList")!);
   }
   public getServicesListScheduled(): IServices[] {
     return this._servicesListScheduled;
   }
   public getProductsList(): IProducts[] {
-    return this._productsList;
+    return JSON.parse(sessionStorage.getItem("productsList")!);
   }
   public getProductsListScheduled(): IProducts[] {
     return this._productsListScheduled;
@@ -267,15 +290,15 @@ export class StatusService {
     return this._valueSession;
   }
   public getLastSessionData(): ISetSession {
-    return this._lastSession;
+    // return this._lastSession;
+    return JSON.parse(sessionStorage.getItem("lastSession")!);
   }
-  public spinnerShow(timeout?: number) {
-    setTimeout(
-      () => {
-        this._spinner.show();
-      },
-      timeout ? timeout : 10
-    );
+  public getThirdList(): IThirdDataMap[] {
+    return JSON.parse(sessionStorage.getItem("thirdList")!);
+  }
+
+  public spinnerShow() {
+    this._spinner.show();
   }
   public spinnerHide() {
     setTimeout(() => {

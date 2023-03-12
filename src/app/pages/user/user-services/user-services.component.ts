@@ -21,9 +21,6 @@ export class UserServicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log(
-      "XXX - UserServicesComponent (Contiene a servicios y productos)"
-    );
     this._loadServices();
     this._loadProducts();
   }
@@ -48,7 +45,12 @@ export class UserServicesComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserServicesComponent - _loadServices - res : ",
             res
           );
-          this._statusService.setServicesList(res.result!);
+          setTimeout(() => {
+            this._statusService.setServicesList(res.result!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
       },
       (err) => {
@@ -64,9 +66,13 @@ export class UserServicesComponent implements OnInit, OnDestroy {
             "🚀 XXX - UserServicesComponent - _loadProducts - res : ",
             res
           );
-          this._statusService.setProductsList(res.result!);
+          setTimeout(() => {
+            this._statusService.setProductsList(res.result!);
+          }, 100);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
         }
-        this._statusService.spinnerHide();
       },
       (err) => {
         console.error(err);
