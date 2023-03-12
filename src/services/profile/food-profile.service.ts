@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { catchError, Observable, of, retry, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import {
   IReqUserFoodProfile,
@@ -19,8 +19,10 @@ import {
 })
 export class FoodProfileService {
   private _baseUrl: string;
+  private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
     this._baseUrl = environment.api.base + environment.api.food_profile;
+    this._httpHeaders = new HttpHeaders(environment.api.headers);
     // this._baseUrl =  "http://localhost:3000/FoodProfile";
   }
   /**
@@ -64,4 +66,15 @@ export class FoodProfileService {
   //   // const mock = of(MockResErrorFoodProfile);
   //   return mock;
   // }
+  getFoodList() {
+    // const url = "https://miso-back-food-6equtupdiq-uc.a.run.app/food";
+    const url = `${environment.api.base}/food`;
+    return this._http.get<any>(url, { headers: this._httpHeaders }).pipe(
+      retry(3),
+      catchError((err: any) => {
+        console.log("XXX - GetImpediments - catchError - err", err);
+        return throwError(err);
+      })
+    );
+  }
 }

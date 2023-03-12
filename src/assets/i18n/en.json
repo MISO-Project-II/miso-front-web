@@ -99,6 +99,7 @@
     "SPORT_PLAN": "Sport plan: ",
     "EVENT": "Event: ",
     "SERVICE": "Service: ",
+    "PRODUCT": "Product: ",
     "ROUTE": "Route: ",
     "SUGGESTED": "⭐Suggested⭐",
     "CALENDAR": "Calendar",
@@ -151,7 +152,8 @@
     "AVERAGE_DATA": "Average data",
     "CONNECT_OTHER_APP_ALERT": "First connect an external device to take measurements",
     "CONNECT_OTHER_APP": "Connect with external applications",
-    "APPS_CONNECTED": "Connected apps"
+    "APPS_CONNECTED": "Connected apps",
+    "IMC": "Body mass index"
   },
   "PLACEHOLDER": {
     "USER_1": "User...",
@@ -185,7 +187,8 @@
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
     "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
-    "PRICE": "Price"
+    "PRICE": "Price",
+    "IMC": "IMC"
   },
   "BTN": {
     "CONTINUE": "Continue",

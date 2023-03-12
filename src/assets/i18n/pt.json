@@ -99,6 +99,7 @@
     "SPORT_PLAN": "Plano de trenamento: ",
     "EVENT": "Evento: ",
     "SERVICE": "Serviço: ",
+    "PRODUCT": "Produto: ",
     "ROUTE": "Rota: ",
     "SUGGESTED": "⭐Sugerido⭐",
     "CALENDAR": "Calendário",
@@ -151,7 +152,8 @@
     "AVERAGE_DATA": "Dados médios",
     "CONNECT_OTHER_APP_ALERT": "Primeiro conecte um dispositivo externo para fazer medições",
     "CONNECT_OTHER_APP": "Conecte-se com aplicativos externos",
-    "APPS_CONNECTED": "Aplicativos conectados"
+    "APPS_CONNECTED": "Aplicativos conectados",
+    "IMC": "Índice de massa corporal"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuário...",
@@ -185,7 +187,8 @@
     "FREE_CONTRACT_ICON": "⭐",
     "INTERMEDIATE_CONTRACT_ICON": "⭐⭐",
     "PREMIUM_CONTRACT_ICON": "⭐⭐⭐",
-    "PRICE": "Preço"
+    "PRICE": "Preço",
+    "IMC": "IMC"
   },
   "BTN": {
     "CONTINUE": "Continuar",

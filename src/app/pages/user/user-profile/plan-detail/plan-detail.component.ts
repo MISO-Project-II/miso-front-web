@@ -20,6 +20,7 @@ import { UpdatePlanService } from "src/services/update-plan/update-plan.service"
 import { UserDataService } from "src/services/user-data/user-data.service";
 import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
 import { ROUTES_NAMES } from "src/constanst/routes";
+import { IProducts } from "src/models/home/products.interface";
 
 @Component({
   selector: "app-plan-detail",
@@ -97,6 +98,21 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
     return this._statusService
       .getServicesList()
       .filter((data: IServices) => data.contractType === PREMIUM_CONTRACT);
+  }
+  get getProductsListFree(): IProducts[] {
+    return this._statusService
+      .getProductsList()
+      .filter((data: IProducts) => data.contractType === FREE_CONTRACT);
+  }
+  get getProductsListIntermediate(): IProducts[] {
+    return this._statusService
+      .getProductsList()
+      .filter((data: IProducts) => data.contractType === INTERMEDIATE_CONTRACT);
+  }
+  get getProductsListPremium(): IProducts[] {
+    return this._statusService
+      .getProductsList()
+      .filter((data: IProducts) => data.contractType === PREMIUM_CONTRACT);
   }
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();

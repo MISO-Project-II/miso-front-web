@@ -109,7 +109,8 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
-    this.loadThirdName(eventSelected.idUserCreator);
+    // XXX Validar si se consume siempre este dato
+    // this.loadThirdName(eventSelected.idUserCreator);
   }
 
   public addEvent(): void {

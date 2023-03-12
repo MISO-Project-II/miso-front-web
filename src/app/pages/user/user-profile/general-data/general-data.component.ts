@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { formatDate } from "@angular/common";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
@@ -107,13 +108,16 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
             this.formUserGeneralData
               .get("genre")
               ?.patchValue(res.result?.gender);
-            this.formUserGeneralData.get("age")?.patchValue(res.result?.age);
+            let bornDate = new Date(res.result?.age || "");
+            this.formUserGeneralData
+              .get("age")
+              ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
             this.formUserGeneralData
               .get("weight")
               ?.patchValue(res.result?.weight);
-            this.formUserGeneralData
-              .get("height")
-              ?.patchValue(res.result?.height);
+            this.getHeight?.patchValue(
+              ((res.result && res.result.height) || 0) * 100
+            );
             this._statusService.spinnerHide();
           }
         },
@@ -152,10 +156,12 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
         ? this.getWeight?.value
         : this.getGeneralStatus.weight,
       height: this.getHeight?.value
-        ? this.getHeight?.value
+        ? (this.getHeight?.value || 0) / 100
         : this.getGeneralStatus.height,
       userPlan: this.getGeneralStatus.contractType,
       imc: this.getGeneralStatus.imc,
+      idSportPlan: 0,
+      idFoodPlan: 0,
     };
     this._callService(data);
   }
@@ -167,7 +173,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
         (res: IResUserData) => {
           if (!!res && res.success) {
             console.log("XXX - GeneralDataComponent - _callService - res", res);
-            this._loadGeneralData();
+            window.dispatchEvent(new CustomEvent("updateGeneralData"));
           }
           this._statusService.spinnerHide();
         },
@@ -176,5 +182,10 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
           this._statusService.spinnerHide();
         }
       );
+  }
+
+  @HostListener("window:updateGeneralData")
+  updateGeneralData() {
+    this._loadGeneralData();
   }
 }
