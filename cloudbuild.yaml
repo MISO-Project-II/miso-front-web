@@ -9,48 +9,12 @@ steps:
     args:
       - -c
       - |
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
-        npm run coverage
+        npm install @capacitor/core
+        npm install @capacitor/cli
+        npm run build
+        npx cap sync
+        
 
-  - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
-    args:
-      - '-Dsonar.host.url=http://34.67.142.84:9001'
-      - '-Dsonar.login=admin'
-      - '-Dsonar.password=admin123'
-      - '-Dsonar.projectKey=miso-front-web'
-      - '-Dsonar.projectName=miso-front-web'
-      - '-Dsonar.projectVersion=1.25.4'
-      - '-Dsonar.sourceEncoding=UTF-8'
-      - '-Dsonar.sources=src'
-      - '-Dsonar.test.exclusions=**/node_modules/**'
-      - '-Dsonar.test.exclusions=**/src/app/**'
-      - '-Dsonar.test.exclusions=**/src/assets/**'
-      - '-Dsonar.test.exclusions=**/src/constants/**'
-      - '-Dsonar.test.exclusions=**/src/helper/**'
-      - '-Dsonar.test.exclusions=**/src/models/**'
-      - '-Dsonar.test.exclusions=**/src/styles/**'
-      - '-Dsonar.test.exclusions=**/src/test/**'
-      - '-Dsonar.test=src'
-      - '-Dsonar.test.inclusions=**/*.spec.ts'
-      - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
 
-  - id: Docker Build
-    name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-f','Dockerfile', '-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}','.' ]
-
-  - id: Docker push
-    name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}' ]
-
-  - id: Deploy Cloud Run
-    name: 'gcr.io/cloud-builders/gcloud'
-    args: [ 'run','deploy','${_IMAGE_NAME}',
-            '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}',
-            '--allow-unauthenticated',
-            '--min-instances=1',
-            '--max-instances=2',
-            '--region=us-central1',
-            '--project=$PROJECT_ID' ]
 substitutions:
-  _IMAGE_NAME: miso-front-web
+  _IMAGE_NAME: mobile-app
