@@ -117,27 +117,39 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   }
   private _loadData(): void {
     // this._statusService.spinnerShow();
-    this._sportProfileService.getSportsByUser(this.getGeneralStatus.userId).subscribe({
-      next: (response) => {
-        if (response.success && response.result) {
-          this.listSportPractice = response.result['sports-practices'] || [];
-          this.sportPractice?.patchValue(this.listSportPractice);
-          this.listSportInterest = response.result['sports-interest'] || [];
-          this.sportInterest?.patchValue(this.listSportInterest);
-        }
-      }
-    });
-    this._sportProfileService.getImpedimentsByUser(this.getGeneralStatus.userId).subscribe({
-      next: (response) => {
-        if (response.success && response.result && response.result.impediments) {
-          this.userDisabilitiesList = response.result.impediments['INJURY'] || [];
-          this.disabilities?.patchValue(this.userDisabilitiesList);
-          this.userPainList = response.result.impediments['INCONVENIENCE'] || [];
-          this.pains?.patchValue(this.userPainList);
-          this.userAllegiesList = response.result.impediments['ALLERGY'] || [];
-        }
-      }, error: () => { }
-    });
+    this._sportProfileService
+      .getSportsByUser(this.getGeneralStatus.userId)
+      .subscribe({
+        next: (response) => {
+          if (response.success && response.result) {
+            this.listSportPractice = response.result["sports-practices"] || [];
+            this.sportPractice?.patchValue(this.listSportPractice);
+            this.listSportInterest = response.result["sports-interest"] || [];
+            this.sportInterest?.patchValue(this.listSportInterest);
+          }
+        },
+      });
+    this._sportProfileService
+      .getImpedimentsByUser(this.getGeneralStatus.userId)
+      .subscribe({
+        next: (response) => {
+          if (
+            response.success &&
+            response.result &&
+            response.result.impediments
+          ) {
+            this.userDisabilitiesList =
+              response.result.impediments["INJURY"] || [];
+            this.disabilities?.patchValue(this.userDisabilitiesList);
+            this.userPainList =
+              response.result.impediments["INCONVENIENCE"] || [];
+            this.pains?.patchValue(this.userPainList);
+            this.userAllegiesList =
+              response.result.impediments["ALLERGY"] || [];
+          }
+        },
+        error: () => {},
+      });
     // this._sportProfileService
     //   .get(this.getGeneralStatus.userId)
     //   .pipe(takeUntil(this._destroy$))
@@ -201,7 +213,11 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this.sportInterest?.patchValue(this.listSportInterest);
   }
   public addUserDisability(item: any): void {
-    if (!this.userDisabilitiesList?.find(d => d.IdImpediment == item.IdImpediment)) {
+    if (
+      !this.userDisabilitiesList?.find(
+        (d) => d.IdImpediment == item.IdImpediment
+      )
+    ) {
       this.userDisabilitiesList?.push(item);
       this.userDisabilitiesList = [...new Set(this.userDisabilitiesList)];
     }
@@ -214,7 +230,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
     this.disabilities?.patchValue(this.userDisabilitiesList);
   }
   public addUserPain(item: any): void {
-    if (!this.userPainList?.find(p => p.IdImpediment == item.IdImpediment)) {
+    if (!this.userPainList?.find((p) => p.IdImpediment == item.IdImpediment)) {
       this.userPainList?.push(item);
       this.userPainList = [...new Set(this.userPainList)];
     }
