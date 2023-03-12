@@ -5,7 +5,7 @@ steps:
 
   - id: Package test
     name: gcr.io/cloud-builders/npm
-    args: [ 'coverage' ]
+    args: [ 'npm coverage' ]
     volumes:
       - name: 'myvolume'
         path: '/persistent_volume'
