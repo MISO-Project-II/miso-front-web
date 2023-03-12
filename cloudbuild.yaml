@@ -19,9 +19,13 @@ steps:
       - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
 
   - name: gcr.io/cloud-builders/npm
-    args: [ 'npm run coverage' ]
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        ng test --watch=false --code-coverage --source-map=false 
 
-  - id: Execute test
+  - id: Android execution
     name: gcr.io/cloud-builders/npm
     entrypoint: bash
     args:
