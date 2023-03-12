@@ -21,17 +21,17 @@ export class DsHorizontalMenuComponent implements OnInit {
   constructor(private _router: Router, private _statusService: StatusService) {}
 
   ngOnInit() {
-    this.userType = this.getGeneralStatus.userUrl.substring(
+    this.userType = this.getGeneralStatus$?.userUrl?.substring(
       0,
-      this.getGeneralStatus.userUrl.length - 1
+      this.getGeneralStatus$.userUrl.length - 1
     );
   }
-  get getGeneralStatus(): StatusModel {
+  get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
   public goProfile(): void {
     this._router.navigate([
-      this.getGeneralStatus.userUrl + ROUTES_NAMES.PROFILE,
+      this.getGeneralStatus$.userUrl + ROUTES_NAMES.PROFILE,
     ]);
   }
 }

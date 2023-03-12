@@ -6,7 +6,16 @@ import {
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Observable, Subject, takeUntil } from "rxjs";
-import { RESUME, START, STOP } from "src/constanst/data.constants";
+import {
+  FREE_CONTRACT,
+  INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
+  OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
+  RESUME,
+  START,
+  STOP,
+} from "src/constanst/data.constants";
 import { IFoodPlans } from "src/models/home/food-plans.interface";
 import { ISportPlans } from "src/models/home/sport-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
@@ -18,6 +27,11 @@ import { StatusService } from "src/services/local/status.service";
   styleUrls: ["./user-session.component.scss"],
 })
 export class UserSessionComponent implements OnInit, OnDestroy {
+  public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
+  public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public START: string = START;
   public STOP: string = STOP;
@@ -97,6 +111,27 @@ export class UserSessionComponent implements OnInit, OnDestroy {
       .filter(
         (data: IFoodPlans) => data.idFoodPlan === this.getIdSportPlan$
       )[0];
+  }
+  get isMobile() {
+    return this._statusService.getIsMobile();
+  }
+  get getContractType() {
+    return this.getGeneralStatus$.contractType;
+  }
+  get isContractFree() {
+    return this.getGeneralStatus$.contractType === FREE_CONTRACT;
+  }
+  get isContractIntermediate() {
+    return this.getGeneralStatus$.contractType === INTERMEDIATE_CONTRACT;
+  }
+  get isContractIntermediatePremium() {
+    return (
+      this.getGeneralStatus$.contractType === INTERMEDIATE_CONTRACT ||
+      this.getGeneralStatus$.contractType === PREMIUM_CONTRACT
+    );
+  }
+  get isContractPremium() {
+    return this.getGeneralStatus$.contractType === PREMIUM_CONTRACT;
   }
 
   private _initForm(): void {

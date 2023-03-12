@@ -1,7 +1,7 @@
 import { Router } from "@angular/router";
 import { IGenericResponse } from "./../../../../../models/local/generic.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Observable, Subject, takeUntil, timeout } from "rxjs";
 import {
   FREE_CONTRACT,
   INTERMEDIATE_CONTRACT,
@@ -278,8 +278,6 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
       idSportPlan: this.getGeneralStatus$?.idFoodPlan,
       idFoodPlan: this.getGeneralStatus$?.idFoodPlan,
     };
-    console.log("🚀 XXX - SportPlanComponent - onSubmit - data : ", data);
-
     this._callService(data);
   }
   private _callService(data: IUserData): void {
@@ -293,9 +291,12 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
               "🚀 XXX - SportPlanComponent - _callService - res : ",
               res
             );
-            this._router.navigate([
-              this.getGeneralStatus$.userUrl + ROUTES_NAMES.HOME,
-            ]);
+            setTimeout(() => {
+              window.open("https://paynopain.com/pasarelas-pago/", "_blank");
+              this._router.navigate([
+                this.getGeneralStatus.userUrl + ROUTES_NAMES.HOME,
+              ]);
+            }, 100);
             this._statusService.spinnerHide();
           } else {
             this._statusService.spinnerHide();

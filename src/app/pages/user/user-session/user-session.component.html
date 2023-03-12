@@ -1,8 +1,8 @@
 <div id="main-user-session" class="container-fluid">
   <hr />
-  <div class="p-3 d-block">
+  <!-- <div class="p-3 d-block">
     <app-ds-banner-title [title]="getSportPlan$?.name!"></app-ds-banner-title>
-  </div>
+  </div> -->
 
   <form
     [formGroup]="formSession"
@@ -12,7 +12,10 @@
   >
     <div class="d-flex row px-3 height-90vh">
       <div class="cont-left ds-form-register col-12 col-md-6">
-        <div class="register-data mb-3">
+        <div
+          class="register-data mb-3"
+          *ngIf="isContractIntermediatePremium; else isFreeContract"
+        >
           <app-ds-title [title]="'TITLE.SESSION' | translate"></app-ds-title>
           <div class="ds-input-group mt-3">
             <div class="container">
@@ -103,23 +106,104 @@
                         {{ "LBL.SECONDS" | translate }} {{ diffSessionSec }}
                       </h2>
                     </div>
-                    <div
+                    <!-- <div
                       class="alert alert-warning"
                       role="alert"
                       *ngIf="!!diffSessionSec"
                     >
                       <h2>{{ "LBL.AVERAGE_DATA" | translate }}</h2>
                       <p>{{ averageData | json }}</p>
-                    </div>
+                    </div> -->
                   </div>
                 </ng-template>
               </section>
             </div>
           </div>
+          <div class="ds-input-group mt-3" *ngIf="!!getSportPlan$">
+            <details [open]="true">
+              <summary>
+                <app-ds-title [title]="getSportPlan$?.name!"></app-ds-title>
+              </summary>
+              <div class="table-container">
+                <table class="table table-hover" style="background-color: #fff">
+                  <tbody>
+                    <tr *ngFor="let routine of getSportPlan$?.sportRoutineList">
+                      <td>
+                        <label>{{ routine.name }}</label>
+                      </td>
+                      <td>
+                        <p>{{ routine.description }}</p>
+                      </td>
+                      <td>
+                        <label
+                          >{{ "LBL.MINUTES" | translate }}:{{
+                            "LBL.HOURS" | translate
+                          }}</label
+                        >
+                        <p>
+                          {{ routine.sportFrecuency.minute }}:{{
+                            routine.sportFrecuency.hour
+                          }}
+                        </p>
+                        <label>{{ "LBL.FREQUENCY" | translate }}</label>
+                        <p>{{ routine.sportFrecuency.dayLetter }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
+          <div class="ds-input-group mt-3" *ngIf="!!getFoodPlan$">
+            <details [open]="false">
+              <summary>
+                <app-ds-title [title]="getFoodPlan$?.name!"></app-ds-title>
+              </summary>
+              <div class="table-container">
+                <table class="table table-hover" style="background-color: #fff">
+                  <tbody>
+                    <tr *ngFor="let routine of getFoodPlan$?.foodRoutineList">
+                      <td>
+                        <label>{{ routine.name }}</label>
+                      </td>
+                      <td>
+                        <p>{{ routine.description }}</p>
+                      </td>
+                      <td>
+                        <label
+                          >{{ "LBL.MINUTES" | translate }}:{{
+                            "LBL.HOURS" | translate
+                          }}</label
+                        >
+                        <p>
+                          {{ routine.foodFrecuency.minute }}:{{
+                            routine.foodFrecuency.hour
+                          }}
+                        </p>
+                        <label>{{ "LBL.FREQUENCY" | translate }}</label>
+                        <p>{{ routine.foodFrecuency.dayLetter }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
         </div>
+        <ng-template #isFreeContract>
+          <app-ds-title [title]="'TITLE.SESSION' | translate"></app-ds-title>
+          <div class="ds-input-group mt-3">
+            <div class="alert alert-success" role="alert">
+              <h2>{{ "LBL.ONLY_APP_1" | translate }}</h2>
+            </div>
+          </div>
+        </ng-template>
       </div>
       <div class="cont-right ds-form-register col-12 col-md-6">
-        <div class="ds-register-data mb-3">
+        <div
+          class="ds-register-data mb-3"
+          *ngIf="isContractIntermediatePremium"
+        >
           <app-ds-title [title]="'TITLE.GAUGE' | translate"></app-ds-title>
           <div
             class="ds-input-group overflow-auto gauge"

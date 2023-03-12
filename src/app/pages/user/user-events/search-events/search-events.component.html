@@ -2,7 +2,7 @@
   <hr />
   <div
     class="d-flex min-width row justify-content-center"
-    *ngIf="eventsList.length! >= 1; else noSuccess"
+    *ngIf="!!eventsList; else noSuccess"
   >
     <div class="col-12 col-md-3 mx-auto">
       <div class="options pe-1">
