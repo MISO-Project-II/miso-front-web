@@ -75,11 +75,23 @@ export class CreatedProductsComponent implements OnInit, OnDestroy {
   get getThirdList$(): IThirdDataMap[] {
     return this._statusService.getThirdList();
   }
+  get getCurrency$() {
+    return this._statusService?.getHomeUbication()?.currency;
+  }
+  get getLangLocation$() {
+    return (
+      this._statusService?.getLangLocation()?.lang +
+      "-" +
+      this._statusService?.getLangLocation()?.location
+    );
+  }
   public setProduct(productSelected: IProducts) {
     this._productSelected = productSelected;
-    this.thirdData = this.getThirdList$.filter(
-      (data: IThirdDataMap) => data.idUser === productSelected.idUserCreator
-    )[0];
+    if (this.getThirdList$) {
+      this.thirdData = this.getThirdList$.filter(
+        (data: IThirdDataMap) => data.idUser === productSelected.idUserCreator
+      )[0];
+    }
   }
 
   public delProduct(item: any): void {

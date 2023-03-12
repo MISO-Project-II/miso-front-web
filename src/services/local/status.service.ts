@@ -154,6 +154,10 @@ export class StatusService {
     this._status.idFoodPlan = idFoodPlan;
     sessionStorage.setItem("status", JSON.stringify(this._status));
   }
+  public setDescription(description: string) {
+    this._status.description = description;
+    sessionStorage.setItem("status", JSON.stringify(this._status));
+  }
 
   public setSportsList(sportsList: ISports[]) {
     sessionStorage.setItem("sportsList", JSON.stringify(sportsList));
@@ -228,7 +232,7 @@ export class StatusService {
     status.userId = this.getUserId();
     status.token = this.getToken();
     this._userData = this.getUser();
-    status.username = this._userData.username;
+    status.username = this._userData.username ? this._userData.username : "";
     return status;
   }
   public getSportsList(): ISports[] {

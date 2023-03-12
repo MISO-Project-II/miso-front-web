@@ -19,6 +19,7 @@ import { StatusModel } from "src/models/local/status-model";
 import { SPORTSMAN } from "src/constanst/data.constants";
 import { UbicationService } from "src/services/general/ubication.service";
 import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
+import { SportProfileService } from "src/services/profile/sport-profile.service";
 
 @Component({
   selector: "app-user-register",
@@ -28,8 +29,13 @@ import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
 export class UserRegisterComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public formUserRegister: FormGroup;
+
   public listSportPractice: ISports[] = [];
   public listSportInterest: ISports[] = [];
+
+  public sportPracticeList: ISports[] | null = [];
+  public sportPreferenceList: ISports[] | null = [];
+
   public countriesOfBirth: ICountry[];
   private _countryCodeOfBirth: ICountry;
   public statesOfBirth: IState[];
@@ -46,7 +52,8 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     private _statusService: StatusService,
     private _userRegisterService: UserRegisterService,
     private _sportsService: SportsService,
-    private _ubicationService: UbicationService
+    private _ubicationService: UbicationService,
+    private _sportProfileService: SportProfileService
   ) {}
 
   ngOnInit() {
@@ -65,7 +72,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       // Datos principales
       user: new FormControl("", [Validators.required]),
       pass: new FormControl("", [Validators.required]),
-      confirmation: new FormControl("", [Validators.required]),
       name: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
       IdType: new FormControl("", [Validators.required]),
@@ -108,9 +114,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   }
   get pass() {
     return this.formUserRegister.get("pass");
-  }
-  get confirmation() {
-    return this.formUserRegister.get("confirmation");
   }
   get name() {
     return this.formUserRegister.get("name");
@@ -172,28 +175,23 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   get getGeneralStatus(): StatusModel {
     return this._statusService.getGeneralStatus();
   }
+  get _sportsServiceGetAll$(): Observable<IResSports> {
+    return this._sportsService.getSports();
+  }
   private _loadSports(): void {
-    this.getSportsService$
-      .pipe(takeUntil(this._destroy$))
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(
-        (res: IResSports) => {
-          if (!!res && res.success) {
-            this.sportList = res.result!;
-            console.log(
-              "🚀 XXX - UserRegisterComponent - _loadSports - res : ",
-              res
-            );
-            this._statusService.spinnerHide();
-          } else {
-            this._statusService.spinnerHide();
-          }
-        },
-        (err) => {
-          console.error(err);
-          this._statusService.spinnerHide();
+    this._sportsServiceGetAll$.pipe(takeUntil(this._destroy$)).subscribe({
+      next: (data: IResSports) => {
+        if (data && data.success && data.result && data.result.length > 0) {
+          this.sportPracticeList = data.result.filter(
+            (s) => s.sportType == "SPORTS_PRACTICE"
+          );
+          this.sportPreferenceList = data.result.filter(
+            (s) => s.sportType == "SPORTS_INTEREST"
+          );
         }
-      );
+      },
+      error: () => {},
+    });
   }
   private async getCountriesOfBirth() {
     this.statesOfBirth = [];
@@ -249,9 +247,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       lastName: this.lastName?.value,
       identificationType: this.IdType?.value,
       identificationNumber: this.IdNumber?.value,
-      // Datos deportivos
-      // sportPractice: this.sportPractice?.value,
-      // sportInterest: this.sportInterest?.value,
       // Datos secundarios
       gender: this.genre?.value,
       age: this.age?.value,
@@ -276,7 +271,6 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
         this._countryCodeOfResidence.currency +
         "-" +
         this.montsOfResidence?.value,
-      // montsOfResidence: this.montsOfResidence?.value,
       isVegan: this.isVegan ? 1 : 0,
       isvegetarian: this.isVegetarian ? 1 : 0,
       userType: SPORTSMAN,
@@ -296,7 +290,15 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
             res
           );
           if (!!res && res.success) {
-            this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
+            let listSports = (
+              (this.sportPractice?.value as ISports[]) || []
+            ).map((s) => s.idsports);
+            listSports = listSports.concat(
+              ((this.sportInterest?.value as ISports[]) || []).map(
+                (s) => s.idsports
+              )
+            );
+            this._putSportsByUser(res.result!, listSports);
             this._statusService.spinnerHide();
           } else {
             this._statusService.spinnerHide();
@@ -309,33 +311,45 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       );
   }
   public addSportPractice(item: ISports): void {
-    this.listSportPractice.push(item);
-    this.listSportPractice = [...new Set(this.listSportPractice)];
-    this.formUserRegister
-      .get("sportPractice")
-      ?.patchValue(this.listSportPractice);
+    if (!this.listSportPractice.find((s) => s.idsports == item.idsports)) {
+      this.listSportPractice.push(item);
+    }
+    this.sportPractice?.patchValue(this.listSportPractice);
   }
   public delSportPractice(item: ISports): void {
     this.listSportPractice = this.listSportPractice.filter(
       (data) => data.idsports != item.idsports
     );
-    this.formUserRegister
-      .get("sportPractice")
-      ?.patchValue(this.listSportPractice);
+    this.sportPractice?.patchValue(this.listSportPractice);
   }
-  public addSportInterest(item: ISports): void {
-    this.listSportInterest.push(item);
-    this.listSportInterest = [...new Set(this.listSportInterest)];
-    this.formUserRegister
-      .get("sportInterest")
-      ?.patchValue(this.listSportInterest);
+  public addSportInterest(item: any): void {
+    if (!this.listSportInterest.find((s) => s.idsports == item.idsports)) {
+      this.listSportInterest.push(item);
+    }
+    this.sportInterest?.patchValue(this.listSportInterest);
   }
-  public delSportInterest(item: ISports): void {
+  public delSportInterest(item: any): void {
     this.listSportInterest = this.listSportInterest.filter(
       (data) => data.idsports != item.idsports
     );
-    this.formUserRegister
-      .get("sportInterest")
-      ?.patchValue(this.listSportInterest);
+    this.sportInterest?.patchValue(this.listSportInterest);
+  }
+  private _putSportsByUser(idUser: number, listSports: number[]): void {
+    this._statusService.spinnerShow();
+    this._sportProfileService.putSportsByUser(idUser, listSports).subscribe(
+      (data) => {
+        // XXX Validar rta
+        if (!!data) {
+          this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
+          this._statusService.spinnerHide();
+        } else {
+          this._statusService.spinnerHide();
+        }
+      },
+      (err: any) => {
+        console.error(err);
+        this._statusService.spinnerHide();
+      }
+    );
   }
 }

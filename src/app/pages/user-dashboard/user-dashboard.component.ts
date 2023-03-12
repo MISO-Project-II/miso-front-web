@@ -5,6 +5,7 @@ import {
   INTERMEDIATE_CONTRACT,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { removeSessionStorage } from "src/helper/sessionStorage.helper";
 import { StatusModel } from "src/models/local/status-model";
 import { StatusService } from "src/services/local/status.service";
 @Component({
@@ -25,6 +26,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.complete();
+    removeSessionStorage();
   }
   get getGeneralStatus$(): StatusModel {
     return this._statusService.getGeneralStatus();

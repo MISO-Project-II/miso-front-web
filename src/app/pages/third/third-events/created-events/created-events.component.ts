@@ -79,9 +79,11 @@ export class CreatedEventsComponent implements OnInit, OnDestroy {
   }
   public setEvent(eventSelected: IEvents) {
     this._eventSelected = eventSelected;
-    this.thirdData = this.getThirdList$.filter(
-      (data: IThirdDataMap) => data.idUser === eventSelected.idUserCreator
-    )[0];
+    if (this.getThirdList$) {
+      this.thirdData = this.getThirdList$.filter(
+        (data: IThirdDataMap) => data.idUser === eventSelected.idUserCreator
+      )[0];
+    }
   }
 
   public delEvent(item: any): void {
