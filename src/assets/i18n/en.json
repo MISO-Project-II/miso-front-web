@@ -157,7 +157,9 @@
     "CONNECT_OTHER_APP": "Connect with external applications",
     "APPS_CONNECTED": "Connected apps",
     "IMC": "Body mass index",
-    "EVENT_DETAIL": "Event detail"
+    "EVENT_DETAIL": "Event detail",
+    "ONLY_APP_1": "El seguimiento en tiempo real esta disponible desde el plan intermedio.",
+    "FREQUENCY": "Frecuencia"
   },
   "PLACEHOLDER": {
     "USER_1": "User...",

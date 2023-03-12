@@ -77,7 +77,7 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
     return this._eventSelected.idUserCreator;
   }
   get getEventsList$(): IEvents[] {
-    return this._statusService.getEventsList().filter((data: IEvents) => {
+    return this._statusService.getEventsList()?.filter((data: IEvents) => {
       var contract = data.contractType === FREE_CONTRACT;
       switch (this.getContractType$) {
         case FREE_CONTRACT:

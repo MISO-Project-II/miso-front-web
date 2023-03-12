@@ -157,7 +157,9 @@
     "CONNECT_OTHER_APP": "Conecte-se com aplicativos externos",
     "APPS_CONNECTED": "Aplicativos conectados",
     "IMC": "Índice de massa corporal",
-    "EVENT_DETAIL": "Detalhe do evento"
+    "EVENT_DETAIL": "Detalhe do evento",
+    "ONLY_APP_1": "El seguimiento en tiempo real esta disponible desde el plan intermedio.",
+    "FREQUENCY": "Frecuencia"
   },
   "PLACEHOLDER": {
     "USER_1": "Usuário...",
