@@ -5,6 +5,22 @@ steps:
     volumes:
       - name: 'myvolume'
         path: '/persistent_volume'
+  - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+    args:
+      - '-Dsonar.host.url=http://34.67.142.84:9001'
+      - '-Dsonar.login=admin'
+      - '-Dsonar.password=admin123'
+      - '-Dsonar.projectKey=sport-app-mobie'
+      - '-Dsonar.projectName=sport-app-mobie'
+      - '-Dsonar.projectVersion=1.25.4'
+      - '-Dsonar.sourceEncoding=UTF-8'
+      - '-Dsonar.sources=src'
+      - '-Dsonar.test=src'
+      - '-Dsonar.typescript.lcov.reportPaths=coverage/SportApp/lcov.info'
+
+  - name: gcr.io/cloud-builders/npm
+    args: [ 'npm run coverage' ]
+
   - id: Execute test
     name: gcr.io/cloud-builders/npm
     entrypoint: bash
@@ -21,11 +37,16 @@ steps:
     volumes:
       - name: 'myvolume'
         path: '/persistent_volume'
-  - name: 'gcr.io/cloud-builders/docker'
-    volumes:
-      - name: 'myvolume'
-        path: '/persistent_volume'
-    args: ['ls','run', '-v', 'myvolume:/home/app', '--rm', 'gcr.io/fullstackgcp/gradle', '/bin/sh', '-c', 'cd /home/app && ./gradlew clean assembleDebug']
+#  - name: gradle:5.6.2-jdk8
+#    entrypoint: bash
+#    args:
+#      - -c
+#      - |
+#        cd android/
+#        gradlew installDebug
+#    volumes:
+#      - name: 'myvolume'
+#        path: '/persistent_volume'
 
 
 substitutions:
