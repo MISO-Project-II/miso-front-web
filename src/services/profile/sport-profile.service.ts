@@ -64,6 +64,8 @@ export class SportProfileService {
 
   postImpedimentsByUser(idUser: number, impediments: number[]) {
     const url = `https://miso-user-6equtupdiq-uc.a.run.app/${idUser}/impediment`;
+    // CORS
+    // const url = `https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1/${idUser}/impediment`;
     // const url = `${environment.api.base}/users/${idUser}/impediment`;
     return this._http.post<any>(url, impediments).pipe(
       // retry(2),
@@ -75,6 +77,8 @@ export class SportProfileService {
 
   getImpedimentsByUser(idUser: number) {
     const url = `https://miso-user-6equtupdiq-uc.a.run.app/${idUser}/impediment/created`;
+    // CORS
+    // const url = `https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1/${idUser}/impediment/created`;
     // const url = `${environment.api.base}/users/${idUser}/impediment/created`;
     return this._http.get<any>(url).pipe(
       // retry(2),

@@ -76,19 +76,6 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
     return this._statusService.getGeneralStatus().contractType;
   }
 
-  public getContractTypeValidate(contracType: string): boolean {
-    switch (contracType) {
-      case FREE_CONTRACT:
-        return true;
-      case INTERMEDIATE_CONTRACT:
-        return true;
-      case PREMIUM_CONTRACT:
-        return true;
-      default:
-        return false;
-    }
-  }
-
   // && getContractType$ === INTERMEDIATE_CONTRACT ? true : false || getContractType$ === FREE_CONTRACT ? true : false || getContractType$ === PREMIUM_CONTRACT ? true : false
 
   public selectFoodPlan(idFoodPlan: number): void {

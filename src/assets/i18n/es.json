@@ -245,7 +245,9 @@
     "ENROLL": "Se ha inscrito correctamente 👏",
     "ALERT": "ALERT",
     "INFO_STOP": "Se ha actualizado los valores promedio 📲",
-    "INFO_START": "Se ha iniciado la sesión deportiva 🏋"
+    "INFO_START": "Se ha iniciado la sesión deportiva 🏋",
+    "SESSION_OK": "Llevas un buen ritmo, sigue asi 👌",
+    "SESSION_BAD": "Contina mas fuerte esta vez"
   },
   "LIST_DATA": {
     "FREE_CONTRACT_SERVICES": [

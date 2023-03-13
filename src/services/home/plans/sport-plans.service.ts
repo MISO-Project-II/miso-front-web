@@ -16,6 +16,7 @@ export class SportPlansService {
   private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
     // this._baseUrl = environment.api.base + environment.api.sport_plans;
+    // CORS
     this._baseUrl =
       "https://miso-back-sportplan-6equtupdiq-uc.a.run.app/sport-plan";
     this._httpHeaders = new HttpHeaders(environment.api.headers2);

@@ -19,24 +19,26 @@ export class SessionService {
   private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
     this._baseUrl = environment.api.base + environment.api.session;
-    this._httpHeaders = new HttpHeaders(environment.api.headers);
+    this._httpHeaders = new HttpHeaders(environment.api.headers2);
   }
   /**Obtener todos los datos relacionados con usuario */
-  getSession(): Observable<ISetSession> {
-    // return this._http
-    //   .get<ISetSession>(this._baseUrl, { headers: this._httpHeaders })
-    //   .pipe(
-    //     retry(3),
-    //     catchError((err: any) => {
-    //       return throwError(err);
-    //     })
-    //   );
-    const mock = of(MockGetSession);
-    return mock;
+  getSession(): Observable<ISetSession[]> {
+    const url = "https://miso-user-6equtupdiq-uc.a.run.app/user-session";
+    return this._http
+      .get<ISetSession[]>(url, { headers: this._httpHeaders })
+      .pipe(
+        retry(3),
+        catchError((err: any) => {
+          return throwError(err);
+        })
+      );
+    // const mock = of(MockGetSession);
+    // return mock;
   }
   postSession(data: ISetSession): Observable<ISetSession> {
-    this._baseUrl = environment.api.base + environment.api.session;
-    return this._http.post<ISetSession>(this._baseUrl, data, {
+    // this._baseUrl = environment.api.base + environment.api.session;
+    const url = "https://miso-user-6equtupdiq-uc.a.run.app/user-session";
+    return this._http.post<ISetSession>(url, data, {
       headers: this._httpHeaders,
     });
   }

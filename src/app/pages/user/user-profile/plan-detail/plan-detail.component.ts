@@ -126,7 +126,7 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
     const data: IPlan = {
       idPlan: contractType,
     };
-    // this._updatePlan(data);
+    this._updatePlan(data); // XXX VALIDAR FUNCIONAMEINTO
     this.setContractTpe(contractType);
   }
 

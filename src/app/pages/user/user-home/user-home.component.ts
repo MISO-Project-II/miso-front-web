@@ -604,13 +604,10 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         idFoodPlan: data.idFoodPlan,
         name: data.name,
         description: data.description,
-        planType: data.planType,
         foodRoutineList: data.foodRoutineList,
         calories: data.calories ? data.calories : this.getRandomInt(1500),
-        eventType:
-          this._eventTypeList[
-            Math.floor(Math.random() * this._eventTypeList.length)
-          ],
+        contractType: data.contractType,
+        eventType: data.eventType,
       };
     });
   }
@@ -620,13 +617,10 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         idSportPlan: data.idSportPlan,
         name: data.name,
         description: data.description,
-        planType: data.planType,
         sportRoutineList: data.sportRoutineList,
         calories: data.calories ? data.calories : this.getRandomInt(1500),
-        eventType:
-          this._eventTypeList[
-            Math.floor(Math.random() * this._eventTypeList.length)
-          ],
+        contractType: data.contractType,
+        eventType: data.eventType,
       };
     });
   }

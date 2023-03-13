@@ -24,8 +24,8 @@ export interface ISportPlans {
   idSportPlan: number;
   name: string;
   description: string;
-  planType: string;
   sportRoutineList: SportRoutineList[];
   calories?: number;
-  eventType?: string;
+  contractType: string;
+  eventType: string;
 }

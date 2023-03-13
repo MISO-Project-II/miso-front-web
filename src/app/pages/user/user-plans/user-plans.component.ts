@@ -29,12 +29,6 @@ export class UserPlansComponent implements OnInit, OnDestroy {
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
 
-  private _contractTypeList: string[] = [
-    FREE_CONTRACT,
-    INTERMEDIATE_CONTRACT,
-    PREMIUM_CONTRACT,
-  ];
-  private _eventTypeList: string[] = [INSIDE_OF_HOUSE, OUTSIDE_OF_HOUSE];
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private _translateService: TranslateService,
@@ -115,13 +109,10 @@ export class UserPlansComponent implements OnInit, OnDestroy {
         idFoodPlan: data.idFoodPlan,
         name: data.name,
         description: data.description,
-        planType: data.planType,
         foodRoutineList: data.foodRoutineList,
         calories: data.calories ? data.calories : this.getRandomInt(1500),
-        eventType:
-          this._eventTypeList[
-            Math.floor(Math.random() * this._eventTypeList.length)
-          ],
+        contractType: data.contractType,
+        eventType: data.eventType,
       };
     });
   }
@@ -131,13 +122,10 @@ export class UserPlansComponent implements OnInit, OnDestroy {
         idSportPlan: data.idSportPlan,
         name: data.name,
         description: data.description,
-        planType: data.planType,
         sportRoutineList: data.sportRoutineList,
         calories: data.calories ? data.calories : this.getRandomInt(1500),
-        eventType:
-          this._eventTypeList[
-            Math.floor(Math.random() * this._eventTypeList.length)
-          ],
+        contractType: data.contractType,
+        eventType: data.eventType,
       };
     });
   }
