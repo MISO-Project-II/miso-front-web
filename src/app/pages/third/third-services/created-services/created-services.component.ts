@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -34,6 +35,7 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
   private _serviceSelected: IServices;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private _translateService: TranslateService,
     private _servicesService: ServicesService,
     private _statusService: StatusService
   ) {}
@@ -111,6 +113,9 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -143,11 +148,17 @@ export class CreatedServicesComponent implements OnInit, OnDestroy {
               res
             );
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.DELETE")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

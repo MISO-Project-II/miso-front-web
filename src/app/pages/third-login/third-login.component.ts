@@ -2,6 +2,7 @@ import { ROOT_ROUTES_NAMES } from "../../app.routing";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { ROUTES_NAMES } from "src/constanst/routes";
@@ -21,6 +22,7 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
   public ROUTES_NAMES = ROUTES_NAMES;
   public ROOT_ROUTES_NAMES = ROOT_ROUTES_NAMES;
   constructor(
+    private _translateService: TranslateService,
     private _router: Router,
     private _statusService: StatusService,
     private _loginService: LoginService
@@ -99,6 +101,9 @@ export class ThirdLoginComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

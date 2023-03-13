@@ -1,5 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
@@ -28,6 +29,7 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   public userData: IUserData;
 
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _foodProfileService: FoodProfileService,
     private _sportProfileService: SportProfileService,
@@ -81,6 +83,9 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -194,8 +199,6 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
       (this.userPainList || []).map((s) => s.IdImpediment)
     );
     if (this.userData) {
-      // this.userData.isVegan = this.is_vegan?.value ? 1 : 0;
-      // this.userData.isvegetarian = this.is_vegetarian?.value ? 1 : 0;
       this.userData = {
         username: this.getGeneralStatus$?.username,
         name: this.getGeneralStatus$?.name,
@@ -242,11 +245,19 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
             console.log("🚀 XXX - FoodProfileComponent - res : ", res);
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.UPDATE")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
-        () => {}
+        () => {
+          this._statusService.spinnerHide();
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
+        }
       );
   }
   // @HostListener("window:updateGeneralData")

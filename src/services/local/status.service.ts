@@ -18,6 +18,7 @@ import {
   ValueSession,
 } from "src/models/general/session.interface";
 import { IThirdDataMap } from "src/models/third-data/third-data.interface";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class StatusService {
@@ -40,7 +41,10 @@ export class StatusService {
   private _valueSession: ValueSession[] = [];
   private _lastSession: ISetSession;
   private _thirdList: IThirdDataMap[];
-  constructor(private _spinner: NgxSpinnerService) {
+  constructor(
+    private _spinner: NgxSpinnerService,
+    private toastr: ToastrService
+  ) {
     this._status = new StatusModel(SPORTSMAN);
     this._status.contractType = FREE_CONTRACT;
     this._langLocation = {
@@ -304,5 +308,17 @@ export class StatusService {
     setTimeout(() => {
       this._spinner.hide();
     }, 500);
+  }
+  public toastSuccess(title: string, desc?: string) {
+    this.toastr.success(title, desc);
+  }
+  public toastError(title: string, desc?: string) {
+    this.toastr.error(title, desc);
+  }
+  public toastInfo(title: string, desc?: string) {
+    this.toastr.info(title, desc);
+  }
+  public toastWarning(title: string, desc?: string) {
+    this.toastr.warning(title, desc);
   }
 }

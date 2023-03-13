@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
@@ -23,6 +24,7 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
   public sportName: string;
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _eventsService: EventsService
   ) {}
@@ -115,12 +117,20 @@ export class CreateEventsComponent implements OnInit, OnDestroy {
               this._statusService.setEventsListScheduled(eventsListScheduled);
             }, 100);
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.CREATE")
+            );
           } else {
-            // XXX toast fail
             this._statusService.spinnerHide();
+            this._statusService.toastError(
+              this._translateService.instant("TOAST.ERROR")
+            );
           }
         },
         (err: any) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

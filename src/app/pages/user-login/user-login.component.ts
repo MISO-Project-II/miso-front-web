@@ -11,7 +11,7 @@ import { SPORTSMAN, THIRD } from "src/constanst/data.constants";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { removeSessionStorage } from "src/helper/sessionStorage.helper";
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-user-login",
   templateUrl: "./user-login.component.html",
@@ -27,7 +27,8 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _statusService: StatusService,
-    private _loginService: LoginService
+    private _loginService: LoginService,
+    private _translateService: TranslateService
   ) {
     this._version = environment.version;
   }
@@ -105,9 +106,15 @@ export class UserLoginComponent implements OnInit, OnDestroy {
           } else {
             this.username?.setErrors({ error_login: true });
             this._statusService.spinnerHide();
+            this._statusService.toastError(
+              this._translateService.instant("TOAST.ERROR")
+            );
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

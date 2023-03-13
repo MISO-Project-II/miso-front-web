@@ -22,7 +22,6 @@
     </div>
     <div class="col-12 col-md-9 mx-auto" *ngIf="!!getSportPlan$; else noItem">
       <app-ds-title [title]="getSportPlan$?.name! | translate"></app-ds-title>
-      <p>{{ getSportPlan$?.idSportPlan }}</p>
       <div class="body">
         <p>{{ getSportPlan$?.description! | translate }}</p>
         <div class="button-see p-2">

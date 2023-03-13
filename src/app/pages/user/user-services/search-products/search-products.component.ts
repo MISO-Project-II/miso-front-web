@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -32,6 +33,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   private _productSelected: IProducts;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private _translateService: TranslateService,
     private _productsService: ProductsService,
     private _statusService: StatusService
   ) {}
@@ -137,10 +139,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
-            // XXX
-            console.log(
-              "🚀 XXX - SearchProductsComponent - _callService - res : ",
-              res
+            this._statusService.toastInfo(
+              this._translateService.instant("TOAST.ENROLL")
             );
             this._statusService.spinnerHide();
           } else {
@@ -148,6 +148,9 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
