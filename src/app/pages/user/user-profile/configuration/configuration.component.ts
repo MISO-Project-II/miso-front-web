@@ -33,6 +33,9 @@ export class ConfigurationComponent implements OnInit {
     sessionStorage.setItem("lang", value);
     this._translateService.use(this.getLang);
     window.location.reload();
+    this._statusService.toastSuccess(
+      this._translateService.instant("TOAST.UPDATE")
+    );
   }
   get getVersion() {
     return this._version;
@@ -71,6 +74,9 @@ export class ConfigurationComponent implements OnInit {
   }
   public delFiles(): void {
     this._statusService.clearSetSessionData();
+    this._statusService.toastSuccess(
+      this._translateService.instant("TOAST.DELETE")
+    );
   }
 
   private _mapArrayList(arraylist: Array<T>): ValueSession[] {

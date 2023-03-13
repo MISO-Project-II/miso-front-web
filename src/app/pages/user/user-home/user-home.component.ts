@@ -43,6 +43,7 @@ import {
   OUTSIDE_OF_HOUSE,
   PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-user-home",
@@ -79,6 +80,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   routesRecommended: IRoutes[] = [];
 
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _userDataService: UserDataService,
     private _sportsService: SportsService,
@@ -302,6 +304,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -329,6 +334,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

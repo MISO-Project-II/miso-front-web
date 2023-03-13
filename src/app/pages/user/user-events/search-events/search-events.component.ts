@@ -1,4 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -33,6 +34,7 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
   private _eventSelected: IEvents;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private _translateService: TranslateService,
     private _eventsService: EventsService,
     private _statusService: StatusService
   ) {}
@@ -131,13 +133,18 @@ export class SearchEventsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IGenericResponse) => {
           if (!!res && res.success) {
-            // XXX
+            this._statusService.toastInfo(
+              this._translateService.instant("TOAST.ENROLL")
+            );
             this._statusService.spinnerHide();
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

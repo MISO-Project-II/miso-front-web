@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { IResSports, ISports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
@@ -25,6 +26,7 @@ export class SportProfileComponent implements OnInit, OnDestroy {
   public userPainList?: any[] = []; // IPains
   public userAllegiesList?: any[] = [];
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _sportProfileService: SportProfileService,
     private _sportsService: SportsService
@@ -230,6 +232,9 @@ export class SportProfileComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this._statusService.spinnerHide();
+          this._statusService.toastSuccess(
+            this._translateService.instant("TOAST.UPDATE")
+          );
         },
       });
   }

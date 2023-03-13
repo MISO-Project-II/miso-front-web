@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { StatusModel } from "src/models/local/status-model";
 import {
@@ -20,6 +21,7 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
   public formUserGeneralData: FormGroup;
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _userDataService: UserDataService
   ) {}
@@ -124,57 +126,6 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
       this.getHeight?.patchValue((this.getGeneralStatus$?.height || 0) * 100);
     }, 200);
     this._statusService.spinnerHide();
-
-    // this._userDataService
-    //   .getGeneralData(this.getGeneralStatus$.userId)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: IResUserData) => {
-    //       if (!!res && res.success) {
-    //         console.log(
-    //           "🚀 XXX - GeneralDataComponent - _loadGeneralData - res : ",
-    //           res
-    //         );
-    //         setTimeout(() => {
-    //           this.formUserGeneralData
-    //             .get("user")
-    //             ?.patchValue(res.result?.username);
-    //           this.formUserGeneralData
-    //             .get("name")
-    //             ?.patchValue(res.result?.name);
-    //           this.formUserGeneralData
-    //             .get("lastName")
-    //             ?.patchValue(res.result?.lastName);
-    //           this.formUserGeneralData
-    //             .get("IdType")
-    //             ?.patchValue(res.result?.idIdentificationType);
-    //           this.formUserGeneralData
-    //             .get("IdNumber")
-    //             ?.patchValue(res.result?.identificationNumber);
-    //           this.formUserGeneralData
-    //             .get("genre")
-    //             ?.patchValue(res.result?.gender);
-    //           let bornDate = new Date(res.result?.age || "");
-    //           this.formUserGeneralData
-    //             .get("age")
-    //             ?.patchValue(formatDate(bornDate, "yyyy-MM-dd", "en"));
-    //           this.formUserGeneralData
-    //             .get("weight")
-    //             ?.patchValue(res.result?.weight);
-    //           this.getHeight?.patchValue(
-    //             ((res.result && res.result.height) || 0) * 100
-    //           );
-    //         }, 200);
-    //         this._statusService.spinnerHide();
-    //       } else {
-    //         this._statusService.spinnerHide();
-    //       }
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this._statusService.spinnerHide();
-    //     }
-    //   );
   }
 
   public onSubmitGeneralData(): void {
@@ -272,11 +223,17 @@ export class GeneralDataComponent implements OnInit, OnDestroy {
             }, 200);
             // }, 100);
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.UPDATE")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

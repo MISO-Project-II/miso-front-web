@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import {
   ICity,
@@ -37,6 +38,7 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
   private _homeUbication: ILocation;
 
   constructor(
+    private _translateService: TranslateService,
     private fb: FormBuilder,
     private _ubicationService: UbicationService,
     private _statusService: StatusService,
@@ -209,6 +211,9 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -315,11 +320,17 @@ export class GeographicProfileComponent implements OnInit, OnDestroy {
             );
             window.dispatchEvent(new CustomEvent("updateGeneralData"));
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.UPDATE")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

@@ -5,6 +5,7 @@ import {
 } from "./../../../../models/general/session.interface";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -58,6 +59,7 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   public averageData: ISetSession;
   public false: boolean = false;
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _sessionService: SessionService
   ) {}
@@ -140,7 +142,12 @@ export class UserSessionComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {}
 
-  public startTimer() {
+  public startTimer(start?: string) {
+    if (start) {
+      this._statusService.toastInfo(
+        this._translateService.instant("TOAST.INFO_START")
+      );
+    }
     this.isSession = !this.isSession;
     if (this.isSession) {
       this.startText = STOP;
@@ -278,6 +285,9 @@ export class UserSessionComponent implements OnInit, OnDestroy {
       (err) => {
         console.error(err);
         this._statusService.spinnerHide();
+        this._statusService.toastError(
+          this._translateService.instant("TOAST.ERROR")
+        );
       }
     );
   }
@@ -292,7 +302,11 @@ export class UserSessionComponent implements OnInit, OnDestroy {
     // console.log('🚀 XXX - UserSessionComponent - _callService - data : ', data);
     setTimeout(() => {
       this._statusService.setLastSessionData(data);
+      this._statusService.toastInfo(
+        this._translateService.instant("TOAST.INFO_STOP")
+      );
     }, 100);
+
     //     }
     //     this._statusService.spinnerHide();
     //   },

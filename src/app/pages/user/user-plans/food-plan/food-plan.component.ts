@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import {
   INSIDE_OF_HOUSE,
@@ -30,6 +31,7 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
   private _foodPlanSelected: IFoodPlans;
   private _foodRoutines: FoodRoutineList;
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _userDataService: UserDataService,
     private _router: Router
@@ -108,11 +110,17 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
               ]);
             }, 100);
             this._statusService.spinnerHide();
+            this._statusService.toastInfo(
+              this._translateService.instant("TOAST.ENROLL")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

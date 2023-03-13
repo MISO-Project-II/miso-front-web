@@ -20,6 +20,7 @@ import { SPORTSMAN } from "src/constanst/data.constants";
 import { UbicationService } from "src/services/general/ubication.service";
 import { ROOT_ROUTES_NAMES } from "src/app/app.routing";
 import { SportProfileService } from "src/services/profile/sport-profile.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-user-register",
@@ -48,6 +49,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   public isVegan: boolean = false;
   public isVegetarian: boolean = false;
   constructor(
+    private _translateService: TranslateService,
     private _router: Router,
     private _statusService: StatusService,
     private _userRegisterService: UserRegisterService,
@@ -305,6 +307,9 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
           }
         },
         (err: any) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -340,13 +345,22 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       (data) => {
         // XXX Validar rta
         if (!!data) {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           this._router.navigate([ROOT_ROUTES_NAMES.USER_LOGIN]);
           this._statusService.spinnerHide();
+          this._statusService.toastSuccess(
+            this._translateService.instant("TOAST.CREATE")
+          );
         } else {
           this._statusService.spinnerHide();
         }
       },
       (err: any) => {
+        this._statusService.toastError(
+          this._translateService.instant("TOAST.ERROR")
+        );
         console.error(err);
         this._statusService.spinnerHide();
       }

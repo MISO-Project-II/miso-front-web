@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, Observable, takeUntil } from "rxjs";
 import {
   FREE_CONTRACT,
@@ -33,6 +34,7 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _productsService: ProductsService
   ) {}
@@ -152,6 +154,9 @@ export class ActualProductsComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

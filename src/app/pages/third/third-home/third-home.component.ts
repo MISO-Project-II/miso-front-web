@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { IResSports } from "src/models/general/sports.interface";
 import { StatusModel } from "src/models/local/status-model";
@@ -15,6 +16,7 @@ import { UserDataService } from "src/services/user-data/user-data.service";
 export class ThirdHomeComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _userDataService: UserDataService,
     private _sportsService: SportsService
@@ -94,6 +96,9 @@ export class ThirdHomeComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
