@@ -124,6 +124,11 @@
               <summary>
                 <app-ds-title [title]="getSportPlan$?.name!"></app-ds-title>
               </summary>
+              <div class="d-flex">
+                <label>{{ "LBL.CALORIES_2" | translate }}</label>
+                <p>{{ getSportPlan$?.calories }}</p>
+                cal.
+              </div>
               <div class="table-container">
                 <table class="table table-hover" style="background-color: #fff">
                   <tbody>
@@ -159,6 +164,11 @@
               <summary>
                 <app-ds-title [title]="getFoodPlan$?.name!"></app-ds-title>
               </summary>
+              <div class="d-flex">
+                <label>{{ "LBL.CALORIES_2" | translate }}</label>
+                <p>{{ getFoodPlan$?.calories }}</p>
+                cal.
+              </div>
               <div class="table-container">
                 <table class="table table-hover" style="background-color: #fff">
                   <tbody>
@@ -180,8 +190,6 @@
                             routine.foodFrecuency.hour
                           }}
                         </p>
-                        <label>{{ "LBL.FREQUENCY" | translate }}</label>
-                        <p>{{ routine.foodFrecuency.dayLetter }}</p>
                       </td>
                     </tr>
                   </tbody>

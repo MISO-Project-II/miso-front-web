@@ -123,6 +123,7 @@
     "EXERCISE": "Ejercicio",
     "CALORIES": "Calorías: ",
     "CALORIES_1": "(calorías)",
+    "CALORIES_2": "Calorias objetivo para este plan: ",
     "MIN_1": "(min)",
     "SUGGESTED_EXERCISES": "Ejercicios sugeridos: ",
     "SUGGESTED_FOODS": "Alimentos sugeridos: ",
@@ -237,7 +238,7 @@
     "NO_DATA": "No hay datos en este momento"
   },
   "TOAST": {
-    "ERROR": "Ha ocurrido un error, por favor inente mas tarde ❌",
+    "ERROR": "Ha ocurrido un error, por favor intente mas tarde ❌",
     "CREATE": "Se ha creado correctamente ✅",
     "UPDATE": "Se ha actualizado correctamente 👌",
     "DELETE": "Se ha eliminado correctamente 👍",

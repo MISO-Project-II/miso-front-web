@@ -10,8 +10,11 @@ import {
 } from "src/models/user-data/user-data.interface";
 import { StatusService } from "src/services/local/status.service";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { StatusModel } from "src/models/local/status-model";
 import { UserDataService } from "src/services/user-data/user-data.service";
@@ -28,6 +31,9 @@ export class SportPlanComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   private _sportPlanSelected: ISportPlans;
   private _sportRoutines: SportRoutineList;
 

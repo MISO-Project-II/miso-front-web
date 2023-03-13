@@ -56,6 +56,14 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   public FREE_CONTRACT: string = FREE_CONTRACT;
   public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
+
+  private _contractTypeList: string[] = [
+    FREE_CONTRACT,
+    INTERMEDIATE_CONTRACT,
+    PREMIUM_CONTRACT,
+  ];
+  private _eventTypeList: string[] = [INSIDE_OF_HOUSE, OUTSIDE_OF_HOUSE];
+
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   eventSelected: any;
   calendarOptions: CalendarOptions = {
@@ -102,6 +110,8 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this._loadSportPlans();
     this._loadFoodPlans();
     this._loadGeneralDataThird();
+    this._loadSportPlans();
+    this._loadFoodPlans();
   }
   ngOnDestroy(): void {
     this._destroy$.next(true);
@@ -525,8 +535,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             res
           );
           setTimeout(() => {
-            this._statusService.setSportPlansList(res);
-            let sportPlans = res.filter(
+            let mapRes = this._mapSportPlans(res);
+            this._statusService.setSportPlansList(mapRes);
+            let sportPlans = mapRes.filter(
               (p) => p.sportRoutineList && p.sportRoutineList.length > 0
             );
             if (sportPlans.length > 0) {
@@ -554,8 +565,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
             res
           );
           setTimeout(() => {
-            this._statusService.setFoodPlansList(res);
-            let foodPlans = res.filter(
+            let mapRes = this._mapFoodPlans(res);
+            this._statusService.setFoodPlansList(mapRes);
+            let foodPlans = mapRes.filter(
               (f) => f.foodRoutineList && f.foodRoutineList.length > 0
             );
             if (foodPlans.length > 0) {
@@ -584,5 +596,43 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+
+  private _mapFoodPlans(foodPlans: IFoodPlans[]): IFoodPlans[] {
+    return foodPlans.map((data: IFoodPlans) => {
+      return {
+        idFoodPlan: data.idFoodPlan,
+        name: data.name,
+        description: data.description,
+        planType: data.planType,
+        foodRoutineList: data.foodRoutineList,
+        calories: data.calories ? data.calories : this.getRandomInt(1500),
+        eventType:
+          this._eventTypeList[
+            Math.floor(Math.random() * this._eventTypeList.length)
+          ],
+      };
+    });
+  }
+  private _mapSportPlans(sportPlans: ISportPlans[]): ISportPlans[] {
+    return sportPlans.map((data: ISportPlans) => {
+      return {
+        idSportPlan: data.idSportPlan,
+        name: data.name,
+        description: data.description,
+        planType: data.planType,
+        sportRoutineList: data.sportRoutineList,
+        calories: data.calories ? data.calories : this.getRandomInt(1500),
+        eventType:
+          this._eventTypeList[
+            Math.floor(Math.random() * this._eventTypeList.length)
+          ],
+      };
+    });
+  }
+  private getRandomInt(avg: number) {
+    let min = avg - 500;
+    let max = avg + 500;
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 }

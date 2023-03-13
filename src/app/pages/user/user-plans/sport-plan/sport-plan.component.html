@@ -24,6 +24,23 @@
       <app-ds-title [title]="getSportPlan$?.name! | translate"></app-ds-title>
       <div class="body">
         <p>{{ getSportPlan$?.description! | translate }}</p>
+        <label class="d-flex"
+          >{{ "LBL.CALORIES_2" | translate }}:
+          <p>{{ getSportPlan$?.calories! }} cal.</p></label
+        >
+        <div
+          *ngIf="getSportPlan$?.eventType"
+          class="alert alert-secondary"
+          role="alert"
+        >
+          <label>{{
+            getSportPlan$?.eventType === INSIDE_OF_HOUSE
+              ? ("LBL.INSIDE_OF_HOUSE" | translate)
+              : getSportPlan$?.eventType === OUTSIDE_OF_HOUSE
+              ? ("LBL.OUTSIDE_OF_HOUSE" | translate)
+              : ""
+          }}</label>
+        </div>
         <div class="button-see p-2">
           <button
             type="button"
