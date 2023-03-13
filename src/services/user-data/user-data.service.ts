@@ -51,14 +51,13 @@ export class UserDataService {
   }
   updatePlan(idUser: number): Observable<IResUserData> {
     this._baseUrl =
-      "https://miso-user-6equtupdiq-uc.a.run.app/general_data/update-plan";
+      "https://cem2a935b5.execute-api.us-east-1.amazonaws.com/api/v1/general_data/update-plan";
+    // this._baseUrl =
+    //   "https://miso-user-6equtupdiq-uc.a.run.app/general_data/update-plan";
     return this._http
-      .get<IResUserData>(
-        this._baseUrl + "/" + idUser
-        // {
-        //   headers: this._httpHeaders,
-        // }
-      )
+      .get<IResUserData>(this._baseUrl + "/" + idUser, {
+        headers: this._httpHeaders,
+      })
       .pipe(
         retry(5),
         catchError((err: any) => {

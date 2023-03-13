@@ -2,6 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subject, takeUntil } from "rxjs";
+import { IResFood } from "src/models/home/food-plans.interface";
 import { StatusModel } from "src/models/local/status-model";
 import {
   IResUserData,
@@ -106,6 +107,18 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
             this.userAllergiesList =
               response.result.impediments["ALLERGY"] || [];
             this.intolerances?.patchValue(this.userAllergiesList);
+          }
+        },
+        error: () => {},
+      });
+    // XXX
+    this._foodProfileService
+      .getFoodsByUser(this.getGeneralStatus.userId)
+      .subscribe({
+        next: (response: IResFood) => {
+          if (response.success && response.result) {
+            this.listFoodPreference = response.result || [];
+            this.foods_preference?.patchValue(this.userAllergiesList);
           }
         },
         error: () => {},
@@ -228,6 +241,14 @@ export class FoodProfileComponent implements OnInit, OnDestroy {
   ): void {
     this._statusService.spinnerShow();
     // Falta Enviar FOODS
+    this._foodProfileService
+      .putFoodsByUser(this.getGeneralStatus.userId, listFoods)
+      .subscribe({
+        next: () => {
+          // XXX Validar rta
+          this._statusService.spinnerHide();
+        },
+      });
     this._sportProfileService
       .postImpedimentsByUser(this.getGeneralStatus.userId, listImpediments)
       .subscribe({

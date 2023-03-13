@@ -1,3 +1,5 @@
+import { IGenericResponse } from "../local/generic.interface";
+
 export interface FoodFrecuency {
   idFoodFrecuency: number;
   minute: number;
@@ -21,6 +23,10 @@ export interface Food {
   foodType: FoodType;
 }
 
+export interface IResFood extends IGenericResponse {
+  result?: Food[];
+}
+
 export interface FoodRoutineList {
   idFoodRoutine: number;
   foodFrecuency: FoodFrecuency;
@@ -33,6 +39,8 @@ export interface IFoodPlans {
   idFoodPlan: number;
   name: string;
   description: string;
-  planType: string;
   foodRoutineList: FoodRoutineList[];
+  calories?: number;
+  contractType: string;
+  eventType: string;
 }

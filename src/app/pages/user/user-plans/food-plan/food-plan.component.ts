@@ -3,8 +3,11 @@ import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import {
+  FREE_CONTRACT,
   INSIDE_OF_HOUSE,
+  INTERMEDIATE_CONTRACT,
   OUTSIDE_OF_HOUSE,
+  PREMIUM_CONTRACT,
 } from "src/constanst/data.constants";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import {
@@ -28,6 +31,9 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public INSIDE_OF_HOUSE: string = INSIDE_OF_HOUSE;
   public OUTSIDE_OF_HOUSE: string = OUTSIDE_OF_HOUSE;
+  public FREE_CONTRACT: string = FREE_CONTRACT;
+  public INTERMEDIATE_CONTRACT: string = INTERMEDIATE_CONTRACT;
+  public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
   private _foodPlanSelected: IFoodPlans;
   private _foodRoutines: FoodRoutineList;
   constructor(
@@ -66,6 +72,11 @@ export class FoodPlanComponent implements OnInit, OnDestroy {
   get getIdFoodPlan$(): number {
     return this.getGeneralStatus$.idFoodPlan;
   }
+  get getContractType$(): string {
+    return this._statusService.getGeneralStatus().contractType;
+  }
+
+  // && getContractType$ === INTERMEDIATE_CONTRACT ? true : false || getContractType$ === FREE_CONTRACT ? true : false || getContractType$ === PREMIUM_CONTRACT ? true : false
 
   public selectFoodPlan(idFoodPlan: number): void {
     const data: IUserData = {

@@ -5,7 +5,8 @@ export const MockGetAllFoodPlans: IFoodPlans[] = [
     idFoodPlan: 1,
     name: "Plan Más carne que tomate",
     description: "Ganar mayor masa muscular",
-    planType: "FREE",
+    contractType: "FREE_CONTRACT",
+    eventType: "INSIDE_OF_HOUSE",
     foodRoutineList: [
       {
         idFoodRoutine: 3,
@@ -51,7 +52,8 @@ export const MockGetAllFoodPlans: IFoodPlans[] = [
     idFoodPlan: 2,
     name: "Plan Más carne ",
     description: "Ganar mayor masa muscular solo con carne",
-    planType: "PREMIUM",
+    contractType: "FREE_CONTRACT",
+    eventType: "INSIDE_OF_HOUSE",
     foodRoutineList: [
       {
         idFoodRoutine: 3,
@@ -71,7 +73,8 @@ export const MockGetAllFoodPlans: IFoodPlans[] = [
     idFoodPlan: 3,
     name: "Plan Más carne que tomate II",
     description: "Ganar mayor masa muscular II",
-    planType: "FREE",
+    contractType: "FREE_CONTRACT",
+    eventType: "INSIDE_OF_HOUSE",
     foodRoutineList: [
       {
         idFoodRoutine: 2,

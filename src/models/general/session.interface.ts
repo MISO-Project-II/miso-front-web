@@ -23,6 +23,7 @@ export interface ISession {
 }
 
 export interface ValueSession {
+  id?: number;
   value: number;
   label: string;
   append: string;
@@ -31,6 +32,7 @@ export interface ValueSession {
 }
 
 export interface ISetSession {
+  id?: number;
   startSession: string;
   endSession: string;
   calories: number;

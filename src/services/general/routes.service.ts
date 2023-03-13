@@ -15,7 +15,7 @@ export class RoutesService {
   private _baseUrl: string;
   private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
-    // this._baseUrl = environment.api.base + environment.api.routes;
+    // this._baseUrl = environment.api.base + environment.api.paths;
     // XXX CORS
     this._baseUrl = "https://miso-back-path-6equtupdiq-uc.a.run.app/paths";
     this._httpHeaders = new HttpHeaders(environment.api.headers2);
@@ -24,7 +24,7 @@ export class RoutesService {
     return this._http
       .get<IRoutes[]>(this._baseUrl, { headers: this._httpHeaders })
       .pipe(
-        retry(3),
+        retry(1),
         catchError((err: any) => {
           return throwError(err);
         })

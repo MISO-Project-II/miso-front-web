@@ -82,7 +82,7 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   get getLastSessionData$(): ISetSession {
     return this._statusService.getLastSessionData();
   }
-  get getSessionService$(): Observable<ISetSession> {
+  get getSessionService$(): Observable<ISetSession[]> {
     return this._sessionService.getSession();
   }
 
@@ -160,6 +160,22 @@ export class UserSessionComponent implements OnInit, OnDestroy {
         );
         this.sessionData = this._avgSessionValues();
       }, 1000);
+      if (
+        this.getSportPlan$?.calories ===
+        this.getLastSessionData$?.calories + 200
+      ) {
+        this._statusService.toastInfo(
+          this._translateService.instant("TOAST.SESSION_OK")
+        );
+      }
+      if (
+        this.getSportPlan$?.calories ===
+        this.getLastSessionData$?.calories + 200
+      ) {
+        this._statusService.toastInfo(
+          this._translateService.instant("TOAST.SESSION_BAD")
+        );
+      }
     } else {
       this.startText = RESUME;
       clearInterval(this.timerRef);
@@ -268,14 +284,14 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   }
   private _loadSession(): void {
     this.getSessionService$.pipe(takeUntil(this._destroy$)).subscribe(
-      (res: ISetSession) => {
+      (res: ISetSession[]) => {
         if (!!res) {
           console.log(
             "🚀 XXX - UserSessionComponent - _loadSession - res : ",
             res
           );
           setTimeout(() => {
-            this._statusService.setLastSessionData(res!);
+            this._statusService.setLastSessionData(res![res.length - 1]);
           }, 100);
           this._statusService.spinnerHide();
         } else {
@@ -293,27 +309,29 @@ export class UserSessionComponent implements OnInit, OnDestroy {
   }
   private _callService(data: ISetSession): void {
     // XXX Actualizar envio de servicio Session
-    // this._sessionService
-    //   .postSession(data)
-    //   .pipe(takeUntil(this._destroy$))
-    //   .subscribe(
-    //     (res: ISetSession) => {
-    //       if (!!res) {
-    // console.log('🚀 XXX - UserSessionComponent - _callService - data : ', data);
-    setTimeout(() => {
-      this._statusService.setLastSessionData(data);
-      this._statusService.toastInfo(
-        this._translateService.instant("TOAST.INFO_STOP")
+    this._sessionService
+      .postSession(data)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        (res: ISetSession) => {
+          if (!!res) {
+            console.log(
+              "🚀 XXX - UserSessionComponent - _callService - data : ",
+              data
+            );
+            setTimeout(() => {
+              this._statusService.setLastSessionData(data);
+              this._statusService.toastInfo(
+                this._translateService.instant("TOAST.INFO_STOP")
+              );
+            }, 100);
+          }
+          this._statusService.spinnerHide();
+        },
+        (err: any) => {
+          console.error(err);
+          this._statusService.spinnerHide();
+        }
       );
-    }, 100);
-
-    //     }
-    //     this._statusService.spinnerHide();
-    //   },
-    //   (err: any) => {
-    //     console.error(err);
-    //     this._statusService.spinnerHide();
-    //   }
-    // );
   }
 }

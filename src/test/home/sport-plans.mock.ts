@@ -5,7 +5,8 @@ export const MockGetAllSportPlans: ISportPlans[] = [
     idSportPlan: 1,
     name: "string",
     description: "string",
-    planType: "FREE_CONTRACT",
+    contractType: "FREE_CONTRACT",
+    eventType: "INSIDE_OF_HOUSE",
     sportRoutineList: [
       {
         idSportRoutine: 1,

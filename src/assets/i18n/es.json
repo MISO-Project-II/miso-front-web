@@ -123,6 +123,7 @@
     "EXERCISE": "Ejercicio",
     "CALORIES": "Calorías: ",
     "CALORIES_1": "(calorías)",
+    "CALORIES_2": "Calorias objetivo para este plan: ",
     "MIN_1": "(min)",
     "SUGGESTED_EXERCISES": "Ejercicios sugeridos: ",
     "SUGGESTED_FOODS": "Alimentos sugeridos: ",
@@ -237,14 +238,16 @@
     "NO_DATA": "No hay datos en este momento"
   },
   "TOAST": {
-    "ERROR": "Ha ocurrido un error, por favor inente mas tarde ❌",
+    "ERROR": "Ha ocurrido un error, por favor intente mas tarde ❌",
     "CREATE": "Se ha creado correctamente ✅",
     "UPDATE": "Se ha actualizado correctamente 👌",
     "DELETE": "Se ha eliminado correctamente 👍",
     "ENROLL": "Se ha inscrito correctamente 👏",
     "ALERT": "ALERT",
     "INFO_STOP": "Se ha actualizado los valores promedio 📲",
-    "INFO_START": "Se ha iniciado la sesión deportiva 🏋"
+    "INFO_START": "Se ha iniciado la sesión deportiva 🏋",
+    "SESSION_OK": "Llevas un buen ritmo, sigue asi 👌",
+    "SESSION_BAD": "Contina mas fuerte esta vez"
   },
   "LIST_DATA": {
     "FREE_CONTRACT_SERVICES": [

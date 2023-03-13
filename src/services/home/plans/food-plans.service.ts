@@ -15,6 +15,7 @@ export class FoodPlansService {
   private _httpHeaders: HttpHeaders;
   constructor(private _http: HttpClient) {
     // this._baseUrl = environment.api.base + environment.api.food_plans;
+    // CORS
     this._baseUrl = "https://miso-back-food-6equtupdiq-uc.a.run.app/food-plan";
     this._httpHeaders = new HttpHeaders(environment.api.headers2);
   }
