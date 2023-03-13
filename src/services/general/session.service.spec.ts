@@ -7,7 +7,7 @@ import { getTestBed, TestBed } from "@angular/core/testing";
 import { SessionService } from "./session.service";
 import { environment } from "src/environments/environment";
 
-xdescribe("SessionService", () => {
+describe("SessionService", () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: SessionService;
@@ -34,9 +34,21 @@ xdescribe("SessionService", () => {
 
   it("GetAll SessionService", () => {
     service.getSession().subscribe((data) => expect(data).toBeTruthy());
+    // const url = environment.api.base + environment.api.session;
+    // const req = httpMock.expectOne(url);
+    // expect(req.request.method).toBe("GET");
+    // req.flush({});
+  });
+  it("POST postSession", () => {
+    service.postSession({
+      startSession: "",
+      endSession: "",
+      calories: 0,
+      values: []
+    }).subscribe((data) => expect(data).toBeTruthy());
     const url = environment.api.base + environment.api.session;
     const req = httpMock.expectOne(url);
-    expect(req.request.method).toBe("GET");
+    expect(req.request.method).toBe("POST");
     req.flush({});
   });
 });

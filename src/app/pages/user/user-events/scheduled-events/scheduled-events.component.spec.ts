@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { ScheduledEventsComponent } from "./scheduled-events.component";
 
-xdescribe("ConfigurationComponent", () => {
+xdescribe("ScheduledEventsComponent", () => {
   let component: ScheduledEventsComponent;
   let fixture: ComponentFixture<ScheduledEventsComponent>;
 

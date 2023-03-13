@@ -30,4 +30,24 @@ describe("UbicationService", () => {
   it("should be created", () => {
     expect(service).toBeTruthy();
   });
+  it("GET getCountries", () => {
+    let countries = service.getCountries();
+    expect(countries).toBeTruthy();
+  });
+  it("GET getCountry", () => {
+    let country = service.getCountry('CO');
+    expect(country).toBeTruthy();
+  });
+  it("GET getStatesByCountry", () => {
+    let states = service.getStatesByCountry('CO');
+    expect(states).toBeTruthy();
+  });
+  it("GET getCitiesBtStateByCountry", () => {
+    let cities = service.getCitiesBtStateByCountry('CO', 'BOY');
+    expect(cities).toBeTruthy();
+  });
+  it("GET getCitiesByCountry", () => {
+    let cities = service.getCitiesByCountry('CO');
+    expect(cities).toBeTruthy();
+  });
 });

@@ -36,26 +36,26 @@ export class SportsService {
     // const mock = of(MockResErrorSports);
     // return mock;
   }
-  getDisabilities(): Observable<IResDisabilities> {
-    const url = `${this._baseUrl}${environment.api.disabilities}`;
-    return this._http
-      .get<IResDisabilities>(url, { headers: this._httpHeaders })
-      .pipe(
-        retry(3),
-        catchError((err: any) => {
-          return throwError(err);
-        })
-      );
-  }
-  getPains(): Observable<IResPains> {
-    const url = `${this._baseUrl}${environment.api.pains}`;
-    return this._http.get<IResPains>(url, { headers: this._httpHeaders }).pipe(
-      retry(3),
-      catchError((err: any) => {
-        return throwError(err);
-      })
-    );
-  }
+  // getDisabilities(): Observable<IResDisabilities> {
+  //   const url = `${this._baseUrl}${environment.api.disabilities}`;
+  //   return this._http
+  //     .get<IResDisabilities>(url, { headers: this._httpHeaders })
+  //     .pipe(
+  //       retry(3),
+  //       catchError((err: any) => {
+  //         return throwError(err);
+  //       })
+  //     );
+  // }
+  // getPains(): Observable<IResPains> {
+  //   const url = `${this._baseUrl}${environment.api.pains}`;
+  //   return this._http.get<IResPains>(url, { headers: this._httpHeaders }).pipe(
+  //     retry(3),
+  //     catchError((err: any) => {
+  //       return throwError(err);
+  //     })
+  //   );
+  // }
   /**Obtener todos los datos relacionados con usuario */
   getSportsByUser(idData: number): Observable<IResSports> {
     // return this._http.get<IResSports>(`${this._baseUrl}/${idData}`);

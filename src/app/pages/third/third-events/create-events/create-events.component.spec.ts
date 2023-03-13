@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { CreateEventsComponent } from "./create-events.component";
 
-xdescribe("ConfigurationComponent", () => {
+xdescribe("CreateEventsComponent", () => {
   let component: CreateEventsComponent;
   let fixture: ComponentFixture<CreateEventsComponent>;
 

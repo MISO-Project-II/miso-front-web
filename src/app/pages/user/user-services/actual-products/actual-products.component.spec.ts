@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { ActualProductsComponent } from "./actual-products.component";
 
-xdescribe("ConfigurationComponent", () => {
+xdescribe("ActualProductsComponent", () => {
   let component: ActualProductsComponent;
   let fixture: ComponentFixture<ActualProductsComponent>;
 

@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { SearchEventsComponent } from "./search-events.component";
 
-xdescribe("ConfigurationComponent", () => {
+xdescribe("SearchEventsComponent", () => {
   let component: SearchEventsComponent;
   let fixture: ComponentFixture<SearchEventsComponent>;
 

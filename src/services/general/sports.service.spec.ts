@@ -6,6 +6,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
 import { getTestBed, TestBed } from "@angular/core/testing";
 import { SportsService } from "./sports.service";
 import { environment } from "src/environments/environment";
+import { MockResSuccessGetSports } from "src/test/general/sports.mock";
 
 describe("SportsService", () => {
   let injector: TestBed;
@@ -38,5 +39,8 @@ describe("SportsService", () => {
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe("GET");
     req.flush({});
+  });
+  it("GET getSportsByUser", () => {
+    service.getSportsByUser(1).subscribe((data) => expect(data).toBeTruthy());
   });
 });

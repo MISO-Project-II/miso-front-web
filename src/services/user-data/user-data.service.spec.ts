@@ -9,7 +9,7 @@ import { UserDataService } from "./user-data.service";
 import { IUserData } from "src/models/user-data/user-data.interface";
 import { MockUserData } from "src/test/user-data/user-data.mock";
 
-xdescribe("UserDataService", () => {
+describe("UserDataService", () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: UserDataService;
@@ -55,6 +55,17 @@ xdescribe("UserDataService", () => {
       environment.api.base + environment.api.general_data + "/" + userId;
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe("PUT");
+    req.flush({});
+  });
+  it("GET getGeneralDataThird", () => {
+    const userId: number = 1;
+    service
+      .getGeneralDataThird()
+      .subscribe((data) => expect(data).toBeTruthy());
+    const url =
+    environment.api.base + environment.api.general_data + "/thirds";
+    const req = httpMock.expectOne(url);
+    expect(req.request.method).toBe("GET");
     req.flush({});
   });
 });

@@ -5,7 +5,7 @@ import { DebugElement } from "@angular/core";
 
 import { CreateServicesComponent } from "./create-services.component";
 
-xdescribe("ConfigurationComponent", () => {
+xdescribe("CreateServicesComponent", () => {
   let component: CreateServicesComponent;
   let fixture: ComponentFixture<CreateServicesComponent>;
 
