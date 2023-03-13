@@ -1,6 +1,5 @@
 <div id="main-sport-profile" class="p-3 p-sm-0">
   <hr />
-  <!-- <p>XXX - sportsServiceGetAll {{ sportsServiceGetAll | json }}</p> -->
   <form
     [formGroup]="formUserSportProfile"
     (ngSubmit)="onSubmitSportProfile()"
@@ -81,7 +80,7 @@
             "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
-        <div class="ds-input-group mt-3">
+        <!-- <div class="ds-input-group mt-3">
           <app-ds-title
             [title]="'LBL.PRACTICE_HOURS' | translate"
           ></app-ds-title>
@@ -93,7 +92,7 @@
             aria-describedby="practice_hours_input"
             [placeholder]="'PLACEHOLDER.HOUR' | translate"
           />
-        </div>
+        </div> -->
       </div>
       <div class="col-12 col-md-6 max-width mx-auto">
         <div class="ds-input-group mt-3">
@@ -177,7 +176,7 @@
             "ERR.SUGGESTED_FIELD" | translate
           }}</small>
         </div>
-        <div class="ds-input-group mt-3">
+        <!-- <div class="ds-input-group mt-3">
           <app-ds-title
             [title]="'LBL.SPORTS_HISTORY' | translate"
           ></app-ds-title>
@@ -187,7 +186,7 @@
             id="sports_history_input"
             rows="2"
           ></textarea>
-        </div>
+        </div> -->
         <div class="ds-button-continue p-2">
           <button id="btn-continue" type="submit" class="btn ds-button">
             {{ "BTN.UPDATE" | translate }}

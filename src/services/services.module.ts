@@ -18,7 +18,7 @@ import { UpdatePlanService } from "./update-plan/update-plan.service";
 import { SportPlansService } from "./home/plans/sport-plans.service";
 import { FoodPlansService } from "./home/plans/food-plans.service";
 import { SessionService } from "./general/session.service";
-
+import { ToastrService } from "ngx-toastr";
 @NgModule({
   imports: [CommonModule],
 })
@@ -59,6 +59,8 @@ export class ServicesModule {
 
         UbicationService,
         SessionService,
+
+        ToastrService,
       ],
     };
   }

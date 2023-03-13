@@ -123,6 +123,7 @@
     "EXERCISE": "Exercise",
     "CALORIES": "Calories: ",
     "CALORIES_1": "(calories)",
+    "CALORIES_2": "Calorias objetivo para este plan: ",
     "MIN_1": "(min)",
     "SUGGESTED_EXERCISES": "Suggested Exercises: ",
     "SUGGESTED_FOODS": "Suggested foods: ",
@@ -235,6 +236,16 @@
     "WRONG_USER_PASSWORD": "Wrong User or password",
     "PAGE_NOT_FOUND": "Page not found",
     "NO_DATA": "No data available"
+  },
+  "TOAST": {
+    "ERROR": "An error has occurred, please try again later ❌",
+    "CREATE": "It has been created successfully ✅",
+    "UPDATE": "It has been updated successfully 👌",
+    "DELETE": "It has been successfully removed 👍",
+    "ENROLL": "You have successfully enrolled 👏",
+    "ALERT": "ALERT",
+    "INFO_STOP": "Average values ​​have been updated 📲",
+    "INFO_START": "The sports session has started 🏋"
   },
   "LIST_DATA": {
     "FREE_CONTRACT_SERVICES": [

@@ -1,5 +1,5 @@
 # SportApp
-    * Version: 1.25.5
+    * Version: 1.25.8
 ## Atomic Design
     
 # Info
@@ -27,6 +27,7 @@
     * npm i ngx-chronometer --save
     * npm i xlsx --save
     * Info KCal https://colegiosaintmaurices.cl/wp-content/uploads/2020/04/Electivo-Ciencias-del-ejercicio-f%C3%ADsico-y-deportivo-Gu%C3%ADa-3.pdf
+    * npm i ngx-toastr@15.2.2 --save
 # Commands
     * ng new SportApp
     * ng serve

@@ -1,6 +1,6 @@
 {
   "name": "sport-app",
-  "version": "1.25.5",
+  "version": "1.25.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -39,6 +39,7 @@
     "jquery": "^3.6.1",
     "ngx-gauge": "^6.0.0",
     "ngx-spinner": "^14.0.0",
+    "ngx-toastr": "^15.2.2",
     "popper.js": "^1.16.1",
     "rxjs": "~7.5.0",
     "xlsx": "^0.18.5",

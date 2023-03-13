@@ -35,4 +35,6 @@ export interface IFoodPlans {
   description: string;
   planType: string;
   foodRoutineList: FoodRoutineList[];
+  calories?: number;
+  eventType?: string;
 }

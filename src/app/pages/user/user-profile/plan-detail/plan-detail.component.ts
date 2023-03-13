@@ -23,6 +23,7 @@ import { UpdatePlanService } from "src/services/update-plan/update-plan.service"
 import { UserDataService } from "src/services/user-data/user-data.service";
 import { ROUTES_NAMES } from "src/constanst/routes";
 import { IProducts } from "src/models/home/products.interface";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-plan-detail",
@@ -36,6 +37,7 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
   public PREMIUM_CONTRACT: string = PREMIUM_CONTRACT;
 
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _updatePlanService: UpdatePlanService,
     private _eventsService: EventsService,
@@ -148,6 +150,9 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -179,6 +184,9 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -205,6 +213,9 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }
@@ -298,11 +309,17 @@ export class PlanDetailComponent implements OnInit, OnDestroy {
               ]);
             }, 100);
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.UPDATE")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

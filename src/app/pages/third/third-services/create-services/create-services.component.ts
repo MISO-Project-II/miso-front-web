@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { ISports } from "src/models/general/sports.interface";
 import { IServices, IResService } from "src/models/home/services.interface";
@@ -17,6 +18,7 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<boolean> = new Subject<boolean>();
   public sportName: string;
   constructor(
+    private _translateService: TranslateService,
     private _statusService: StatusService,
     private _servicesService: ServicesService
   ) {}
@@ -108,11 +110,17 @@ export class CreateServicesComponent implements OnInit, OnDestroy {
               );
             }, 100);
             this._statusService.spinnerHide();
+            this._statusService.toastSuccess(
+              this._translateService.instant("TOAST.CREATE")
+            );
           } else {
             this._statusService.spinnerHide();
           }
         },
         (err) => {
+          this._statusService.toastError(
+            this._translateService.instant("TOAST.ERROR")
+          );
           console.error(err);
           this._statusService.spinnerHide();
         }

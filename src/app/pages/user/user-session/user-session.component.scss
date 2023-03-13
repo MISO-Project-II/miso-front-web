@@ -40,6 +40,7 @@
       padding: 5px;
       margin: 5px 5px;
       width: 50%;
+      border: none;
     }
   }
 
@@ -48,6 +49,11 @@
 
     label {
       text-align: center;
+    }
+  }
+  .table-container {
+    p {
+      margin-bottom: 0px;
     }
   }
 
